@@ -1,0 +1,9 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" headerCls="panel-header-title" singleSelect="true" nowrap="false" fields="datagrid.fields" />
+<script>
+    $(function(){
+        setTimeout(function () {
+            notAuthShop = new RichDatagrid(JSON.parse('{$params}'));
+        }, 0);
+    });
+</script>

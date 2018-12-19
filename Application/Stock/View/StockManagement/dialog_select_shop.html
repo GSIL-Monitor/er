@@ -1,0 +1,22 @@
+<div id="{$id_list.select_shop}" style="padding: 10px">
+    <label>请选择：</label>
+    <select id="select_shop_id" class="easyui-combobox sel" name="select_shop_id" data-options="panelHeight:200"> <volist name='shop_list' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+</div>
+<input id="is_have_shop" hidden value="{$is_have_shop}"/>
+<script type="text/javascript">
+    $(function(){
+        if($('#is_have_shop').val() == 0){
+            stockManagement.refreshPlatformStock('', '');
+        }
+        stockManagement.submitSelectShopDialog = function(id_list){
+            var shop_id = $('#select_shop_id').combobox('getValue');
+            if(shop_id == ''){
+                messager.alert("请选择店铺");
+                return false;
+            }
+
+            stockManagement.refreshPlatformStock(id_list, shop_id);
+        }
+
+    });
+</script>

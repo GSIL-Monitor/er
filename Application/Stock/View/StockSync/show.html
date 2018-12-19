@@ -1,0 +1,59 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label class="five-character-width">店铺：</label><select class="easyui-combobox sel" name="search[shop_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name="shop" id="vo">
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <label class="five-character-width">商家编码：</label><input class="easyui-textbox txt" type="text" name="search[outer_id]"/>
+                <label class="five-character-width">货品ID：</label><input class="easyui-textbox txt" type="text" name="search[goods_id]"/>
+                <label class="five-character-width">规格ID：</label><input class="easyui-textbox txt" type="text" name="search[spec_id]"/>
+                <label>&nbsp;同步时间：</label><input class="easyui-datebox txt"  value="{date='y-m-d',###}" type="text" name="search[start_time]"  data-options="editable:false"/>
+                <label>至：</label><input class="easyui-datebox txt" type="text"  value="{date='y-m-d',###}"  name="search[end_time]" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="stock_sync_record.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stock_sync_record.loadFormData()">重置</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="script">
+    <script>
+        //# sourceURL=StockSyncRecord.js
+        $(function () {
+            setTimeout(function () {
+                stock_sync_record = new RichDatagrid(JSON.parse('{$params}'));
+                stock_sync_record.setFormData();
+            }, 0);
+        })
+        function warehouseFormatter(value, row, index) {
+            if (typeof(value) == "undefined") {
+                return value;
+            }
+            var arr = value.split(",");
+            var warehouse = JSON.parse('{$warehouse}');
+            var str = "";
+            for (var i = 0; i < arr.length; i++) {
+                if (i == 0) {
+                    for (var j = 0; j < warehouse.length; j++) {
+                        if (arr[i] == warehouse[j]["id"]) {
+                            str = str + warehouse[j]["name"];
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < warehouse.length; j++) {
+                        if (arr[i] == warehouse[j]["id"]) {
+                            str = str + "," + warehouse[j]["name"];
+                        }
+                    }
+                }
+            }
+            return str;
+        }
+    </script>
+</block>

@@ -1,0 +1,726 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="tabs"></block>
+<block name="dialog">
+	<div id="{$id_list.edit}"></div>
+	<div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+		 <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+			<div style="margin-bottom:25px">
+				<input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+			</div>
+			<div align="center">
+				<a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="addTrade.upload()">上传</a>
+			</div>
+		</form>
+	</div>
+</block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}">
+<style type="text/css">
+#tradeManual_next_link {
+	float: right;
+	margin-right: 15px;
+}
+</style>
+<div class="form-div">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" id="add-trade-save" onclick="addTrade.save()" style="margin: 0 5px 0 20px;">保存</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="addTrade.refresh();" style="margin-right: 5px;">重置</a>
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+	<a href="javascript:void(0)" id="tradeManual_next_link" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('订单审核', '{:U('Trade/TradeCheck/getTradeList')}')">订单审核</a>
+</div>
+<hr style="margin:5px 5px 10px 5px;border:none;border-top:2px dotted #95B8E7;">
+<form  id="{$id_list.form_id}">
+<div class="form-div">
+<label>　　店铺：</label><select class="easyui-combobox sel" name="shop_id" data-options="editable:false,required:true"><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　订单类型：</label><input class="easyui-combobox txt" name="trade_type" data-options="editable:false,required:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type',2)"/>
+<label>　发货条件：</label><input class="easyui-combobox txt" name="delivery_term" data-options="editable:false,required:true,panelHeight:'auto',onSelect:selectDeliveryTerm,valueField:'id',textField:'name',data:formatter.get_data('delivery_term','def')"/>
+<label>　成交时间：</label><input class="easyui-datetimebox" type="text" name="trade_time" value="{date='y-m-d',###}" style="width:145px;" data-options="editable:false,required:true"/>
+</div>
+<div class="form-div">
+<label>　　仓库：</label><select class="easyui-combobox sel" name="warehouse_id" data-options="editable:false,required:true"><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　　业务员：</label><select class="easyui-combobox sel" name="salesman_id"  data-options="editable:false,required:true"><volist name='list.employee' id='vo'><if condition="$vo['selected'] eq true"><option value="{$vo.id}" selected>{$vo.name}</option><else/><option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<label>　　　原价：</label><input class="easyui-combobox txt" name="execute_price" data-options="editable:false,required:true,panelHeight:'auto',onSelect:selectExecutePrice,valueField:'id',textField:'name',data:formatter.get_data('execute_price','def')"/>
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="src_tids"/>
+</div>
+<hr style="margin:10px 5px;border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div">
+<label>　　网名：</label><input class="easyui-textbox txt" id="buyer_nick" name="buyer_nick" type="text" data-options="buttonText:'...'"/>
+<label>　　　姓名：</label><input class="easyui-textbox txt" name="receiver_name" type="text"/>
+<label>　　　手机：</label><input class="easyui-textbox txt" name="receiver_mobile" type="text" data-options="validType:'mobile'"/>
+<label>　　　固话：</label><input class="easyui-textbox txt" name="receiver_telno" type="text" data-options="validType:'mobileAndTel'"/>
+</div>
+<!-- <div class="form-div">
+<label>会　　员：</label><input class="easyui-combobox txt" name="member_id"/>
+<label>折　　扣：</label><input class="easyui-textbox txt" name="member_discount" type="text" data-options="disabled:true"/>
+<label>使用金额：</label><input class="easyui-textbox txt" name="used_amount" type="text"/>
+<label>剩余金额：</label><input class="easyui-textbox txt" name="last_amount" type="text" data-options="disabled:true"/>
+<label>会员类型：</label><input class="easyui-textbox txt" name="member_type" type="text" data-options="disabled:true"/>
+<label>会员等级：</label><input class="easyui-textbox txt" name="level_id" type="text" data-options="disabled:true"/>
+</div> -->
+<div class="form-div">
+<label>　　邮编：</label><input class="easyui-textbox txt" name="receiver_zip" type="text" data-options="validType:'zip'"/>
+<label>　　大头笔：</label><input class="easyui-textbox txt" name="receiver_dtb" type="text"/>
+<label>　买家留言：</label><input class="easyui-textbox" style="width:336px;" name="buyer_message" type="text"/>
+</div>
+<div class="form-div" id="add_tarde_address">
+<label>　　　省：</label><input id="addTradeProvince" class="easyui-combobox txt" name="receiver_province"/>
+<label>　　　　市：</label><input id="addTradeCity" class="easyui-combobox txt" name="receiver_city"/>
+<label>　　　　区：</label><input id="addTradeDistrict" class="easyui-combobox txt" name="receiver_district"/>
+<label>　　　地址：</label><input class="easyui-textbox" style="width:336px;" name="receiver_address"  type="text"/>
+</div>
+<hr style="margin:10px 5px;border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div">
+<label>支付方式：</label><input class="easyui-combobox txt" name="pay_method" data-options="required:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('pay_method','def')"/>
+<label>　支付单号：</label><input class="easyui-textbox txt" name="pay_id" type="text"/>
+<!-- <label>收款账号：</label><input class="easyui-textbox txt" name="account_id" type="text"　data-options="buttonText:'...'"/>
+<label>使用预收款：</label><input class="easyui-numberbox txt" name="prepay_used" type="text" value="0.00" data-options="disabled:true"/>
+<label>可用预收款：</label><input class="easyui-numberbox txt" name="prepay_last" type="text" value="0.00" data-options="disabled:true"/> -->
+<!-- <label>货运方式：</label><select class="easyui-combobox sel" name="logistics_id" data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>  -->
+<label>　物流公司：</label><input id="logistics" class="easyui-combobox sel"  name="logistics_id"  data-options="editable:false,required:true,valueField:'id',textField:'name'"/>
+<label>　　　标记：</label><select class="easyui-combobox sel" name="flag_id" data-options="editable:false,required:true"><option value="0">无</option><volist name='list.flags' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+</div>
+<div class="form-div">
+<label>发票类型：</label><input class="easyui-combobox txt" name="invoice_type" data-options="panelHeight:'auto',onSelect:manual_selectInvoiceType,valueField:'id',textField:'name',data:formatter.get_data('invoice_type','def')"/>
+<label>　发票抬头：</label><input class="easyui-textbox txt" name="invoice_title" data-options="disabled:true"/>
+<label>　发票内容：</label><input class="easyui-textbox txt" name="invoice_content" data-options="disabled:true"/>
+</div>
+<div class="form-div">
+<label>货款总计：</label><input class="easyui-numberbox txt" name="goods_amount" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/>
+<label>　　　邮费：</label><input class="easyui-numberbox txt" name="post_amount" type="text" value="0.00" data-options="min:0,precision:4,required:true"/>
+<label>　优惠金额：</label><input class="easyui-numberbox txt" name="discount" type="text" value="0.00" data-options="precision:4,required:true,disabled:true"/>
+<!-- <label>应收金额：</label><input class="easyui-numberbox txt" name="receivable_amount" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/> -->
+<label>　应收金额：</label><input class="easyui-numberbox txt" name="receivable" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/>
+<label>　本次收款：</label><input class="easyui-numberbox txt" name="paid" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/>
+</div>
+<div class="form-div">
+	<label>客服备注：</label><input class="easyui-textbox" style="width:336px;" name="cs_remark" type="text"/>
+	<label>　 打印备注：</label><input class="easyui-textbox" style="width:336px;" name="print_remark" type="text"/>
+</div>
+</form>
+<hr style="margin:10px 5px 5px 5px;border:none;border-top:2px dotted #95B8E7;">
+<a href="#" name="menu-select-order" class="easyui-menubutton" data-options="menu:'#mbut-select-order'">添加货品</a>
+<a href="#" name="menu-select-gift" class="easyui-menubutton" data-options="menu:'#mbut-select-gift'">添加赠品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="addTrade.remove()">删除</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="addTrade.uploadDialog()">导入货品</a>
+ <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="addTrade.downloadTemplet()">下载模板</a>  
+
+<span style="color:red;margin-left:10px;"><label>货品总数量：</label><label id="goods-total" style="margin-right: 10px;">0.0000</label><!-- <label style="margin-left: 10px;">货品总重量：</label><label id="weight-total">0.0000</label> --></span>
+<span id="discount_tips" style="color: red;font-size: 14px;margin-left: 5px">#折扣大于1时背景设为黄色，用于参考。</span>
+<span id="limit_tips" style="color: red;font-size: 14px;margin-left: 5px;display:none">#系统设置中限定了商品折后价不低于{$cfg_val_text}，低于它时背景显示为红色。</span>
+<div class="form-div">
+<label >扫描条码添加货品：</label><input class="easyui-textbox txt" type="text" id="trade_manual_barcode" />
+<label >　扫描条码添加赠品：</label><input class="easyui-textbox txt" type="text" id="trade_manual_gift_barcode" />
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:false" onclick="addTrade.applyToAllLines()">应用到所有行</a>
+<span id="" style="color: red;font-size: 13px;margin-left:5px;">#应用到所有行仅支持[数量]和[折扣]列。</span>
+</div>
+</div>
+<div id="mbut-select-order"><div>添加单品</div><div>添加组合装</div></div>
+<div id="mbut-select-gift"><div>添加单品</div><div>添加组合装</div></div>
+<script type="text/javascript">
+//# sourceURL=new.trade.js
+$(function () { 
+	$('#{$id_list.id_datagrid}').datagrid().datagrid('enableCellEditing');
+	initNewTradeElement();
+	new_trade_element_arr['nickname'].textbox().textbox('options').onClickButton=function(){ 
+		$.post('{:U('Trade/TradeCommon/checkNumberRight')}',{key:'sales_trade'},function(res){
+			if(res.status==0){messager.info(res.info); return;}
+			$.fn.richDialog('customerFile', addTrade.addCustomerInfo); 
+		},'JSON');
+	}
+	new_trade_element_arr[11].numberbox().numberbox('options').onChange=function(newValue,oldValue){
+		newValue=(newValue==undefined?0:newValue);
+		var receivable=parseFloat(new_trade_element_arr[4].numberbox('getValue'))-parseFloat(new_trade_element_arr[5].numberbox('getValue'))+parseFloat(newValue);
+		// new_trade_element_arr[6].numberbox('setValue',receivable);
+	    new_trade_element_arr[0].numberbox('setValue',receivable);
+	    if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);}
+	}
+    $("#buyer_nick").textbox({'prompt':'点击按钮可选择'});
+	var new_trade_cfg_val;
+	setTimeout(function () { 
+		addTrade = new ThinDatagrid($('#{$id_list.id_datagrid}'),undefined,false);
+		//动态调整下拉列表高度
+		var h_all= document.body.clientHeight;
+		var h_add=document.getElementById('add_tarde_address').offsetTop;
+		var h=parseInt(h_all)-parseInt(h_add)-150;
+		var change_column='';
+		$('#addTradeProvince').combobox({panelHeight:h});
+		$('#addTradeCity').combobox({panelHeight:h});
+		$('#addTradeDistrict').combobox({panelHeight:h});
+		addTradeArea = new area("addTradeProvince", "addTradeCity", "addTradeDistrict");
+		new_trade_cfg_val = JSON.parse('{$cfg_val}');
+		if(new_trade_cfg_val['order_limit_real_price'] == 1){
+			document.getElementById('limit_tips').style.display="";
+			$("#{$datagrid.id}").datagrid('showColumn', new_trade_cfg_val['real_price_limit_value']);
+		}else{
+			document.getElementById('limit_tips').style.display="none";
+			$("#{$datagrid.id}").datagrid('hideColumn', new_trade_cfg_val['real_price_limit_value']);
+		}
+		$('#{$datagrid.id}').datagrid({onAfterEdit:function(index, row, changes){ change_column=changes;}});
+		$("#{$datagrid.id}").datagrid('getColumnOption','discount').styler = function(value,row,index){return addTrade.setDiscountAndPriceColor('discount',value,row,index);};
+		$("#{$datagrid.id}").datagrid('getColumnOption','real_price').styler = function(value,row,index){return addTrade.setDiscountAndPriceColor('real_price',value,row,index);};
+		//设置折扣及折后价颜色标志
+        addTrade.setDiscountAndPriceColor = function(title,value,row,index){
+			if(title == "discount"){
+				if(value > 1){
+					return 'background-color:yellow;';
+				}else{ return ''; }
+			}else if(title == "real_price"){
+				if(new_trade_cfg_val['order_limit_real_price']==1 && parseFloat(row.real_price)<parseFloat(row[new_trade_cfg_val['real_price_limit_value']]) && row.gift_type!=2){
+					return 'background-color:#FF6666;';
+				}else{ return ''; }
+			}
+		}
+		//新建-form重置
+		addTrade.setFormData=function(){
+			var form={};
+			$.each($('#{$id_list.form_id}').serializeArray(), function() { form[this['name']] = this['value']; } );
+			new_trade_element_arr.form=form;
+		}
+		choose_logistics(0);
+		addTrade.setFormData();
+		//添加客户
+		addTrade.addCustomerInfo=function(customer_dg_id,dialog_id){
+			var customer_dg=$('#'+customer_dg_id);
+			CRM_dialog.getCustomerInfo(addTrade.fillCustomerInfo);
+			$('#'+dialog_id).dialog('close');
+		}
+		addTrade.fillCustomerInfo=function(row){
+			$.each(row,function(key,val){
+				if(new_trade_element_arr[key]!=undefined){new_trade_element_arr[key].textbox('setValue',val.html_decode());}
+			});
+			if(row.district!=undefined){
+				addTradeArea.selfP.combobox("setValue", row.province);
+				addTradeArea.selfC.combobox("loadData", addTradeArea.getArea("city", row.province, 1));
+				addTradeArea.selfC.combobox("setValue", row.city);
+				addTradeArea.selfD.combobox("loadData", addTradeArea.getArea("district", row.city, 1));
+				addTradeArea.selfD.combobox("setValue", row.district);
+				var area=addTradeArea.getText();
+				new_trade_element_arr['dtb'].textbox('setValue',area['city']+' '+area['district']);
+			}
+			new_trade_element_arr['nick_name']=row.nickname;
+			new_trade_element_arr['customer_id']=row.id;
+		}
+		//保存
+		addTrade.save=function(){ 
+			var form_id='{$id_list.form_id}';
+			var trade_form=$('#'+form_id);
+			if(new_trade_element_arr['flag']){
+				addTrade.reloadData();
+				return true;
+			}
+			var rows=addTrade.selector.datagrid('getRows');
+			if(rows.length==0){messager.alert('请添加订单货品');return;}
+			if(!addTrade.endEdit(true)) { return false; }
+			if(new_trade_element_arr['customer_id']==-1||new_trade_element_arr['nickname'].textbox('getValue')!=new_trade_element_arr['nick_name']){ 
+				messager.confirm('未选中客户，是否继续创建新订单？', function(r) { 
+					if(!r){return false;} 
+					new_trade_element_arr['customer_id']=0; 
+					addTrade.submitToTrade(rows,trade_form,form_id);
+				}); 
+			}else{
+				addTrade.submitToTrade(rows,trade_form,form_id);
+			}
+		}
+		addTrade.submitToTrade=function(rows,trade_form,form_id){
+			if(new_trade_element_arr['mobile'].textbox('getValue')==''&&new_trade_element_arr['telno'].textbox('getValue')==''){ messager.alert('手机和固话至少有一个不能为空');return; }
+			// if(new_trade_element_arr[0].numberbox('getValue')!=new_trade_element_arr[6].numberbox('getValue')){messager.alert('应收金额必须等于实收金额');return; }
+			if(new_trade_element_arr[10].combobox('getValue')==1&&new_trade_element_arr[0].numberbox('getValue')!=new_trade_element_arr[9].numberbox('getValue')){messager.alert('款到发货，本次收款需等于应收金额');return; }
+			if(!trade_form.form('validate')){ return false;}
+			//将form_id中的input设为可用，能获取到其中的值
+			$('#'+form_id+" :input").attr('disabled',false);
+			var area=addTradeArea.getText();
+			var data={};
+			var trade_form_data=trade_form.form('get');
+			//trade_form_data['goods_count']=parseFloat(new_trade_element_arr[1].html());
+			trade_form_data['weight']=parseFloat(new_trade_element_arr[1].html());
+			trade_form_data['receiver_area']=area['province']+' '+area['city']+' '+area['district'];
+			trade_form_data['customer_id']=new_trade_element_arr['customer_id'];
+			data['info']=JSON.stringify(trade_form_data);
+			data['orders']=JSON.stringify(rows);
+			for(var i=4;i<10;i++){ new_trade_element_arr[i].textbox('disable');}
+			$("#trade_manual_barcode").textbox('disable');
+			$("#trade_manual_gift_barcode").textbox('disable');
+			addTrade.selector.datagrid('loading');
+			$.post("{:U('TradeManual/addTrade')}",data,function(res){
+				addTrade.selector.datagrid('loaded');
+				if(!res.status){
+					messager.alert(res.info);
+					return false;
+				}else{
+					messager.alert(res.info);
+					$('#'+form_id+" :input").attr('disabled',true);
+					new_trade_element_arr['flag']=true;
+					var rows=addTrade.selector.datagrid('loadData',{total:0,rows:[]});
+					$('#add-trade-save .l-btn-text').text('新建');
+					$('#add-trade-save').css('color','red');
+				}
+			},"JSON");
+		}
+		//删除
+		addTrade.remove=function(){
+			if(new_trade_element_arr['flag']){messager.alert('请重新新建');}
+			var delete_rows=addTrade.selector.datagrid('getSelections');
+			if($.isEmptyObject(delete_rows)){ messager.alert('请选择操作的行！');return;}
+			for (var i in delete_rows) {
+				var delete_index = addTrade.selector.datagrid('getRowIndex',delete_rows[i]);
+				var row = delete_rows[i];
+				new_trade_element_arr[4].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-parseFloat(row.original_price)*parseFloat(row.num)).toFixed(4));
+				new_trade_element_arr[5].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))-(parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num)).toFixed(4));
+				var receivable=parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+parseFloat(new_trade_element_arr[11].numberbox('getValue'))).toFixed(4);
+				new_trade_element_arr[0].numberbox('setValue',receivable); 
+				if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);} 
+				var num=parseFloat(parseFloat(new_trade_element_arr[1].text())-parseFloat(row.num));
+				new_trade_element_arr[1].html(parseFloat(num<0?0:num).toFixed(4));
+				addTrade.selector.datagrid('deleteRow', delete_index);
+			}
+			addTrade.selector.datagrid('loadData', addTrade.selector.datagrid('getData'));
+		}
+		// 导入手工建单货品
+		addTrade.upload = function () {
+					if(new_trade_element_arr['flag']){messager.alert('请重新新建');return;}
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('TradeManual/importGoods')}";                    
+                    var dialog = $("#{$id_list.fileDialog}");                    
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (!res.status) {
+                                dialog.dialog("close"); 
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                            } else if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "importResponse_suite");
+                                dialog.dialog("close");
+                            }
+                           addExeclOrder(res.data);  	
+                           form.form("load", {"file": ""});
+                        }
+                    })
+                    
+                }
+		addTrade.uploadDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}")
+                    dialog.dialog({
+                        title: "导入货品",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+		addTrade.downloadTemplet = function(){
+                    var url= "{:U('TradeManual/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                }
+        addTrade.applyToAllLines= function(){
+        	var show_dg=$('#'+'{$id_list.id_datagrid}');
+			var data=show_dg.datagrid('getData');
+			var rows=data.rows;
+			if(rows.length==0){return;}
+			for(var i in rows){
+				beginEditNewTrade(i,rows[i]);
+				if (change_column.num!=undefined) {					
+					rows[i].num=change_column.num;
+					 endEditNewTrade(i,rows[i],change_column);
+				}
+				if (change_column.discount!=undefined) {
+					rows[i].discount=change_column.discount;
+					 endEditNewTrade(i,rows[i],change_column);
+				}
+			}
+			show_dg.datagrid('loadData',data);  
+        }
+		//刷新页面
+		addTrade.refresh = function(){
+			var url = "{:U('Trade/TradeManual/refresh')}";
+			var data = {};
+			addTrade.selector.datagrid('loading');
+			$.post(url, data, function(res){
+				addTrade.selector.datagrid('loaded');
+				new_trade_cfg_val = res;
+				if(new_trade_cfg_val['order_limit_real_price'] == 1){
+					document.getElementById('limit_tips').innerHTML="#系统设置中限定了商品折后价不低于"+new_trade_cfg_val['text']+"，低于它时背景显示为红色。";
+					document.getElementById('limit_tips').style.display="";
+					addTrade.changeColumn(new_trade_cfg_val['real_price_limit_value']);
+				}else{
+					document.getElementById('limit_tips').style.display="none";
+					addTrade.changeColumn('all');
+				}
+			},"JSON");
+			addTrade.selector.datagrid('loadData',{total:0,rows:[]});
+			addTrade.reloadData();
+		}
+		addTrade.changeColumn = function(name){
+			if(name != 'lowest_price'){ $("#{$datagrid.id}").datagrid('hideColumn', 'lowest_price'); }
+			if(name != 'retail_price'){ $("#{$datagrid.id}").datagrid('hideColumn', 'retail_price'); }
+			if(name != 'market_price'){ $("#{$datagrid.id}").datagrid('hideColumn', 'market_price'); }
+			if(name != 'all'){ $("#{$datagrid.id}").datagrid('showColumn', name); }
+		}
+		//重置数据
+		addTrade.reloadData = function(){
+			var form_id='{$id_list.form_id}';
+			var trade_form=$('#'+form_id);
+			$('#'+form_id+" :input").attr('disabled',false);
+			trade_form.form('load',new_trade_element_arr.form);
+			new_trade_element_arr['customer_id']=false;
+			new_trade_element_arr['flag']=false;
+			new_trade_element_arr[1].html('0.0000');
+			manual_selectInvoiceType({id:0});
+			for(var i=4;i<10;i++){ new_trade_element_arr[i].textbox('disable');}
+			for(var i=4;i<7;i++){ new_trade_element_arr[i].numberbox('setValue','0.0000');}
+			new_trade_element_arr[9].numberbox('setValue','0.0000');
+			$("#trade_manual_barcode").textbox('enable');
+			$("#trade_manual_gift_barcode").textbox('enable');
+			choose_logistics(0);
+			$('#add-trade-save .l-btn-text').text('保存');
+			$('#add-trade-save').css('color','#444');
+		}
+		$("#trade_manual_barcode").textbox('textbox').bind('keydown',function(e){
+			if(e.keyCode==13){
+				tradeManualScan(0);
+			}
+		});
+		$("#trade_manual_gift_barcode").textbox('textbox').bind('keydown',function(e){
+			if(e.keyCode==13){
+				tradeManualScan(2);
+			}
+		});
+	}, 0); 
+});
+//元素--初始化
+var new_trade_element_arr;
+function initNewTradeElement(){
+	var form_id='{$id_list.form_id}';
+	new_trade_element_arr={
+			0:$('#'+form_id+" :input[name='receivable']"),
+			1:$('#goods-total'),
+			// 2:$('#weight-total'),
+			3:$('#'+form_id+" :input[name='warehouse_id']"),
+			4:$('#'+form_id+" :input[name='goods_amount']"),
+			5:$('#'+form_id+" :input[name='discount']"),
+			// 6:$('#'+form_id+" :input[name='receivable_amount']"),
+			6:$('#'+form_id+" :input[name='receivable']"),
+			7:$('#'+form_id+" :input[name='invoice_title']"),
+			8:$('#'+form_id+" :input[name='invoice_content']"),
+			9:$('#'+form_id+" :input[name='paid']"),
+			10:$('#'+form_id+" :input[name='delivery_term']"),
+			11:$('#'+form_id+" :input[name='post_amount']"),
+			12:$('#'+form_id+" :input[name='execute_price']"),
+			// 9:$('#'+form_id+" :input[name='member_discount']"),
+			// 10:$('#'+form_id+" :input[name='last_amount']"),
+			// 11:$('#'+form_id+" :input[name='member_type']"),
+			// 12:$('#'+form_id+" :input[name='level_id']"),
+			// 13:$('#'+form_id+" :input[name='prepay_used']"),
+			// 14:$('#'+form_id+" :input[name='prepay_last']"),
+			'mobile':$('#'+form_id+" :input[name='receiver_mobile']"),
+			'telno':$('#'+form_id+" :input[name='receiver_telno']"),
+			'nickname':$('#'+form_id+" :input[name='buyer_nick']"),
+			'name':$('#'+form_id+" :input[name='receiver_name']"),
+			'zip':$('#'+form_id+" :input[name='receiver_zip']"),
+			'dtb':$('#'+form_id+" :input[name='receiver_dtb']"),
+			'address':$('#'+form_id+" :input[name='receiver_address']"),
+			'customer_id':-1,
+			'flag':false
+	};
+}
+// 加载表格数据方法
+function addExeclOrder(data){
+	var dg = $("#{$id_list.id_datagrid}");
+	var dataArr = []; 
+	var goods_amount=0; var discount=0; var goods_total=0; var receivable=0;
+    var execute_price=new_trade_element_arr[12].combobox('getValue');   
+    // data.splice(0,1);            
+    for(var i in data){
+    	dataArr[i] = data[i];
+    	dataArr[i]['original_price'] = data[i][execute_price];// 原价
+    	//dataArr[i]['discount']       = data[i]['real_price']?((data[i]['real_price']/data[i][execute_price]).toFixed(4)):1;// 折扣
+    	//dataArr[i]['real_price']       = data[i]['real_price']?dataArr[i]['real_price']:dataArr[i]['original_price'];// 折后价
+		dataArr[i]['discount'] = data[i]['real_price']?(dataArr[i]['original_price']==0?1.0000:parseFloat(data[i]['real_price']/dataArr[i]['original_price']).toFixed(4)):1.0000;// 折扣
+    	dataArr[i]['real_price'] = data[i]['real_price']?(dataArr[i]['original_price']==0?0.0000:parseFloat(data[i]['real_price']).toFixed(4)):data[i][execute_price];// 折后价
+    	dataArr[i]['total_price']    =    dataArr[i]['real_price']*dataArr[i]['num'];// 总计  
+    	dataArr[i]['gift_type']  = (data[i]["is_gift"]=="是")?2:"";//赠品类型
+    	dataArr[i]['is_suite']  = (data[i]["is_suite"]=="是")?1:0;// 是否组合
+    	if(dataArr[i]['gift_type']==2){dataArr[i]['real_price']=0.0000;dataArr[i]['discount']=0.0000;dataArr[i]['total_price']=0.0000}// 手工赠送的情况
+    	//总款--优惠--计算
+		goods_amount+=parseFloat(dataArr[i]['original_price'])*dataArr[i]['num'];//总款
+		receivable+=dataArr[i]['total_price'];// 应收货款
+		discount+=(dataArr[i]['original_price']-dataArr[i]['real_price'])*dataArr[i]["num"];
+		// 总数量
+		goods_total+=parseFloat(dataArr[i]['num']);
+    }
+    receivable+=parseFloat(new_trade_element_arr[11].numberbox('getValue'));
+    new_trade_element_arr[0].numberbox('setValue',receivable); //应收金额
+    new_trade_element_arr[5].numberbox('setValue',discount);//优惠金额
+    new_trade_element_arr[4].numberbox('setValue',goods_amount);//货款总计
+    new_trade_element_arr[1].html(goods_total);//总数量
+   	if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);} // 本次收款
+
+    var obj = {'total':dataArr.length,'rows':dataArr}
+    dg.datagrid('loadData',obj);
+}
+
+//货运方式
+function choose_logistics(type){
+	if(type==''||type==undefined){type=0;}
+	var logistics_from=JSON.parse('{$logistics}');
+	if(type==0){$('#logistics').combobox({data:logistics_from['logistics'],});$("#logistics ").combobox('select',logistics_from['logistics'][0]['id']);}
+	else{$('#logistics').combobox({data:logistics_from['cod_logistics'],});$("#logistics ").combobox('select',logistics_from['cod_logistics'][0]['id']);}
+}
+//invoice--选择事件
+function manual_selectInvoiceType(record){
+	if(record.id==0){new_trade_element_arr[7].textbox('disable');new_trade_element_arr[8].textbox('disable');new_trade_element_arr[7].textbox('setValue','');new_trade_element_arr[8].textbox('setValue','');}
+	else{new_trade_element_arr[7].textbox('enable');new_trade_element_arr[8].textbox('enable');}
+}
+//deliveryTerm--选择事件
+function selectDeliveryTerm(record){
+	if(record.id==1){new_trade_element_arr[9].numberbox('setValue',new_trade_element_arr[0].numberbox('getValue'));choose_logistics(0);new_trade_element_arr[9].textbox('disable');;}
+	else if(record.id==2){new_trade_element_arr[9].numberbox('setValue','0.00');choose_logistics(1);new_trade_element_arr[9].textbox('enable');}
+}
+//executePrice--选择事件
+function selectExecutePrice(record){
+	var show_dg=$('#'+'{$id_list.id_datagrid}');
+	var data=show_dg.datagrid('getData');
+	var rows=data.rows;
+	if(rows.length==0){return;}
+	if(record.id=='sel'){record.id='retail_price';}
+	var changs={}
+	for(var i in rows){
+		beginEditNewTrade(i,rows[i]);
+		//rows[i].real_price=rows[i][record.id];
+		//changs['real_price']=rows[i][record.id];
+		rows[i].original_price=rows[i][record.id];
+		changs['original_price']=rows[i][record.id];
+		endEditNewTrade(i,rows[i],changs);
+	}
+	show_dg.datagrid('loadData',data);
+}
+//datagrid--事件
+function beginEditNewTrade(index,row){
+	new_trade_element_arr['goods_amount']=parseFloat(row.original_price)*parseFloat(row.num);
+	new_trade_element_arr['discount']=parseFloat((parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num));
+	new_trade_element_arr['number']=parseFloat(row.num);
+	// new_trade_element_arr['weight']=parseFloat(parseFloat(row.num)*parseFloat(row.weight));
+}
+function endEditNewTrade(index,row,changes){
+	$.each(changes,function(key,val){
+		switch(key){
+		case 'num':row.num=row.num<=0?(row.num==0?1:-row.num):row.num;break;
+		case 'original_price':row.original_price=row.original_price<0?-row.original_price:row.original_price; row.real_price=parseFloat(row.original_price*row.discount).toFixed(4);break;
+		case 'discount':if(row.gift_type==2){row.discount=0;}else{row.discount=row.discount<0?-row.discount:row.discount; row.real_price=parseFloat(row.original_price*row.discount).toFixed(4);}break;
+		case 'real_price':if(row.gift_type==2){row.real_price=0.0000}else{row.real_price=row.real_price<0?-row.real_price:row.real_price;if(row.original_price==0){row.discount=1;row.real_price=0.000;}else{ row.discount=parseFloat(row.real_price/row.original_price).toFixed(4);}}break;
+		}
+	});
+    row.total_price=parseFloat(row.num*(row.original_price*row.discount)).toFixed(4);
+    new_trade_element_arr[4].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-new_trade_element_arr['goods_amount']+parseFloat(row.original_price)*parseFloat(row.num)).toFixed(4));
+    new_trade_element_arr[5].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))-new_trade_element_arr['discount']+(parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num)).toFixed(4));
+    var receivable=parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+parseFloat(new_trade_element_arr[11].numberbox('getValue'))).toFixed(4);
+    // new_trade_element_arr[6].numberbox('setValue',receivable);
+    new_trade_element_arr[0].numberbox('setValue',receivable); 
+    if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);}
+    new_trade_element_arr[1].html(parseFloat(parseFloat(new_trade_element_arr[1].text())-new_trade_element_arr['number']+parseFloat(row.num)).toFixed(4));
+    // new_trade_element_arr[2].html(parseFloat(parseFloat(new_trade_element_arr[2].text())-new_trade_element_arr['weight']+parseFloat(row.num)*parseFloat(row.weight)).toFixed(4));
+}
+//添加--物品
+$($(".easyui-menubutton[name='menu-select-order']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 if(new_trade_element_arr['flag']){messager.alert('请重新新建');return;}
+	 switch(item.text){
+	 case '添加单品':
+		 var params={'prefix':'add_trade','type':true};
+		 $('#'+'{$id_list.edit}').richDialog('goodsSpec', addSpecOrder, params, false);
+		 break;
+	 case '添加组合装':
+		 $('#'+'{$id_list.edit}').richDialog('goodsSuite', addSuiteOrder, 'add_trade', false);
+		 break;
+	 }}
+});
+//添加--赠品
+$($(".easyui-menubutton[name='menu-select-gift']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 if(new_trade_element_arr['flag']){messager.alert('请重新新建');return;}
+	 switch(item.text){
+	 case '添加单品'://spec_rows[i].gift_type=2 
+		 var params={'prefix':'add_trade','type':true};
+		 $('#'+'{$id_list.edit}').richDialog('goodsSpec', addSpecOrder, params, true);
+		 break;
+	 case '添加组合装':// suite_row.gift_type=2
+		 $('#'+'{$id_list.edit}').richDialog('goodsSuite', addSuiteOrder, 'add_trade', true);
+		 break;
+	 }}
+});
+function addSpecOrder(spec_dg_id,sub_dg_id,is_gift){
+	var spec_dg=$('#'+sub_dg_id);
+    var spec_rows=spec_dg.datagrid('getRows');
+    $('#'+'{$id_list.edit}').dialog('close');
+    tradeManualUpdateSpec(spec_rows,is_gift);
+}
+function addSuiteOrder(suite_dg_id,is_gift){
+    var suite_dg=$('#'+suite_dg_id);
+    var suite_row=suite_dg.datagrid('getSelected');
+    $('#'+'{$id_list.edit}').dialog('close');
+    tardeManualUpdateSuite(suite_row,is_gift);
+}
+function tradeManualUpdateSpec(spec_rows,is_gift){
+	var list_unit ={$list.unit};
+    var show_dg=$('#'+'{$id_list.id_datagrid}');
+    var show_rows=show_dg.datagrid('getRows');
+    var sel_row=show_dg.datagrid('getSelected');
+    var sel_index=!sel_row?-1:show_dg.datagrid('getRowIndex',sel_row);
+    var flag=false; var show_index=0; var weight=0; 
+    var number=0; var goods_amount=0; var discount=0; 
+    var execute_price=new_trade_element_arr[12].combobox('getValue');
+    for(var i in spec_rows){
+    	if(is_gift){spec_rows[i].gift_type=2;spec_rows[i].discount=0.0000;}//else{spec_rows[i].discount=1.0000;}
+    	spec_rows[i].num=parseFloat(spec_rows[i].num).toFixed(4);
+    	spec_rows[i].is_suite=0;
+    	flag=false;
+    	for(var x in show_rows){
+    		if(spec_rows[i].is_suite==show_rows[x].is_suite&&spec_rows[i].id==show_rows[x].id&&spec_rows[i].gift_type==show_rows[x].gift_type){
+    			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+    			//show_rows[x].num=parseFloat((parseFloat(show_rows[x].num)+spec_rows[i].num)).toFixed(4);
+    			//show_rows[x].total_price=parseFloat(show_rows[x].num*(show_rows[x].original_price*show_rows[x].discount)).toFixed(4);
+    			show_dg.datagrid('refreshRow',show_index);
+    			flag=true;
+    			//总款--优惠--计算
+    			//goods_amount+=show_rows[x].original_price*spec_rows[i].num;
+    	    	//discount+=(show_rows[x].original_price-show_rows[x].real_price)*spec_rows[i].num;
+    	    	if(sel_index==show_index){beginEditNewTrade(sel_index,show_rows[x]);}
+    			break;
+    		}
+    	}
+    	if(!flag){
+    		spec_rows[i].unit_name=list_unit[spec_rows[i].base_unit_id];
+        	//spec_rows[i].original_price=spec_rows[i].retail_price;
+        	//spec_rows[i].discount=(spec_rows[i].discount==0?spec_rows[i].discount:(spec_rows[i].original_price==0?1.0000:parseFloat(spec_rows[i][execute_price]/spec_rows[i].original_price).toFixed(4)));			
+			spec_rows[i].original_price=spec_rows[i][execute_price];
+        	spec_rows[i].discount=(spec_rows[i].discount==0?spec_rows[i].discount:1.0000);
+        	spec_rows[i].real_price=parseFloat(spec_rows[i].original_price*spec_rows[i].discount).toFixed(4);
+        	spec_rows[i].total_price=parseFloat(spec_rows[i].num*(spec_rows[i].original_price*spec_rows[i].discount)).toFixed(4);
+    	    show_dg.datagrid('appendRow',spec_rows[i]);
+    	    //总款--优惠--计算
+    	    goods_amount+=parseFloat(spec_rows[i].original_price*spec_rows[i].num);
+    	    discount+=spec_rows[i].num*(spec_rows[i].original_price-spec_rows[i].real_price);
+    	    //数量--重量--计算
+	    	number+=parseFloat(spec_rows[i].num);
+	    	weight+=spec_rows[i].num*spec_rows[i].weight;
+    	}
+    }
+    new_trade_element_arr[4].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))+goods_amount).toFixed(4));
+    new_trade_element_arr[5].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+discount).toFixed(4));
+    var receivable=parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+parseFloat(new_trade_element_arr[11].numberbox('getValue'))).toFixed(4);
+    // new_trade_element_arr[6].numberbox('setValue',receivable);
+    new_trade_element_arr[0].numberbox('setValue',receivable);
+    if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);}
+    new_trade_element_arr[1].html(parseFloat(parseFloat(new_trade_element_arr[1].text())+number).toFixed(4));
+    // new_trade_element_arr[2].html(parseFloat(parseFloat(new_trade_element_arr[2].text())+weight).toFixed(4));
+}
+tardeManualUpdateSuite=function (suite_row,is_gift){
+	var list_unit ={$list.unit};
+    var show_dg=$('#'+'{$id_list.id_datagrid}');
+    var show_rows=show_dg.datagrid('getRows');
+    var sel_row=show_dg.datagrid('getSelected');
+    var sel_index=!sel_row?-1:show_dg.datagrid('getRowIndex',sel_row);
+    var flag=false; var show_index=0;
+    var execute_price=new_trade_element_arr[12].combobox('getValue');
+    if(is_gift){suite_row.gift_type=2;suite_row.discount=0.0000;}//else{suite_row.discount=1.0000;}
+    suite_row.num=parseFloat('1').toFixed(4);
+    suite_row.is_suite=1;
+    for(var x in show_rows){
+		if(suite_row.is_suite==show_rows[x].is_suite&&suite_row.id==show_rows[x].id&&suite_row.gift_type==show_rows[x].gift_type){
+			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+			//show_rows[x].num=parseFloat(parseFloat(show_rows[x].num)+suite_row.num).toFixed(4);
+			//show_rows[x].total_price=parseFloat(show_rows[x].num*(parseFloat(show_rows[x].original_price)*parseFloat(show_rows[x].discount))).toFixed(4);
+			show_dg.datagrid('refreshRow',show_index);
+			flag=true;
+			//总款--优惠--计算
+			//new_trade_element_arr[4].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))+show_rows[x].original_price*suite_row.num).toFixed(4));
+    		//new_trade_element_arr[5].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+(show_rows[x].original_price-show_rows[x].real_price)*suite_row.num).toFixed(4));
+			if(sel_index==show_index){beginEditNewTrade(sel_index,show_rows[x]);}
+			break;
+		}
+	}
+    if(!flag){
+    	suite_row.orderable_num=0;
+        suite_row.unit_name=list_unit[0];
+        suite_row.spec_no=suite_row.suite_no;
+        suite_row.goods_name=suite_row.suite_name;
+		//suite_row.original_price=suite_row.retail_price;
+        //suite_row.discount=(suite_row.discount==0?suite_row.discount:(suite_row.original_price==0?1.0000:parseFloat(suite_row[execute_price]/suite_row.original_price).toFixed(4)));
+        suite_row.original_price=suite_row[execute_price];
+        suite_row.discount=(suite_row.discount==0?suite_row.discount:1.0000);
+        suite_row.real_price=parseFloat(suite_row.original_price*suite_row.discount).toFixed(4);
+        suite_row.total_price=parseFloat(suite_row.num*(suite_row.original_price*suite_row.discount)).toFixed(4);
+        show_dg.datagrid('appendRow',suite_row);
+      	//总款--优惠--计算
+        new_trade_element_arr[4].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))+parseFloat(suite_row.original_price*suite_row.num)).toFixed(4));
+		new_trade_element_arr[5].numberbox('setValue',parseFloat(parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+parseFloat(suite_row.num)*(suite_row.original_price-suite_row.real_price)).toFixed(4));
+		//数量--重量--计算
+    	var receivable=parseFloat(parseFloat(new_trade_element_arr[4].numberbox().numberbox('getValue'))-parseFloat(new_trade_element_arr[5].numberbox().numberbox('getValue'))+parseFloat(new_trade_element_arr[11].numberbox('getValue'))).toFixed(4);
+    	// new_trade_element_arr[6].numberbox('setValue',receivable);
+    	new_trade_element_arr[0].numberbox('setValue',receivable);
+    	 if(new_trade_element_arr[10].combobox('getValue')==1){new_trade_element_arr[9].numberbox('setValue',receivable);}
+    	new_trade_element_arr[1].html(parseFloat(parseFloat(new_trade_element_arr[1].text())+parseFloat(suite_row.num)).toFixed(4));
+    }
+}
+//扫描条码加载货品
+function tradeManualScan(type){
+	var barcode=['trade_manual_barcode','','trade_manual_gift_barcode'];
+	var barcode_value = $("#"+barcode[type]).textbox('getValue');
+	$("#"+barcode[type]).textbox('setValue','');
+	var warehouse_id=new_trade_element_arr[3].combobox('getValue');
+	if(barcode_value == ''){
+		messager.alert('条形码不能为空',undefined,function(){
+			 $("#"+barcode[type]).textbox('textbox').focus();
+		});
+		return;
+	}
+	$.post('{:U("TradeManual/getBarcodeInfo")}',{barcode:barcode_value,warehouse_id:warehouse_id,type:type},function(res){
+		var url="{:U('Trade/TradeManual/showGoodsList')}";
+		if(res.status == 1){
+			messager.alert(res.info,undefined,function(){
+				that.selectors.barcode.textbox('textbox').focus();
+			});
+		}else{
+			addTrade.goods_list = res.info;
+			if(res.info.length > 1){
+				$('#{$id_list.edit}').dialog({
+					title:"选择货品",
+					iconCls:'icon-save',
+					width:764,
+					height:560,
+					closed:false,
+					inline:true,
+					modal:true,
+					href:url+'?parent_datagrid_id='+'{$id_list.id_datagrid}'+'&parent_object=trade_manual&goods_list_dialog='+'{$id_list.edit}',
+					buttons:[]
+				});
+			}else if(res.info[0].is_suite==1){
+				tardeManualUpdateSuite(res.info[0],type);
+			}else{
+				tradeManualUpdateSpec(res.info,type);
+			}
+			
+		}
+	});
+}
+</script>
+</block>

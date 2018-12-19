@@ -1,0 +1,86 @@
+<script type="text/javascript">
+    $("#{$id_list['datagrid']}").datagrid({
+        toolbar: "#customer_class_toolbar",
+        data: {$customer_class_list},
+        border: false,
+        collapsible: true,
+        singleSelect: true,
+        fitColumns: false,
+        fit: true,
+        width:764,
+        height:510,
+        columns: [[
+            {field:'id',hidden:true},
+            {field:"class_name",title:"客户标签",width:150,align:"center",editor:{type:"textbox",options:{required:true,validType:'class_name_unique'}}},
+            {field:"modified",title:"最后修改时间",width:150},
+            {field:"created",title:"创建时间",width:150}
+        ]]
+    });
+    function submitSetCustomerClassDialog(params){
+        if(!dialog_set_class.endEdit(true)){return;}
+        var selector=$("#{$id_list['datagrid']}");
+        var data={};
+        data.add = selector.datagrid('getChanges','inserted');
+        data.update = selector.datagrid('getChanges', 'updated');
+        data.delete = selector.datagrid('getChanges', 'deleted');
+        $.post("{:U('CustomerFile/saveCustomerClass')}",data,function(res)
+        {
+            if(res.status == 0){
+                $('#'+params.customer_flag.id).dialog('close');
+                $('#'+params.datagrid.id).datagrid("reload");
+            }else if(res.status == 2){
+                dialog_set_class.reject();
+            }
+            messager.alert(res.info);
+        },'json')
+    }
+    function disableSystemCustomerClass(index,row){
+        if(row.id == 0){
+            var cellEdit=$("#{$id_list['datagrid']}").datagrid('getEditor', {index:index,field:'class_name'});
+            cellEdit.target.textbox('disable');
+        }
+    }
+    $(function(){
+        setTimeout(function () {
+            dialog_set_class = new ThinDatagrid("#{$id_list['datagrid']}",disableSystemCustomerClass,false);
+            $.extend($.fn.validatebox.defaults.rules, {
+                class_name_unique: {
+                    validator: function (value) {
+                        if(value.trim()==''||/[<>/]+/g.test(value)){return false;}
+                        if (typeof(value) != "undefined") {
+                            var rows = $("#{$id_list['datagrid']}").datagrid("getRows");
+                            for (var i in rows) {if (i!=dialog_set_class.editIndex && value==rows[i].class_name) { return false; } }
+                        }
+                        return true;
+                    },
+                    message: "标签名称不能为空，且不能重复（不能含有<>/字符）"
+                }
+            });
+            dialog_set_class.delete = function(){
+                var dg=$("#{$id_list['datagrid']}");
+                var row = dg.datagrid("getSelected");
+                if(row != undefined && row.id == 0){
+                    messager.alert("系统内置，无法删除");
+                    return false;
+                }else{
+                    messager.confirm('删除该标签后，标记在客户上的该标签会变为“无”，确认删除吗？',function(r){
+                        if(!r){return false;}
+                        dialog_set_class.remove();
+                    });
+                }
+            }
+        }, 0);
+
+    });
+
+    </script>
+    <table id="{$id_list['datagrid']}"></table>
+    <div id="{$id_list['toolbar']}">
+        <div class="form-div">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="dialog_set_class.append({modified:'',created:''})" >添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="dialog_set_class.reject()">取消</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="dialog_set_class.delete()">删除</a>
+            <label style="margin-left: 30px;color:blue">#第一项为<span style="color:red">系统内置标签</span>，不可修改</label>
+        </div>
+
+    </div>

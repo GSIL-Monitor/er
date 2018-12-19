@@ -1,0 +1,33 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div  id="{$id_list.tool_bar}">
+        <div class="form-div">
+            <p style="color:red;text-align: center;">*双击要扫描的订单*</p>
+        </div>
+    </div>
+    <script>
+        //# sourceURL=intelligenceReturnOrderList.js
+        $(function(){
+            setTimeout(function(){
+                intelligenceReturnOrderList = new RichDatagrid(JSON.parse('{$params}'));
+                var datagrid_id = intelligenceReturnOrderList.params.datagrid.id;
+                $('#'+datagrid_id).datagrid('options').onDblClickRow = function(index,row){
+                    //intelligenceReturnStockIn.form_selector_list.scan_type.combobox('setValue','4');
+                    intelligenceReturnStockIn.form_selector_list.scan_search.textbox('setValue','');
+                    intelligenceReturnStockIn.form_selector_list.scan_search.textbox('textbox').focus();
+                    intelligenceReturnStockIn.getReturnInfo(row.src_tids,4);
+                    $('#flag_set_dialog').dialog('close');
+                };
+//                var order_list = window.intelligence_return_order_list;
+//                if(order_list == undefined || $.isEmptyObject(order_list)){
+//                    order_list=[];
+//                }
+//                $('#'+datagrid_id).datagrid('loadData',order_list);
+            },0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>
+<block name="dialog">
+</block>

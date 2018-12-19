@@ -1,0 +1,2 @@
+[ 2018-01-07T17:15:20+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Think\Controller:getTagPrintData方法不存在！

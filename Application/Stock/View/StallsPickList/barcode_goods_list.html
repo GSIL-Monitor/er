@@ -1,0 +1,31 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div  id="{$id_list.tool_bar}">
+        <div class="form-div">
+            <p style="color:red;">*该条码对应多个货品，请选择满足条件货品      方法：双击要扫描的货品</p>
+        </div>
+    </div>
+    <script>
+        //# sourceURL=check_goods_list.js
+        $(function(){
+            setTimeout(function(){
+                checkGoodsList = new RichDatagrid(JSON.parse('{$params}'));
+                var datagrid_id = checkGoodsList.params.datagrid.id;
+                $('#'+datagrid_id).datagrid('options').onDblClickRow = function(index,row){
+                    selectGoodInBarCode(JSON.stringify(row));
+                    $('#flag_set_dialog').dialog('close');
+                };
+//                var goods_list = window[checkGoodsList.params.parent_object].goods_list;
+                var goods_list = window.goods_list;
+                if(goods_list == undefined || $.isEmptyObject(goods_list)){
+                    goods_list=[];
+                }
+                $('#'+datagrid_id).datagrid('loadData',goods_list);
+            },0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>
+<block name="dialog">
+</block>

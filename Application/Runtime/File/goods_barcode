@@ -1,0 +1,8 @@
+SELECT * FROM (SELECT gb.rec_id AS id, gb.barcode, gsp.spec_no, gg.goods_name, gg.short_name, gg.goods_no, gsp.spec_name, gsp.spec_code, gb.is_master, 0 AS is_suite, gb.type FROM goods_barcode gb
+                LEFT JOIN goods_spec gsp ON gb.type=1 AND gb.target_id=gsp.spec_id
+                LEFT JOIN goods_goods gg ON(gg.goods_id=gsp.goods_id)
+                WHERE gb.type=1 AND IF(3&1=1, true, false)      
+                UNION ALL
+                SELECT gb.rec_id AS id, gb.barcode, gsu.suite_no AS spec_no, gsu.suite_name AS goods_name, '' AS short_name, '' AS goods_no, '' AS spec_name, '' AS spec_code, gb.is_master, 1 AS is_suite, gb.type FROM goods_barcode gb
+                LEFT JOIN goods_suite gsu ON gb.target_id=gsu.suite_id
+                WHERE gb.type=2 AND IF(3&2=2, true, false)      )  temp WHERE true ORDER BY id desc 

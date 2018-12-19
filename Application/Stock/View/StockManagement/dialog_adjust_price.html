@@ -1,0 +1,99 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label >商家编码：</label><input class="easyui-textbox txt" type="text" name="spec_no" data-options="disabled:true" />
+                <label >规格码　：</label><input class="easyui-textbox txt" type="text" name="spec_code" data-options="disabled:true"/>
+                <label >规格名称：</label><input class="easyui-textbox txt" type="text" name="spec_name" data-options="disabled:true"/>
+            </div>
+            <div class="form-div">
+                <label >货品编码：</label><input class="easyui-textbox txt" type="text" name="goods_no" data-options="disabled:true"/>
+                <label >货品名称：</label><input class="easyui-textbox txt" type="text" name="goods_name" data-options="disabled:true,width:325"/>
+            </div>
+			<div class="form-div">
+			<label style="color:red;margin-left:100px;font-size:20px;">调整成本价不支持多货品多仓库批量修改</label>
+			</div>
+			
+            <!--<div class="form-div">
+                <label >备注　　：</label><input class="easyui-textbox" data-options="width:300" name="remark"/>
+            </div>-->
+        </form>
+		<div class="show">
+			<label style="color:red;margin-left:100px;font-size:20px;">单仓库多货品批量修改成本价</label>
+			</div>
+    </div>
+<script type="text/javascript">
+    //# sourceURL=stockmanagement_adjust.js
+$(function(){
+    var toolbar_id = '{$id_list.tool_bar}';
+    var element_selectors ={
+        'spec_no'		:$('#'+toolbar_id+" :input[name='spec_no']"),
+        'goods_no'	    :$('#'+toolbar_id+" :input[name='goods_no']"),
+        'goods_name'	:$('#'+toolbar_id+" :input[name='goods_name']"),
+        'spec_code'	    :$('#'+toolbar_id+" :input[name='spec_code']"),
+        'spec_name'		:$('#'+toolbar_id+" :input[name='spec_name']"),
+        'remark'		:$('#'+toolbar_id+" :input[name='remark']"),
+
+    };
+    var adjust_price = new Object();
+    var form_data = JSON.parse('{$form_data}');
+    adjust_price.params = JSON.parse('{$params}');
+	var is_exist = '{$is_exist}';
+	if(!!is_exist){
+		$('#'+adjust_price.params.form.id).hide();
+	}else{
+		$('.show').hide();
+		$('#'+adjust_price.params.form.id).form('filterLoad',form_data);
+	}
+    $('#'+adjust_price.params.datagrid.id).datagrid().datagrid('enableCellEditing');
+    adjust_price.keepClickCell = $('#'+adjust_price.params.datagrid.id).datagrid('options').onClickCell;
+    stockManagement.submitAdjustDialog = function()
+    {
+        //置空当前的form表单中的queryParams
+        /*$('#'+adjust_price.form.id).form('options').queryParams = {};
+        //验证form表单的信息
+        if(!$('#'+adjust_price.params.form.id).form('validate'))
+        {
+            messager.alert('请填写完整表单信息');
+            return;
+        }
+
+        var form_data = $('#'+adjust_price.form.id).form('get');*/
+        //----获取调价信息
+        //----验证表格表单信息
+
+        var adjust_detail = $('#'+adjust_price.params.datagrid.id).datagrid('getRows');
+        for(var i=0;i<adjust_detail.length;i++ )
+        {
+
+            if(!$('#'+adjust_price.params.datagrid.id).datagrid('validateRow'))
+            {
+                messager.alert('请填写完整调价信息');
+                return;
+            }
+            if(adjust_detail[i].adjust_price<0){
+                messager.alert('调整价不能为负!');
+                return;
+            }
+        }
+        $.post("{:U('Stock/StockManagement/fastAdjustCostPrice')}",{detail:adjust_detail},function(r){
+            if(r.status==0){
+                $('#'+stockManagement.params.adjust.id).dialog('close');
+                messager.info(r.info);
+                stockManagement.refresh();
+            }else if(r.status=1){
+                messager.alert(r.info);
+            }else{
+
+            }
+        },'json');
+
+    }
+
+});
+
+</script>
+</block>
+<block name="tabs">
+</block>

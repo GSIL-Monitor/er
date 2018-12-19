@@ -1,0 +1,114 @@
+<form id="{$id_list.form_id}">
+<div class='form-div'>
+	<label>　关键词： </label><input class="easyui-textbox txt" type="text" value="{$cs_remark.keyword}" name="keyword"  data-options="required:true"/>
+</div>
+<div class="form-div">
+	<label>处理方式：</label>
+	<input class="easyui-combobox txt" name="type" data-options="editable:false,required:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('cs_remark_type','def','{$cs_remark.type}'),onSelect:csRemark.selectDealType"/>
+	<input id="{$id_list.select_id}" style="display:none" class="easyui-combobox sel"  name="target"  data-options="editable:false,required:true,valueField:'id',textField:'name'"/>
+	<a href="javascript:void(0)" class="easyui-linkbutton" id="{$id_list.flag_id}" data-options="iconCls:'icon-edit',plain:true" onclick="csRemark.setFlag()">标记</a>
+</div>
+<div class="form-div">
+	<label  style="width:auto;display: inline-block;">停　　用：</label>
+    <select class="easyui-combobox sel" name="is_disabled" id=vo data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+        <if condition="$cs_remark.is_disabled eq 1"><option value="0">否</option><option value="1" selected>是</option>
+        <else/><option value="0" selected>否</option><option value="1">是</option> </if>
+    </select>
+</div>
+</form>
+<script type="text/javascript">
+$(function(){
+	setTimeout(function(){
+		initCsRemark();
+	},0);
+});
+function initCsRemark(){
+	$('#{$id_list.flag_id}').hide();
+	var type='{$cs_remark.type}';
+	var target='{$cs_remark.target}';
+	var list_form=JSON.parse('{$list_form}');
+	var params=JSON.parse('{$params}');
+	var list=new Array('','logistics','flag','employee','warehouse','trunAdvance','reason');
+	if(type==2){
+		$('#{$id_list.flag_id}').show();
+		$('#{$id_list.select_id}').combobox({
+		    data:params.flag.list_flag,    
+		    value:target,
+		}); 
+	}else if (type==5){
+		$('#{$id_list.select_id}').combobox({disabled:true});
+	}else if (type==0){
+		$('#{$id_list.select_id}').combobox({
+		    value:'',
+		});
+	}else{
+		$('#{$id_list.select_id}').combobox({    
+		    data:list_form[list[type]],
+		    value:target,
+		});
+	}
+}
+csRemark.selectDealType = function(record){
+	var list_form=JSON.parse('{$list_form}');
+	var params=JSON.parse('{$params}');
+	var list=new Array('','logistics','flag','employee','warehouse','trunAdvance','reason');
+	$('#{$id_list.flag_id}').hide();
+	if(record.id==2){
+		$('#{$id_list.flag_id}').show();
+		$('#{$id_list.select_id}').combobox({ 
+			disabled:false,
+		    data:params.flag.list_flag,    
+		    value:'',
+		}); 
+	}else if(record.id==5){
+		$('#{$id_list.flag_id}').hide();
+		$('#{$id_list.select_id}').combobox({disabled:true});
+	}else{
+		$('#{$id_list.flag_id}').hide();
+		$('#{$id_list.select_id}').combobox({   
+			disabled:false,
+		    data:list_form[list[record.id]],
+		    value:'',
+		});
+	}
+}
+csRemark.setFlag = function(){
+	var params=JSON.parse('{$params}');
+	var buttons=[ {text:'确定',handler:function(){ submitFlagsDialog(params.flag); }}, {text:'取消',handler:function(){csRemark.cancelDialog(params.flag.dialog.id)}} ];
+	csRemark.showDialog(params.flag.dialog.id,params.flag.dialog.title,params.flag.dialog.url,params.flag.dialog.height,params.flag.dialog.width,buttons); 
+}
+function getCsRemark(){
+	var form=$('#{$id_list.form_id}');
+	if(!form.form('validate')){ return false;}
+	var data={};
+	data['info']=form.form('get');
+	data['info']['class']=1;
+	data['info']['target_name']=$('#{$id_list.select_id}').combobox('getText');
+	return data;
+}
+csRemark.submitAddDialog = function(){
+	var data=getCsRemark();
+	if(data==false){return;}
+	$.post("{:U('RemarkExtract/addCsRemarkExtract')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+csRemark.params.add.id).dialog('close');
+			csRemark.refresh();
+		}
+	},"JSON");
+}
+csRemark.submitEditDialog = function(){
+	var data=getCsRemark();
+	if(data==false){return false;}
+	data.id='{$id}';
+	$.post("{:U('RemarkExtract/editCsRemarkExtract')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+csRemark.params.edit.id).dialog('close');
+			csRemark.refresh();
+		}
+	},"JSON");
+}
+</script>

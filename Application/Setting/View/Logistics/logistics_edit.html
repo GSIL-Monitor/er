@@ -1,0 +1,274 @@
+<table id="{$mark}_Logistics_datagrid"></table>
+<div id="logistics_{$mark}_dialog_toolbar">
+    <form id="logistics_{$mark}_dialog_form" method="post">
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">物流名称：</label>
+    <input  class="easyui-textbox" type="text" name="logistics_name" style="width:150px;" data-options="required:true,validType:'specialExceptBracket'"  missingMessage="不能为空"/>
+            <label   style="width: 60px;display: inline-block;">单号类型：</label>
+            <input class="easyui-combobox sel" name="bill_type" id="bill_type_{$mark}" data-options="editable:false, required:true" style="width:150px;"/>
+			<label   style="width: 60px;display: inline-block;">物流类别：</label>
+            <input class="easyui-combobox sel" name="logistics_type" id="logistics_type_{$mark}" data-options="editable:false, required:true" style="width:150px;"/>
+            </div>
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">联系人：</label>
+            <input class="easyui-textbox txt" type="text" name="contact" data-options="validType:'loginName'"  invalidMessage="只允许汉字、英文字母、数字及下划线"  style="width:150px;"/>
+            <label   style="width: 60px;display: inline-block;">地址：</label>
+            <input class="easyui-textbox txt" type="text" name="address" data-options="validType:'loginName'" invalidMessage="只允许汉字、英文字母、数字及下划线" style="width:368px;"/>
+        </div>
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">联系电话：</label>
+            <input style="width:150px;" class="easyui-textbox txt" data-options="validType:'mobile'" name="telno"/>
+            <label   style="width: 60px;display: inline-block;">备注：</label>
+            <input class="easyui-textbox txt"  name="remark"  style="width:368px;"/>
+        </div>
+    <div class="form-div">
+    <label   style="width:auto;display: inline-block;">支持货到付款：</label>
+    <select class="easyui-combobox sel" name="is_support_cod" data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+        <option value="0">否</option><option value="1">是</option>
+    </select>
+    <label  style="width:auto;display: inline-block;">停用：</label>
+    <select class="easyui-combobox sel" name="is_disabled" data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+        <option value="0">否</option>
+        <option value="1">是</option>
+    </select>
+           <!--  <label style="width:auto;display: inline-block;">用区县别名打印大头笔：</label><select
+                class="easyui-combobox sel"
+                name="is_dtb_no_api"
+                data-options="panelHeight:'auto',editable:false, required:true"
+                style="width:50px;">
+            <option value="0">否</option>
+            <option value="1">是</option>
+        </select>-->
+            <a href="javascript:void(0)" id="LogisticsAuth_{$mark}" style="display: inline-block"; class="easyui-linkbutton" data-options="onClick:function(){ logistics_obj.LogisticsAuth();}" >物流授权</a>
+            <input type="text" id="id" name="id" style="display: none;"/>
+		    <div class="form-div wh-div" style="color:red;font-size:14px;">*注：如果单号类型是菜鸟电子面单或线下电子面单,请确定授权*</div>
+        </div>
+    </form>
+    <span id="msg" style="color:red"></span>
+</div>
+<script type="text/javascript">
+    //# sourceURL=logistics_{$mark}.js
+    logistics_obj.params.settingDialog = {
+        "form_id":"logistics_{$mark}_dialog_form",
+        "logistics_combobox_id":"logistics_type_{$mark}",
+        "bill_combobox_id":"bill_type_{$mark}"
+
+    };
+    var appExist = {$appExist};
+    $(function() {
+        setTimeout(function () {
+            $('#logistics_type_{$mark}').combobox({
+                data: formatter.get_data("logistics_type",'def'),
+                onSelect:function(record){
+                    var logistics_type = logistics_obj.params.logistics_auth.selected_logistics_type = record['id'];
+                    $('#'+logistics_obj.params.settingDialog.form_id).form('options').queryParams ={'app_key': {}};
+                },
+                valueField: 'id',
+                textField: 'name',
+            });
+			
+            $('#bill_type_{$mark}').combobox({
+                data: formatter.get_data("bill_type",'normal'),
+                onSelect:function(record){
+                	$('#'+logistics_obj.params.settingDialog.form_id).form('options').queryParams={'app_key':  {}};
+                    var bill_type = logistics_obj.params.logistics_auth.selected_bill_type = record['id'];
+                    switch(String(bill_type))
+                    {
+                        case '0':
+                        {
+                            document.getElementById("LogisticsAuth_{$mark}").style.display="none";
+                            $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('loadData',formatter.get_data('logistics_type','def'));
+                            break;
+                        }
+                        case '1':
+                        {
+                            document.getElementById("LogisticsAuth_{$mark}").style.display="inline-block";
+                            $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('loadData',formatter.get_data('logistics_type_xx','def'));
+                            break;
+                        }
+                        case '2':
+                        {
+                            document.getElementById("LogisticsAuth_{$mark}").style.display="inline-block";
+                        	var cn_type = formatter.get_data('logistics_type_cn')
+                        	cn_type[0]['selected'] = true;
+                            $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('loadData',cn_type);
+                            break;
+                        }
+						case '9':
+                        {
+                            document.getElementById("LogisticsAuth_{$mark}").style.display="inline-block";
+                        	var cn_type = formatter.get_data('jos_logistics_type')
+                        	cn_type[0]['selected'] = true;
+                            $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('loadData',cn_type);
+                           break;
+						}
+                    }
+                },
+                valueField: 'id',
+                textField: 'name',
+            });
+            if ({$form} == 'err') {
+                messager.alert('系统错误请联系管理员！');
+            } else if ({$form} != 'none') {
+                $('#'+logistics_obj.params.settingDialog.form_id).form('filterLoad', {$form});
+                var logistics_type = $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('getValue');
+                var bill_type = $('#'+logistics_obj.params.settingDialog.bill_combobox_id).combobox('getValue');
+                logistics_obj.params.logistics_auth.selected_logistics_type = logistics_type;
+                logistics_obj.params.logistics_auth.selected_bill_type = bill_type;
+                $('#'+logistics_obj.params.settingDialog.form_id).form('options').queryParams={'app_key':{}};
+            }
+            $('#'+logistics_obj.params.settingDialog.form_id).form('options').queryParams = {
+			'app_key' : {$appkey}
+			};
+            $('#bill_type_edit').combobox('disable');
+            $('#logistics_type_edit').combobox('disable');
+            if(0 == $("#bill_type_{$mark}").combobox('getValue')){
+                document.getElementById("LogisticsAuth_{$mark}").style.display="none";
+            }
+        }, 0);
+    });
+
+    logistics_obj.LogisticsAuth = function(){
+		var is_show = '';
+        var logistics_type = $('#'+logistics_obj.params.settingDialog.logistics_combobox_id).combobox('getValue');
+        var bill_type = $('#'+logistics_obj.params.settingDialog.bill_combobox_id).combobox('getValue');
+        logistics_obj.params.logistics_auth.selected_logistics_type = logistics_type;
+        logistics_obj.params.logistics_auth.selected_bill_type = bill_type;
+        if(this instanceof RichDatagrid)
+        {
+            var that = this;
+        }
+        /* if(parseInt(bill_type) == 0 || parseInt(bill_type)==1)
+        {
+        	return false;
+        }	 */
+		
+		var setting_params = $('#'+that.params.settingDialog.form_id).form('options').queryParams['app_key'];
+			is_show = setting_params.shop_id;
+	   if(1 == appExist && is_show != 0 && is_show != undefined){
+			//            messager.alert("该物流已授权！");
+            $('#'+that.params.logistics_auth.id).dialog({
+                title:that.params.logistics_auth.title,
+                iconCls:'icon-save',
+                width:that.params.logistics_auth.width,
+                height:that.params.logistics_auth.height,
+                closed:false,
+                inline:false,
+                modal:true,
+                onLoad:function(){
+					//var setting_params = $('#'+that.params.settingDialog.form_id).form('options').queryParams['app_key'];            
+					if(setting_params == undefined || $.isEmptyObject(setting_params))
+                    {
+                        return ;
+                    }
+                    if(typeof setting_params == 'string')
+                    {
+                        setting_params = JSON.parse(setting_params);
+                    }
+                    var temp_params = $.extend(true,{},setting_params);
+                    $('#cfgLogistics_auth_form').form('filterLoad',temp_params);
+                },
+                href:that.params.logistics_auth.url+"?logistics_type="+that.params.logistics_auth.selected_logistics_type+"&bill_type="+that.params.logistics_auth.selected_bill_type+"&appExist="+appExist+"&is_show="+is_show,
+				buttons:false,
+			});
+            return false;
+        }
+        $('#'+that.params.logistics_auth.id).dialog({
+            title:that.params.logistics_auth.title,
+            iconCls:'icon-save',
+            width:that.params.logistics_auth.width,
+            height:that.params.logistics_auth.height,
+            closed:false,
+            inline:false,
+            modal:true,
+            onLoad:function(){
+                var setting_params = $('#'+that.params.settingDialog.form_id).form('options').queryParams['app_key'];
+                if(setting_params == undefined || $.isEmptyObject(setting_params))
+                {
+                    return ;
+                }
+                if(typeof setting_params == 'string')
+                {
+                    setting_params = JSON.parse(setting_params);
+                }
+                var temp_params = $.extend(true,{},setting_params);
+                $('#cfgLogistics_auth_form').form('filterLoad',temp_params);
+                if((temp_params.hasOwnProperty('insures_type'))&&(temp_params.insures_type ==2))
+                    $("#insureAmountId").show();
+            },
+            href:that.params.logistics_auth.url+"?logistics_type="+that.params.logistics_auth.selected_logistics_type+"&bill_type="+that.params.logistics_auth.selected_bill_type+"&appExist="+appExist+"&is_show="+is_show,
+            buttons:[
+                {'text':'保存',handler:function(){
+                	var is_valid = $('#cfgLogistics_auth_form').form('validate');
+                	if (!is_valid){
+            			return false;	// 如果表单是无效的则隐藏进度条
+            		}
+                    var queryParams = $('#'+that.params.settingDialog.form_id).form('options').queryParams;
+                    if(queryParams['app_key'] == undefined)
+                    {
+                        queryParams['app_key'] = {};
+                    }
+                    if(typeof queryParams['app_key'] == "string")
+                    {
+                        queryParams['app_key'] = JSON.parse(queryParams['app_key']);
+                    }
+                    $.each($('#cfgLogistics_auth_form').serializeArray(), function() {
+                        queryParams['app_key'][this['name']] = this['value'];
+                    });
+                    queryParams['app_key'] = JSON.stringify(queryParams['app_key']);
+                    $('#'+that.params.logistics_auth.id).dialog('close');
+                }},
+                {'text':'关闭',handler:function(){
+                    $('#'+that.params.logistics_auth.id).dialog('close');
+                }}
+            ]
+        });
+    };
+    logistics_obj.submitAddDialog = logistics_obj.submitEditDialog = function() {
+        if($("#logistics_type_{$mark}").combobox('getValue') == -1){
+            messager.alert("请选择物流类别！");
+            return false;
+        }
+        if($("#bill_type_{$mark}").combobox('getValue') == 'sel'){
+            messager.alert("请选择单号类型！");
+            return false;
+        }
+		
+		var query_params = $('#logistics_{$mark}_dialog_form').form('options').queryParams['app_key'];
+		if( typeof(query_params) != 'string')
+		{
+			$('#logistics_{$mark}_dialog_form').form('options').queryParams = {'app_key':JSON.stringify(query_params)};
+		}
+		if (!$('#logistics_{$mark}_dialog_form').form('validate')) {
+                    return false;
+        }
+		var form_params = $('#logistics_{$mark}_dialog_form').form('get');
+        var type = '{$mark}';
+        $.messager.progress({title: 'ERP', msg: '正在处理，请稍待。。。'});
+        $.post("{:U('Setting/Logistics/saveLogistics')}",{arr:form_params,type:type},function(r){
+            $.messager.progress("close");
+            if(r.status == 0){
+                    messager.alert(r.info);
+                    return;
+            }else{
+                logistics_obj.refresh();
+                switch (r.type){
+                    case "edit":
+                        $("#logistics_edit").dialog('close');
+                        break;
+                    case "add":
+                        $("#logistics_add").dialog('close');
+                        break;
+                }
+                if(r.status == 1){
+                    messager.alert(r.info);
+                    return;
+                }else if(r.status == 2){
+                    $.fn.richDialog("response", r.info, "uponLogistics");
+                    return;
+                }
+            }
+        },'json');
+
+    }
+</script>

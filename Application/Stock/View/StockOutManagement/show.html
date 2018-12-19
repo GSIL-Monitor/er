@@ -1,0 +1,284 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="stockout_search_form" class="easyui-form" method="post">
+<div class="form-div">
+<label >出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" />
+<label >　来源单号：</label><input class="easyui-textbox txt" type="text" name="search[src_order_no]" />
+<label >　出库单状态：</label>
+<input class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockout_status')" />
+<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" accesskey="" onclick="stockOutManagement.submitSearchForm();">搜索</a>
+<a class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stockOutManagement.loadFormData();">重置</a>
+</div>
+<div class="form-div">
+<label class="four-character-width">仓　　库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'auto'"> <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+<label>　　经办人：</label><select class="easyui-combobox sel" name="search[operator_id]" data-options="panelHeight:'100px',editable:false " >
+<volist name='employee_array' id='vo'>
+<option value="{$vo.id}">{$vo.name}</option>
+</volist>
+</select>
+<label >　出库单类别：</label>
+<input class="easyui-combobox txt" name="search[src_order_type]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockout_type')" />
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="stockOutManagement.edit()" ;>编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-submit',plain:true" onclick="stockOutManagement.submitStockoutOrder()" ;>提交</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="stockOutManagement.cancelStockOutOrder()" ;>取消</a>
+<!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="stockOutManagement.send()" ;>推送</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="stockOutManagement.cancel_other_out()" ;>取消委外单</a>
+-->
+    <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-excel',plain:true,menu:'#stock_out_export'" >导出功能</a>
+    <div id="stock_out_export">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" name="exportToExcel" onclick="stockOutManagement.exportToExcel('csv')">导出csv(推荐)</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" name="exportToExcel" onclick="stockOutManagement.exportToExcel('excel')">导出到Excel</a>
+    </div>
+</div>
+<script>
+//# sourceURL=stockoutmanagement.js
+
+$(function () {
+    setTimeout(function () {
+        stockOutManagement = new RichDatagrid(JSON.parse('{$params}'));
+        stockOutManagement.setFormData();
+        stockOutManagement.checkEdit = function() {
+            var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+            var row = $('#' + this.params.datagrid.id).datagrid('getSelections');
+            if (data == null) {
+                messager.alert("请选择操作的行!");
+                return false;
+            }
+            if(row.length>1){
+                messager.alert("请选择单行编辑!");
+                return;
+            }
+            var status = data.status;
+            if(status != '48'){
+                messager.alert("出库单状态不正确，请重新选择！");
+                return false;
+            }
+            return true;
+        };
+        stockOutManagement.edit = function(){
+        	if(!this.checkEdit()){return;}
+        	var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+            
+			Dialog.show('reason_show_dialog','出库单编辑',this.params.edit.url+"&id="+data.id+'&parent_win='+'{"dialog_id":"reason_show_dialog","datagrid_id":"'+this.params.datagrid.id+'"}',600,1200,[]);
+
+			/*$('#'+this.params.edit.id).dialog({
+                        width: 1000,
+                        height: 600,
+                        title: "出库单编辑",
+                        maximizable: true,
+                        resizable: true,
+                        modal: true,
+                        href: this.params.edit.url+"&id="+data.id
+            });*/
+        }
+        stockOutManagement.submitStockoutOrder = function () {
+        	var that = this;
+            var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+            var row = $('#' + this.params.datagrid.id).datagrid('getSelections');
+
+            if (data == null) {
+                messager.alert("请选择操作的行!");
+                return;
+            }
+            if(row.length>1){
+                messager.alert("请选择单行提交!");
+                return;
+            }
+            var status = data.status;
+            var id = data.id;
+            if (status != 48) {
+                messager.alert("出库单类型不正确，只能提交编辑中的出库单！");
+                return;
+            }
+            messager.confirm('确定提交出库单吗？',function(r){
+            	if(r){ 
+		            $.post("{:U('Stock/StockOutManagement/submitStockOutOrder')}", {'id': id}, function (r) {
+		                switch (r.status) {
+		                    case 1:
+		                        messager.alert(r.info);
+		                        break;
+		                    case 0:
+		                        that.updateRowByReturnData(r.data);
+		                        break;
+		                    default :
+		                        messager.alert("系统发生错误，请与管理员联系！");
+		                }
+		            });
+            	}
+            });
+        };
+		
+		stockOutManagement.send = function(){
+				var that = this;
+                var data = $('#'+this.params.datagrid.id).datagrid('getSelected');
+                if(data == null){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+                var status = data.status;
+                var id = data.id;
+                if(status != 52){
+                    messager.alert("出库单类型不正确，只能推送待推送的出库单！");
+                    return;
+                }
+                messager.confirm('确定推送出库单吗？',function(r){
+                	if(r){
+	                	$.post("index.php/Stock/StockOutManagement/send",{'id':id},function(r){
+		                    switch (r.status){
+		                        case 0:
+		                            var index = $('#'+that.params.datagrid.id).datagrid('getRowIndex', r.data);
+		                            that.updateRowByReturnData(r.data);
+		                            break;
+		                        case 1:
+		                            messager.alert(r.info);
+		                            break;
+		                        default :
+		                            messager.alert("系统错误，请与管理员联系！");
+		                    }
+	                	});
+	                }
+                });
+			};
+			
+			stockOutManagement.cancel_other_out = function(){
+				var that = this;
+                var data = $('#'+this.params.datagrid.id).datagrid('getSelected');
+                if(data == null){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+                var status = data.status;
+                var id = data.id;
+                if(status != 60){
+                    messager.alert("出库单类型不正确，只能取消委外待出库的出库单！");
+                    return;
+                }
+                messager.confirm('确定取消出库单吗？',function(r){
+                	if(r){
+	                	$.post("index.php/Stock/StockOutManagement/cancel_other_out",{'id':id},function(r){
+		                    switch (r.status){
+		                        case 0:
+		                            var index = $('#'+that.params.datagrid.id).datagrid('getRowIndex', r.data);
+		                            that.updateRowByReturnData(r.data);
+		                            break;
+		                        case 1:
+		                            messager.alert(r.info);
+		                            break;
+		                        default :
+		                            messager.alert("系统错误，请与管理员联系！");
+		                    }
+	                	});
+	                }
+                });
+			};
+		
+        stockOutManagement.cancelStockOutOrder = function() {
+        	var that = this;
+            var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+            var row = $('#' + this.params.datagrid.id).datagrid('getSelections');
+            if (data == null) {
+                messager.alert("请选择操作的行!");
+                return;
+            }
+            if(row.length>1){
+                messager.alert("请选择单行取消!");
+                return;
+            }
+            var status = data.status;
+            var id = data.id;
+            if (status != 48) {
+                messager.alert("出库单类型不正确，只能取消编辑中的出库单！");
+                return;
+            }
+            messager.confirm('确定取消出库单吗？',function(r){
+            	if(r){ 
+		            $.post("{:U('Stock/StockOutManagement/deleteStockOutOrder')}", {'id': id}, function (r) {
+		                switch (r.status) {
+		                    case 1:
+		                        messager.alert(r.info);
+		                        break;
+		                    case 0:
+		                        var index = $('#' + that.params.datagrid.id).datagrid('getRowIndex', data);
+		                        $('#' + that.params.datagrid.id).datagrid('updateRow', {
+		                            index: index,
+		                            row: {
+		                                status: '5',
+		                            }
+		                        });
+		                        break;
+		                    default :
+		                        messager.alert("系统发生错误，请与管理员联系！");
+		                }
+		            });
+            	}
+            });
+        };
+        stockOutManagement.updateRowByReturnData = function(updateData){
+        	var page_rows = $('#'+this.params.datagrid.id).datagrid('getRows');
+        	
+        	for(var row_index in page_rows){
+        		if(page_rows[row_index].id == updateData.id){
+        			$('#'+this.params.datagrid.id).datagrid('updateRow',{
+                        index: parseInt(row_index),
+                        row:updateData
+                    });
+        		}
+        	}
+        };
+        stockOutManagement.exportToExcel = function(type){
+            var url = "{:U('Stock/StockOutManagement/exportToExcel')}";
+            var id_list = [];
+            for(var i in this.selectRows){id_list.push(this.selectRows[i].id);}
+            var forms = $('#stockout_search_form').form('get');
+            var search = JSON.stringify(forms);
+            var form=JSON.stringify(stockOutManagement.params.search.form_data);
+            var rows = $("#{$datagrid.id}").datagrid("getRows");
+            if(rows == ''){
+                messager.alert('导出不能为空');
+            }
+            else if(id_list != ''){
+                messager.confirm('确定导出选中的出库单？',function(r){
+                    if(!r){
+                        return false;
+                    }
+                    window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+                });
+
+            }else if(form == search){
+                var total = $("#{$datagrid.id}").datagrid("getData").total;
+                var num = workTime.getWorkTimeNum(type);
+                if(total>num){
+                    if(type == 'csv'){
+                        messager.alert('8:00-19:00可以导出10000条，其余时间可以导出20000条!');
+                    }else {
+                        messager.alert('8:00-19:00可以导出1000条，其余时间可以导出4000条!');
+                    }
+                    return;
+                }
+                messager.confirm('确定导出所有的出库单？',function(r){
+                    if(!r){
+                        return false;
+                    }
+                    window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+                });
+            }else{
+                messager.confirm('确定导出搜索的出库单？',function(r){
+                    if(!r){
+                        return false;
+                    }
+                    window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+                });
+            }
+        };
+    }, 0);
+});
+
+</script>
+</block>
+<block name="dialog">
+</block>
+

@@ -1,0 +1,77 @@
+<!-- form的id值是固定的 -->
+
+
+<div style="width:100%;height:auto;overflow:hidden;padding-top: 10px">
+<div style="margin:0 auto; padding:2px 5px;width:90%">
+<form id="{$id_list.form_id}" class="easyui-form" method="post"> 
+<div>
+<label>请选择：</label>
+<input id="{$id_list.reason_list}" class="easyui-combobox" name="reason_id" data-options='valueField:"id",textField:"name",data:{$data}' /> 
+<a href="javascript:void(0)" class="easyui-linkbutton" id="btn_add_reason" onclick="settingReason.show();">添加驳回原因</a>
+</div>
+<div>
+<switch name="{model_type}">
+<case value="salesstockout">{// 订单驳回 }
+<div>
+<input type="checkbox" id="{$id_list.keep_logisticsno_status}" name="hold_logisticsno_status" value="1"/><label style="padding-right: 10px">保留物流单打印状态</label>
+
+<input type="checkbox" id="{$id_list.keep_stockoutno_status}" name="hold_sendbill_status" value="1"/><label>保留发货单打印状态</label>
+</div>
+</case>
+</switch>
+</div>
+<input type="hidden" name="class_id" value="{$id_list.class_id}" />
+</form>
+</div>
+</div>
+<script>
+//# sourceURL=dialogsetreason.js
+$(function(){
+    setTimeout(function () { 
+    	settingReason = new SettingReason({$params});
+    	var info={$params};
+    	if(info.dialog.title!='订单驳回'){
+        	$('#btn_add_reason').linkbutton({
+        		text:'添加'+info.dialog.title,
+        	});
+    	}
+    }, 0);
+});
+function SettingReason(params)
+{
+    var that = this;
+    this.params = params;
+    this.cfgOperReason = "cfgOperReasonRight";
+    $("#"+params.form.id).form('options').that = this;
+}
+SettingReason.prototype = {
+    show: function(){
+        var that = this;
+        $('#'+that.params.dialog.id).dialog({
+            title:that.params.dialog.title,
+            iconCls:'icon-save',
+            width:that.params.dialog.width==undefined?764:that.params.dialog.width,
+            height:that.params.dialog.height==undefined?560:that.params.dialog.height,
+            closed:false,
+            inline:false,
+            modal:true,
+            href:that.params.dialog.url,
+            buttons:[
+                {
+                    text:'确定',
+                    handler:function(){ 
+                    	window[that.params.dialog.cfgOperReasonRight].submitCfgOperReasonsDialog(that.params); 
+                    }
+                }, 
+                {
+                    text:'取消',
+                    handler:function(){that.cancelDialog(that.params.dialog.id);}
+                }
+            ]
+        });
+    },
+    cancelDialog: function(id){
+        messager.confirm('您确定要关闭吗？', function(r){ if (r){$('#'+id).dialog('close');}});
+    },
+};
+</script>

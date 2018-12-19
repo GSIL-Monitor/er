@@ -1,0 +1,71 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>省：</label><input id="logistics-province" class="easyui-combobox txt" name="search[province]"/>
+<label>市：</label><input id="logistics-city" class="easyui-combobox txt" name="search[city]"/>
+<label>区：</label><input id="logistics-district" class="easyui-combobox txt" name="search[district]"/>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="logisticsFee.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="logisticsFee.resetForm();">重置</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</label>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="logisticsFee.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="logisticsFee.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="logisticsFee.copy()">复制</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="logisticsFee.remove()">删除</a>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		var logisticsArea=getLogisticsArea();
+		logisticsFee=new RichDatagrid(JSON.parse('{$params}')); 
+		logisticsFee.setFormData();
+		logisticsFee.resetForm=function(){
+			logisticsFee.loadFormData();
+			logisticsArea.selfP.combobox("setValue", 0);
+			logisticsArea.selfC.combobox("loadData", logisticsArea.getArea("city", 0, 1));
+			logisticsArea.selfC.combobox("setValue", 0);
+			logisticsArea.selfD.combobox("loadData", logisticsArea.getArea("district", 0, 1));
+			logisticsArea.selfD.combobox("setValue", 0);
+		}
+		logisticsFee.copy=function(){
+			var url=logisticsFee.params.edit.url;
+			if(logisticsFee.selectRows==undefined) { messager.alert('请选择操作的行!'); return false; }
+			var row=logisticsFee.selectRows[0];
+			url += (url.indexOf('?') != -1) ? '&id='+row.id : '?id='+row.id+'&type=copy';
+			var buttons=[ {text:'确定',handler:function(){ logisticsFee.submitAddDialog(); }}, {text:'取消',handler:function(){logisticsFee.cancelDialog(logisticsFee.params.edit.id)}} ];
+			logisticsFee.showDialog(logisticsFee.params.edit.id,logisticsFee.params.edit.title,url,logisticsFee.params.edit.height,logisticsFee.params.edit.width,buttons);
+		}
+	}, 0); 
+});
+function formatterLogisticsArea(value, row, index){
+	var path='';
+	if(!!value){
+		var map=value.split(row.target+'#');
+		for(var i=1;i<map.length;i++){
+			if(i>1){path+=' / ';}
+			map[i]=map[i].substring(0,map[i].indexOf('#'));
+			var add=map[i].split(',');
+			if(!add[1]){add[1]=0;}
+			if(!add[2]){add[2]=0;}
+			if(!add[3]){add[3]=0;}
+			path+=(add[1]==0?'全国':area.province(add[1]))+' '+area.city(add[2])+' '+area.district(add[3]);
+		}
+	}
+	return path;
+}
+function getLogisticsArea(){
+	var logisticsArea = new area("logistics-province", "logistics-city", "logistics-district"); 
+	var prov_data=logisticsArea.selfP.combobox("getData"); prov_data[0]={"id": "0", "name": "全国"}; logisticsArea.selfP.combobox("loadData", prov_data);
+	return logisticsArea;
+}
+</script>
+</block>
+<block name="tabs"></block>

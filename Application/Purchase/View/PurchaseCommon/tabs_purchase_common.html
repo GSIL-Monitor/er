@@ -1,0 +1,22 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar"> 
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () {
+		$('#{$datagrid.id}').datagrid('copyCell');
+		$('#{$datagrid.id}').datagrid('options').rowStyler = function(index,row){
+			if(row.unsort_num!=undefined&&parseInt(row.unsort_num)!=0){
+				return 'background-color:#ee1d24;color:#fff';
+			}
+
+		};
+	},0);
+});
+</script>
+</block> 
+<block name="dialog">
+</block>
+<block name="tabs">
+<script>
+</script>
+</block>

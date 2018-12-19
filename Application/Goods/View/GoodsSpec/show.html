@@ -1,0 +1,169 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" action="" class="easyui-form" method="post">
+            <div class="form-div">
+                <label class="">货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_goods_no]"/>
+                <label class="">　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_spec_no]"/>
+                <label class="">　　货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_goods_name]"/>
+                <label class="">　　规格名称：</label><input class="easyui-textbox txt" type="text" name="search[spec_spec_name]"/>
+           <!--      <a href="javascript:void(0)" onclick="GoodsSpec.clickMore(this)">更多</a>  -->
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="GoodsSpec.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="GoodsSpec.loadFormData()">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="GoodsSpec.remove('goods_spec')">删除</a>
+            </div>
+            <!-- <div id="{$id_list.more_content}"> -->
+                <div class="form-div">
+                    <label class="">货品简称：</label><input class="easyui-textbox txt" type="text" name="search[goods_short_name]"/>
+                    <label class="">　　　　条码：</label><input class="easyui-textbox txt" type="text" name="search[goods_spec_barcode]"/>
+                    <label class="">　　　　分类：</label><input class="txt" id="tree_class_show_spec" value="-1" name="search[class_id]" data-options="url:'{:U('GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                    <label class="">　　　　品牌：</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                    <option value="all">全部</option>
+                    <volist name='goods_brand' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                    </select>
+                </div>
+            <!-- </div> -->
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="GoodsSpec.setOutWarehouse()">设置出库仓库</a>
+         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="GoodsSpec.setOutLogistics()">设置出库物流</a>
+         <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="GoodsSpec.setHotCakeSpec()">批量设置爆款单品</a>
+    </div>
+    <script>
+        //# sourceURL=Goods_GoodSpec.js
+        //初始化变量
+        //        //多选时，联动只显示单击的第一条goods_spec
+
+
+        $(function () {
+            $('#tree_class_show_spec').changStyleTreeCombo('tree_class_show_spec');
+            setTimeout(function () {
+                GoodsSpec = new RichDatagrid(JSON.parse('{$params}'));
+                GoodsSpec.setFormData();
+                GoodsSpec.checkboxClick = function (that) {
+                    var check = that;
+                    var value = check.value;
+                    if (value == 0) {
+                        check.value = 1;
+                        check.checked = true;
+                    } else {
+                        check.value = 0;
+                        check.checked = false;
+                    }
+                }
+                GoodsSpec.setOutWarehouse = function(){
+                    var spec_id_list = [];
+                    for(i in this.selectRows){ spec_id_list.push(this.selectRows[i].id) }
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null) 
+                    {
+                        messager.alert('<label style="align:center;font-size:13px;">请选择要设置的货品</label><br><label style="align:center;color:blue;">#若要为<span style="color:red">全部货品</span>设置出库仓库，请至<span style="color:red">[设置]->[策略设置]->[选仓策略]</span>中进行设置#</label>', function(){return false;
+                        })
+                    }else
+                    {
+                        GoodsSpec.chgWareHouse(spec_id_list);
+                    }        
+                }
+                // 设置出库仓库
+                GoodsSpec.chgWareHouse = function(spec_id){
+                    var type='spec';
+                    var dg = 'setSpecOutWarehouse';
+                    var url = "index.php/Goods/GoodsGoods/setOutWarehouse?id=" + spec_id+"&type="+type;
+                    var buttons = [{
+                        text: '确定', handler: function () {
+                            if(submitSetOutWarehouse()){
+                                $('#'+dg).dialog('close');
+                                GoodsSpec.refresh();
+                            }
+                        }
+                    },{
+                        text: '取消', handler: function () {
+                            $('#'+dg).dialog('close');
+                        }
+                    }];
+                     GoodsSpec.showDialog(dg,'设置出库仓库',url,400,550,buttons,null,false);                   
+                }
+                //设置出库物流
+                GoodsSpec.setOutLogistics = function(){
+                    var spec_id_list = [];
+                    for(i in this.selectRows){ spec_id_list.push(this.selectRows[i].id) }
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null)
+                    {
+                        messager.alert('<label style="align:center;font-size:13px;">请选择要设置的货品</label><br><label style="align:center;color:blue;">#若要为<span style="color:red">全部货品</span>设置出库物流，请至<span style="color:red">[设置]->[策略设置]->[物流匹配]</span>中进行设置#</label>', function(){return false;
+                        })
+                    }else
+                    {
+                        GoodsSpec.chgLogistics(spec_id_list);
+                    }
+                }
+                GoodsSpec.chgLogistics = function(spec_id){
+                    var type='spec';
+                    var dg = 'setSpecOutWarehouse';
+                     var url = "index.php/Goods/GoodsGoods/setOutLogistics?id=" + spec_id+"&type="+type;
+                    var buttons = [{
+                        text: '确定', handler: function () {
+                            if(submitSetOutLogistics()){
+                                $('#'+dg).dialog('close');
+                                GoodsSpec.refresh();
+                            }
+                        }
+                    },{
+                        text: '取消', handler: function () {
+                            $('#'+dg).dialog('close');
+                        }
+                    }];
+                    GoodsSpec.showDialog(dg,'设置出库物流',url,400,550,buttons,null,false);
+                }
+
+                GoodsSpec.setHotCakeSpec = function () {
+                    var rows=this.selectRows;
+                    if(rows==undefined){messager.alert('请选择需要设置爆款的单品');return false;}
+                    var dg = "chgHotCake";
+                    var spec_id_list = [];
+                    for(i in this.selectRows){ spec_id_list.push(this.selectRows[i].id) }
+                    var url = "{:U('Goods/GoodsSpec/showHotCakeDialog')}"+"?ids="+spec_id_list;
+                    var buttons = [{
+                        text: '确定', handler: function () {
+                            GoodsSpec.chgHotCake()
+                        }
+                    },{
+                        text: '取消', handler: function () {
+                            $('#'+dg).dialog('close');
+                        }
+                    }];
+                    GoodsSpec.showDialog(dg,'设置爆款单品',url,150,300,buttons,null,false);
+
+                }
+
+            }, 0);
+        });
+        function brandFormatter(value, row, index) {
+            var brand_type = {$map_brand};
+            for (var x in brand_type) {
+                if (brand_type[x]["id"] == value) {
+                    return brand_type[x]["name"];
+                }
+            }
+            return value;
+        }
+
+        function classFormatter(value, row, index) {
+            var class_type = {$map_class};
+            for (var x in class_type) {
+                if (class_type[x]["id"] == value) {
+                    return class_type[x]["name"];
+                }
+            }
+            return value;
+        }
+
+    </script>
+
+</block>
+<block name="dialog">
+    <div id="setSpecOutWarehouse"></div>
+    <div id="chgHotCake"></div>
+</block>
+

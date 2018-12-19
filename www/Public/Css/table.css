@@ -1,0 +1,24 @@
+body{overflow:hidden;}
+#more-a{text-decoration:none;color:#999;}
+.form-div{margin:5px 0 0 0;padding-left:5px;}
+.form-div input,label,select{vertical-align:middle;box-sizing: border-box;}
+.sel{width:130px;}
+.txt{width:130px;height:22px;line-height:22px;}
+.form-div label{font-size: 12px;}
+/*stockin   main-page tool_bar*/
+.sio-td-title {width:75px; text-align: left;}
+.sio-td-title label{
+white-space:nowrap; 
+text-overflow:ellipsis; 
+-o-text-overflow:ellipsis; 
+overflow: hidden; }
+.sio-td-input{width:140px; text-align: left;}
+/*stockin dialog-page tool_bar*/
+
+.sio-dialog-td-title {width:70px; text-align: left;}
+.sio-dialog-td-title label{
+white-space:nowrap; 
+text-overflow:ellipsis; 
+-o-text-overflow:ellipsis; 
+overflow: hidden; }
+.sio-dialog-td-input{width:110px; text-align: left;}

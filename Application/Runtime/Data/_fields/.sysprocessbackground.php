@@ -1,0 +1,1 @@
+a:7:{i:0;s:6:"rec_id";i:1;s:4:"type";i:2;s:9:"object_id";i:3;s:4:"data";i:4;s:7:"created";s:3:"_pk";s:6:"rec_id";s:5:"_type";a:5:{s:6:"rec_id";s:10:"bigint(20)";s:4:"type";s:10:"tinyint(4)";s:9:"object_id";s:7:"int(11)";s:4:"data";s:11:"varchar(40)";s:7:"created";s:9:"timestamp";}}

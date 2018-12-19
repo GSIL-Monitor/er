@@ -1,0 +1,100 @@
+<style type="text/css"> 
+*{ margin:0; padding:0; }
+.form-div-check{margin:5px 0 0 0;padding-left:5px;}
+.form-div-check input{vertical-align:middle;}
+.form-div-check label{vertical-align:middle; display:inline-block; font-size: 12px; width:120px; text-align: left;} 
+</style>
+<div style="overflow:hidden;">
+<form id="quick-check-form">
+<div class="form-div-check">
+<label><input type="checkbox" name="buyer_message_count" value="0"/>无客户备注</label>
+<label><input type="checkbox" name="cs_remark_count" value="0"/>无客服备注</label>
+<label><input type="checkbox" name="discount" value="0"/>无优惠</label>
+</div>
+<div class="form-div-check">
+<label><input type="checkbox" name="invoice_type" value="0"/>无发票</label>
+<label><input type="checkbox" name="receiver_address" value="0"/>收货地址无(村,组)</label>
+</div>
+<!-- <div class="form-div-check">
+<label><input type="checkbox" name="remark_flag_0" value="0"/>灰色旗帜</label>
+<label><input type="checkbox" name="remark_flag_1" value="1"/>红色旗帜</label>
+<label><input type="checkbox" name="remark_flag_2" value="2"/>黄色旗帜</label>
+</div>
+<div class="form-div-check">
+<label><input type="checkbox" name="remark_flag_3" value="3"/>绿色旗帜</label>
+<label><input type="checkbox" name="remark_flag_4" value="4"/>蓝色旗帜</label>
+<label><input type="checkbox" name="remark_flag_5" value="5"/>紫色旗帜</label>
+</div> -->
+<div class="form-div-check">
+<label>下单时间：</label><input class="easyui-datetimebox" data-options="required:true,validType:'datetime'" name="start_time" style="width:145px;"/>
+</div>
+<div class="form-div-check">
+<label>　　　至：</label><input class="easyui-datetimebox" data-options="required:true,validType:'datetime'" name="end_time" style="width:145px;"/>
+</div>
+</form>
+</div>
+<script>
+$(function(){
+	var end=new Date();
+	var start=new Date(end-86400000*7);//默认跨度为一周的时间
+	$("#quick-check-form :input[name='start_time']").val(date2str(start));
+	$("#quick-check-form :input[name='end_time']").val(date2str(end));
+});
+tradeCheck.submitTradeCheckDialog=function(){ 
+	var quick_form=$('#quick-check-form');
+	if(!quick_form.form('validate')){ return false;}
+	var quick_form_data=quick_form.form('get');
+	var start=new Date(quick_form_data['start_time'].replace("-", "/").replace("-", "/"));
+	var end=new Date(quick_form_data['end_time'].replace("-", "/").replace("-", "/"));
+	if(start>end){messager.alert('未找到符合条件的订单');return false;}
+	if(tradeCheck.quickCheck.type==0){
+		//快速审核--选中的订单
+		var rows=tradeCheck.selectRows;
+		if(rows==undefined){messager.alert('请选择审核的订单');return false;}
+		var map_remark_flag={};
+		map_remark_flag.flag=false;
+		for(var i=0;i<6;i++){
+			if(quick_form_data['remark_flag_'+i]!=undefined){
+				map_remark_flag[quick_form_data['remark_flag_'+i]]=quick_form_data['remark_flag_'+i];
+				map_remark_flag.flag=true;
+			}
+		}
+		var arr_rows=[];
+		var trade_time=0;
+		for(var i in rows){
+			if(quick_form_data.buyer_message_count!=undefined&&rows[i].buyer_message_count!=undefined&&parseInt(quick_form_data.buyer_message_count)!=parseInt(rows[i].buyer_message_count)){continue;}
+			if(quick_form_data.cs_remark_count!=undefined&&rows[i].cs_remark_count!=undefined&&parseInt(quick_form_data.cs_remark_count)!=parseInt(rows[i].cs_remark_count)){continue;}
+			if(quick_form_data.discount!=undefined&&rows[i].discount!=undefined&&parseFloat(quick_form_data.discount)!=parseFloat(rows[i].discount)){continue;}
+			if(quick_form_data.invoice_type!=undefined&&rows[i].invoice_type!=undefined&&parseInt(quick_form_data.invoice_type)!=parseInt(rows[i].invoice_type)){continue;}
+			if(quick_form_data.receiver_address!=undefined&&rows[i].receiver_address!=undefined&&(rows[i].receiver_address.indexOf('村')!=-1||rows[i].receiver_address.indexOf('组')!=-1)){continue;}
+			if(map_remark_flag.flag&&rows[i].remark_flag!=undefined&&map_remark_flag[rows[i].remark_flag]==undefined){continue;}
+			trade_time=new Date(rows[i].trade_time);
+			if(trade_time<start||trade_time>end){continue;}
+			arr_rows.push(rows[i]);
+		}
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+		if(arr_rows.length>0){
+			checkTrade(-1,arr_rows);
+		}else{
+			messager.alert('未找到符合条件的订单');return false;
+		}
+	}else{
+		//快速审核--全都订单
+		var json_form=JSON.stringify(quick_form_data);
+		Post(tradeCheck.quickCheck.url,{info:json_form},function(res){
+			tradeCheck.dealDatagridReasonRows(res,undefined);
+		},'JSON');
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+	}
+}
+function date2str(date){  
+    var y = date.getFullYear();  
+    var m = date.getMonth()+1;  
+    var d = date.getDate();  
+    var h = date.getHours();  
+    var min = date.getMinutes();  
+    var sec = date.getSeconds();  
+    var str = y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d)+' '+(h<10?('0'+h):h)+':'+(min<10?('0'+min):min)+':'+(sec<10?('0'+sec):sec);  
+    return str;  
+}  
+</script>

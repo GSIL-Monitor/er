@@ -1,0 +1,47 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div class="form-div">
+<label>入库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockin_no]" />
+<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<label>　货品编号：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+<label>　条形码：</label><input class="easyui-textbox txt" type="text" name="search[barcode]"/>
+<a href="javascript:void(0)" onclick="dialogRefundSpOrder.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="dialogRefundSpOrder.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="dialogRefundSpOrder.loadFormData();">重置</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]" data-options="panelHeight:'100px',editable:false "><volist name='logistics_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　　经办人：</label><select class="easyui-combobox sel" name="search[operator_id]" data-options="panelHeight:'100px',editable:false " ><volist name='employee_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'auto'"> <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</div>
+<script>
+//# sourceURL=dialog_refund_sp_order.js
+        $(function(){setTimeout(function(){
+            dialogRefundSpOrder = new RichDatagrid(JSON.parse('{$params}'));
+            dialogRefundSpOrder.setFormData();
+        },0);});
+        addEditRefund.submitAddSpOrderDialog = function(){
+            var datagrid_id = dialogRefundSpOrder.params.datagrid.id;
+            var sel_row = $('#'+datagrid_id).datagrid('getSelected');
+            if($.isEmptyObject(sel_row)){
+                messager.alert('请选择操作的行');
+                return false;
+            }
+            var old_src_no = addEditRefund.refund_element_arr[26].textbox('getValue');
+            old_src_no = $.trim(old_src_no.replace(/(^,+)|(,+$)/g,''));
+            var old_src_ar = old_src_no.replace(/(^,+)|(,+$)/g,'').split(',');
+            if($.inArray(sel_row.stockin_no,old_src_ar) !=-1){addEditRefund.refund_element_arr[26].textbox('setValue',old_src_no);return;}
+            var new_src_no = (old_src_no)==''?sel_row.stockin_no:old_src_no+','+sel_row.stockin_no;
+            addEditRefund.refund_element_arr[26].textbox('setValue',new_src_no);
+        };
+    </script>
+</block>
+ <block name="dialog">
+ </block>

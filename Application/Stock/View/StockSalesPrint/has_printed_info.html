@@ -1,0 +1,16 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+	<div id="{$tool_bar}" style="padding:5px;height:auto">
+		<a href="javascript:void(0)" id="{$continue_print}" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="newDealBeforePrint('{$type}','{$isMulti}','continue','{$print_dialog_type}')">继续打印</a>
+		<label  style ='color:red;margin-left:50px;'>可能造成重复打印</label>
+   </div>
+</block>
+<block name="dialog">
+</block>
+<block name="tabs">
+</block>
+<block name="script">
+<script>
+//# sourceURL=salesstockout_has_printed_info.js
+</script>
+</block>

@@ -1,0 +1,29 @@
+<div style="margin: 20px 47px;">
+    <div class="stockin_process">
+        <span class="stockinp_start font-blue">采购</span>
+        <span class="stockinp_other font-blue">其他入库</span>
+        <span class="stockinp_return font-blue">退货入库</span>
+        <span class="stockinp_quick font-blue">快速采购</span>
+        <div class="stockinp_purbilling font-green" href="javascript:void(0);" onClick="open_menu('采购开单','index.php/Purchase/PurchaseOrder/show');">
+            <img src="__ROOT__/Public/Image/Process/Trade/inventory_billing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/inventory_billing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/inventory_billing.png'"/>
+            <br/>采购开单
+        </div>
+        <span class="stockinp_save1 font-green-msg">保存</span>
+        <div class="stockinp_purmanagement font-green" href="javascript:void(0);" onClick="open_menu('采购单管理','index.php/Purchase/PurchaseManagement/show');">
+            <img src="__ROOT__/Public/Image/Process/Trade/inventory_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management.png'"/>
+            <br/>采购单管理
+        </div>
+        <span class="stockinp_check font-green-msg">审核采购单</span>
+        <div class="stockinp_inbilling font-green" href="javascript:void(0);" onClick="open_menu('入库开单','index.php/Stock/StockInOrder/show');">
+            <img src="__ROOT__/Public/Image/Process/Trade/stockin_billing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/stockin_billing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/stockin_billing.png'"/>
+            <br/>入库开单
+        </div>
+        <span class="stockinp_save2 font-green-msg">保存</span>
+        <div class="stockinp_inmanagement font-green" href="javascript:void(0);" onClick="open_menu('入库单管理','index.php/Stock/StockInManagement/getStockInSpec');">
+            <img src="__ROOT__/Public/Image/Process/Trade/inventory_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management.png'"/>
+            <br/>入库单管理
+        </div>
+        <span class="stockinp_submit font-green-msg">提交</span>
+        <span class="stockinp_finish font-orange">完成</span>
+    </div>
+</div>

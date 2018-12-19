@@ -1,0 +1,36 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]"/>
+                <label   style="width: 60px;display: inline-block;">热敏类型</label>
+                <select class="easyui-combobox sel"
+                        name="search[bill_type]"
+                        data-options="panelHeight:'auto',editable:false, required:true"
+                        style="width:100px;">
+                    <option value="all">全部</option>
+                    <option value="1">线下热敏</option>
+                    <option value="2">云栈热敏</option>
+                </select>
+                <label>单号状态：</label><input class="easyui-combobox sel" name="search[status]" id="status" style="width:100px;  "data-options="valueField:'id',textField:'name',data:formatter.get_data('history_stock_logistics_no_status')"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="historystocklogno_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="historystocklogno_obj.loadFormData();">重置</a>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=historystocklogno_obj.js
+        $(function () {
+            setTimeout(function () {
+                historystocklogno_obj = new RichDatagrid(JSON.parse('{$params}'));
+                historystocklogno_obj.setFormData();
+            }, 0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>

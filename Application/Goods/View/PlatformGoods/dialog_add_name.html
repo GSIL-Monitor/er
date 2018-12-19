@@ -1,0 +1,48 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="datagrid">
+    <div class="form-div">
+        <form method="post" id="{$params.form_id}" style="padding:20px 45px 20px 45px">
+            <span>快捷策略名：</span>
+            <input class="easyui-textbox txt" id='shortcut_strategy_name' type="text" name="shortcut_strategy_name" data-options="required:true"/>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script>
+        $(function()
+        {
+            platform_goods.add_shortcut_dialog = function () {
+                var form = $("#{$params.form_id}");
+                var dialog = $("#shortcut_strategy_name");
+                var dg = $("#{$params.id_datagrid}");
+                if (!form.form("validate")) {
+                    return false;
+                }
+                form.form('options').queryParams = {};
+                var params = form.form('get');
+                var name = params.shortcut_strategy_name;
+                params.data  = {$data};
+                /*var data = [];
+                data.push({"text":'无',"id":0});
+                var list = ({$list});
+                for(i in list){
+                    data.push({"text":list[i]['code'],"id":list[i]['rec_id']});
+                }*/
+
+                $.post("{:U('Goods/PlatformGoods/addShortcutStrategy')}",params, function (res) {
+                    dialog.dialog("close");
+                    $('#platform_goods_Strategy_edit').dialog('close');
+                    /*data.push({"text": name,"id" : res.id});
+                    $('#shortcut_strategy').combobox('loadData',data);*/
+                    messager.alert(res.info);
+
+                },'json')
+            }
+        })
+
+
+    </script>
+</block>

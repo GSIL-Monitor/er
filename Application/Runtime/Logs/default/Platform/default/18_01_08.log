@@ -1,0 +1,16 @@
+2018-01-08 00:07:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-01-08 00:07:44	PHP Error Severity: 8 --> Undefined index: name E:\wamp\www\test\trunk\source\Application\Platform\WayBill\newtop.php 1315
+2018-01-08 00:07:44	PHP Error Severity: 8 --> Undefined index: name E:\wamp\www\test\trunk\source\Application\Platform\WayBill\newtop.php 1317
+2018-01-08 00:07:44	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 792
+2018-01-08 00:07:44	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 30
+2018-01-08 00:07:44	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 40
+2018-01-08 00:07:44	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-08 00:07:44	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-08 00:08:18	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-01-08 00:08:18	PHP Error Severity: 8 --> Undefined index: name E:\wamp\www\test\trunk\source\Application\Platform\WayBill\newtop.php 1315
+2018-01-08 00:08:18	PHP Error Severity: 8 --> Undefined index: name E:\wamp\www\test\trunk\source\Application\Platform\WayBill\newtop.php 1317
+2018-01-08 00:08:19	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 792
+2018-01-08 00:08:19	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 30
+2018-01-08 00:08:19	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 40
+2018-01-08 00:08:19	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-08 00:08:19	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245

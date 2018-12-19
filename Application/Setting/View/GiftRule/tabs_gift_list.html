@@ -1,0 +1,36 @@
+<extend name="../../Common/View/datagrid_tabs_base" /> 
+<block name="tabs"></block> <block name="dialog"> </block> 
+<block name="toolbar"> 
+<div id="{$id_list.toolbar}">
+<a href="#" name="menu-select-gift-list" class="easyui-menubutton" data-options="menu:'#mbut-select-gift-list'">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="giftRule.tabDatagrid['{$datagrid.id}'].remove()">删除</a>
+<label style="padding:3px;border:2px solid #00f;"><input type="checkbox" id="random" name="is_random" value="0" onclick="randomGift()"/>随机赠送赠品</label>
+<label style="color: red;margin-left:10px;">(注:默认赠送以下所有货品，选择随机赠品则按照赠品分组，每个分组随机选一个赠品赠送。)</label>
+<div id="mbut-select-gift-list"><div>添加单品</div><div>添加组合装</div></div>
+</div>
+<script type="text/javascript">
+//添加--赠品
+$($(".easyui-menubutton[name='menu-select-gift-list']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 switch(item.text){
+	 case '添加单品':
+		 $('#{$id_list.add}').richDialog('goodsSpec', giftRule.addSpec, {'prefix':'add_spec_gift','type':true,'warehouse_id':'all','model':'rule'}, false);
+		 break;
+	 case '添加组合装':
+		 $('#{$id_list.add}').richDialog('goodsSuite', giftRule.addSuite, 'add_suite_gift', false);
+		 break;
+	 }}
+});
+function randomGift(){
+	if($('#random').is(':checked')){
+		$('#random').val(1);$("#is_random").val(1);
+		$('#'+giftRule.tabDatagrid[3]).datagrid('showColumn', 'gift_group'); 
+		$('#'+giftRule.tabDatagrid[3]).datagrid('reload');
+	}else{
+		$('#random').val(0);$("#is_random").val(0);
+		$('#'+giftRule.tabDatagrid[3]).datagrid('hideColumn', 'gift_group'); 
+		$('#'+giftRule.tabDatagrid[3]).datagrid('reload');
+	}
+}
+</script>
+</block> 

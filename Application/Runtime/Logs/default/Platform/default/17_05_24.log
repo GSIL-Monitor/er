@@ -1,0 +1,519 @@
+2017-05-24 14:47:51	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:47:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:51:59	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:51:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:52:20	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:52:20	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:58:15	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:58:15	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:59:59	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 14:59:59	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:00:21	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:00:21	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:00	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:00	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:22	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 244
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 254
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:07:22	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 258
+2017-05-24 15:13:36	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:36	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:58	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:13:58	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:14:45	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:14:45	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:07	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=ekb): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:07	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:29	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=ekb): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:29	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:51	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=ekb): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 252
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 253
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 256
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:15:51	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 257
+2017-05-24 15:16:52	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6200c29c8b12260ba7eaa5d98d4c1e0f5e61acea1e8c91f90258759
+    [user_id] => 90258759
+)
+
+2017-05-24 15:16:53	["2017-05-24 15:16:53","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dkewfcdpgm\"}}"]
+2017-05-24 15:16:53	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-24 15:16:53	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-24 15:25:26	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:25:26	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:25:26	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:25:26	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:25:30	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:25:30	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:25:30	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:25:31	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:25:34	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:25:34	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:25:34	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:25:34	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:35:55	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:35:55	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:35:55	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:35:56	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:35:59	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:35:59	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:35:59	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:35:59	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:36:03	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:36:03	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:36:03	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:36:03	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:36:08	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:36:08	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:36:08	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:36:08	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:36:11	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:36:11	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:36:11	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 15:37:02	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:02	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:02	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:02	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:05	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:05	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:05	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:05	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:09	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:09	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:09	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:09	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:12	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:12	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:12	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:12	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:15	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:15	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:15	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:15	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:23	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:23	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:23	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:23	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:33	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:33	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:33	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:33	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:40	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:40	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:40	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:40	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:43	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:43	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:43	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:43	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:47	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:48	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:48	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:48	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:50	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:50	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:50	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:50	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:53	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:53	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:53	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:53	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:37:57	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:37:58	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:37:58	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:37:58	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:00	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:00	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:00	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:00	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:11	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:11	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:11	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:11	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:14	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:14	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:14	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:14	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:17	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:17	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:17	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:17	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:21	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:21	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:21	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:21	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:23	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:24	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:24	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:24	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:26	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:26	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:26	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:26	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:29	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:29	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:29	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:29	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:35	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:35	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:38:35	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:38:35	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:42	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:43	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:43	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 15:38:56	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:38:56	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:38:56	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 15:39:09	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:39:09	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:39:09	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:39:09	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 201
+2017-05-24 15:39:09	PHP Error Severity: 8 --> Undefined variable: contents C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 205
+2017-05-24 15:39:09	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:39:13	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:39:13	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:39:13	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:39:13	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:39:15	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:39:15	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:39:15	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 15:53:48	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:53:48	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 15:53:48	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 15:56:57	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 15:56:57	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 15:56:57	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 15:56:57	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 16:26:44	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 16:26:44	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 16:26:45	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 16:26:45	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 16:26:51	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 16:26:51	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-24 16:26:51	PHP Error Severity: 8 --> Undefined variable: stdTemplates C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 24
+2017-05-24 16:31:36	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-24 16:31:36	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-24 16:31:36	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-24 16:31:36	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15

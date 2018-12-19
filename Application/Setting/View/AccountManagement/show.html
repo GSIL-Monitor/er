@@ -1,0 +1,179 @@
+<table id="employee_datagrid" ></table>
+<div id="employee_dialog_toolbar" >
+    <form id="employee_dialog_form" method="post">
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">账&nbsp;&nbsp;&nbsp;号:</label><label style="color:#FF0000;">*</label>
+            <input class="easyui-textbox txt"
+                   type="text" name="account" id="accountmanagement_account"
+                   style="width:150px;"
+                   data-options="required:true,validType:'englishOrNum'"
+                   missingMessage="不能为空"/>
+            <label   style="width: 60px;display: inline-block;">姓&nbsp;&nbsp;&nbsp;名:</label>
+            <label style="color:#FF0000;">*</label><input class="easyui-textbox"
+                   type="text"
+                   name="fullname"
+                   id="accountmanagement_fullname"
+                   style="width:150px;"
+                   data-options="required:true,validType:'chineseOrEngOrNum'"
+                   missingMessage="不能为空"/>
+            </div>
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">职&nbsp;&nbsp;&nbsp;位:</label>
+            <label style="margin-left:7px;"></label><input class="easyui-textbox"
+                   type="text"
+                   name="position"
+                   style="width:150px;"
+                   data-options="validType:'loginName'"
+                   invalidMessage="只允许汉字、英文字母、数字及下划线"
+                   /><label style="color:#FF0000;display:none;">*</label>
+            <label style="width: 60px;display: inline-block;">手&nbsp;&nbsp;&nbsp;机:</label>
+            <label style="color:#FF0000;">*</label><input class="easyui-textbox"
+                   type="text"
+                   name="mobile_no"
+                   style="width:150px;"
+                   data-options="required:true,validType:'mobile'"
+                   invalidMessage="请填写手机号"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q:</label>
+            <label style="margin-left:7px;"></label><input class="easyui-textbox"
+                   type="text"
+                   name="qq"
+                   style="width:150px;"
+                   data-options="validType:'QQ'"
+                   missingMessage="不能为空"/><label style="color:#FF0000;display:none;">*</label>
+            <label style="width: 60px;display: inline-block;">旺&nbsp;&nbsp;&nbsp;旺:</label>
+            <label style="margin-left:7px;"></label><input class="easyui-textbox"
+                   type="text"
+                   name="wangwang"
+                   style="width:150px;"
+                   data-options="validType:'englishOrNum'"
+                   invalidMessage="请输入英文或数字"
+                   missingMessage="不能为空"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">邮&nbsp;&nbsp;&nbsp;箱:</label>
+            <label style="margin-left:7px;"></label><input class="easyui-textbox"
+                   type="text"
+                   name="email"
+                   style="width:150px;"
+                   data-options="validType:'email'"
+                   missingMessage="不能为空"/><label style="color:#FF0000;display:none;">*</label>
+            <label   style="width:60px;display: inline-block;">性&nbsp;&nbsp;&nbsp;别:</label>
+           <label style="margin-left:7px;"></label><input class="easyui-combobox sel"
+                    name="gender"
+                    data-options="panelHeight:'auto',editable:false, required:true,valueField:'id',textField:'name',data:formatter.get_data('sex','def')"
+                    style="width:150px;"/>
+        </div>
+
+			<div class="form-div" id="pwd">
+				<label style="width: 60px;display: inline-block;">新密码:&nbsp;&nbsp;</label>
+				<label style="margin-left:7px;"></label><input id="accountmanagement_password" style="width:150px;" name="password" type="password" class="easyui-textbox"  data-options="required:false,validType:'password'" /> <label style="color:#FF0000;display:none;">*</label>  
+				
+				<label style="width: 60px;display: inline-block;">确&nbsp;认&nbsp;密&nbsp;码:</label>
+				<label style="margin-left:7px;"></label><input id="accountmanagement_repassword" style="width:150px;" name="repassword" type="password" class="easyui-textbox" missingMessage="两次输入的密码不匹配" data-options="required:false,validType:'equalTo[\'#accountmanagement_password\']'"/>  
+			</div>
+		<div class="form-div" style="width:150px;display:none;">
+            <input  class="easyui-textbox"   type="text" name="id" />
+        </div>
+    </form>
+    <input id="accountmanagement_mobile" type="hidden" value="{$mobile}"/>
+	<label style = "color:#FF0000;margin-left:5px;">*表示是必填项</label>
+</div>
+<block name="dialog">
+    <div id="accountmanagement_dialog"></div>
+</block>
+<script>
+    //# sourceURL=employee.js
+    $(function(){
+        setTimeout(function () {
+            $('#employee_dialog_form').form('load', {$form});
+            if("{$user_id}" == '1'){
+                $('#accountmanagement_account').textbox('textbox').attr('disabled',true);
+                $('#accountmanagement_fullname').textbox('textbox').attr('disabled',true);
+            }
+
+
+        },0);
+    });
+
+
+    function submitMenuDialog() {
+        var form = $("#employee_dialog_form");
+        if (!form.form('validate')) {
+            return 1;
+        }
+        var pwd = $('#accountmanagement_password').val();
+        var repwd = $('#accountmanagement_repassword').val();
+        if (pwd != repwd) {
+            messager.info('两次输入的密码不匹配');
+            return 1;
+        }
+        var data = form.form('get');
+        if (data.password != '') {
+            data.password = $.md5(data.password);
+        }
+        data.account = $('#accountmanagement_account').val();
+        data.fullname = $('#accountmanagement_fullname').val();
+        var old_mobile = $('#accountmanagement_mobile').val();
+        if (data.mobile_no != old_mobile) {
+            var url = "{:U('Setting/AccountManagement/checkChangeMobile')}";
+            if(old_mobile == ''){
+                url += "?mobile=" + data.mobile_no;
+            }
+            $("#accountmanagement_dialog").dialog({
+                title: "手机号验证",
+                width: 350,
+                height: 160,
+                modal: true,
+                closed: false,
+                inline: true,
+                href: url,
+                buttons: [{
+                    text: '确定', handler: function () {
+                        var code = submitAccountManagementDialog();
+                        if(code !== false){
+                            saveAccountChange(data, code);
+                        }
+                    }
+                }, {
+                    text: '取消', handler: function () {
+                        $("#accountmanagement_dialog").dialog('close');
+                    }
+                }],
+                onBeforeClose: function(){
+                    setTime.count=0;
+                    setTime.send=false;
+                }
+            });
+        }else{
+            return saveAccountChange(data, '');
+        }
+        return 1;
+    }
+    function saveAccountChange(data, code){
+        data.code = code;
+		$.post("{:U('Setting/AccountManagement/saveEmployee')}",data,function(res){
+			messager.info(res.info);
+			if(res.status == 0){
+                if(code != ''){
+                    $('#accountmanagement_dialog').dialog('close');
+                }
+				$('#reason_show_dialog').dialog('close');
+			}
+		});
+		return 1;
+	}
+    function sendCodeByMobile(form,mobile){
+        var data = {};
+        data.mobile = mobile;
+        $.post("{:U('Setting/AccountManagement/sendCodeByMobile')}",data,function(res){
+            if(res.status==1){messager.alert(res.info);return;}
+            setTime.send=true;
+            $('.account-input-msg').html('<span style="color:green;">'+res.info+'</span>')
+        });
+        setTime.init($('.'+form+' a'),$('.'+form+' .l-btn-text'));
+    }
+	
+	
+</script>

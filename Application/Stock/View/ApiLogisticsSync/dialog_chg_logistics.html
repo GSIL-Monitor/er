@@ -1,0 +1,102 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        //@ sourceURL=chg_logistics.js
+        /* var apiLogSynChgLogistics = {
+         dialog_id: '{$params.dialog_id}',
+         datagrid_id: '{$params.datagrid_id}',
+         rec_id: '{$params.rec_id}',
+         form_id: '{$params.form_id}',
+         form_url: '{$params.form_url}',
+
+         save: function () {
+         var that = this;
+         $('#' + this.form_id).form('options').queryParams['rec_id'] = this.rec_id;
+         $("#" + this.form_id).form('submit', {
+         //url:'index.php/Stock/ApiLogisticsSync/chgLogistics',
+         url: this.form_url,
+         success: function (data) {
+         var result = JSON.parse(data);
+         if (result['status'] == 1) {
+         messager.alert(result['info']);
+         }
+         else {
+         $('#' + that.dialog_id).dialog('close');
+         var row = $('#' + that.datagrid_id).datagrid('getSelected');
+         var index = $('#' + that.datagrid_id).datagrid('getRowIndex', row);
+         row['logistics_id'] = result['info']['logistics_id'];
+         row['logistics_no'] = result['info']['logistics_no'];
+         $('#' + that.datagrid_id).datagrid('updateRow', {index: index, row: row});
+
+         }
+         }
+         });
+
+         },
+         cancel: function () {
+         $('#' + this.dialog_id).dialog('close');
+         }
+         }*/
+        apiLogisticsSync.submitChg = function () {
+            var form = $("#{$params.form_id}");
+            var url = "{$params.form_url}";
+            var dialog = $("#{$params.chg_dialog}");
+            var dg = $("#{$params.id_datagrid}");
+            if (!form.form("validate")) {
+                return false;
+            }
+			form.form('options').queryParams = {};
+			var api_chg_params = form.form('get');
+			$.post(url,api_chg_params,function (res) {
+                    //res = JSON.parse(res);
+                    if (res.status == 0) {
+                        messager.alert(res.info);
+                    } else {
+                        var row = dg.datagrid("getSelected");
+                        var index = dg.datagrid("getRowIndex", row);
+                        row["logistics_id"] = res["info"]["logistics_id"];
+                        row["logistics_no"] = res["info"]["logistics_no"];
+                        dg.datagrid("updateRow", {index: index, row: row});
+                        dialog.dialog("close");
+                    }
+                },'json');        
+            /*form.form("submit", {
+                url: url,
+                success: function (res) {
+                    res = JSON.parse(res);
+                    if (res.status == 0) {
+                        messager.alert(res.info);
+                    } else {
+                        var row = dg.datagrid("getSelected");
+                        var index = dg.datagrid("getRowIndex", row);
+                        row["logistics_id"] = res["info"]["logistics_id"];
+                        row["logistics_no"] = res["info"]["logistics_no"];
+                        dg.datagrid("updateRow", {index: index, row: row});
+                        dialog.dialog("close");
+                    }
+                }
+            });*/
+        }
+    </script>
+</block>
+<block name="datagrid">
+    <div class="form-div">
+        <form method="post" id="{$params.form_id}" style="padding:20px 45px 20px 45px">
+            <div style="display: none;"> <input hidden="true" name="rec_id" value="{$params.rec_id}"/> </div>
+
+            <div class="form-div" style="margin-bottom:10px">
+                <label>物流公司：</label><select class="easyui-combobox sel" name="logistics_id">
+                <volist name='list_logistics' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+            </div>
+            <div class="form-div">
+                <label>物流编号：</label><input class="easyui-textbox txt" type="text" name="logistics_no" data-options="required:true" missingMessage="物流编号不能为空"/>
+            </div>
+        </form>
+    </div>
+</block>

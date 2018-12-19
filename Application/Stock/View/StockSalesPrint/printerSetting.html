@@ -1,0 +1,32 @@
+
+<div style="margin-top:10px;margin-left:10px">
+	<label style="margin-left:5px"></label>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="cainiaoPrintSetting()">菜鸟组件</a>
+	<label style="margin-left:5px"></label>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="setPrinter()">打印机设置</a>
+</div>
+<div style="margin-top:10px;margin-left:10px">
+	<label style="margin-left:5px;margin-right:25px;">预览显示格式：</label><input id="preview_format" class="easyui-combobox txt" text="txt" name="preview_format" data-options="panelHeight:80,width:65,valueField:'id',textField:'name',data:[{'id':'pdf','name':'PDF'},{'id':'image','name':'图片'}],editable:false">
+</div>
+<div style="margin-top:10px;margin-left:10px">
+	<label style="margin-left:5px;margin-right:13px;">金额小数点位数：</label><input id="new_old_print_point_number" class="easyui-combobox txt" text="txt" name="point_number" data-options="width:65,valueField:'id',textField:'name',data:[{'id':'0','name':'0'},{'id':'1','name':'1'},{'id':'2','name':'2'},{'id':'3','name':'3'},{'id':'4','name':'4'}],editable:false">
+</div>
+<div style="margin-top:10px;margin-left:10px">
+	<label style="margin-left:5px;margin-right:25px;">货品显示顺序：</label><input id="goods_show_order" class="easyui-combobox txt" text="txt" name="goods_order" data-options="width:140,valueField:'id',textField:'name',data:[{'id':'0','name':'按名称排序'},{'id':'1','name':'货品在前，赠品在后'},{'id':'2','name':'按货位排序'}],editable:false">
+</div>
+	<script>
+$(function(){
+	setTimeout(function(){
+		var point_number = {$print_price_point_num};
+		var preview_format = "{$preview_format}";
+		var goods_order = "{$goods_order}";
+		point_number==undefined?point_number='4':point_number=point_number;
+		preview_format==undefined?preview_format='image':preview_format=preview_format;
+        goods_order==undefined?goods_order='0':goods_order=goods_order;
+		$('#new_old_print_point_number').combobox('select',point_number);
+		$('#preview_format').combobox('select',preview_format);
+		$('#goods_show_order').combobox('select',goods_order);
+	},0);
+});
+</script>
+</div>

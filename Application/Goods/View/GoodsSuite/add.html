@@ -1,0 +1,138 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div class="form-div">
+                <label class="five-character-width">组合装名称</label><input class="easyui-textbox txt" type="text" name="suite_name" data-options="required:true,validType:'length[1,255]'" missingMessage="不能为空"/>
+                <label class="five-character-width">商家编码</label><input class="easyui-textbox txt" type="text" name="suite_no" data-options="required:true,validType:['length[1,30]','check_merchant_no']" missingMessage="不能为空"/>
+                <label class="five-character-width">条形码</label><input class="easyui-textbox txt" type="text" name="barcode"/>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">品牌</label><select class="easyui-combobox sel" name="brand_id" data-options="editable:false">
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <label class="five-character-width">分类</label><input class="easyui-combotree txt" id="goods_suite_add_tree" value="0" name="class_id" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=',method:'post',required:true"/>
+                <label class="five-character-width">重量</label><input class="easyui-numberbox txt" type="text" name="weight" data-options="validType:'number',min:0,precision:4"/>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">零售价</label><input class="easyui-textbox txt" type="text" name="retail_price" data-options="validType:'number'"/>
+                <label class="five-character-width">市场价</label><input class="easyui-numberbox txt" type="text" name="market_price" data-options="validType:'number'"/>
+                <label class="five-character-width">备注</label><input class="easyui-textbox txt" type="text" name="remark"/>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">打印内容</label><input class="easyui-combobox txt" name="is_print_suite" data-options="valueField:'id',textField:'name',data:formatter.get_data('suit_print_type')" />
+            </div>
+        </form>
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="$('#'+'{$id_list.select}').richDialog('goodsSpec', goods_suite_add.save, {'prefix':'goods_suite_add'})">添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="goods_suite_add.remove()">删除</a>
+            <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="goods_suite_add.accept()">保存</a>-->
+            <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="goods_suite_add.reject()">撤销</a>-->
+        </div>
+    </div>
+</block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        //# sourceURL=GoodsSuite_add.js
+        $(function () {
+            $('#goods_suite_add_tree').changStyleTreeCombo('goods_suite_add_tree');
+            $('#goods_suite_add_tree').combotree({
+                onBeforeSelect: function (node) {
+                    if (node.attributes == 0) {
+                        return false;
+                    }
+                },
+                onClick: function (node) {
+                    if (node.attributes == 0) {
+                        $('#goods_suite_add_tree').combo('showPanel');
+                    }
+                }
+            });
+        });
+        $(function () {
+            setTimeout(function () {
+                var dg = $("#" + "{$id_list['datagrid']}");
+                dg.datagrid("options").onEndEdit = add_init_ratio;
+                goods_suite_add = new ThinDatagrid(dg, undefined, false);
+                goods_suite_add.save = function () {
+                    var goodsSpecDg = $("#goods_suite_add_sub_goods_spec_select_datagrid");
+                    var goodsSuiteAddDg = $("#" + "{$id_list['datagrid']}");
+                    var goodsSuiteAddData = goodsSuiteAddDg.datagrid("getData");
+                    var goodsSpecData = goodsSpecDg.datagrid("getData");
+                    var dialog = $("#" + "{$id_list.select}");
+                    goodsSuiteAddDg.datagrid("acceptChanges");
+                    for (var x in goodsSpecData.rows) {
+                        if (typeof(goodsSpecData.rows[x]) != "undefined" || typeof(goodsSpecData.rows[x]) != "function") {
+                            var temp = true;
+                            for (var y in goodsSuiteAddData.rows) {
+                                if (goodsSuiteAddData.rows[y].spec_id == goodsSpecData.rows[x].id) {
+                                    var index = goodsSuiteAddDg.datagrid("getRowIndex", goodsSuiteAddData.rows[y]);
+                                    goodsSuiteAddData.rows[y].num = parseFloat(goodsSuiteAddData.rows[y].num) +  parseFloat(goodsSpecData.rows[x].num);
+                                    goodsSuiteAddDg.datagrid("updateRow", {
+                                        index: index,
+                                        row: goodsSuiteAddData.rows[y]
+                                    });
+                                    temp = false;
+                                    break;
+                                }
+                            }
+                            if (temp) {
+                                goodsSpecData.rows[x].spec_id = goodsSpecData.rows[x].id;
+                                goodsSpecData.rows[x].num = parseFloat(goodsSpecData.rows[x].num);
+                                goodsSpecData.rows[x].ratio = 0;
+                                goodsSpecData.rows[x].is_fixed_price = 0;
+                                goodsSuiteAddDg.datagrid("appendRow", goodsSpecData.rows[x]);
+                            }
+                        }
+                    }
+                    dialog.dialog("close");
+                    add_init_ratio();
+                };
+                goods_suite_add.remove = function () {
+                    var goodsSuiteAddDg = $("#" + "{$id_list['datagrid']}");
+                    var row = goodsSuiteAddDg.datagrid("getSelected");
+                    if (typeof(row) == "undefined") {
+                        messager.alert("请选择操作的行！");
+                    }
+                    var index = goodsSuiteAddDg.datagrid("getRowIndex", row);
+                    goodsSuiteAddDg.datagrid("deleteRow", index);
+                    add_init_ratio();
+                }
+            }, 0);
+        });
+        //修改组合装金额占比联动
+        function add_init_ratio() {
+            var dg = $("#{$id_list.datagrid}");
+            var data = dg.datagrid("getData").rows;
+            var sumPrice = 0;
+            for (var i in data) {
+                if (data[i].is_fixed_price == 0) {
+                    data[i].sumPrice = data[i].retail_price * data[i].num;
+                    sumPrice += data[i].sumPrice;
+                } else {
+                    data[i].ratio = 0;
+                }
+            }
+            if (sumPrice == 0) return;
+            var sumRatio = 1;
+            for (var i in data) {
+                if (data[i].is_fixed_price == 0) {
+                    data[i].ratio = Math.round(data[i].sumPrice / sumPrice * 10000) / 10000;
+                    delete data[i].sumPrice;
+                    sumRatio -= data[i].ratio;
+                }
+            }
+            for (var i in data) {
+                if (data[i].is_fixed_price == 0) {
+                    data[i].ratio = Math.round((data[i].ratio + sumRatio) * 10000) / 10000;
+                    break;
+                }
+            }
+            dg.datagrid("loadData", data);
+        }
+    </script>
+</block>

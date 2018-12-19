@@ -1,0 +1,116 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<!-- /*
+**created by gaosong
+ */ -->
+<block name="dialog">
+    <div id="{$id_list.help_id}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="statistics-form" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>店铺:</label>
+                <select class="easyui-combobox sel" name="search[shop_id]" id="sales_daily_shop_id" data-options="panelHeight:'100px'">
+                    <option value="all">全部</option>
+                    <volist name='shop_array' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>&emsp;从&emsp;</label><input id="{$id_list.dailystat_start}" class="easyui-datebox txt" type="text" name="search[day_start]" value={$current_date} />
+                <label>到&emsp;</label><input id="{$id_list.dailystat_end}" class="easyui-datebox txt" type="text" name="search[day_end]" value={$current_date} />
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="dailystst_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="dailystst_obj.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true"
+                   onclick="dailystst_obj.exportToExcel()">导出到Excel</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/SalesAmountDailyStat','stat_sales_daysell','{$datagrid.id}')">设置表头</a>
+
+                <label style="color: red">&emsp;&emsp;最后更新时间: {$update_time}</label>
+                <label class="form-div">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" title="点击查看统计说明" data-options="iconCls:'icon-help',plain:true" onclick="dailystst_obj.readHelp()">查看说明</a>
+                </label>
+
+            </div>
+
+        </form> 
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=dailystst_obj.js
+        var dailystst_id_json_str = '{$params}';
+        var dailystst_id_json_obj = JSON.parse(dailystst_id_json_str);
+        var dailystst_obj;
+        $(function () {
+            setTimeout(function () {
+                dailystst_obj = new RichDatagrid(dailystst_id_json_obj);
+                dailystst_obj.setFormData();
+
+                var datagrid_id = dailystst_obj.params.datagrid.id;
+                $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+                    var page_size = $(this).datagrid('options').pageSize ;
+
+                    if (row.sales_date == '合计'){
+                        return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                    }
+                }});
+                $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+                    var rows = $(this).datagrid('getRows');
+                    var stat_fields = [
+                        'new_trades',
+                        'new_trades_amount',
+                        'check_trades',
+                        'check_trades_amount',
+                        'send_trades',
+                        'send_trades_amount',
+                        'send_unknown_goods_amount',
+                        'send_goods_cost',
+                        'commission',
+                        'other_cost',
+                        'send_trade_profit',
+                        'post_amount',
+                        'post_cost',
+                        'post_profit',
+                        'package_cost',
+                    ];
+                    var append_row = {};
+                    append_row['sales_date'] = '合计';
+                    statAmountDailySalesTotalCompute(rows,stat_fields,append_row);
+                    $(this).datagrid('appendRow',append_row);
+                }});
+            dailystst_obj.exportToExcel = function(){
+                    var url= "{:U('SalesAmountDailyStat/exportToExcel')}";
+                    var search=JSON.stringify($('#statistics-form').form('get'));
+                    var data = $("#{$datagrid.id}").datagrid("getData");
+                    if(data.total==1){
+                        messager.confirm('导出不能为空！');
+                    }                 
+                    else{
+                            messager.confirm('确定导出搜索的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?search='+search);
+                        })
+                    }
+                }
+
+
+});
+        });
+            function statAmountDailySalesTotalCompute(page_rows,arr_fields,append_row) {
+                var rows = page_rows;
+                for(var index in arr_fields)
+                {
+                    var field = arr_fields[index];
+                    append_row[field] = 0;
+                    for (var i = 0; i < rows.length; i++) {
+                        append_row[field] += parseFloat(rows[i][field]);
+                    }
+                    append_row[field] = append_row[field].toFixed(4);
+                }
+
+            }
+
+    </script>
+</block>
+<block name="tabs">
+</block>

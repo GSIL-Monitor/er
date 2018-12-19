@@ -1,0 +1,82 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div><div id="{$id_list.change}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>省：</label><input id="logistics-match-province" class="easyui-combobox txt" name="search[province]"/>
+<label>市：</label><input id="logistics-match-city" class="easyui-combobox txt" name="search[city]"/>
+<label>区：</label><input id="logistics-match-district" class="easyui-combobox txt" name="search[district]"/>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="logisticsMatch.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="logisticsMatch.resetForm();">重置</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</label>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="logisticsMatch.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="logisticsMatch.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="logisticsMatch.remove()">删除</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="logisticsMatch.changeMode()">修改匹配模式(谨慎)</a>
+<span style='color:red;fond-size:14px;'>#修改物流匹配模式将会删除现有模式下的所有策略，请谨慎操作!#</span>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		var logisticsMatchArea=getLogisticsMatchArea();	
+		var model='{$model}';	
+		logisticsMatch=new RichDatagrid(JSON.parse('{$params}')); 
+		logisticsMatch.setFormData();
+		logisticsMatch.resetForm=function(){
+			logisticsMatch.loadFormData();
+			logisticsMatchArea.selfP.combobox("setValue", 0);
+			logisticsMatchArea.selfC.combobox("loadData", logisticsMatchArea.getArea("city", 0, 1));
+			logisticsMatchArea.selfC.combobox("setValue", 0);
+			logisticsMatchArea.selfD.combobox("loadData", logisticsMatchArea.getArea("district", 0, 1));
+			logisticsMatchArea.selfD.combobox("setValue", 0);
+		}
+		logisticsMatch.changeMode=function(){			
+        	var url = "{:U('LogisticsMatch/changeLogisticsMatchModel')}";
+        	var buttons=[
+         		{text:'确定',handler:function(){logisticsMatch.changeLogisticsMatchModel()}},
+        		{text:'取消',handler:function(){logisticsMatch.cancelDialog();}}
+       		];
+       		logisticsMatch.showDialog(0,'修改匹配模式',url,150,250,buttons);  
+		}
+		logisticsMatch.changeColumn=function(m){
+			if (m==1) {
+				$("#{$datagrid.id}").datagrid('hideColumn', 'shop_target_id');
+				$("#{$datagrid.id}").datagrid('showColumn', 'warehouse_target_id');
+			}else{
+				$("#{$datagrid.id}").datagrid('showColumn', 'shop_target_id');
+				$("#{$datagrid.id}").datagrid('hideColumn', 'warehouse_target_id');
+			}
+		}
+		logisticsMatch.changeColumn(model);
+	}, 0); 
+});
+
+function formatterLogisticsArea(value, row, index){
+	var path='';
+	if(!!value){
+		var map=value.split(row.target+'#');
+		for(var i=1;i<map.length;i++){
+			if(i>1){path+=' / ';}
+			var add=map[i].split(',');
+			if(!add[1]){add[1]=0;}
+			if(!add[2]){add[2]=0;}
+			if(!add[3]){add[3]=0;}
+			path+=(add[1]==0?'全国':area.province(add[1]))+' '+area.city(add[2])+' '+area.district(add[3]);
+		}
+	}
+	return path;
+}
+function getLogisticsMatchArea(){
+	var logisticsMatchArea = new area("logistics-match-province", "logistics-match-city", "logistics-match-district"); 
+	var prov_data=logisticsMatchArea.selfP.combobox("getData"); prov_data[0]={"id": "0", "name": "全国"}; logisticsMatchArea.selfP.combobox("loadData", prov_data);
+	return logisticsMatchArea;
+}
+</script>
+</block>
+<block name="tabs"></block>

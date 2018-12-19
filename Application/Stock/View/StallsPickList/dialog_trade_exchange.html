@@ -1,0 +1,123 @@
+<taglib name="TagLib\EasyUI" />
+<div style="height: 40%;">
+	<easyui:datagrid id="{$datagrid.order.id}" style="{$datagrid.order.style}" options="datagrid.order.options" fields="datagrid.order.fields" />
+	<div id="{$id_list.toolbar_order}">
+		<a href="#" name="pick-menu-select-exchange-order" class="easyui-menubutton" data-options="iconCls:'icon-add',menu:'#pick-mbut-select-exchange-order'">添加货品</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="exchangeOrder.remove()">删除</a>
+		<!--<label><input type="checkbox" id="exchange_by_scale"/>按比例循环替换</label></br>-->
+		<div id="pick-mbut-select-exchange-order"><div>添加单品</div><div>添加组合装</div></div>
+	</div>
+</div>
+<div style="height: 60%;">
+	<easyui:datagrid id="{$datagrid.spec.id}" style="{$datagrid.spec.style}" options="datagrid.spec.options" fields="datagrid.spec.fields" />
+	<div id="{$id_list.toolbar}">
+		<a href="#" name="pick-menu-select-exchange-spec" class="easyui-menubutton" data-options="iconCls:'icon-add',menu:'#pick-mbut-select-exchange-spec'">添加货品</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="exchangeSpec.remove()">删除</a>
+		<label style="margin-left: 150px;">将以上货品换成以下货品</label>
+		<div id="pick-mbut-select-exchange-spec"><div>添加单品</div><div>添加组合装</div></div>
+	</div>
+</div>
+<script type="text/javascript">
+	//# sourceURL=exchange_order.js
+	var is_passel='{$is_passel}';
+	var warehouse;
+	var dialog;
+	$(function(){
+		$('#{$datagrid.spec.id}').datagrid().datagrid('enableCellEditing');
+		setTimeout(function(){
+			$('#{$datagrid.order.id}').datagrid().datagrid('enableCellEditing');
+			warehouse='{$warehouse}';
+			dialog='{$id_list.exchange_dialog}';
+			exchangeOrder = new ThinDatagrid($('#{$datagrid.order.id}'),undefined,false);
+			exchangeSpec = new ThinDatagrid($('#{$datagrid.spec.id}'),undefined,false);
+		},0);
+	});
+	//添加--需要替换的货品，订单编辑打开的换货不需添加
+	$($(".easyui-menubutton[name='pick-menu-select-exchange-order']").menubutton().menubutton('options').menu).menu({
+		onClick:function(item){
+			switch(item.text){
+				case '添加单品':
+					var params={'prefix':'exchange_order','type':true,'warehouse_id':warehouse,'model':'stock',};
+					$('#' + dialog).richDialog('goodsSpec', addSpecToOrder, params, false);
+					break;
+				case '添加组合装':
+					$('#' + dialog).richDialog('goodsSuite', addSuiteToOrder, 'exchange_order', false);
+					break;
+			}}
+	});
+
+	//添加--换成的货品
+	$($(".easyui-menubutton[name='pick-menu-select-exchange-spec']").menubutton().menubutton('options').menu).menu({
+		onClick:function(item){
+			var spec_prefix='';var suite_prefix='';
+			spec_prefix='passel_exchange_spec';suite_prefix='passel_exchange_suite';
+			switch(item.text){
+				case '添加单品':
+					var params={'prefix':spec_prefix,'type':true};
+					$('#' + dialog).richDialog('goodsSpec', addSpecToOrder, params, false);
+					break;
+				case '添加组合装':
+					$('#' + dialog).richDialog('goodsSuite', addSuiteToOrder, suite_prefix , false);
+					break;
+			}}
+	});
+	//批量换货--提交
+	submitPickExchangeDialog=function(isHot){
+		var orders=$('#{$datagrid.order.id}').datagrid('getRows');
+		if(orders.length==0){messager.alert('原货品不能为空');return false;}
+		var specs=$('#{$datagrid.spec.id}').datagrid('getRows');
+		if(specs.length==0){messager.alert('更换货品不能为空');return false;}
+		var url="{:U('Stock/StallsPickList/exchangeOrder')}";
+		url+='?unique_code='+'{$unique_code}'
+		$.post(url, {id:'{$id}',order:orders,spec:specs}, function(res){
+			if(res.status==1){
+				messager.alert(res.info);
+			}else if(res.status==2){
+				$.fn.richDialog("response", res.info, 'stallspicklist');
+			}else{
+				messager.alert('换货成功');
+			}
+			if(isHot == 1){
+                $("#hotPickExchangeDialog").dialog('close');
+                printHotGoods.refresh();
+            }else{
+                $("#pickExchangeDialog").dialog('close');
+            }
+		});
+	}
+	addSpecToOrder=function(spec_dg_id,sub_dg_id){
+		addExchangeOrder(sub_dg_id,0);
+	};
+	addSuiteToOrder=function(suite_dg_id,cb_params,sub_dg_id){
+		addExchangeOrder(sub_dg_id,1);
+	};
+	addExchangeOrder=function(sub_dg_id,is_suite){
+		var spec_dg=$('#'+sub_dg_id);
+		var spec_rows=spec_dg.datagrid('getRows');
+		if(sub_dg_id=='passel_exchange_spec_sub_goods_spec_select_datagrid'||sub_dg_id=='passel_exchange_suite_tabs_detail_datagrid'||sub_dg_id=='edit_exchange_spec_sub_goods_spec_select_datagrid'||sub_dg_id=='edit_exchange_suite_tabs_detail_datagrid'){
+			var show_dg=$('#{$datagrid.spec.id}');
+		}else{
+			var show_dg=$('#{$datagrid.order.id}');
+		}
+		$('#'+dialog).dialog('close');
+		var show_rows=show_dg.datagrid('getRows');
+		var flag=false;
+		var show_index=0;
+		for(var i in spec_rows){
+			spec_rows[i].num= !spec_rows[i].num?1:parseFloat(spec_rows[i].num); flag=false;
+			for(var x in show_rows){
+				if(spec_rows[i].spec_id==show_rows[x].spec_id){
+					show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+					show_rows[x].num=parseFloat(show_rows[x].num)+parseFloat(spec_rows[i].num);
+					show_dg.datagrid('refreshRow',show_index);
+					flag=true;
+				}
+			}
+			if(!flag){
+				spec_rows[i].is_suite=is_suite;
+				spec_rows[i].price=spec_rows[i].retail_price;
+				show_dg.datagrid('appendRow',spec_rows[i]);
+			}
+		}
+	};
+</script>

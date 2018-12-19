@@ -1,0 +1,4 @@
+[ 2018-04-14T17:14:04+08:00 ] 127.0.0.1 /index.php/purchase/stalls_order_management/getstallslessgoodsdetail.html
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'erp_dev.big_box_goods_map' doesn't exist
+[ 2018-04-14T17:14:07+08:00 ] 127.0.0.1 /index.php/purchase/stalls_order_management/getstallslessgoodsdetail.html
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'erp_dev.big_box_goods_map' doesn't exist

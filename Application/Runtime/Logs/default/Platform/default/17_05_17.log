@@ -1,0 +1,11 @@
+2017-05-17 09:18:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-17 09:18:59	["2017-05-17 09:18:59","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"15a01vi9whk4o\"}}"]
+2017-05-17 09:18:59	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-17 09:18:59	ERROR topErrorTest 27 Invalid session #invalid-sessionkey

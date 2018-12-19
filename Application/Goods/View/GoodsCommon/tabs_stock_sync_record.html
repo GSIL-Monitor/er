@@ -1,0 +1,36 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="include"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar"></block>
+<block name="script">
+    <script>
+	    $(function () { 
+	    	setTimeout(function () {  $('#{$datagrid.id}').datagrid('copyCell'); },0);
+	    });
+        function tabsWarehouseFormatter(value, row, index) {
+            if (typeof(value) == "undefined") {
+                return value;
+            }
+            var arr = value.split(",");
+            var warehouse = JSON.parse('{$warehouse}');
+            var str = "";
+            for (var i = 0; i < arr.length; i++) {
+                if (i == 0) {
+                    for (var j = 0; j < warehouse.length; j++) {
+                        if (arr[i] == warehouse[j]["id"]) {
+                            str = str + warehouse[j]["name"];
+                        }
+                    }
+                } else {
+                    for (var j = 0; j < warehouse.length; j++) {
+                        if (arr[i] == warehouse[j]["id"]) {
+                            str = str + "," + warehouse[j]["name"];
+                        }
+                    }
+                }
+            }
+            return str;
+        }
+    </script>
+</block>

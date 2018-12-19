@@ -1,0 +1,72 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="订单处理" data-options="headerCls:'panel-header-title'" style="width:100%;">
+    	<div class="trade_process process-map" id="trade" style="border:none;">
+    		<!--<a class="down" href="javascript:void(0);" onClick="open_menu('{$trade.down.text}', '{$trade.down.href}')"><img src="__ROOT__/Public/Image/Process/Trade/trade_down.png"></a>-->
+    		<a class="down font-img" href="javascript:void(0);" onClick="open_menu('{$trade.down.text}', '{$trade.down.href}')"><div class="png"><i class="fa {$trade.down.img}"></i><p>{$trade.down.text}</p></div></a>
+    		<a class="orig font-img" href="javascript:void(0);" onClick="open_menu('{$trade.original.text}', '{$trade.original.href}')"><div class="png"><i class="fa {$trade.original.img}"></i><p>{$trade.original.text}</p></div></a>
+    		<a class="manu font-img" href="javascript:void(0);" onClick="open_menu('{$trade.manual.text}', '{$trade.manual.href}')"><div class="png"><i class="fa {$trade.manual.img}"></i><p>{$trade.manual.text}</p></div></a>
+    		<a class="adva font-img" href="javascript:void(0);" onClick="open_menu('{$trade.advance.text}', '{$trade.advance.href}')"><div class="png"><i class="fa {$trade.advance.img}"></i><p>{$trade.advance.text}</p></div></a>
+    		<a class="chec font-img" href="javascript:void(0);" onClick="open_menu('{$trade.check.text}', '{$trade.check.href}')"><div class="png"><i class="fa {$trade.check.img}"></i><p>{$trade.check.text}</p></div></a>
+    		<a class="mana font-img" href="javascript:void(0);" onClick="open_menu('{$trade.manage.text}', '{$trade.manage.href}')"><div class="png"><i class="fa {$trade.manage.img}"></i><p>{$trade.manage.text}</p></div></a>
+    		<a class="fina font-img" href="javascript:void(0);" onClick="open_menu('{$trade.financial.text}', '{$trade.financial.href}')"><div class="png"><i class="fa {$trade.financial.img}"></i><p>{$trade.financial.text}</p></div></a>
+    		<a class="prin font-img" href="javascript:void(0);" onClick="open_menu('{$trade.print.text}', '{$trade.print.href}')"><div class="png"><i class="fa {$trade.print.img}"></i><p>{$trade.print.text}</p></div></a>
+    		<a class="logi font-img" href="javascript:void(0);" onClick="open_menu('{$trade.logistics_sync.text}', '{$trade.logistics_sync.href}')"><div class="png"><i class="fa {$trade.logistics_sync.img}"></i><p>{$trade.logistics_sync.text}</p></div></a>
+    		<a class="gift" href="javascript:void(0);" onClick="open_menu('{$trade.gift.text}', '{$trade.gift.href}')" title="赠品策略"><div class="png-sam"><i class="fa {$trade.gift.img}"></i><p style="margin-top: -5px;font-size: 12px;">{$trade.gift.text}</p></div></a>
+    		<a class="logi_m" href="javascript:void(0);" onClick="open_menu('{$trade.logistics_m.text}', '{$trade.logistics_m.href}')" title="物流匹配"><div class="png-sam"><i class="fa {$trade.logistics_m.img}"></i><p style="margin-top: -5px;font-size: 12px;">{$trade.logistics_m.text}</p></div></a>
+    		<a class="ware" href="javascript:void(0);" onClick="open_menu('{$trade.warehouse_r.text}', '{$trade.warehouse_r.href}')"title="选仓策略"><div class="png-sam"><i class="fa {$trade.warehouse_r.img}"></i><p style="margin-top: -5px;font-size: 12px;">{$trade.warehouse_r.text}</p></div></a>
+			<a class="excel" href="javascript:void(0);" onmouseover="show_text(event,'excel')" onmouseout="close_text()">Excel<br>导入 </a>
+    		<a class="subm" href="javascript:void(0);" onmouseover="show_text(event,'submit')" onmouseout="close_text()" >递交 </a>
+    		<a class="trade_c" href="javascript:void(0);" onmouseover="show_text(event,'check')" onmouseout="close_text()" >审核 </a>
+    		<a class="consign" href="javascript:void(0);" onmouseover="show_text(event,'consign')" onmouseout="close_text()">确认<br>发货 </a>
+    		<a class="advance_on" href="javascript:void(0);" onClick="advance_on()" id="advance" >开启预订单</a>
+    		<a class="facheck_on" href="javascript:void(0);" onClick="facheck_on()" id="facheck" >开启财务审核</a>
+    		<div id="showDiv" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+    	</div>
+    </div>
+	<div class="easyui-draggable" style="position: absolute;top:90px;left:1050px;"  data-options="onDrag:onDrag">
+		<div id="title" class="easyui-panel" title="<i class='fa fa-bookmark'></i> 开启自动" collapsible="true" style="width:180px;height:auto;padding:10px;" >
+			<ul>
+				<volist name="work_list" id="work" key="i">
+					<li style="list-style-type:none;">
+						<a href="javascript:void(0);"onClick="open_menu('系统设置', '{$work.href}')"><span>{$work.text}</span></a>
+					</li>
+				</volist>
+				<li style="list-style-type:none;color:red;"><i class="fa fa-snowflake-o"></i> 开启以上三个设置，无需更多操作，订单可直达单据打印页面</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+function advance_on(){
+	var ad_text=$('#advance').text();
+	var fa_text=$('#facheck').text();
+	if(ad_text=='开启预订单'&&fa_text=="开启财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_a.png') no-repeat;");$('#advance').text('关闭预订单');}
+	if(ad_text=='开启预订单'&&fa_text=="关闭财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_a_c.png') no-repeat;");$('#advance').text('关闭预订单');}
+	if(ad_text=='关闭预订单'&&fa_text=="开启财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_no.png') no-repeat;");$('#advance').text('开启预订单');}
+	if(ad_text=='关闭预订单'&&fa_text=="关闭财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_right.png') no-repeat;");$('#advance').text('开启预订单');}
+}
+function facheck_on(){
+	var ad_text=$('#advance').text();
+	var fa_text=$('#facheck').text();
+	if(ad_text=='开启预订单'&&fa_text=="开启财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_right.png') no-repeat;");$('#facheck').text('关闭财务审核');}
+	if(ad_text=='开启预订单'&&fa_text=="关闭财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_no.png') no-repeat;");$('#facheck').text('开启财务审核');}
+	if(ad_text=='关闭预订单'&&fa_text=="开启财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_a_c.png') no-repeat;");$('#facheck').text('关闭财务审核');}
+	if(ad_text=='关闭预订单'&&fa_text=="关闭财务审核"){$('#trade').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/bg_a.png') no-repeat;");$('#facheck').text('开启财务审核');}
+}
+function show_text(event,key){
+	var trade=document.getElementById('trade');	
+	var text=JSON.parse('{$text}');
+	var showDiv = document.getElementById('showDiv');
+	var x=event.clientX;
+	var y=parseInt(event.clientY)+parseInt(10);
+	showDiv.style.left =(x-trade.getBoundingClientRect().left)+'px';
+	showDiv.style.top = (y-trade.getBoundingClientRect().top)+'px';
+	showDiv.style.display = 'block';
+	showDiv.innerHTML = text[key];
+}
+function close_text() {
+	var showDiv = document.getElementById('showDiv');
+	showDiv.style.display = 'none';
+	showDiv.innerHTML = '';
+}
+</script>

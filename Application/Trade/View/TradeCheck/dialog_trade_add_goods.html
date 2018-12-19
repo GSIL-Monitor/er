@@ -1,0 +1,138 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.toolbar}">
+<a href="#" name="menu-select-passel-add-goods" class="easyui-menubutton" data-options="iconCls:'icon-add',menu:'#mbut-select-passel-add-goods'"><if condition='$is_gift eq 0'>添加货品<else />添加赠品</if></a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="addGoods.remove()">删除</a>
+<div id="mbut-select-passel-add-goods"><div>添加单品</div><div>添加组合装</div></div>
+</div>
+<script type="text/javascript">
+//# sourceURL=exchange_order.js
+var warehouse;
+var dialog;
+$(function(){
+	setTimeout(function(){
+		$('#{$datagrid.id}').datagrid().datagrid('enableCellEditing');
+		warehouse='{$warehouse}';
+		dialog='{$id_list.add_dialog}';
+		addGoods = new ThinDatagrid($('#{$datagrid.id}'),undefined,false);
+	},0);
+});
+//添加--货品
+$($(".easyui-menubutton[name='menu-select-passel-add-goods']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	var spec_prefix='';var suite_prefix='';
+	spec_prefix='passel_add_spec';suite_prefix='passel_add_suite';
+	 switch(item.text){
+	 case '添加单品':
+		 var params={'prefix':spec_prefix,'type':true,'warehouse_id':warehouse};
+		 $('#' + dialog).richDialog('goodsSpec', addSpecToOrder, params, true);
+		 break;
+	 case '添加组合装':
+		 $('#' + dialog).richDialog('goodsSuite', addSuiteToOrder, suite_prefix , true);
+		 break;
+	 }}
+});
+//批量添加货品--提交
+submitPasselAddGoodsDialog=function(){
+	var rows=$('#{$datagrid.id}').datagrid('getRows');
+	if(rows.length==0){messager.alert('货品列表为空');return false;}
+	var data=JSON.parse('{$ids}');
+	ids=JSON.stringify(data.id);
+	version=data.version;
+	var is_gift="{$is_gift}";	
+	for (var i = 0; i < rows.length; i++) {
+		rows[i].actual_num=rows[i].num;
+		rows[i].share_amount=parseFloat(rows[i].share_price*rows[i].actual_num).toFixed(4);
+	};
+	Post("{:U('TradeCheck/passelAddGoods')}", {ids:ids,orders:rows,version_id:version,is_gift:is_gift}, function(res){
+		if(res.status==1){
+			$.fn.richDialog("response", res.info, 'tradecheck');
+		}else if(res.status==2){
+			messager.alert(res.info);
+			return false;
+		}else{
+			messager.alert('添加成功');
+			tradeCheck.refresh();
+		}
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+	});
+}
+addSpecToOrder=function(spec_dg_id,sub_dg_id){
+    var spec_dg=$('#'+sub_dg_id);
+    var spec_rows=spec_dg.datagrid('getRows');
+    var show_dg=$('#{$datagrid.id}');
+    $('#'+dialog).dialog('close');
+	addSpecOrder(spec_rows,show_dg);
+};
+addSuiteToOrder=function(suite_dg_id){
+	var suite_dg=$('#'+suite_dg_id);
+    var suite_row=suite_dg.datagrid('getSelected');
+    var show_dg=$('#{$datagrid.id}');
+    $('#'+dialog).dialog('close');
+	addSuiteOrder(suite_row,show_dg);
+};
+
+addSpecOrder=function(spec_rows,show_dg){
+    var show_rows=show_dg.datagrid('getRows');
+    var flag=false;
+    var show_index=0;
+    var is_gift="{$is_gift}";
+    for(var i in spec_rows){
+    	if(is_gift==1){
+    		spec_rows[i].gift_type=2;
+    		spec_rows[i].share_price=0.0000;
+    	}else{
+    		spec_rows[i].gift_type=0;
+    		spec_rows[i].share_price=spec_rows[i].retail_price;
+    	}
+    	spec_rows[i].num= !spec_rows[i].num?1:parseFloat(spec_rows[i].num); flag=false;
+    	for(var x in show_rows){
+    		if(spec_rows[i].spec_id==show_rows[x].spec_id){
+    			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+    			show_rows[x].num=parseFloat(show_rows[x].num)+parseFloat(spec_rows[i].num);
+    			show_dg.datagrid('refreshRow',show_index);
+    			flag=true;
+    		}
+    	}
+    	if(!flag){
+    		spec_rows[i].is_suite=0;
+    		spec_rows[i].price=spec_rows[i].retail_price;  
+        	spec_rows[i].share_post=0.0000;  	
+    		show_dg.datagrid('appendRow',spec_rows[i]);
+    	}
+	}
+};
+addSuiteOrder=function(suite_row,show_dg){
+    var show_rows=show_dg.datagrid('getRows');
+    var flag=false;
+    var show_index=0;
+    var is_gift="{$is_gift}";   
+	if(is_gift==1){
+		suite_row.gift_type=2;
+		suite_row.share_price=0.0000;
+	}else{
+		suite_row.gift_type=0;
+		suite_row.share_price=suite_row.retail_price;
+	}
+    suite_row.num= !suite_row.num?1:parseFloat(suite_row.num); flag=false;
+	for(var x in show_rows){
+		if(suite_row.suite_no==show_rows[x].spec_no){
+			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);    			
+			show_rows[x].spec_no=suite_row.suite_no;
+			show_rows[x].goods_name=suite_row.suite_name;
+			show_rows[x].num=parseFloat(show_rows[x].num)+parseFloat(suite_row.num);
+			show_dg.datagrid('refreshRow',show_index);
+			flag=true;
+		}
+	}
+	if(!flag){
+		suite_row.is_suite=1;
+		suite_row.spec_no=suite_row.suite_no;
+    	suite_row.goods_name=suite_row.suite_name;
+		suite_row.price=suite_row.retail_price;
+    	suite_row.share_post=0.0000;     	
+		show_dg.datagrid('appendRow',suite_row);
+	}
+	
+};
+</script>

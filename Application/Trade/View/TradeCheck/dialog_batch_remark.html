@@ -1,0 +1,52 @@
+<div id="batch_remark_dialog">
+<form method="post" id="{$remark_params.form_id}" style="padding:10px 0 0 10px;">
+	<div class="form-div">
+		<label>客服备注：</label><input class="easyui-textbox" id="batch_remark_text" style="width:305px;" name="cs_remark" type="text" />
+	</div>
+</form>
+</div>
+<script>
+$(function(){
+	setTimeout(function(){
+		$('#batch_remark_text').textbox().next('span').find('input').focus();
+	},0);
+});
+tradeCheck.submitTradeCheckDialog=function () {
+	var rows = tradeCheck.selectRows;
+	if(rows==undefined){messager.alert('请选择订单');return false;}
+	var ids=[];
+	var list=[];
+	var version=[];
+	for(var i in rows){
+		if(rows[i]['id']==undefined||rows[i]['id']<1){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+		}
+		if(rows[i]['trade_status']!=undefined&&(rows[i]['trade_status']!=30&&rows[i]['trade_status']!=25)){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单状态不正确'});continue;
+		}
+		if(!tradeCheck.checkEdit(rows[i],list)){continue;}
+		ids.push(rows[i]['id']);
+		version[ids[i]]=rows[i]['version_id'];
+	}
+	if(ids.length>0){
+		var form = $("#{$remark_params.form_id}");
+		var url = "{$remark_params.form_url}";
+		var form_data = form.form('get');
+		var data = {};
+		data.ids = ids;
+		data.new_remark = form_data.cs_remark;
+		data.type = 2;//type为2是客服备注修改类型
+		data.version=version;
+		finaldata = JSON.stringify(data);
+		Post(url,{data:finaldata},function(res){
+			$('#flag_set_dialog').dialog('close');
+			tradeCheck.dealDatagridReasonRows(res,list);
+		},'JSON');
+	}else{
+		var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+		tradeCheck.dealDatagridReasonRows(res,undefined);
+		$('#flag_set_dialog').dialog('close');
+	}
+
+}
+</script>

@@ -1,0 +1,66 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.help_id}"></div></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>品牌:</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <label>分类：</label>
+                <input class="txt" id="tree_class_show_sales_market" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label >商家编码:</label><input class="easyui-textbox txt" type="txt" name="search[spec_no]"/>
+                <label >货品编号:</label><input class="easyui-textbox txt" type="txt" name="search[goods_no]"/>
+                <label >货品名称:</label><input class="easyui-textbox txt" type="txt" name="search[goods_name]"
+                />
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="SalesGoodsSpecMarket.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="SalesGoodsSpecMarket.loadFormData();">重置</a>
+                <label class="form-div">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" title="点击查看统计说明" data-options="iconCls:'icon-help',plain:true" onclick="SalesGoodsSpecMarket.readHelp()">查看说明</a>
+                </label>
+                <br>
+                <label>完成时间:</label><input class="easyui-datebox txt" type="text" name="search[start_time]" value="{$date['start']}" data-options="editable:false"/>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;至:</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" value="{$date['end']}" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true"
+                onclick="SalesGoodsSpecMarket.exportToExcel()">导出到Excel</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/SalesGoodsSpecMarket','sales_goods_spec_market','{$datagrid.id}',1)">设置表头</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=SalesGoodsSpecMarketShow.js
+    $(function(){
+        $('#tree_class_show_sales_market').changStyleTreeCombo('tree_class_show_sales_market');
+        setTimeout(function (){
+            SalesGoodsSpecMarket = new RichDatagrid(JSON.parse('{$params}'));
+            SalesGoodsSpecMarket.setFormData();
+            SalesGoodsSpecMarket.exportToExcel = function(){
+                var id_list=[];
+                for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                var url= "{:U('SalesGoodsSpecMarket/exportToExcel')}";
+                var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                var data = $("#{$datagrid.id}").datagrid("getData");
+                if(data.total==0){
+                    messager.confirm('导出不能为空！');
+                }else if(id_list.length > 0){
+                    messager.confirm('确定导出选中的数据吗？',function(res){
+                        if(!res){return false;}
+                        window.open(url+'?search='+search+'&id_list='+id_list);
+                    })
+                }else {
+                    messager.confirm('确定导出搜索的数据吗？',function(r){
+                        if(!r){return false;}
+                        window.open(url+'?search='+search+'&id_list='+id_list);
+                    })
+                }
+            }
+        },0);
+    })
+    </script>
+</block>

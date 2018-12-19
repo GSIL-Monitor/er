@@ -1,0 +1,2759 @@
+2017-05-16 09:01:55	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 09:01:55	["2017-05-16 09:01:55","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dk5kothgsp\"}}"]
+2017-05-16 09:01:55	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 09:01:55	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 12:43:12	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 12:43:12	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 12:43:12	app_key:
+2017-05-16 12:43:12	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 12:43:12	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 12:43:12	JY201607220010
+2017-05-16 12:43:13	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1205
+2017-05-16 12:43:13	PHP Error Severity: 8 --> Undefined index: shipping_branch_name C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1215
+2017-05-16 12:43:13	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1228
+2017-05-16 12:43:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 12:43:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 12:52:06	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 12:53:06	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 12:53:06	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 12:53:06	app_key:
+2017-05-16 12:53:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 12:53:06	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 12:53:06	JY201607220010
+2017-05-16 12:53:06	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1205
+2017-05-16 12:53:06	PHP Error Severity: 8 --> Undefined index: shipping_branch_name C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1215
+2017-05-16 12:53:06	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1228
+2017-05-16 12:53:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 12:53:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:20:37	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:20:37	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:20:38	["2017-05-16 13:20:38","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dk5rzp5ipm\"}}"]
+2017-05-16 13:20:38	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 13:20:38	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 13:21:22	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:21:22	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:21:22	app_key:
+2017-05-16 13:21:22	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:22	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:22	JY201703210001
+2017-05-16 13:21:22	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1169
+2017-05-16 13:21:22	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1192
+2017-05-16 13:21:22	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:21:22	JY201703170002
+2017-05-16 13:21:23	["2017-05-16 13:21:23","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukh17x81\"}}"]
+2017-05-16 13:21:23	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:23	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:21:23	3341821103432497
+2017-05-16 13:21:23	["2017-05-16 13:21:23","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5s0gr76l\"}}"]
+2017-05-16 13:21:23	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:23	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:23	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:23	JY201705050002
+2017-05-16 13:21:23	["2017-05-16 13:21:23","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukh1jc3b\"}}"]
+2017-05-16 13:21:23	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:23	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:23	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:23	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:23	JY201705030003
+2017-05-16 13:21:23	["2017-05-16 13:21:23","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"157dk5s0h1hr8\"}}"]
+2017-05-16 13:21:23	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:21:23	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:21:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:21:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:21:42	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:21:42	app_key:
+2017-05-16 13:21:42	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:42	JY201611020006
+2017-05-16 13:21:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:45	app_key:
+2017-05-16 13:21:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:45	app_key:
+2017-05-16 13:21:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:45	JY201611020003
+2017-05-16 13:21:46	["2017-05-16 13:21:46","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ukhf32ju\"}}"]
+2017-05-16 13:21:46	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:21:46	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:46	JY201610080006
+2017-05-16 13:21:46	["2017-05-16 13:21:46","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukhfbhyo\"}}"]
+2017-05-16 13:21:46	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:46	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:47	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:21:47	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:21:59	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:21:59	app_key:
+2017-05-16 13:21:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	app_key:
+2017-05-16 13:21:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	app_key:
+2017-05-16 13:21:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	JY201611020003
+2017-05-16 13:21:59	["2017-05-16 13:21:59","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ukhng9n1\"}}"]
+2017-05-16 13:21:59	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:21:59	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:21:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:21:59	JY201610080006
+2017-05-16 13:21:59	["2017-05-16 13:21:59","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5s130xdk\"}}"]
+2017-05-16 13:21:59	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:59	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:21:59	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:00	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:00	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:22:34	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2017-05-16 13:22:34	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint C:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-05-16 13:22:44	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:22:44	app_key:
+2017-05-16 13:22:44	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:44	app_key:
+2017-05-16 13:22:44	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:44	app_key:
+2017-05-16 13:22:44	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:44	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:44	JY201611020003
+2017-05-16 13:22:45	["2017-05-16 13:22:45","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5s1u47p1\"}}"]
+2017-05-16 13:22:45	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:45	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	JY201610080006
+2017-05-16 13:22:45	["2017-05-16 13:22:45","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5s1un5kt\"}}"]
+2017-05-16 13:22:45	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:45	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:45	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:22:45	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:22:45	app_key:
+2017-05-16 13:22:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	app_key:
+2017-05-16 13:22:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	app_key:
+2017-05-16 13:22:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:45	JY201611020003
+2017-05-16 13:22:46	["2017-05-16 13:22:46","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5s1v2rd2\"}}"]
+2017-05-16 13:22:46	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:46	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	JY201610080006
+2017-05-16 13:22:46	["2017-05-16 13:22:46","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukifxb9b\"}}"]
+2017-05-16 13:22:46	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:46	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:46	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:22:46	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:22:46	app_key:
+2017-05-16 13:22:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	app_key:
+2017-05-16 13:22:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	app_key:
+2017-05-16 13:22:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:46	JY201611020003
+2017-05-16 13:22:47	["2017-05-16 13:22:47","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5s1vqjv2\"}}"]
+2017-05-16 13:22:47	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:47	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:47	JY201610080006
+2017-05-16 13:22:47	["2017-05-16 13:22:47","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukigl0lk\"}}"]
+2017-05-16 13:22:47	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:47	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:47	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:47	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:47	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:22:48	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:22:48	app_key:
+2017-05-16 13:22:48	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	app_key:
+2017-05-16 13:22:48	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	app_key:
+2017-05-16 13:22:48	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	JY201611020003
+2017-05-16 13:22:48	["2017-05-16 13:22:48","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5s1wkefu\"}}"]
+2017-05-16 13:22:48	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:48	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:48	JY201610080006
+2017-05-16 13:22:48	["2017-05-16 13:22:48","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5s1wseu6\"}}"]
+2017-05-16 13:22:48	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:48	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:48	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:48	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:48	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:22:49	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:22:49	app_key:
+2017-05-16 13:22:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	app_key:
+2017-05-16 13:22:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	app_key:
+2017-05-16 13:22:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	JY201611020003
+2017-05-16 13:22:49	["2017-05-16 13:22:49","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ukihtkkb\"}}"]
+2017-05-16 13:22:49	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:49	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:22:49	JY201610080006
+2017-05-16 13:22:49	["2017-05-16 13:22:49","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukii1oww\"}}"]
+2017-05-16 13:22:49	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:49	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:22:49	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:22:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:22:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:30:53	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:31:40	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:31:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:31:40	app_key:
+2017-05-16 13:31:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:31:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:31:40	JY201703210001
+2017-05-16 13:31:41	["2017-05-16 13:31:41","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"15a01ukrhp771\"}}"]
+2017-05-16 13:31:41	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 13:31:41	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 13:31:41	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:31:41	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:31:41	JY201703170002
+2017-05-16 13:31:42	["2017-05-16 13:31:42","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5saxyz4o\"}}"]
+2017-05-16 13:31:42	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:31:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:31:42	3341821103432497
+2017-05-16 13:31:42	["2017-05-16 13:31:42","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukrisfxw\"}}"]
+2017-05-16 13:31:42	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:31:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:31:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:31:42	JY201705050002
+2017-05-16 13:31:42	["2017-05-16 13:31:42","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5saya6w2\"}}"]
+2017-05-16 13:31:42	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:31:42	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:31:42	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:31:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:31:42	JY201705030003
+2017-05-16 13:31:42	["2017-05-16 13:31:42","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ukrj2hti\"}}"]
+2017-05-16 13:31:42	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:31:42	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:31:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:31:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:33:36	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:34:07	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:34:24	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:34:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:34:24	app_key:
+2017-05-16 13:34:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:34:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:34:24	JY201703210001
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1169
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1192
+2017-05-16 13:34:25	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:34:25	JY201703170002
+2017-05-16 13:34:25	["2017-05-16 13:34:25","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukua363k\"}}"]
+2017-05-16 13:34:25	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:34:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:34:25	3341821103432497
+2017-05-16 13:34:25	["2017-05-16 13:34:25","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sdpldi3\"}}"]
+2017-05-16 13:34:25	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:34:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:34:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:34:25	JY201705050002
+2017-05-16 13:34:25	["2017-05-16 13:34:25","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sdpppyb\"}}"]
+2017-05-16 13:34:25	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:34:25	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:34:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:34:25	JY201705030003
+2017-05-16 13:34:26	["2017-05-16 13:34:26","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ukuair3b\"}}"]
+2017-05-16 13:34:26	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:34:26	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:34:26	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:34:26	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:38:02	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:38:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:38:02	app_key:
+2017-05-16 13:38:02	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:38:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:38:02	JY201703210001
+2017-05-16 13:38:03	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1169
+2017-05-16 13:38:03	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1192
+2017-05-16 13:38:03	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:38:03	JY201703170002
+2017-05-16 13:38:03	["2017-05-16 13:38:03","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukxz3z2a\"}}"]
+2017-05-16 13:38:03	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:03	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:03	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:38:03	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:38:03	3341821103432497
+2017-05-16 13:38:03	["2017-05-16 13:38:03","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5shemg96\"}}"]
+2017-05-16 13:38:03	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:03	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:03	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:38:03	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:38:03	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:38:03	JY201705050002
+2017-05-16 13:38:04	["2017-05-16 13:38:04","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ukxzeb7w\"}}"]
+2017-05-16 13:38:04	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:04	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:38:04	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:38:04	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1149
+2017-05-16 13:38:04	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:38:04	JY201705030003
+2017-05-16 13:38:04	["2017-05-16 13:38:04","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ukxzk6z3\"}}"]
+2017-05-16 13:38:04	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:38:04	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:38:04	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:38:04	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:40:35	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:40:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:40:35	app_key:
+2017-05-16 13:40:35	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:40:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:40:35	JY201703210001
+2017-05-16 13:40:36	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1174
+2017-05-16 13:40:36	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1197
+2017-05-16 13:40:36	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:40:36	JY201703170002
+2017-05-16 13:40:36	["2017-05-16 13:40:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sjzr2y6\"}}"]
+2017-05-16 13:40:36	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:36	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:40:36	3341821103432497
+2017-05-16 13:40:36	["2017-05-16 13:40:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul0kj2sf\"}}"]
+2017-05-16 13:40:36	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:36	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:40:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:40:36	JY201705050002
+2017-05-16 13:40:36	["2017-05-16 13:40:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul0ko6w6\"}}"]
+2017-05-16 13:40:36	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:36	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:40:37	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:40:37	JY201705030003
+2017-05-16 13:40:37	["2017-05-16 13:40:37","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"157dk5sk063ei\"}}"]
+2017-05-16 13:40:37	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:40:37	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:40:37	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:40:37	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:42:02	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:42:02	app_key:
+2017-05-16 13:42:02	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:02	JY201703210001
+2017-05-16 13:42:02	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1174
+2017-05-16 13:42:02	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1197
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:42:02	JY201703170002
+2017-05-16 13:42:02	["2017-05-16 13:42:02","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5slg9a4x\"}}"]
+2017-05-16 13:42:02	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:02	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:42:02	3341821103432497
+2017-05-16 13:42:02	["2017-05-16 13:42:02","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul210qcc\"}}"]
+2017-05-16 13:42:02	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:02	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:02	JY201705050002
+2017-05-16 13:42:03	["2017-05-16 13:42:03","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5slgis9e\"}}"]
+2017-05-16 13:42:03	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:03	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:03	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:03	JY201705030003
+2017-05-16 13:42:03	["2017-05-16 13:42:03","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ul21bm92\"}}"]
+2017-05-16 13:42:03	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:42:03	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:42:04	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:42:04	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:42:19	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:42:19	app_key:
+2017-05-16 13:42:19	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	app_key:
+2017-05-16 13:42:19	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	app_key:
+2017-05-16 13:42:19	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	JY201611020003
+2017-05-16 13:42:19	["2017-05-16 13:42:19","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ul2bdtpk\"}}"]
+2017-05-16 13:42:19	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:42:19	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1154
+2017-05-16 13:42:19	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:42:19	JY201610080006
+2017-05-16 13:42:20	["2017-05-16 13:42:20","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul2bkvcc\"}}"]
+2017-05-16 13:42:20	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:20	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:42:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:42:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:44:07	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:44:17	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:44:17	app_key:
+2017-05-16 13:44:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	app_key:
+2017-05-16 13:44:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	app_key:
+2017-05-16 13:44:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	JY201611020003
+2017-05-16 13:44:17	["2017-05-16 13:44:17","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ul4b3osn\"}}"]
+2017-05-16 13:44:17	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:44:17	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:44:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:44:17	JY201610080006
+2017-05-16 13:44:17	["2017-05-16 13:44:17","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul4batl6\"}}"]
+2017-05-16 13:44:17	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:44:17	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:44:18	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:44:18	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:46:36	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:46:36	app_key:
+2017-05-16 13:46:36	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	app_key:
+2017-05-16 13:46:36	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	app_key:
+2017-05-16 13:46:36	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	JY201611020003
+2017-05-16 13:46:36	["2017-05-16 13:46:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5sq358bi\"}}"]
+2017-05-16 13:46:36	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:46:36	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:46:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:36	JY201610080006
+2017-05-16 13:46:36	["2017-05-16 13:46:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul6o2f9v\"}}"]
+2017-05-16 13:46:36	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:46:36	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:46:37	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:46:37	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:46:45	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:46:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:46:45	app_key:
+2017-05-16 13:46:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:46:45	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:46:45	app_key:
+2017-05-16 13:46:45	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:46:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:45	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:46:45	JY201611080001
+2017-05-16 13:46:46	["2017-05-16 13:46:46","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ul6tjsvx\"}}"]
+2017-05-16 13:46:46	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:46:46	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:46:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:46:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:47:05	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:47:05	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:47:05	app_key:
+2017-05-16 13:47:05	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:05	app_key:
+2017-05-16 13:47:05	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:05	app_key:Array
+(
+)
+
+2017-05-16 13:47:05	PHP Error Severity: 8 --> Undefined index: stockout_no C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1249
+2017-05-16 13:47:05	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:47:15	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:47:15	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:47:15	app_key:
+2017-05-16 13:47:15	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:15	app_key:
+2017-05-16 13:47:15	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:15	app_key:Array
+(
+)
+
+2017-05-16 13:47:15	PHP Error Severity: 8 --> Undefined index: stockout_no C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1249
+2017-05-16 13:47:15	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:47:24	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:47:24	app_key:
+2017-05-16 13:47:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:24	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:24	JY201609180002
+2017-05-16 13:47:24	["2017-05-16 13:47:24","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul7gzpc9\"}}"]
+2017-05-16 13:47:24	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:47:24	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:47:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:47:24	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:47:35	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:47:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:47:35	app_key:
+2017-05-16 13:47:35	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:36	JY201608080003
+2017-05-16 13:47:38	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:47:38	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:47:59	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:47:59	app_key:
+2017-05-16 13:47:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:59	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:47:59	JY201609180002
+2017-05-16 13:47:59	["2017-05-16 13:47:59","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ul82kgii\"}}"]
+2017-05-16 13:47:59	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:47:59	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:47:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:47:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:48:10	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:48:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:48:10	app_key:
+2017-05-16 13:48:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:10	app_key:
+2017-05-16 13:48:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:10	app_key:Array
+(
+)
+
+2017-05-16 13:48:10	PHP Error Severity: 8 --> Undefined index: stockout_no C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1249
+2017-05-16 13:48:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:48:42	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:48:42	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:48:42	app_key:
+2017-05-16 13:48:42	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:42	app_key:
+2017-05-16 13:48:42	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:42	app_key:Array
+(
+)
+
+2017-05-16 13:48:42	PHP Error Severity: 8 --> Undefined index: stockout_no C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1249
+2017-05-16 13:48:42	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:48:52	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:48:52	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:48:52	app_key:
+2017-05-16 13:48:52	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:52	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:48:52	app_key:
+2017-05-16 13:48:52	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:48:52	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:48:52	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:48:52	JY201611080001
+2017-05-16 13:48:52	["2017-05-16 13:48:52","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ul8ywbp7\"}}"]
+2017-05-16 13:48:52	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:48:52	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:48:52	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:48:52	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:52:20	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:52:20	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:52:20	app_key:
+2017-05-16 13:52:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:20	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:52:20	app_key:
+2017-05-16 13:52:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:20	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:20	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:20	JY201611080001
+2017-05-16 13:52:21	["2017-05-16 13:52:21","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"157dk5svx8883\"}}"]
+2017-05-16 13:52:21	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:52:21	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:52:21	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:52:21	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:52:29	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:52:29	app_key:
+2017-05-16 13:52:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:29	app_key:
+2017-05-16 13:52:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:29	app_key:
+2017-05-16 13:52:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:29	JY201611020003
+2017-05-16 13:52:30	["2017-05-16 13:52:30","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ulcnmnz0\"}}"]
+2017-05-16 13:52:30	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:52:30	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 13:52:30	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:30	JY201610080006
+2017-05-16 13:52:30	["2017-05-16 13:52:30","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sw3ahes\"}}"]
+2017-05-16 13:52:30	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:30	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:31	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:52:31	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:52:49	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:52:49	app_key:
+2017-05-16 13:52:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:49	JY201703210001
+2017-05-16 13:52:49	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 13:52:49	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:52:49	JY201703170002
+2017-05-16 13:52:49	["2017-05-16 13:52:49","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sweqzy8\"}}"]
+2017-05-16 13:52:49	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:49	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:52:49	3341821103432497
+2017-05-16 13:52:49	["2017-05-16 13:52:49","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulczip54\"}}"]
+2017-05-16 13:52:49	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:49	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:49	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:49	JY201705050002
+2017-05-16 13:52:50	["2017-05-16 13:52:50","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5swf09dw\"}}"]
+2017-05-16 13:52:50	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:50	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:52:50	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:52:50	JY201705030003
+2017-05-16 13:52:50	["2017-05-16 13:52:50","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"157dk5swf4gat\"}}"]
+2017-05-16 13:52:50	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:52:50	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:52:50	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:52:50	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:53:26	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:53:26	app_key:
+2017-05-16 13:53:26	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:53:26	JY201703210001
+2017-05-16 13:53:26	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 13:53:26	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:53:26	JY201703170002
+2017-05-16 13:53:26	["2017-05-16 13:53:26","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01uldlv5rm\"}}"]
+2017-05-16 13:53:26	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:53:26	3341821103432497
+2017-05-16 13:53:26	["2017-05-16 13:53:26","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5sx1ckes\"}}"]
+2017-05-16 13:53:26	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:53:26	JY201705050002
+2017-05-16 13:53:26	["2017-05-16 13:53:26","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01uldm41ro\"}}"]
+2017-05-16 13:53:26	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:53:26	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:53:26	JY201705030003
+2017-05-16 13:53:27	["2017-05-16 13:53:27","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"157dk5sx1lmqi\"}}"]
+2017-05-16 13:53:27	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:53:27	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:53:27	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:53:27	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 13:54:08	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 13:54:08	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 13:54:08	app_key:
+2017-05-16 13:54:08	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 13:54:08	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:54:08	JY201703210001
+2017-05-16 13:54:09	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 13:54:09	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 13:54:09	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 13:54:09	JY201703170002
+2017-05-16 13:54:10	["2017-05-16 13:54:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01uleccd20\"}}"]
+2017-05-16 13:54:10	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 13:54:10	3341821103432497
+2017-05-16 13:54:10	["2017-05-16 13:54:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulecmbs3\"}}"]
+2017-05-16 13:54:10	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:54:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:54:10	JY201705050002
+2017-05-16 13:54:10	["2017-05-16 13:54:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulecrhgm\"}}"]
+2017-05-16 13:54:10	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 13:54:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 13:54:10	JY201705030003
+2017-05-16 13:54:10	["2017-05-16 13:54:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ulecx99k\"}}"]
+2017-05-16 13:54:10	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:54:10	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 13:54:11	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 13:54:11	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:01:38	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:01:38	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:01:38	app_key:
+2017-05-16 14:01:38	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:01:38	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:38	JY201703210001
+2017-05-16 14:01:39	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 14:01:39	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 14:01:39	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 14:01:39	JY201703170002
+2017-05-16 14:01:39	["2017-05-16 14:01:39","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ullye5gl\"}}"]
+2017-05-16 14:01:39	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:39	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:39	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 14:01:39	3341821103432497
+2017-05-16 14:01:39	["2017-05-16 14:01:39","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t5dzxvl\"}}"]
+2017-05-16 14:01:39	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:39	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:39	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:39	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:39	JY201705050002
+2017-05-16 14:01:40	["2017-05-16 14:01:40","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ullyrygb\"}}"]
+2017-05-16 14:01:40	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:40	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:40	JY201705030003
+2017-05-16 14:01:41	["2017-05-16 14:01:41","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ullze6uo\"}}"]
+2017-05-16 14:01:41	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:01:41	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:01:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:01:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:01:57	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:01:57	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:01:57	app_key:
+2017-05-16 14:01:57	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:01:57	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:57	JY201703210001
+2017-05-16 14:01:57	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 14:01:57	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 14:01:57	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 14:01:57	JY201703170002
+2017-05-16 14:01:57	["2017-05-16 14:01:57","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t5ozdw3\"}}"]
+2017-05-16 14:01:57	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:57	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:57	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 14:01:57	3341821103432497
+2017-05-16 14:01:58	["2017-05-16 14:01:58","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t5p43rt\"}}"]
+2017-05-16 14:01:58	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:58	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:58	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:58	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:58	JY201705050002
+2017-05-16 14:01:58	["2017-05-16 14:01:58","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulm9w77z\"}}"]
+2017-05-16 14:01:58	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:58	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:01:58	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:01:58	JY201705030003
+2017-05-16 14:01:58	["2017-05-16 14:01:58","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ulma0yok\"}}"]
+2017-05-16 14:01:58	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:01:58	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:01:58	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:01:58	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:03:08	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:03:08	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:03:08	app_key:
+2017-05-16 14:03:08	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:03:08	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:08	JY201703210001
+2017-05-16 14:03:09	["2017-05-16 14:03:09","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dk5t6w33xa\"}}"]
+2017-05-16 14:03:09	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:09	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:09	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1157
+2017-05-16 14:03:09	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 14:03:09	JY201703170002
+2017-05-16 14:03:10	["2017-05-16 14:03:10","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dk5t6wuxul\"}}"]
+2017-05-16 14:03:10	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:10	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:10	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1157
+2017-05-16 14:03:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 14:03:10	3341821103432497
+2017-05-16 14:03:10	["2017-05-16 14:03:10","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"157dk5t6x3mqz\"}}"]
+2017-05-16 14:03:10	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:10	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-16 14:03:10	PHP Error Severity: 8 --> Undefined variable: solve_way C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1157
+2017-05-16 14:03:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:10	JY201705050002
+2017-05-16 14:03:10	["2017-05-16 14:03:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t6x8np2\"}}"]
+2017-05-16 14:03:10	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:10	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:10	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:10	JY201705030003
+2017-05-16 14:03:10	["2017-05-16 14:03:10","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ulni1svz\"}}"]
+2017-05-16 14:03:10	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:03:10	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:03:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:03:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:03:25	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:03:34	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:03:34	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:03:34	app_key:
+2017-05-16 14:03:34	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:03:34	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:34	JY201703210001
+2017-05-16 14:03:35	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 14:03:35	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 14:03:35	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 14:03:35	JY201703170002
+2017-05-16 14:03:35	["2017-05-16 14:03:35","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulnx5ncw\"}}"]
+2017-05-16 14:03:35	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:35	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 14:03:35	3341821103432497
+2017-05-16 14:03:35	["2017-05-16 14:03:35","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t7cn0af\"}}"]
+2017-05-16 14:03:35	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:35	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:35	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:35	JY201705050002
+2017-05-16 14:03:35	["2017-05-16 14:03:35","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulnxenb5\"}}"]
+2017-05-16 14:03:35	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:35	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:03:36	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:03:36	JY201705030003
+2017-05-16 14:03:36	["2017-05-16 14:03:36","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"15a01ulnxjjia\"}}"]
+2017-05-16 14:03:36	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:03:36	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:03:36	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:03:36	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:04:21	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:04:21	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:04:21	app_key:
+2017-05-16 14:04:21	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:04:21	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:21	JY201703210001
+2017-05-16 14:04:24	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1177
+2017-05-16 14:04:24	PHP Error Severity: 8 --> Undefined index: short_address C:\wamp\www\test\trunk\source\Application\Platform\WayBill\top.php 1200
+2017-05-16 14:04:24	app_key:Array
+(
+    [key] => 555
+    [secret] => 555
+    [session] => 
+)
+
+2017-05-16 14:04:24	JY201703170002
+2017-05-16 14:04:25	["2017-05-16 14:04:25","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t86q6ik\"}}"]
+2017-05-16 14:04:25	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:25	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-16 14:04:25	3341821103432497
+2017-05-16 14:04:25	["2017-05-16 14:04:25","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulorouj3\"}}"]
+2017-05-16 14:04:25	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:25	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:25	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:25	JY201705050002
+2017-05-16 14:04:29	["2017-05-16 14:04:29","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulotshb7\"}}"]
+2017-05-16 14:04:29	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:29	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:29	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:29	JY201705030003
+2017-05-16 14:04:29	["2017-05-16 14:04:29","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"package item name can not be null\",\"sub_msg\":\"\u5305\u88f9\u5546\u54c1\u540d\u79f0\u4e0d\u80fd\u4e3a\u7a7a\",\"request_id\":\"157dk5t89gyy6\"}}"]
+2017-05-16 14:04:29	TOP_ERROR 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:04:29	ERROR topErrorTest 15 包裹商品名称不能为空 #package item name can not be null
+2017-05-16 14:04:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:04:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:04:40	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:04:40	app_key:
+2017-05-16 14:04:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	app_key:
+2017-05-16 14:04:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	app_key:
+2017-05-16 14:04:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	JY201611020003
+2017-05-16 14:04:40	["2017-05-16 14:04:40","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ulp0ojyw\"}}"]
+2017-05-16 14:04:40	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 14:04:40	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 14:04:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:04:40	JY201610080006
+2017-05-16 14:04:41	["2017-05-16 14:04:41","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"15a01ulp1a2ak\"}}"]
+2017-05-16 14:04:41	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:41	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:04:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:04:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:05:13	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:05:13	app_key:
+2017-05-16 14:05:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:13	app_key:
+2017-05-16 14:05:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:13	app_key:
+2017-05-16 14:05:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:13	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:13	JY201611020003
+2017-05-16 14:05:17	["2017-05-16 14:05:17","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"trade order can not apply mutil branch account\",\"sub_msg\":\"\u5546\u5bb6\u8bf7\u6c42\u53c2\u6570\u975e\u6cd5\uff0c\u540c\u4e00\u4e2a\u4ea4\u6613\u8ba2\u5355\u4e0d\u80fd\u7533\u8bf7\u591a\u4e2a\u7f51\u70b9\u7684\u9762\u5355\",\"request_id\":\"15a01ulpmzhzb\"}}"]
+2017-05-16 14:05:17	TOP_ERROR 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 14:05:17	ERROR topErrorTest 15 商家请求参数非法，同一个交易订单不能申请多个网点的面单 #trade order can not apply mutil branch account
+2017-05-16 14:05:17	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => e646cfc4c2c7307fa2cedd136c7f78a5
+)
+
+2017-05-16 14:05:17	JY201610080006
+2017-05-16 14:05:17	["2017-05-16 14:05:17","{\"error_response\":{\"code\":15,\"msg\":\"Remote service error\",\"sub_code\":\"shipping address cannot match any service\",\"sub_msg\":\"\u53d1\u8d27\u5730\u5740\u6ca1\u6709\u5339\u914d\u7684\u7535\u5b50\u9762\u5355\u670d\u52a1\",\"request_id\":\"157dk5t92jomk\"}}"]
+2017-05-16 14:05:17	TOP_ERROR 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:05:17	ERROR topErrorTest 15 发货地址没有匹配的电子面单服务 #shipping address cannot match any service
+2017-05-16 14:05:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:05:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:05:40	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:05:40	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:05:40	app_key:
+2017-05-16 14:05:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:05:41	app_key:
+2017-05-16 14:05:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:05:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:05:41	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38
+2017-05-16 14:06:30	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-16 14:06:30	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-16 14:06:30	app_key:
+2017-05-16 14:06:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:06:30	app_key:
+2017-05-16 14:06:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-16 14:06:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 28
+2017-05-16 14:06:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\WayBill\util.php 38

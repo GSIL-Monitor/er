@@ -1,0 +1,4 @@
+[ 2018-01-06T16:20:09+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/search.html?stockout_no=
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'sod.goods_name' in 'where clause'
+[ 2018-01-06T17:04:40+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/search.html?stockout_no=
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'sod.goods_name' in 'where clause'

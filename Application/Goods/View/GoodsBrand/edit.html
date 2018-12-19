@@ -1,0 +1,25 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['edit_form']}" class="form-div">
+        <div style="display: none;"><input name="brand_id" value="{$goods_brand.brand_id}" hidden="true"/></div>
+        <div class="form-div">
+            <label class="five-character-width">品牌名称</label><input class="easyui-textbox txt" type="text" name="brand_name" value="{$goods_brand.brand_name}" required="true"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">备注</label><input class="easyui-textbox txt" type="text" name="remark" value="{$goods_brand.remark}"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">是否停用</label><input id="goods_brand_edit_is_disabled" type="checkbox" name="is_disabled" value="{$goods_brand.is_disabled}" onclick="goodsBrand.initGoodsBrandCheckbox('goods_brand_edit_is_disabled',false)"/>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            setTimeout(goodsBrand.initGoodsBrandCheckbox("goods_brand_edit_is_disabled", true), 0);
+        });
+    </script>
+</block>

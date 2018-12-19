@@ -1,0 +1,72 @@
+<div id = '{$dialog_div}'>
+    <!-- <a href="javascript:void(0)" id="print_onlycode" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="(function(){cashSalesTradeTicket.printCode();})()">打印</a> -->
+    <!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="(function(){cashSalesTradeTicket.previewPrintcode();})()">预览</a> -->
+    <!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="(function(){cashSalesTradeTicket.printerSetting();})()">设置</a> -->
+
+    <div style="padding:10px 20px">
+        <div class="form-div">
+            <label style="margin-left:-8px;font-size:14px;color:red;"><input id="" class="cash_trade_return_ticket_checked" name="cash_trade_return_ticket_checked" type="checkbox" checked/>保存后立即打印小票</label>
+        </div>
+        <div style="margin-top:15px">
+            <span><label>打&nbsp;印&nbsp;机：&nbsp;</label></span>
+            <input name="printer_list" class="easyui-combobox" id='printer_list' data-options="width:161,onSelect:function(res){cashSalesTradeTicket.onPrinterSelect(res.name);}"/>
+        </div>
+        <div style="margin-top:10px">
+            <label>选择模板：</label>
+            <select name="template_list" class='easyui-combobox sel' data-options="width:161,onSelect:function(res){cashSalesTradeTicket.templateOnSelect();}" id="template_list">
+            <volist name='goods_template' id='vo'><if condition="$vo['selected'] eq true"><option value="{$vo.id}" selected>{$vo.name}</option><else/><option value="{$vo.id}">{$vo.name}</option></if></volist>
+            </select>
+            <div name="template_guide" style="margin-top:7px;margin-left:57px;display:none"><span style="color:red">没有模板？去</span><a href="javascript:void(0)" onclick="(function(){cashSalesTradeTicket.changeTemplatePage();})()">打印模板</a><span style="color:red">界面下载模板</span></div>
+        </div>
+    </div>
+<script type="text/javascript">
+//# sourceURL=print_ticket.js
+    cashSalesTradeTicket.template_contents = {$contents};
+    // cashSalesTradeTicket.print_ticket =  $('#'+'{$dialog_div}'+" input[name='cash_trade_return_ticket_checked']");
+    cashSalesTradeTicket.printer_list =  $('#'+'{$dialog_div}'+" input[name='printer_list']");
+    cashSalesTradeTicket.template_list =  $('#'+'{$dialog_div}'+" select[name='template_list']");
+    cashSalesTradeTicket.template_guide =  $('#'+'{$dialog_div}'+" div[name='template_guide']");
+    cashSalesTradeTicket.connectStockWS();
+$(function(){
+    setTimeout(function(){
+        $('.cash_trade_return_ticket_checked').change(function(){
+            var cash_ticket = $('.cash_trade_return_ticket_checked').attr('value');
+            if(cash_ticket==1){
+                this.value = 0;
+                this.checked = false;
+            }else{
+                this.value = 1;
+                this.checked = true;
+            }
+        });
+        var setting = JSON.parse('{$setting}');
+
+        $('#'+'{$dialog_div}'+' input').each(function(){
+            var that = this;
+            var name = that.name;
+            if (that.type == "checkbox") {
+                if (typeof(setting) != "undefined" && (setting[name] == 1))
+                {
+                    that.value = 1;
+                    // that.indeterminate = false;
+                    that.checked = true;
+                }else{
+                    that.value = 0;
+                    // that.indeterminate = false;
+                    that.checked = false;
+                }
+            }
+        });
+        cashSalesTradeTicket.newSelectPrinter();
+        if(cashSalesTradeTicket.template_list.combobox('getData').length == 0)
+        {
+             cashSalesTradeTicket.template_guide.show();
+        }
+    },10);
+});
+cashSalesTradeTicket.getGoodsTemplatesContents=function(){
+	var contents = {$contents};
+	return contents;
+}
+</script>
+</div>

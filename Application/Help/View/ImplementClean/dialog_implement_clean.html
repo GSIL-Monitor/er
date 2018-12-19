@@ -1,0 +1,72 @@
+<style type="text/css">
+sp1{color:red;}
+sp2{color:green;}
+</style>
+<div class="form-div" style="margin:20px 30px 0px 0px; float: right;">
+	<sp1 style="font-size:24px;font-weight:bold;">#系统清理一但执行不可恢复，请谨慎操作#</sp1>
+</div>
+<div class="form-div" style="margin:35px 10px 0px;">
+	<label style="font-size: 14px;font-weight: bold;">请选择清理类型：</label>
+</div>
+<form class="easyui-form" id="form_implement_clean">
+<div class="from-div" style="margin:5px 0px 0px 20px;">
+	<label><input name="clean_type" type="radio" value="1" />全清(清除：<sp1>货品、订单、档口、采购、库存、客户、员工、账款、统计相关</sp1>)</label><br>
+	<label><input name="clean_type" type="radio" value="2" />清除货品信息(清除：<sp1>货品、订单、档口、采购、库存、账款、统计相关</sp1>，保留:<sp2>客户、员工相关</sp2>)</label><br>
+	<label><input name="clean_type" type="radio" value="3" />清除客户资料(清除：<sp1>客户、订单、档口、库存、账款、统计相关及采购单等信息</sp1>，保留：<sp2>货品、员工相关及供应商、供应商货品等信息</sp2>)</label><br>
+	<label><input name="clean_type" type="radio" value="4" />清除员工资料(清除：<sp1>员工、订单、档口、库存、账款、统计相关及采购单等信息</sp1>，保留：<sp2>货品、客户相关及供应商、供应商货品等信息</sp2>)</label><br>
+	<label><input name="clean_type" type="radio" value="5" />保留<sp2>库存、货品、员工、客户</sp2>相关信息(清除：<sp1>订单、档口、账款、统计相关及采购单等信息,库存只保留库存量</sp1>，保留：<sp2>供应商、供应商货品</sp2>) </label><br>
+	<label><input name="clean_type" type="radio" value="7" />清除客户营销信息(清除：<sp1>短信策略、模板</sp1>)</label><br>
+	<label><input name="clean_type" type="radio" value="8" />清除订单信息(清除：<sp1>订单、档口、账款、统计相关信息，与订单相关的出库单、入库单的类型将变为其他出库、其他入库</sp1>)</label><br>
+	<label><input name="clean_type" type="radio" value="9" />系统恢复初始化</label>
+</div>
+</form>
+<hr style="border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div" style="font-size:12px;color:blue;margin-left: 20px;">
+	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="hideImplementBtn();">关闭系统清理</a>-->关闭【帮助】中的【系统清理】功能。再开启请联系管理员。<br/>
+</div>
+<hr style="border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div" style="margin:5px 10px 0px;">
+<p style="font-size:12px;color:blue;">#说明：<br/>
+<sp1>货品相关</sp1>-->货品分类、货品品牌、平台货品、货品档案、单品、组合装、条形码、商家编码、货品出库仓库、赠送的赠品、货品日志等；<br/>
+<sp1>订单相关</sp1>-->原始订单、原始退款单、预订单、订单审核、财务审核、退换管理、订单管理、订单明细、订单日志、历史原始订单、历史订单、历史订单日志、售后统计等；<br/> 
+<sp1>档口相关</sp1>-->档口缺货明细、档口单管理、分拣墙等；<br/>
+<sp1>采购相关</sp1>-->供货商、供货商货品、采购单（包含采购单、采购日志）等；<br/> 
+<sp1>库存相关</sp1>-->销售出库单、入库单管理、出库单管理、调拨单管理、盘点单管理、盘点盈亏、库存管理、物流同步、库存操作日志、库存同步日志、库存货位、电子面单号、历史出库单、历史销售出库、历史库存日志、历史物流同步、库存统计（不含库存台账）等；<br/> 
+<sp1>客户相关</sp1>-->客户（买家）档案信息、客户电话、客户地址、客户信息变更日志、客户平台映射、短信发送记录、短信发送模板、短信发送策略等；<br/> 
+<sp1>员工相关</sp1>-->员工信息、员工权限等；<br/> 
+<sp1>账款相关</sp1>-->物流资费等；<br/> 
+<sp1>统计相关</sp1>-->销售日统计、销售月统计、单品销售统计、单品畅销统计、业务员绩效、库存台账等；#</p>
+</div>
+<script type="text/javascript">
+function submitMenuDialog(){
+	var type = $("input[name='clean_type']:checked").val();
+	if(type==undefined){
+		messager.alert("您没有选择任何清理项。");return false;
+	}else{
+		messager.confirm("确定执行清理吗？",function(r){
+			if(!r){return false;}
+			var url="{:U('Help/ImplementClean/implementClean')}";
+			$.post(url,{type:type},function(res){
+				if(res.info){
+					messager.alert(res.info);
+				}else{
+					messager.alert("未知错误，请联系管理员。");
+				}
+			});
+		});
+	}
+}
+function hideImplementBtn(){
+	var url = "{:U('ImplementClean/hideImCSetting')}";
+	$.post(url, '', function (res) {
+		if (res.status) {
+			$("a[data-url='系统清理']").parent().remove();
+			messager.alert("执行成功！");
+			$('#reason_show_dialog').dialog('close');
+		}else{
+			messager.alert(res.info);
+		}
+	});
+}
+
+</script>

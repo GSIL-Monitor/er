@@ -1,0 +1,2 @@
+[ 2017-08-09T00:01:02+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdata.html
+ERR: StockOutOrder-getGoodsSuiteList-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'asc LIMIT 0,20' at line 2

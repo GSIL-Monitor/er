@@ -1,0 +1,116 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="datagrid">
+        <div data-options="region:'center'" style="width:100%;height: 60%">
+            <easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields"/>
+        </div>
+        <switch name="type">
+            <case value="true">
+                <div data-options="region:'south'" style="width:100%;height: 40%">
+                    <easyui:datagrid id="{$sub_datagrid.id}" style="{$sub_datagrid.style}" options="sub_datagrid.options" fields="sub_datagrid.fields"/>
+                </div>
+            </case>
+            <default/>
+        </switch>
+
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div style="display: none;">
+                <input hidden="true" name="search[warehouse_id]" value="{$value.warehouse_id}"/>
+                <input hidden="true" name="search[model]" value="{$value.model}"/>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">品牌</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <label class="five-character-width">分类：</label><input class="txt" id="{$id_list['class_id']}" value="-1" name="search[class_id]" data-options="url:'{:U('GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label class="five-character-width">货品编码</label><input class="easyui-textbox txt" type="txt" name="search[goods_no]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="{$prefix}goods_spec_select.submitSearchForm(this)">搜索</a>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">货品名称</label><input class="easyui-textbox txt" type="txt" name="search[goods_name]"/>
+                <label class="five-character-width">商家编码</label><input class="easyui-textbox txt" type="txt" name="search[spec_no]"/>
+                <label class="five-character-width">规格名称</label><input class="easyui-textbox txt" type="txt" name="search[spec_name]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="{$prefix}goods_spec_select.loadFormData()">重置</a>
+                    <if condition="$type neq 0">
+                        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="{$prefix}goods_spec_select.selectChoose()">多选</a>
+                    </if>
+            </div>
+            <div class="form-div">
+                <label class="five-character-width">条形码</label><input class="easyui-textbox txt" type="txt" name="search[barcode]"/>
+                <!--<label >显示可发库存为0的货品<input  id="is_show_zero_stock" type="checkbox" name="search[is_show_zero_stock]" data-options="on:1,off:0" value="0" onclick="getTransferVal('is_show_zero_stock')"/></label>-->
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sorceURL=select_temp.js
+        $(function () {
+            $('#'+"{$id_list['class_id']}").changStyleTreeCombo("{$id_list['class_id']}");
+            setTimeout(function () {
+                {$prefix}goods_spec_select = new RichDatagrid(JSON.parse('{$params}'));
+                getTransferVal = function ( id ){
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if(check.checked){
+                        check.value=1;
+                    }else{
+                        check.value=0;
+                    }
+                }
+                {$prefix}goods_spec_select.setFormData();
+                if ("{$type}") {
+                    var dg = $("#" + "{$id_list.datagrid}");
+                    var sub_dg = $("#" + "{$id_list.sub_datagrid}").datagrid().datagrid('enableCellEditing');
+                    dg.datagrid("options").onDblClickRow = function (index, row) {
+                        var rows = sub_dg.datagrid("getRows");
+                        for (var x in rows) {
+                            if (rows[x].id == row.id) {
+                                messager.alert("该数据已添加");
+                                return false;
+                            }
+                        }
+                        row.num = 1;
+                        sub_dg.datagrid("appendRow", row);
+                    }
+                    sub_dg.datagrid("options").onDblClickRow = function (index, row) {
+                        sub_dg.datagrid("deleteRow", index);
+                    }
+                }
+                {$prefix}goods_spec_select.selectChoose = function () {
+                    var dg = $("#" + "{$id_list.datagrid}");
+                    var dg_rows = dg.datagrid("getSelections");
+                    if (dg_rows == undefined || dg_rows.length == 0 || dg_rows == null) {
+                        messager.alert("请选择需要添加的货品再点击！");
+                    }
+                    var sub_dg = $("#" + "{$id_list.sub_datagrid}");
+                    var is_repet = false;
+                    for(i in dg_rows) {
+                        var rows = sub_dg.datagrid("getRows");
+                        for (var x in rows) {
+                            if (rows[x].id == dg_rows[i].id) {
+                                var repet = i;
+                                is_repet = true;
+                                continue;
+                            }
+                        }
+                        if(repet != i){
+                            dg_rows[i].num = 1;
+                            sub_dg.datagrid("appendRow", dg_rows[i]);
+                        }
+                    }
+                    if(is_repet){
+                        messager.alert("有重复数据,未重复数据已添加");
+                    }
+                }
+            }, 0);
+        });
+    </script>
+</block>

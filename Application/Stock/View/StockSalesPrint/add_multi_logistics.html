@@ -1,0 +1,181 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+	<div id="{$id_list.toolbar}">
+		<form id = {$id_list.form}>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="size:'small',iconCls:'icon-add'" onclick="sspMultiLogistics.addE()">添加</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="size:'small',iconCls:'icon-edit'" onclick="sspMultiLogistics.edit()">编辑</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="size:'small',iconCls:'icon-remove'" onclick="sspMultiLogistics.delete()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="size:'small',iconCls:'icon-print'" onclick="newPrintLogisticsDialog(1)">打印</a>
+		</form>
+	</div>
+	<script type="text/javascript">
+//# sourceURL=add_ml_l.js
+		$(function(){
+			setTimeout(function(){
+				sspMultiLogistics = new RichDatagrid(JSON.parse('{$params}'));
+				$('#' + sspMultiLogistics.params.datagrid.id).datagrid('getColumnOption','print_status').styler = function(value,row,index){
+					return sspMultiLogistics.setColor(value);
+				};
+				sspMultiLogistics.setColor = function(value){
+					if(value == 2){
+						return 'background-color:#E37162;color:#000;';
+					}else if(value == 1){
+						return 'background-color:#55B527;color:#000;';
+					}else if(value == 3){
+						return 'background-color:#f00;color:#000;';
+					}
+				}
+				sspMultiLogistics.addE = function(){
+					var rows = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections');
+					if ($.isEmptyObject(rows)){
+						messager.alert('请选择订单');
+						return;
+					}
+                    else if(rows.length>1){
+                        messager.alert('只能选择一个订单');
+                        return;
+                    }
+					else if(rows[0].logistics_no.length == 0){
+						messager.alert('请先填写物流单号');
+						return;
+					}
+					var stockout_id = rows[0].id;
+                    var logistics_id = rows[0].logistics_id;
+                    var bill_type = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections')[0].bill_type;
+                    this.params.add.height = 260;
+					this.params.add.width = 360;
+					if(this.params.add.url.indexOf('?')!=-1)
+					 {
+					 	var url = this.params.add.url;
+					 	url = url.substr(0,url.indexOf('?'));
+					 	this.params.add.url = url;
+					 }
+                    this.params.add.url +='?stockout_id='+stockout_id+"&bill_type="+bill_type+'&logistics_id='+logistics_id;
+                    connectStockWS();
+                    this.add();
+				};
+				sspMultiLogistics.edit = function(){
+					var rows = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections');
+					var that = this;
+					if ($.isEmptyObject(rows)){
+						messager.alert('请选择订单');
+						return;
+					}
+
+					var row = $('#'+this.params.datagrid.id).datagrid('getSelections');
+					if ($.isEmptyObject(row)){
+						messager.alert('请选择物流单号');
+						return;
+					}
+                    if (row.length>1){
+                        messager.alert('不能同时编辑多个订单');
+                        return;
+                    }
+                    // 判断物流单类型
+                    $.post("__ROOT__/index.php/Stock/StockSalesPrint/getBillType", {logistics_id:row[0].logistics_id}, function(r){
+                        if(r.status ===1){
+                            if(r.msg != 0){
+                                messager.alert('目前只支持编辑普通物流单');
+                                return;
+							}else{
+                                if(this.params.edit.url.indexOf('?')!=-1)
+                                {
+                                    var url = this.params.edit.url;
+                                    this.params.edit.url = url.substr(0,url.indexOf("?"));
+                                }
+								this.params.edit.url += "?src_order_no="+rows[0].src_order_no+'&logistics_id='+$('#'+this.params.datagrid.id).datagrid('getSelected').logistics_id+'&logistics_no='+$('#'+this.params.datagrid.id).datagrid('getSelected').logistics_no+'&id='+$('#'+this.params.datagrid.id).datagrid('getSelected').id+'&weight='+$('#'+this.params.datagrid.id).datagrid('getSelected').weight+'&stockout_id='+$('#'+this.params.datagrid.id).datagrid('getSelected').stockout_id;
+                                this.params.edit.width = 320;
+                                this.params.edit.height = 220;
+                                var buttons=[ {text:'确定',handler:function(){ that.submitEditDialog(); }}, {text:'取消',handler:function(){that.cancelDialog(that.params.edit.id)}} ];
+                                this.showDialog(this.params.edit.id,this.params.edit.title,this.params.edit.url,this.params.edit.height,this.params.edit.width,buttons,this.params.edit.toolbar,this.params.edit.ismax);
+                            }
+                        }else{
+                            messager.alert('获取物流单类型失败，请重试');
+                            return;
+						}
+                    }.bind(this));
+				};
+				sspMultiLogistics.delete = function(){
+					var rows = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections');
+					if ($.isEmptyObject(rows)){
+						messager.alert('请选择订单');
+						return;
+					}
+					var row = $('#'+this.params.datagrid.id).datagrid('getSelections');
+					if ($.isEmptyObject(row)){
+						messager.alert('请选择物流单号');
+						return;
+					}
+					var trade_id = $('#stocksalesprint_datagrid').datagrid('getSelections')[0].src_order_id;
+					var ids = [];
+					var logistics_no = [];
+					var logistics_id = [];
+					for(var k in row){
+						if(row[k].bill_type == 2){
+							messager.alert('菜鸟电子面单不能删除');
+							return ;
+						}
+						ids[k] = row[k].id;
+						logistics_no[k]= row[k].logistics_no;	
+						logistics_id[k]= row[k].logistics_id;
+					}
+
+                    messager.confirm("您确定要删除该多物流单吗?",function(r){
+                        if(r){
+                            $.post("{:U('Stock/StockSalesPrint/deleteMultiLogisticsNo')}",{logistics_id:logistics_id,ids:ids,logistics_no:logistics_no,trade_id:trade_id},function(r){
+                                if(r.status == 0){
+                                    sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                                }else{
+                                    messager.alert(r.info);
+                                }
+                            },'json');
+                        }
+                    });
+				};
+				sspMultiLogistics.writeWeight = function(){
+					var pagenumber = $('#CountInput').val();
+					var that = this;
+					if(pagenumber == '' || pagenumber <1){
+						messager.alert('请先填写包裹数或包裹数要大于0');
+						return;
+					}
+					
+					pagenumber = parseInt(pagenumber);
+	
+					if(isNaN(pagenumber)){
+						messager.alert('请填写数字');
+						return ;
+					}
+					var buttons=[ {text:'确定',handler:function(){ that.submitWeight(); }}, {text:'取消',handler:function(){that.cancelDialog(that.params.writeWeight.id)}} ];
+					Dialog.show(this.params.writeWeight.id,this.params.writeWeight.title,this.params.writeWeight.url+"?pagenumber="+pagenumber,'auto',this.params.writeWeight.width,buttons,null,false);
+				};
+				sspMultiLogistics.submitWeight = function(){
+					var weights = '';
+					$('input[name="weights"]').each(function(){
+						var weight_val = $(this).val();
+						var k = 1;
+						weight_val = parseInt(weight_val);
+						if(isNaN(weight_val)){
+							messager.alert("第"+k+"个包裹重量要填写数字");
+							return;
+						}
+						if(weight_val < 0){
+							messager.alert("第"+k+"个包裹重量要大于0");
+							return;
+						}
+						weights += weight_val+',';
+					});
+					weights = weights.substr(0,weights.length-1);
+					sspMultiLogistics.weights = weights;
+					$('#'+sspMultiLogistics.params.writeWeight.id).dialog('close');
+				};
+				
+			},0);
+		});
+	</script>
+</block>
+<block name="dialog"></block>
+<block name="tabs">
+<script>
+</script>
+</block>

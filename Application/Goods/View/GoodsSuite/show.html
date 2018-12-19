@@ -1,0 +1,286 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label class="">　组合装名称：</label><input class="easyui-textbox txt" type="text" name="search[suite_name]"/>
+                <label class="">　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[suite_no]"/>
+                <label class="">　　　货品名称：</label><input class="easyui-textbox txt" type="txt" name="search[goods_name]"/>
+
+                <label class="">　　品牌：</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+            <!--   <a href="javascript:void(0)" onclick="goods_suite.clickMore(this)">更多</a> -->  
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="goods_suite.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="goods_suite.loadFormData()">重置</a>
+                <label class="form-div">
+                    <a href="{$faq_url_goods_question}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+                </label>
+            </div>
+           <!--  <div id="{$id_list.more_content}" class="form-div"> -->
+           <div class="form-div">
+                <label class="">单品商家编码：</label><input class="easyui-textbox txt" type="txt" name="search[spec_no]"/>
+                <label class="">　　　条形码：</label><input class="easyui-textbox txt" type="text" name="search[barcode]"/>
+                <label class="">　　　规格名称：</label><input class="easyui-textbox txt" type="txt" name="search[spec_name]"/>
+                <label class="">　　分类：</label><input class="txt" id="tree_class_show_suite" value="-1" name="search[class_id]" data-options="url:'{:U('GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+            </div>
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="goods_suite.add()">添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="goods_suite.edit()">编辑</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="goods_suite.remove('Goods_Suite')">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="goods_suite.setOutLogistics()">设置出库物流</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goods_suite.uploadDialog('import')">导入组合装</a>
+<!--
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goods_suite.uploadDialog('update')">更新导入组合装</a>
+-->
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goods_suite.downloadTemplet()">下载模板</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goods_suite.exportToExcel('excel')">导出Excel</a>
+
+        </div>
+    </div>
+</block>
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.select}"></div>
+    <div id="{$id_list.file_Dialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.file_Form}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="goods_suite.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=GoodsSuiteShow.js
+        $(function () {
+            $('#tree_class_show_suite').changStyleTreeCombo('tree_class_show_suite');
+            setTimeout(function () {
+                goods_suite = new RichDatagrid(JSON.parse('{$params}'));
+                goods_suite.setFormData();
+                goods_suite.upload = function () {
+                    var form = $("#{$id_list.file_Form}");
+                    var dg = $("#{$id_list.datagrid}");
+                    var dialog = $("#{$id_list.file_Dialog}");
+                    var title=(dialog.prev().children('.panel-title.panel-with-icon').text());
+                    var type = title=='导入组合装'?'import':'update';
+					var url = "{:U('goods_suite/uploadExcel')}"+"?type="+type;
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (!res.status) {
+                                messager.alert(res.info);
+                            } else if (res.status == 1) {
+                                dg.datagrid("reload");
+                                dialog.dialog("close");
+                            } else if (res.status == 2) {
+                                var converter = document.createElement("DIV"); 
+                                converter.innerHTML = res.info[0]['message']; 
+                                res.info[0]['message'] = converter.innerText; 
+                                converter = null; 
+                                // res.info[0]['message'] = String.fromCharCode(res.info[0]['message']);
+                                // console.log(res.info[0]['message']);
+                                $.fn.richDialog("response", res.info, "importResponse_suite");
+                                dg.datagrid("reload");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                goods_suite.submitAddDialog = function () {
+                    var data = {};
+                    var addDg = $("#" + "{$id_list['add_datagrid']}");
+                    var addForm = $("#" + "{$id_list['add_form']}");
+                    if (!addForm.form("validate")) {
+                        return false;
+                    }
+                    var detail = addDg.datagrid("getData");
+                    var row = addDg.datagrid("getSelected");
+                    if (typeof(row) != "undefined") {
+                        var index = addDg.datagrid("getRowIndex", row);
+                        addDg.datagrid("endEdit", index);
+                    }
+                    data["detail"] = detail["rows"];
+                    if (typeof(detail["rows"]) == "undefined" || detail["rows"] == "") {
+                        messager.alert("至少添加一个单品");
+                        return false;
+                    }
+                    data['suite'] = addForm.serializeArray();
+                    var dataTemp = [];
+                    for (var x in data["suite"]) {
+                        if (data["suite"][x] instanceof Function) {
+                            continue;
+                        }
+                        dataTemp[data["suite"][x]["name"]] = data["suite"][x]["value"];
+                    }
+                    if (typeof(dataTemp["suite_name"]) == "undefined" || dataTemp["suite_name"] == "") {
+                        messager.alert("组合装名称不能为空");
+                        return false;
+                    }
+                    if (typeof(dataTemp["suite_no"]) == "undefined" || dataTemp["suite_no"] == "") {
+                        messager.alert("商家编码不能为空");
+                        return false;
+                    }
+                    var url = "{:U('GoodsSuite/saveGoodsSuite')}";
+                    $.post(url, data, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                            return false;
+                        } else {
+                            $("#" + "{$id_list['add']}").dialog('close');
+                            goods_suite.refresh();
+                        }
+                    });
+                };
+                goods_suite.submitEditDialog = function () {
+                    var data = {};
+                    var editDg = $("#" + "{$id_list['edit_datagrid']}");
+                    var editForm = $("#" + "{$id_list['edit_form']}");
+                    if (!editForm.form("validate")) {
+                        return false;
+                    }
+                    var detail = editDg.datagrid("getData");
+                    var row = editDg.datagrid("getSelected");
+                    if (typeof(row) != "undefined") {
+                        var index = editDg.datagrid("getRowIndex", row);
+                        editDg.datagrid("endEdit", index);
+                    }
+                    data["detail"] = detail["rows"];
+                    data["suite"] = editForm.serializeArray();
+                    data["detail"] = detail["rows"];
+                    if (typeof(detail["rows"]) == "undefined" || detail["rows"] == "") {
+                        messager.alert("至少添加一个单品");
+                        return false;
+                    }
+                    var dataTemp = [];
+                    for (var x in data["suite"]) {
+                        if (data["suite"][x] instanceof Function) {
+                            continue;
+                        }
+                        dataTemp[data["suite"][x]["name"]] = data["suite"][x]["value"];
+                    }
+                    if (typeof(dataTemp["suite_name"]) == "undefined" || dataTemp["suite_name"] == "") {
+                        messager.alert("组合装名称不能为空");
+                        return false;
+                    }
+                    if (typeof(dataTemp["suite_no"]) == "undefined" || dataTemp["suite_no"] == "") {
+                        messager.alert("商家编码不能为空");
+                        return false;
+                    }
+                    var url = "{:U('GoodsSuite/updateGoodsSuite')}";
+                    $.post(url, data, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                            return false;
+                        } else {
+                            $("#" + "{$id_list['edit']}").dialog("close");
+                            goods_suite.refresh();
+                        }
+                    });
+                };
+                goods_suite.setOutLogistics=function(){
+                    var suite_id_list = [];
+                    for(i in this.selectRows){ suite_id_list.push(this.selectRows[i].id) }
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null)
+                    {
+                        messager.alert('<label style="align:center;font-size:13px;">请选择要设置的货品</label><br><label style="align:center;color:blue;">#若要为<span style="color:red">全部货品</span>设置出库物流，请至<span style="color:red">[设置]->[策略设置]->[物流匹配]</span>中进行设置#</label>', function(){return false;
+                        })
+                    }else
+                    {
+                        goods_suite.chgLogistics(suite_id_list);
+                    }
+                }
+                goods_suite.chgLogistics = function(suite_id){
+                    var type='suite';
+                    var dg = '{$id_list.edit}';
+                    var url = "index.php/Goods/GoodsGoods/setOutLogistics?id=" + suite_id+"&type="+type;
+                    var buttons = [{
+                        text: '确定', handler: function () {
+                            if(submitSetOutLogistics()){
+                                $('#'+dg).dialog('close');
+                                goods_suite.refresh();
+                            }
+                        }
+                    },{
+                        text: '取消', handler: function () {
+                            $('#'+dg).dialog('close');
+                        }
+                    }];
+                    goods_suite.showDialog(dg,'设置出库物流',url,400,550,buttons,null,false);
+                }
+
+                goods_suite.uploadDialog = function (type) {
+                    var dialog = $("#{$id_list.file_Dialog}");
+                    var title = type=='import'?'导入组合装':'更新导入组合装';
+                    dialog.dialog({
+                        title: title,
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+
+                goods_suite.downloadTemplet = function(){
+                    var url= "{:U('GoodsSuite/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载组合装模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                };
+
+                goods_suite.exportToExcel = function(type){
+                    var url= "{:U('GoodsSuite/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var rows = $("#{$id_list.datagrid}").datagrid("getRows");
+
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                    else if(id_list!=''){
+                        messager.confirm('确定导出选中的货品吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else{
+                        messager.confirm('确定导出所有查询的货品吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type+'&search='+search);
+                        })
+                    }
+                }
+
+            }, 0);
+        });
+    </script>
+</block>

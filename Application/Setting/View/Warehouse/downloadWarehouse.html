@@ -1,0 +1,27 @@
+<style>
+    .wa-div label{vertical-align:middle;width: 65px;display:inline-block; font-size: 12px;text-align: right;}
+</style>
+<div>
+    <form id="download_warehouse" method="post">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick = "warehouse_obj.downloadWarehouse()">下载</a> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick = "warehouse_obj.cancel()">取消</a> 
+       
+		<div class="form-div wa-div">
+            <label>仓储类型：</label><input class="easyui-combobox txt"  name="warehouse_type" data-options="required:true,data: formatter.get_data('download_warehouse','def'),valueField: 'id',textField: 'name'"/>
+         </div>
+        <div class="form-div wa-div">
+            <label>商家编号：</label><input class="easyui-textbox txt" type="text" name="deptNo" data-options="required:true" missingMessage="不能为空 "/>
+         </div>
+        <div class="form-div wa-div">
+            <label>下载店铺：</label><select class="easyui-combobox sel" name="shop" data-options="panelHeight:'200px',editable:false, required:true"><volist name='shop' id='vo'><option value="{$vo.id}">"{$vo.name}"</option></volist></select>
+        </div>
+
+    </form>
+</div>
+<script>
+    $(function(){
+        setTimeout(function () {
+			
+        }, 0);
+    });
+</script>

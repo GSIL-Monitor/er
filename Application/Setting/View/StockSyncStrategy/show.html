@@ -1,0 +1,113 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}">
+        <form id="stocksyncstrategy-form">
+            <div class="easyui-form" style="padding: 5px;">
+                <label>规则编号</label><input class="easyui-textbox txt" type="text" name="search[rule_no]"/>
+                <label>规则名称</label><input class="easyui-textbox txt" type="text" name="search[rule_name]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="stockSyncStrategy.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stockSyncStrategy.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="stockSyncStrategy.add()">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" onclick="stockSyncStrategy.edit()">编辑</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="stockSyncStrategy.remove()">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" title="修改完策略以后点击按钮，策略才会生效" onclick="stockSyncStrategy.refreshSyncRule()">应用策略</a>
+                <label class="form-div">
+                    <a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+                </label>
+            </div>
+        </form>
+    </div>
+    <script>
+        //# sourceURL=StockSyncStrategy.js
+        $(function () {
+            setTimeout(function () {
+                stockSyncStrategy = new RichDatagrid(JSON.parse('{$params}'));
+                stockSyncStrategy.setFormData();
+                stockSyncStrategy.refreshSyncRule = function () {
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "正在应用，请稍等..."
+                    });
+                    var url = "{:U('StockSyncStrategy/refreshSyncStrategy')}";
+                    $.post(url, {}, function (res) {
+                        $.messager.progress('close');
+                        if (res.status == 0) {
+                            messager.alert(res.info);
+                        } else {
+                            messager.alert("操作成功");
+                        }
+                    })
+                }
+            }, 0);
+        });
+
+        function brandFormatter(value, row, index) {
+            var brand_type = {$map_brand};
+            for (var x in brand_type) {
+                if (brand_type[x]["id"] == value) {
+                    return brand_type[x]["name"];
+                }
+            }
+            return value;
+        }
+
+
+        function classFormatter(value, row, index) {
+            var class_type = {$map_class};
+            for (var x in class_type) {
+                if (class_type[x]["id"] == value) {
+                    return class_type[x]["name"];
+                }
+            }
+            return value;
+        }
+
+        function shopFormatter(value, row, index) {
+            if (value != undefined) {
+                var shop_type = {$map_shop};
+
+                var nvalue = value.split(",");
+                var nforma = '';
+                for (var j in nvalue) {
+                    for (var x in shop_type) {
+                        if (shop_type[x]["id"] == nvalue[j]) {
+                            nforma = nforma + ',' + shop_type[x]["name"];
+                        }
+                    }
+                }
+                nforma = nforma.split(",");
+                nforma = nforma.filter(function (x) {
+                    return x != '';
+                });
+                nforma = nforma.join();
+                return nforma;
+            }
+            return value;
+        }
+
+        function warehouseFormatter(value, row, index) {
+            if (value != undefined) {
+                var warehouse_type = {$map_warehouse};
+
+                var nvalue = value.split(",");
+                var nforma = '';
+                for (var j in nvalue) {
+                    for (var x in warehouse_type) {
+                        if (warehouse_type[x]["id"] == nvalue[j]) {
+                            nforma = nforma + ',' + warehouse_type[x]["name"];
+                        }
+                    }
+                }
+                nforma = nforma.split(",");
+                nforma = nforma.filter(function (x) {
+                    return x != '';
+                });
+                nforma = nforma.join();
+                return nforma;
+            }
+            return value;
+        }
+    </script>
+</block>
+<block name="tabs"></block>
+<block name="script"></block>

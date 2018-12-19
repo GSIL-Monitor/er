@@ -1,0 +1,137 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label>品牌名称：</label><input class="easyui-textbox txt" type="text" name="search[brand_name]"/>
+                <label style="display:none;"><input id="gb_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="goodsBrand.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="goodsBrand.loadFormData()">重置</a>
+            </div>
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="goodsBrand.add()">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="goodsBrand.edit()">编辑</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="goodsBrand.disable()">停用</a>
+                <a id="gb_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="goodsBrand.showDisabled()">显示停用</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        //# sourceURL=GoodsBrandShow.js
+        $(function () {
+            setTimeout(function () {
+                goodsBrand = new RichDatagrid(JSON.parse('{$params}'));
+                goodsBrand.setFormData();
+                goodsBrand.checkEdit = function(){
+                    if(goodsBrand.selectRows[0].id==0){
+                        messager.info('系统内置，无法修改');
+                        return false;
+                    }
+                    return true;
+                }
+                goodsBrand.showDisabled =function(){
+                    if($("#gb_show_disabled").val()==0){
+                        $("#gb_show_disabled").val('1');
+                        goodsBrand.submitSearchForm(this);
+                        $("#gb_but_disabled").linkbutton({text:'隐藏停用'});
+                    }else{
+                        $("#gb_show_disabled").val('0');
+                        goodsBrand.submitSearchForm(this);
+                        $("#gb_but_disabled").linkbutton({text:'显示停用'});
+                    }
+                }
+                goodsBrand.initGoodsBrandCheckbox = function (id, bool) {
+                    bool = bool == undefined ? false : bool;
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if (bool == true) {
+                        if (value != 1) {
+                            check.value = 0;
+                            check.checked = false;
+                        } else {
+                            check.checked = true;
+                        }
+                    } else {
+                        if (value == 0) {
+                            check.value = 1;
+                            check.checked = true;
+                        } else {
+                            check.value = 0;
+                            check.checked = false;
+                        }
+                    }
+                }
+                goodsBrand.submitAddDialog = function () {
+                    var data = {};
+                    var addForm = $("#" + "{$id_list['add_form']}");
+                    if (!addForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = addForm.serializeArray();
+                    var url = "{:U('GoodsBrand/addGoodsBrand')}";
+                    var dialog = $("#" + "{$id_list.add}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                        } else {
+                            dialog.dialog("close");
+                            goodsBrand.refresh();
+                        }
+                    })
+                }
+                goodsBrand.submitEditDialog = function () {
+                    var data = {};
+                    var editForm = $("#" + "{$id_list['edit_form']}");
+                    if (!editForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = editForm.serializeArray();
+                    var url = "{:U('GoodsBrand/editGoodsBrand')}";
+                    var dialog = $("#" + "{$id_list.edit}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                        } else {
+                            dialog.dialog("close");
+                            goodsBrand.refresh();
+                        }
+                    });
+                }
+                goodsBrand.disable = function () {
+                    var index = goodsBrand.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择品牌");
+                        return false;
+                    }
+                    var dg = $("#{$id_list['datagrid']}");
+                    var row = dg.datagrid("getSelected");
+                    var url = "{:U('GoodsBrand/disableGoodsBrand')}";
+                    if (row.is_disabled == 1) {
+                        messager.alert("该品牌已被停用");
+                    }
+                    $.post(url, {"id": row.id}, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                        } else {
+                            var index = dg.datagrid("getRowIndex", row);
+                            dg.datagrid("updateRow", {index: index, row: {is_disabled: "1"}});
+                        }
+                    });
+                }
+            }, 0);
+        });
+    </script>
+</block>

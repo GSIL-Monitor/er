@@ -1,0 +1,197 @@
+<style>
+	.wh-div label{vertical-align:middle;width: 60px;display:inline-block; font-size: 12px;text-align: right;}
+</style>
+<div style="margin:15px 15px;">
+	<div id="btnId" style="display:none">
+		<a href="javascript:void(0)" id="printing_logis" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="newDealBeforePrint('logistics',2,'','')">打印</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="newPreviewLogistics(2)">预览</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="printerSetting(2)">设置</a>
+	</div>
+	<form id="{$dialog_list.form}" method="post">
+		<div class="form-div wh-div">
+			<label>订单编号：</label><input class="easyui-textbox txt" type="text" name="trade_no" data-options="disable:true" readonly="readonly"/>
+		</div>
+		<div class="form-div wh-div">
+			<label>物流公司：</label><select class="easyui-combobox sel" id="logisticsSelect" name="logistics_id" data-options="editable:false, required:true" ><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+		</div>
+		<div class="form-div wh-div" id="lgId" style="display:none">
+			<label>物流单号：</label><input class="easyui-textbox txt" type="text" id="logisticNoInput"  name="logistics_no" data-options="validType:'',required:true"/>
+		</div>
+		<div class="form-div wh-div" id="wwId">
+			<label>填写重量：</label><input class="easyui-textbox txt" type="text" id="weight" value = 0  name="weight" data-options="validType:'',required:false" /> kg
+		</div>
+		<div class="form-div wh-div" id="countId" style="display:none">
+			<label>包裹数量：</label><input class="easyui-textbox txt" type="text" id="CountInput"  name="logistics_count"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="sspMultiLogistics.writeWeight()">填写重量</a>
+		</div>
+		<input type="hidden" name="stockout_id" value="{$stockout_id}"/>
+		<input type="hidden" name="id" value="{$rec_id}"/>
+		<input type="hidden" name="oldLogistics_no" value=""/>
+	</form>
+	<div id="printViewId" style="margin-top:10px; margin-left:5px;"><div><span><label for="stockSalesPrint_printer_list">打&nbsp印&nbsp机：&nbsp</label></span>
+		<input id="stockSalesPrint_logistics_printer_lists" class="easyui-combobox" data-options="width:161,onSelect:function(res){onPrinterSelect(res.name,'multiLogistics');}"/></div><div style="margin-top:10px">
+		<label>选择模板：</label>
+		<select class="easyui-combobox sel" data-options="width:161,onSelect:function(res){templateSelect();}" id="stock_sales_print_logistics_templates">
+			<volist name='templates' id='vo'><option value="{$vo.id}">{$vo.title}</option></volist>
+		</select></div>
+		<div id="logisticsGuidetemplateDiv" style="margin-top:7px;margin-left:57px;display:none"><span style="color:red">没有模板？去</span><a href="javascript:changeTemplatePage()">打印模板</a><span style="color:red">界面下载模板</span></div>
+		<input type="text" style="display:none" value="" name="stdTemplates"/>
+	</div>
+</div>
+<script type="text/javascript">
+ //# sourceURL=add_ml.js
+    /*********************打印相关********************/
+    var default_template_id = {$template_id};
+	/*********************添加相关********************/
+    var way_bill_flag = 0; // 是否电子面单的标志位 0:普通物流单 2：菜鸟电子面单
+    $(function(){
+
+        stockSalesPrint.logistics_contents = {$contents};
+		stockSalesPrint.printing ='printing_logis';
+        var templates = '{$stdTemplates}';
+        if(templates !== ''){
+            templates = JSON.parse(templates);
+            if(templates.status == 1){
+                messager.alert(templates.msg);
+                $('#'+sspMultiLogistics.params.add.id).dialog('close');
+                //$.fn.richDialog("response", templates.fail, "stockout");
+            }else {
+                $('input[name=stdTemplates]').val(templates.success[0].standard_template_url);
+            }
+        }
+        /*******************分割线*********************/
+        var form_info  = JSON.parse('{$form_info}');
+        var dialog_list = JSON.parse('{$dialog_list_info}');
+        var form_selector = {
+            'logistics_id' : $('#'+dialog_list.form+' select[name="logistics_id"]'),
+            'logistics_no' : $('#'+dialog_list.form+' input[name="logistics_no"]'),
+			'weight' : $('#'+dialog_list.form+' input[name="weight"]'),
+			
+        };
+        form_info.oldLogistics_no = form_info.logistics_no;
+        var operator_object ={};
+        sspMultiLogistics.submitEditDialog = sspMultiLogistics.submitAddDialog = function(){
+
+            if(way_bill_flag ===2){
+                var multi_logis_info = $("#"+dialog_list.form).form('get');
+                if(multi_logis_info.trade_no == ''){return;}
+                $.post("{:U('Stock/StockSalesPrint/saveWayBillMultiLogistics')}",multi_logis_info,function(r){
+                    if(r.status == 1){ messager.alert(r.info); return; }
+                    if(r.status == 0) {
+                        if (multi_logis_info['id'] == '') {
+                            sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                            $('#' + sspMultiLogistics.params.add.id).dialog('close');
+                        }else{
+                            sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                            $("#" + sspMultiLogistics.params.edit.id).dialog('close');
+                        }
+                        return;
+                    }
+                },'json');
+
+            }else{
+                if (!$("#"+dialog_list.form).form('validate')) { return false; }
+                var multi_logis_info = $("#"+dialog_list.form).form('get');
+                $.post("{:U('Stock/StockSalesPrint/saveMultiLogistics')}",multi_logis_info,function(r){
+                    if(r.status == 1){ messager.alert(r.info); return; }
+                    if(r.status == 0) {
+                        if (multi_logis_info['id'] == '') {
+                            sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                            $('#' + sspMultiLogistics.params.add.id).dialog('close');
+                        }else{
+                            sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                            $("#" + sspMultiLogistics.params.edit.id).dialog('close');
+                        }
+                        return;
+                    }
+                },'json');
+            }
+        }
+        setTimeout(function () {
+            $('#'+dialog_list.form).form('filterLoad',form_info);
+            if(!!form_info.id){
+                form_selector.logistics_id.combobox('readonly');
+            }
+            /*******************分割线*********************/
+            if($('#stock_sales_print_logistics_templates').combobox('getData').length==0)
+                $('#logisticsGuidetemplateDiv').show();
+			/*templateOnSelect("logistics");*/
+            if(default_template_id != '-1')
+                $('#stock_sales_print_logistics_templates').combobox('select',{$template_id});
+        }, 0);
+    });
+
+    /************************打印相关************************/
+    function getLogisticsTemplatesContents(){
+        var contents = {$contents};
+        return contents;
+    }
+    function getLogisticsGoodsDetail(){
+        var goods = {$goods};
+        return goods;
+    }
+    function getPreviewFormat(){
+        var format = "{$preview_format}";
+        return format;
+    }
+    /************************打印相关************************/
+
+    // 根据物流类型展示不同内容
+    function showDiffentByType(type) {
+        if(type==2){
+            $('#' + sspMultiLogistics.params.add.id).dialog('resize',{
+                height:300
+            });
+            $("#lgId").hide();
+            $("#btnId").show();
+            $("#countId").show();
+			$("#wwId").hide();
+            $('#confirmId').hide();
+            $('#printViewId').show();
+            way_bill_flag = 2;
+        }else{
+            $('#' + sspMultiLogistics.params.add.id).dialog('resize',{
+                height:210
+            });
+            $("#lgId").show();
+			$("#wwId").show();
+            $("#btnId").hide();
+            $("#countId").hide();
+            $('#confirmId').show();
+            $('#printViewId').hide();
+            $("#logisticNoInput").attr('readonly',false);  //设置输入框为启用
+            way_bill_flag = 0;
+        }
+    }
+    // 判断第一个物流公司的类别
+	if('{$firstType}' == ''){
+        $("#lgId").show();
+        way_bill_flag = 0;
+	}else{
+        showDiffentByType('{$firstType}');
+        if('{$firstType}' == 2){
+            newSelectPrinter('logistics',2);
+        }
+	}
+    $(function(){
+        $("#logisticsSelect").combobox({
+            onSelect:function(record){
+                $.post("__ROOT__/index.php/Stock/StockSalesPrint/getBillType", {logistics_id:record.value}, function(r){
+                    if(r.status ===1){
+                        showDiffentByType(r.msg);
+                        if(r.msg == 0){
+                            $("#logisticNoInput").textbox('textbox').attr('readonly',false);  //设置输入框为启用
+						}
+                    }else{
+                        messager.alert('获取物流公司类型失败，请联系管理员');
+                    }
+                });
+            }
+        });
+    });
+	function templateSelect(){
+	    if(way_bill_flag ==2){
+            newTemplateOnSelect('multiLogistics');
+        }
+    }
+</script>

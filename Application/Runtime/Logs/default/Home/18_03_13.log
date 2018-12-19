@@ -1,0 +1,14 @@
+[ 2018-03-13T20:20:14+08:00 ] 127.0.0.1 /
+WARN: is-login:session account empty!
+[ 2018-03-13T20:22:38+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!
+[ 2018-03-13T21:20:48+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!
+[ 2018-03-13T21:38:32+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!
+[ 2018-03-13T21:43:05+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!
+[ 2018-03-13T22:24:01+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!
+[ 2018-03-13T23:07:07+08:00 ] 127.0.0.1 /index.php/home/login/login.html?type=logout
+WARN: is-login:session account empty!

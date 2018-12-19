@@ -1,0 +1,189 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog">
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="stallsGoodsAccountManagement.import()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" />
+                <label>　　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+                <label>　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                <label>　　供货商名称：</label><select class="easyui-combobox sel" name="search[provider]" data-options="editable:false" style="width: 130px;">
+                <volist name='provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="stallsGoodsAccountManagement.submitFormSearch();">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stallsGoodsAccountManagement.loadFormData();">重置</a>　
+            </div>
+            <div class="form-div">
+                <label>　　品牌：</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='list.brand' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>　
+                <label>　　　分类：</label><input class="easyui-textbox txt" id="stalls_account_show_goods" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label>　　结算状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="editable:false,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('stat_stalls_status')"/>
+            </div>
+            <div class="form-div">
+                <label>入库日期：</label><input id="stalls_goods_account_start" class="easyui-datebox txt" type="text" name="search[start_time]" value="{$query_start_date}"  data-options="editable:false"/>
+                <label>　　　　　至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]" value="{$current_date}" data-options="editable:false"/>　　
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stallsGoodsAccountManagement.importDialog()">导入采购账款</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="stallsGoodsAccountManagement.charge()">结算</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="stallsGoodsAccountManagement.downloadTemplet('{:U('stallsGoodsAccountManagement/downloadTemplet')}')">下载模板</a>
+                <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-database-go',plain:true,menu:'#stalls_goods_account_management_export'" >导出功能</a>
+                <div id="stalls_goods_account_management_export">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stallsGoodsAccountManagement.exportToExcel('csv')">导出Csv(推荐)</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stallsGoodsAccountManagement.exportToExcel('excel')">导出到Excel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+
+        $(function() {
+            $('#stalls_account_show_goods').changStyleTreeCombo('stalls_account_show_goods');
+            setTimeout(function () {
+                stallsGoodsAccountManagement = new RichDatagrid(JSON.parse('{$params}'));
+                stallsGoodsAccountManagement.setFormData();
+                stallsGoodsAccountManagement.submitFormSearch = function() {
+                    if(stallsGoodsAccountManagement.checkSearch() == false){
+                        messager.alert('不能搜索入库日期为30天前的数据');
+                        return false;
+                    }
+                    stallsGoodsAccountManagement.submitSearchForm(this);
+                }
+                stallsGoodsAccountManagement.checkSearch = function(){
+                    var start_val = $('#stalls_goods_account_start').datebox('getValue');
+                    var now_str = (new Date()).toLocaleDateString();
+                    var now_timestampt = Date.parse(now_str)/1000;
+                    var start = Date.parse(start_val)/1000;
+                    if((now_timestampt-start)>3600*24*30){return false;}
+                    return true;
+                }
+                stallsGoodsAccountManagement.importDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}");
+                    dialog.dialog({
+                        title: "导入采购账款",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+                stallsGoodsAccountManagement.import = function () {
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('StallsGoodsAccountManagement/importStallsGoodsAccount')}";
+                    var dg = $("#{$id_list.id_datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    var datagrid = $("#{$id_list.datagrid}");
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "正在导入数据，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (!res.status) {
+                                datagrid.datagrid("reload");
+                                dialog.dialog("close");
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                            }else if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "importResponse");
+                                datagrid.datagrid("reload");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                stallsGoodsAccountManagement.charge = function(){
+                    var dg = $("#{$id_list.id_datagrid}");
+                    var datagrid = $("#{$id_list.datagrid}");
+                    var id_list=[];
+                    for(i in this.selectRows){
+                        id_list.push(this.selectRows[i].id);
+                    }
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var form=JSON.stringify(stallsGoodsAccountManagement.params.search.form_data);
+                    var rows = datagrid.datagrid("getRows");
+                    var message = '';
+                    if(rows==''){
+                        messager.alert('无可操作数据！');
+                        return false;
+                    }else if(id_list!=''){
+                        message = '结算后将不可再次导入结算,确定将选中的数据置为已结算吗？';
+                    }
+                    else if(search==form){
+                        message = '结算后将不可再次导入结算,确定将全部数据置为已结算吗？';
+                    }
+                    else {
+                        message = '结算后将不可再次导入结算,确定将搜索的数据置为已结算吗？';
+                    }
+                    messager.confirm(message, function(r){
+                        if(!r){return false;}
+                        $.messager.progress({
+                            title: "请稍后",
+                            msg: "正在结算，请稍等..."
+                        });
+                        var url= "{:U('StallsGoodsAccountManagement/charge')}";
+                        $.post(url, {id_list:id_list,search:search}, function (res) {
+                            $.messager.progress('close');
+                            if (!res.status) {
+                                messager.alert(res.info);
+                                datagrid.datagrid("reload");
+                            } else if(res.status == 1){
+                                messager.alert(res.info);
+                            }else if(res.status == 2) {
+                                $.fn.richDialog("response", res.info, "stallsGoodsAccountResult");
+                                datagrid.datagrid("reload");
+                            }
+                        });
+                    });
+                }
+                stallsGoodsAccountManagement.exportToExcel = function(type){
+                    if(stallsGoodsAccountManagement.checkSearch() == false){
+                        messager.alert('不能导出入库日期为30天前的数据');
+                        return false;
+                    }
+                    var url= "{:U('StallsGoodsAccountManagement/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var form=JSON.stringify(stallsGoodsAccountManagement.params.search.form_data);
+                    var rows = $("#{$id_list.datagrid}").datagrid("getRows");
+                    var message = '';
+                    if(rows==''){
+                        messager.alert('导出不能为空！');
+                        return false;
+                    }
+                    else if(id_list!=''){
+                        message = '确定导出选中的数据吗？';
+                    }
+                    else if(search==form){
+                        message = '确定导出所有的数据吗？';
+                    }
+                    else {
+                        message = '确定导出搜索的数据吗？';
+                    }
+                    messager.confirm(message, function(r){
+                        if(!r){return false;}
+                        window.open(url+'?id_list='+id_list+'&'+'search='+search+'&type='+type);
+                    })
+                }
+            },0);
+        });
+    </script>
+ </block>
+

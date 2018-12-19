@@ -1,0 +1,14 @@
+2018-02-13 22:59:27	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 141
+2018-02-13 22:59:29	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255
+2018-02-13 22:59:31	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255
+2018-02-13 22:59:47	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2018-02-13 22:59:47	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2018-02-13 22:59:47	PHP Error Severity: 8 --> Undefined index: add E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 33
+2018-02-13 22:59:47	PHP Error Severity: 8 --> Undefined index: edit E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 33
+2018-02-13 22:59:48	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2018-02-13 22:59:51	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255
+2018-02-13 22:59:51	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255
+2018-02-13 22:59:57	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2018-02-13 23:26:17	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 141
+2018-02-13 23:26:22	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255
+2018-02-13 23:26:24	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 255

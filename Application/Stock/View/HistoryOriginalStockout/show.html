@@ -1,0 +1,39 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+        <form id="history_original_stockout_search_form" class="easyui-form" method="post">
+            <div class="form-div">
+                <label >出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" style="width:110px;"/>
+                <label >来源单号：</label><input class="easyui-textbox txt" type="text" name="search[src_order_no]" style="width:110px;"/>
+                <label >出库单状态：</label>
+                <input style="width:110px;" class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',editable:false ,textField:'name',data:formatter.get_data('history_stockout_status')"/>
+                <label >出库单类别：</label>
+                <input style="width:110px;" class="easyui-combobox txt" name="search[src_order_type]" data-options="valueField:'id',editable:false ,textField:'name',data:formatter.get_data('stockout_type')"/>
+                <label>仓&nbsp;&nbsp;库：</label>
+                <select style="width:110px;" class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'100px;',editable:false ">
+                    <volist name='warehouse_array' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>经办人：</label>
+                <select style="width:110px;" class="easyui-combobox sel" name="search[operator_id]" data-options="panelHeight:'100px',editable:false ">
+                    <volist name='employee_array' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-search'" accesskey="" onclick="HistoryOriginalStockout.submitSearchForm();">搜索</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="HistoryOriginalStockout.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-table-edit',plain:true" onclick="setDatagridField('Stock/HistoryOriginalStockout','history_original_stockout','{$datagrid.id}')">设置表头</a>
+            </div>
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+    </div>
+    <script>
+        $(function () {
+            setTimeout(function () {
+                HistoryOriginalStockout = new RichDatagrid(JSON.parse('{$params}'));
+                HistoryOriginalStockout.setFormData();
+            }, 0);
+        });
+    </script>
+</block>

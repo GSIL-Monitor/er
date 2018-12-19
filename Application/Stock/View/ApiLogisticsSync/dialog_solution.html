@@ -1,0 +1,55 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+
+<block name="datagrid">
+<if condition="$status eq 0">
+    <div>
+        </br>
+        <label>
+            <label  class="five-character-width">　错误信息:</label><input 	class="easyui-textbox 	txt"  	name="error_msg"  		data-options="width:400,height:30,editable:false,readonly:false,value:'{$res.error_msg}',"/></br>
+        </label>
+        </br>
+        <label>
+            <label  class="five-character-width">　错误原因:</label><input 	class="easyui-textbox 	txt"  	name="error_reason" 		data-options="width:400,height:30,editable:false,readonly:false,value:'{$res.reason}',"/></br>
+        </label>
+        </br>
+        <div style="float: left;">
+            <label  class="five-character-width">　解决方法:</label>
+        </div>
+        <if condition="$id neq 1">
+        <div style="float: left">
+            <input 	class="easyui-textbox txt"  	name="error_solution" 	data-options="multiline:true, width:400,height:100,editable:false,readonly:false,value:'{$res.solution}',"/>
+        </div>
+        <else/>
+        <div style="border:1px solid #95b8e7;background: #fff;font-size: 12px;border-radius: 5px;margin-left: 0;margin-right: 0;padding: 0 3px;width: 390px;height:100px;display: block;float: left;">
+            <a href="javascript:void(0);" onclick="open_menu('物流','index.php/Setting/Logistics/getLogistics')" >{$res.solution}</a>
+        </div>
+        </if>
+        </br>
+    </div>
+    <!--<div>
+        <if condition="$res.error_msg eq '请检查物流公司编码或其他信息是否完整！'">
+            <span><a href="javascript:void(0)" onclick="solution('{$res.id}')">&nbsp;请点击此处进行物流匹配</a></span>
+        </if>
+    </div>-->
+<else/>
+    <div style="text-align: center;line-height: 260px;font-size: 25px">
+        <span>{$res}</span>
+    </div>
+</if>
+
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="script">
+    <script>
+        solution = function(id){
+            var url = "{:U('ApiLogisticsSync/solveSolution')}"
+            $.post(url,{id:id},function(res){
+                messager.alert(res.info);
+            })
+
+        }
+
+    </script>
+</block>

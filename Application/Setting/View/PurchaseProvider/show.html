@@ -1,0 +1,54 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name='toolbar'>
+    <div id='{$id_list.tool_bar}' style='padding:5px;height:auto'>
+        <form id='{$id_list.form}' class='easyui-form' method='post'  style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <label> 名称</label><input class='easyui-textbox' type='text' name='search[provider_name]  '/>
+            <label> 电话</label><input class='easyui-textbox' type='text' name='search[mobile]  '/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="purchaseprovider.submitSearchForm(this);">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="purchaseprovider.loadFormData();">重置</a>
+        </form>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-add",plain:true' onclick='purchaseprovider.add()'>添加</a>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-edit",plain:true' onclick='check_data("edit")'>编辑</a>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-remove",plain:true' onclick='check_data("delete")'>删除</a>
+    </div>
+    <script type='text/javascript'>
+        function check_data(type){
+            var data=purchaseprovider.getSelectRows();
+            if(!data[0]){
+                messager.alert('请选择操作的行!');
+                return false;
+            }
+            if(data[0].id==0){
+                messager.alert('系统默认供应商，无法删除或修改！');
+                return false;
+            }
+            if(type=='edit'){
+                purchaseprovider.edit();
+            }else{
+                purchaseprovider.remove("PurchaseProvider");
+            }
+        }
+        $(function(){
+            setTimeout(function(){
+                purchaseprovider = new RichDatagrid(JSON.parse('{$params}'));
+                purchaseprovider.setFormData();
+                purchaseprovider.checkEdit = function(){
+                    var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+                    if(row.id==0){messager.alert('系统默认供应商，无法删除或修改！');return false; }
+                    return true;
+                }
+				purchaseprovider.initPurchaseProviderCheckbox = function (id) {
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if (value != 1) {
+                        check.checked = false;
+                    }else {
+                        check.checked = true;
+                    }
+                }
+            },0)
+
+        });
+    </script>
+</block>
+<block name="tabs"></block>

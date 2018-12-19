@@ -1,0 +1,104 @@
+[ 2017-09-10T13:23:27+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(501): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-09-10T13:24:20+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(526): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-09-10T13:27:17+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(526): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-09-10T13:27:38+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:SMTP Error: Could not connect to SMTP host.
+[ 2017-09-10T13:27:38+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(526): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-09-10T13:28:50+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:SMTP Error: Could not connect to SMTP host.
+[ 2017-09-10T13:28:50+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(526): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+

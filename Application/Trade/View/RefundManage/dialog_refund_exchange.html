@@ -1,0 +1,134 @@
+<taglib name="TagLib\EasyUI" />
+<div style="height: 40%;">
+<easyui:datagrid id="{$datagrid.order.id}" style="{$datagrid.order.style}" options="datagrid.order.options" fields="datagrid.order.fields" />
+</div>
+<div style="height: 60%;">
+<easyui:datagrid id="{$datagrid.spec.id}" style="{$datagrid.spec.style}" options="datagrid.spec.options" fields="datagrid.spec.fields" />
+<div id="{$id_list.toolbar}">
+<a href="#" name="refund-select-exchange-spec" class="easyui-menubutton" data-options="iconCls:'icon-add',menu:'#refund-select-exchange-spec'">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="exchangeSpec.remove()">删除</a>
+<label style="margin-left: 150px;">将以上货品换成以下货品</label>
+<div id="refund-select-exchange-spec"><div>添加单品</div><div>添加组合装</div></div>
+</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=exchange_order.js
+var warehouse;
+var dialog;
+$(function(){
+	$('#{$datagrid.spec.id}').datagrid().datagrid('enableCellEditing');
+	setTimeout(function(){
+		initOrderDatagrid();	
+		exchangeOrder = new ThinDatagrid($('#{$datagrid.order.id}'),undefined,false);
+		exchangeSpec = new ThinDatagrid($('#{$datagrid.spec.id}'),undefined,false);
+		dialog='{$id_list.exchange_dialog}';
+	},0);
+});
+//添加--换成的货品
+$($(".easyui-menubutton[name='refund-select-exchange-spec']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 switch(item.text){
+	 case '添加单品':
+	 	 var params={'prefix':'refund_exchange','type':true}
+		 $('#' + dialog).richDialog('goodsSpec', addSpecToOrder, params, false);
+		 break;
+	 case '添加组合装':
+		 $('#' + dialog).richDialog('goodsSuite', addSuiteToOrder, 'refund_exchange' , false);
+		 break;
+	 }}
+});
+//提交
+submitExchangeRefundDialog=function(){
+	var rows=$('#{$datagrid.spec.id}').datagrid('getRows');
+	var oldRow = refundOrder.selector.datagrid('getRows');
+    var newRow = [];
+	if(rows.length==0){messager.info('请选择换货货品');return;};
+//	if(rows.length>1){messager.info('换货货品种类不能大于一');return;};
+	var row=refundOrder.selector.datagrid('getSelected');
+    var arr_index = oldRow.indexOf(row);
+    oldRow.splice(arr_index,1);
+	// if (!row.trade_order_id) {messager.info('无效子订单');return;};
+	if (!row.refund_order_id) {
+		for(var i=0;i<rows.length;i++){
+            rows[i].rec_id=row.rec_id;
+            rows[i].platform_id=row.platform_id;
+            rows[i].discount=row.discount;
+            rows[i].oid=row.oid;
+            rows[i].trade_no=row.trade_no;
+            rows[i].tid=row.tid;
+            rows[i].original_price=row.original_price;
+            rows[i].discount=row.discount;
+            rows[i].paid=row.paid;
+            rows[i].share_price=row.share_price;
+            rows[i].order_num=0;
+            rows[i].refund_num=rows[i].num;
+            rows[i].suite_id=rows[i].suite_id;
+            rows[i].suite_no=rows[i].suite_no;
+            rows[i].suite_name=rows[i].suite_name;
+        }
+        newRow = oldRow.concat(rows);
+		refundOrder.selector.datagrid('loadData',newRow);
+		$('#exchangeRefundGoods').dialog('close');
+	}else{
+		Post("{:U('RefundManage/exchangeRefundGoods')}", {id:row.refund_order_id,refund_id:row.refund_id,order:rows}, function(res){
+			if (res.status) {messager.info(res.info);return;};
+            for(var i=0;i<rows.length;i++){
+                rows[i].rec_id=row.rec_id;
+                rows[i].platform_id=row.platform_id;
+                rows[i].discount=row.discount;
+                rows[i].oid=row.oid;
+                rows[i].trade_no=row.trade_no;
+                rows[i].tid=row.tid;
+                rows[i].original_price=row.original_price;
+                rows[i].discount=row.discount;
+                rows[i].paid=row.paid;
+                rows[i].share_price=row.share_price;
+                rows[i].order_num=0;
+                rows[i].refund_num=rows[i].num;
+                rows[i].suite_id=rows[i].suite_id;
+                rows[i].suite_no=rows[i].suite_no;
+                rows[i].suite_name=rows[i].suite_name;
+            }
+            newRow = oldRow.concat(rows);
+            refundOrder.selector.datagrid('loadData',newRow);
+			$('#exchangeRefundGoods').dialog('close');
+		});
+	}	
+	
+}
+function initOrderDatagrid(){
+	var row=refundOrder.selector.datagrid('getSelected');		
+	$('#{$datagrid.order.id}').datagrid('loadData',{total:1,rows:[row]});
+}
+addSpecToOrder=function(spec_dg_id,sub_dg_id){
+	addExchangeOrder(sub_dg_id,0);
+};
+addSuiteToOrder=function(spec_dg_id,cb_params,sub_dg_id){
+    addExchangeOrder(sub_dg_id,1);
+};
+addExchangeOrder=function(sub_dg_id,is_suite){
+	var spec_dg=$('#'+sub_dg_id);
+    var spec_rows=spec_dg.datagrid('getRows');
+    var show_dg=$('#{$datagrid.spec.id}');
+    $('#'+dialog).dialog('close');
+    var show_rows=show_dg.datagrid('getRows');
+    var flag=false;
+    var show_index=0;
+    for(var i in spec_rows){
+    	spec_rows[i].num= !spec_rows[i].num?1:parseFloat(spec_rows[i].num); flag=false;
+    	for(var x in show_rows){
+    		if(spec_rows[i].spec_id==show_rows[x].spec_id){
+    			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+    			show_rows[x].num=parseFloat(show_rows[x].num)+parseFloat(spec_rows[i].num);
+    			show_dg.datagrid('refreshRow',show_index);
+    			flag=true;
+    		}
+    	}
+    	if(!flag){
+    		spec_rows[i].is_suite=is_suite;
+    		spec_rows[i].price=spec_rows[i].retail_price;
+    		show_dg.datagrid('appendRow',spec_rows[i]);
+    	}
+	}
+};
+</script>

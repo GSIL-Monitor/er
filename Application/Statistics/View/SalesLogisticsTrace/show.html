@@ -1,0 +1,60 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="logistics-trace-form" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>物流公司：</label>
+                <select class="easyui-combobox sel" name="search[logistics_id]">
+                    <option value="all">全部</option>
+                    <volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+                </select>
+                <label class="five-character-width" style="text-align: right;">　物流状态：</label>
+                <input class="easyui-combobox sel" type="text" name="search[logistics_trace_type]" required="true" data-options="valueField:'id',textField:'name',data:formatter.get_data('logistics_trace_type','sel')"/>
+                <label >　物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+                <label>　发货时间：</label><input class="easyui-datetimebox txt" type="text" name="search[trade_consign_start_time]" data-options="editable:false"/>
+                <label>&nbsp;　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[trade_consign_end_time]" data-options="editable:false"/>
+
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="logistics_trace_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="logistics_trace_obj.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/SalesLogisticsTrace','sales_logistics_trace','{$datagrid.id}')">设置表头</a>
+
+            </div>
+            <div class="form-div" style="padding: 10px;">
+                <label> 店　　铺：</label>
+                <select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　仓　　库：</label>
+                <select class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false">
+                    <option value="all">全部</option>
+                    <volist name="list.warehouse" id="v">
+                        <option value="{$v.id}">{$v.name}</option>z
+                    </volist>
+                </select>
+                <label >　出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" />
+                <label>　揽件时间：</label><input class="easyui-datetimebox txt" type="text" name="search[trade_get_start_time]" data-options="editable:false"/>
+                <label>&nbsp;　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[trade_get_end_time]" data-options="editable:false"/>
+                <label >　订单编号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+            </div>
+
+        </form>
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=sales_logistics_trace.js
+        $(function () {
+            setTimeout(function () {
+                logistics_trace_obj = new RichDatagrid(JSON.parse('{$params}'));
+                logistics_trace_obj.setFormData();
+
+
+
+
+
+            });
+        });
+
+
+    </script>
+</block>

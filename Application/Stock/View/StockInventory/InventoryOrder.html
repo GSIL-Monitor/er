@@ -1,0 +1,588 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+	<div class="form-div" style="border-bottom:  1px solid #7CAAB1">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true,onClick:function(){{$stockInven_tool}.stInOrdSubmit();}">保存</a>
+		<a href="javascript:void(0)" id="{$id_list.reset_button}" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true,onClick:function(){{$stockInven_tool}.stInOrdReset();}">重置</a>
+		<a href="javascript:void(0)" id="{$id_list.invenmanage}" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" style="float: right;margin-right:10px;" onClick="open_menu('盘点单管理', '{:U('Stock/StockInventoryManagement/getInventoryManagementList')}')">盘点单管理</a>
+	</div>
+	<form id="{$id_list.form}" class="easyui-form" method="post">
+		<div class="form-div">
+			<label>盘点方案：</label><input id='{$id_list.order_type}' class="easyui-combobox txt" name="search[pd_mode]" data-options="valueField:'id',textField:'name',data:formatter.get_data('pd_mode'),onSelect:function(record){{$stockInven_tool}.stInOrdSelectStockinType(record);}"/>
+			<label>　仓库：</label><select id='{$id_list.warehouse}' class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false,"> <volist name='list.warehouse' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+			<label>　盘点单号：</label><input id ="stockinven_no"           class="easyui-textbox txt"  name="search[stockinven_no]"     data-options="editable:false,readonly:false,value:''," type="text"/>
+			<label>　备注信息：</label><input class="easyui-textbox txt" style="width: 260px" type="text" name="search[remark]"/>
+		</div>
+	</form>
+	<div class="form-div" style="border-top:  1px solid #7CAAB1;padding-top: 2px">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:false,onClick:function(){{$stockInven_tool}.stInvenAddGood();}">添加货品</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,onClick:function(){{$stockInven_tool}.stInOrdDelete();}">删除</a>
+		<label style="color:red;margin-left:80px;font-size:30px;display:none;" class="font_stoInvent">保存成功</label>
+		<label style="color:red;margin-left:80px;font-size:30px;display:none;" class="font_stoInvent_auto_commit">保存成功,并自动提交成功</label>
+	</div>
+	<div class="form-div" style="border-top:  1px solid #7CAAB1;padding-top: 2px">
+	<label >扫描条码：</label><input class="easyui-textbox txt" type="text" name="inventory_barcode" /><label style="color:red;margin-right: 5px;">(扫描条码添加货品)</label>
+		<a href="javascript:void(0)" name="apply_to_all_lines" class="easyui-linkbutton" data-options="plain:false">应用到所有行</a>
+		<label style="color:red;margin-left: 5px;">#应用到所有行支持[实际盘点量]列#</label>
+	</div>
+
+	
+</div>
+<script>
+//# sourceURL=tests.js
+        $(function () {
+			
+			var form_id= "{$id_list.form}";
+			var tool_bar_id = "{$id_list.tool_bar}";
+			var form_input_selector={
+				'invenmanage'		:$('#'+form_id+" a[name='invenmanage']"),
+				'pd_mode'			:$('#'+form_id+" :input[name='search[pd_mode]']"),
+				'warehouse_id'		:$('#'+form_id+" select[name='search[warehouse_id]']"),
+				'stockinven_no'		:$('#'+form_id+" :input[name='search[stockinven_no]']"),
+				'remark'			:$('#'+form_id+" :input[name='search[remark]']"),
+				'inventory_barcode'	:$('#'+tool_bar_id+" :input[name='inventory_barcode']"),
+				'apply_to_all_lines':$('#'+tool_bar_id+" a[name='apply_to_all_lines']"),
+			};
+			var stockinvenInitObject ;
+			setTimeout(function () {
+				var default_warehouse_id = "{$list['warehouse'][0]['id']}";
+					//initStockinFormElement();
+				stockinvenInitObject = {$stockInven_tool} = new StockInventoryTool(JSON.parse('{$params}'),form_input_selector,default_warehouse_id);
+
+
+				stockinvenInitObject.datagrid_data = {$data};
+				stockinvenInitObject.form_data 	= {$data_form};
+                //初始化toolbar 中的表单
+
+				if(stockinvenInitObject.datagrid_data == null && stockinvenInitObject.form_data != null){
+					var params = JSON.parse('{$params}');
+					$('#'+params.stockin_management_info.editDialogId).dialog('close');
+					messager.alert("盘点单状态不正确");
+				}
+
+                stockinvenInitObject.initStoInOrdForm(0);
+                //添加原始单对话框
+				stockinvenInitObject.form_input_selector_list.inventory_barcode.textbox('textbox').focus();
+              if(stockinvenInitObject.datagrid_data != null){
+
+				  // $('#'+stockinvenInitObject.params.id_list.src_order).textbox({editable: false, onClickButton: void(0), disabled: true});
+
+                    for(var i in stockinvenInitObject.datagrid_data){
+                    	stockinvenInitObject.keepDataIntact(stockinvenInitObject.datagrid_data[i]);
+                    }
+
+                    stockinvenInitObject.initStoInOrdForm(stockinvenInitObject.form_data['search[pd_mode]']);
+                    $('#'+stockinvenInitObject.params.id_list.reset_button).linkbutton('disable');
+
+					 $('#'+stockinvenInitObject.params.id_list.invenmanage).linkbutton('disable');
+
+				   $('#' + stockinvenInitObject.params.datagrid.id).datagrid('loadData', stockinvenInitObject.datagrid_data);
+
+					//注销改变触发函数
+					$('#' + stockinvenInitObject.params.form.id).form('filterLoad', stockinvenInitObject.form_data);
+				
+					var sio_datagrid_id = stockinvenInitObject.params.datagrid.id;
+                    {$stockInven_tool}.stock_pd_type = {$stockInven_tool}.form_data["search[pd_mode]"];
+
+
+				   $('#'+stockinvenInitObject.params.id_list.order_type).combobox({readonly:true,disabled:true});
+				   $('#'+stockinvenInitObject.params.id_list.order_type).combobox('setValue',  stockinvenInitObject.stock_pd_type);
+					$('#'+stockinvenInitObject.params.id_list.warehouse).combobox({readonly:true,disabled:true});
+					$('#'+stockinvenInitObject.params.id_list.warehouse).combobox('setValue',  stockinvenInitObject.form_data["search[warehouse_id]"]);
+					
+					//setTimeout(function(){stockinInitObject.beginEdit(sio_datagrid_id)},0);
+                }
+
+            }, 0);
+
+        });
+
+
+	var StockInventoryTool = function(params,new_stockin_form_input_selector,default_warehouse_id){
+		var that = this;
+		this.change_column  = '';
+		this.default_warehouse_id = default_warehouse_id;
+		this.combobox_changed_list = {'warehouse_id':this.default_warehouse_id};
+		var form_init = {
+			'search[pd_mode]':0, 'search[warehouse_id]':this.default_warehouse_id, 'search[stockinven_no]':'', 'search[remark]':''
+		};
+		this.input_type_list = {
+			'pd_mode':'combobox', 'warehouse_id':'combobox', 'stockinven_no':'textbox', 'remark':'textbox','invenmanage':'linkbutton'
+		};
+        this.row_editor_type = {
+            'num':'numberbox',
+        };
+		this.disabled_input_list ={
+			'pd_mode':0, 'warehouse_id':0, 'stockinven_no':1, 'remark':0,'invenmanage':0
+		};
+		this.enable_input_list ={
+			'pd_mode':0, 'warehouse_id':0, 'stockinven_no':1, 'remark':0,'invenmanage':0
+        };
+		this.stock_pd_type = 0;   	//当前入库类型，默认为undefined
+		this.submit_switch = 1;//初始化时默认保存按钮开启，点击保存时默认关闭
+		this.stock_pd_conf = {
+			'all' : $.extend({},form_init) 	//选择无的时候表单的重置信息1;
+		};
+		this.params = params;
+		this.form_input_selector_list = new_stockin_form_input_selector;
+		$('#'+this.params.datagrid.id).datagrid('options').erpTabObject = this;
+		this.tool_bar_id = this.params.id_list.tool_bar;
+		this.reset_button_id = this.params.id_list.reset_button;
+		this.form_input_selector_list.inventory_barcode.textbox('textbox').bind('keydown',function(e){
+			if(e.keyCode == 13){
+				that.saomiao();
+			}
+		});
+		//应用到所有行
+		new_stockin_form_input_selector.apply_to_all_lines.linkbutton({onClick:function(){
+			that.applyToAllLines();
+		}});
+		//datagrid监听事件
+
+		$('#'+this.params.datagrid.id).datagrid('options').onEndEdit = function(index, row, changes){that.endEditRow(index, row, changes,this);};
+			$('#'+this.params.datagrid.id).datagrid().datagrid('enableCellEditing');
+        	this.keepClickCell = $('#'+this.params.datagrid.id).datagrid('options').onClickCell;
+		
+       // this.now_warehouse_id = 'all';
+		//修改仓库触发的事件
+
+		this.form_input_selector_list.warehouse_id.combobox({onSelect:function(record){
+		
+		var combobox_that = this;
+		var value = $(this).combobox('getValue');
+		var checkRows = $('#' + params.datagrid.id).datagrid('getRows');
+		if(value != that.combobox_changed_list.warehouse_id && ((that.combobox_changed_list.warehouse_id != 0))){
+			if(checkRows.length != 0){
+			messager.confirm('是否修改仓库,修改仓库会清除盘点信息',function(r){
+
+				if(r){
+					var remark_value = $(new_stockin_form_input_selector.remark).textbox('getValue');
+					that.initStoInOrdForm(that.stock_pd_type);
+					that.combobox_changed_list.warehouse_id = value;
+					$(combobox_that).combobox('setValue', that.combobox_changed_list.warehouse_id);
+					$(new_stockin_form_input_selector.remark).textbox('setValue',remark_value);
+				}else{
+
+					$(combobox_that).combobox('setValue', that.combobox_changed_list.warehouse_id);
+				}
+
+			});
+			}
+		}else{
+			that.combobox_changed_list.warehouse_id = value;
+		}
+
+	}});
+
+}
+
+		StockInventoryTool.prototype={
+
+         //[initStoInOrdForm ]
+        
+		 stInOrdSelectStockinType : function(record) {
+
+            this.stock_pd_type = record['id'];
+            this.initStoInOrdForm(this.stock_pd_type);
+
+        },
+
+		endEditRow : function(index, row, changes,datagrid_obj){
+			this.change_column = changes;
+            if(changes['pd_num']!=undefined){
+				if(changes['pd_num'] < 0)
+                {
+                    messager.alert('盘点不能为负数');
+                }
+				var pl_num = row.pd_num - row.stock_num;
+				//stockinventory_getstockinventorylist_datagrid
+				
+				$('#'+this.params.datagrid.id).datagrid('updateRow',{
+					index: index,
+					row: {
+							'pl_num': pl_num,
+							
+						}
+					});
+
+
+            }
+
+            
+        },
+		saomiao : function(){
+			
+			var that = this;
+			var Inventory_warehouse = that.form_input_selector_list.warehouse_id.combobox('getValue');
+			var barcode_value = that.form_input_selector_list.inventory_barcode.textbox('getValue');
+			if(barcode_value == ''){
+				messager.alert('条形码不能为空',undefined,function(){
+					that.form_input_selector_list.inventory_barcode.textbox('textbox').focus();
+				});
+				return;
+			}
+			$.post('{:U("StockInventory/getBarcodeInfo")}',{barcode:barcode_value,warehouse_id:Inventory_warehouse},function(res){
+				if(res.status == 1){
+					messager.alert(res.info,undefined,function(){
+						that.form_input_selector_list.inventory_barcode.textbox('textbox').focus();
+					});
+				}else{
+					that.goods_list = res.info;
+					if(res.info.length > 1){
+						$('#'+that.params.saomiao.id).dialog({
+							title:that.params.saomiao.title,
+							iconCls:'icon-save',
+							width:that.params.saomiao.width==undefined?700:that.params.saomiao.width,
+							height:that.params.saomiao.height==undefined?500:that.params.saomiao.height,
+							closed:false,
+							inline:true,
+							modal:true,
+							href:that.params.saomiao.url+'?parent_datagrid_id='+that.params.datagrid.id+'&parent_object={$stockInven_tool}&goods_list_dialog='+that.params.saomiao.id,
+							buttons:[]
+						});
+					}else{
+						that.updateScanGoodsNum(res.info[0]);
+					}
+					
+				}
+			});
+			that.form_input_selector_list.inventory_barcode.textbox('setValue','');
+		},
+		applyToAllLines : function(){
+			var that = this;
+			var show_dg=$('#'+this.params.datagrid.id);
+			var data=show_dg.datagrid('getData');
+			var rows=data.rows;
+			if(rows.length==0){return;}
+			for(var i in rows){
+				if (that.change_column.pd_num!=undefined) {
+					rows[i].pd_num=that.change_column.pd_num;
+					show_dg.datagrid('updateRow',{index:parseInt(i), row:{pd_num:that.change_column.pd_num}});
+				}
+			}
+			//show_dg.datagrid('loadData',data);
+		},
+		 updateScanGoodsNum : function(row){
+			this.keepDataIntact(row);
+			var that = this;
+			var barcode_list = $('#' + that.params.datagrid.id).datagrid('getRows');
+			var options = $('#'+this.params.datagrid.id).datagrid('options');
+			for(var i in options.columns[0])
+			{
+				if(options.columns[0][i].field == 'pd_num')
+				{
+					var decimal_amount  = options.columns[0][i].editor.options.precision;
+				}
+			}
+		
+			var is_null = 0;//判断是否已经添加该数据
+			if(barcode_list != ''){
+				for(var i in barcode_list){
+					if(barcode_list[i].spec_id == row.spec_id){
+						$('#'+that.params.datagrid.id).datagrid('updateRow',{
+							index:parseInt(i),
+							row:{pd_num:(parseFloat(barcode_list[i].pd_num)+1).toFixed(decimal_amount)}
+						});
+						$('#'+that.params.datagrid.id).datagrid('updateRow',{
+							index:parseInt(i),
+							row:{pl_num:(parseFloat(barcode_list[i].pl_num)+1).toFixed(decimal_amount)}
+						});
+						is_null = 1;
+						break;
+					}
+				}
+			}
+			if(is_null == 0){
+				$('#' + that.params.datagrid.id).datagrid('appendRow', row);
+			}
+			that.form_input_selector_list.inventory_barcode.textbox('textbox').focus();
+		 },
+		 
+		
+        initStoInOrdForm : function(type) {
+    
+			var form_data;
+            var src_type = type;
+
+			//$('#'+this.datagrid_id).datagrid('options').onClickCell = this.keepClickCell;
+
+			this.editableFormList();
+            this.submit_switch = 1;
+            form_data = $.extend({},this.stock_pd_conf["all"]);
+			switch (src_type) {
+                case 'all':
+                    form_data['search[pd_mode]'] = 'all';
+                    break;
+                case 0:
+                	form_data['search[pd_mode]'] = 0;
+                    break;
+
+           }
+			form_data['search[warehouse_id]'] = this.default_warehouse_id;
+            $('#' + this.params.datagrid.id).datagrid('loadData', {'total': 0, 'rows': []});
+			$('#' + this.params.form.id).form('filterLoad', form_data);
+            this.disabledFormInput();				
+        },
+
+        //[stInOrdAddGood 添加单品] done
+
+        stInvenAddGood : function() {
+			if (this.stock_pd_type == "all" || this.stock_pd_type == undefined )
+			{
+				messager.alert('请选择盘点方案');
+				return;
+			}
+			var warehouse_id = this.form_input_selector_list.warehouse_id.combobox('getValue');
+			if(warehouse_id == null ||warehouse_id ==0 )
+			{
+				this.submit_switch = 1;
+				messager.alert('请选择仓库');
+				return;
+			}else{
+				this.params.warehouse_id = warehouse_id;
+			}
+			if($.isEmptyObject($.trim(this.params.warehouse_id)) ||  $.trim(this.params.warehouse_id) == '' || this.params.warehouse_id ==0){
+				messager.alert('获取仓库失败,请先新建仓库');
+				return;
+			}
+			var stock_pd_object 	= this.params.stockInven_tool;
+
+			$('#' + this.params.select.id).richDialog('goodsSpec', this.submitGoodsSpecDialog,{
+			'prefix':stock_pd_object,
+			'type' : true,
+			'warehouse_id':this.params.warehouse_id,
+			'model':'pd'
+			},this);
+
+        },
+
+		stInOrdSubmit : function() {
+	
+			var that = this;
+			if(that.submit_switch==1){
+				that.submit_switch = 0;
+			}else{
+				return;
+			}
+			var warehouse = that.form_input_selector_list.warehouse_id.combobox('getValue');
+
+            var checkRows = $('#' + this.params.datagrid.id).datagrid('getRows');
+			if(checkRows.length == 0){
+				that.submit_switch = 1;
+				if(that.stock_pd_type == 0){
+					link_a = '货品信息为空，是否添加货品信息';
+				}
+				messager.confirm(link_a,function(r){
+					if(r){
+						if(that.stock_pd_type == 0 ){
+							that.stInvenAddGood();
+						}
+					}
+				});
+				return false;
+			}
+
+            var queryParams = $('#' + this.params.form.id).form('options').queryParams;
+            var prefix = "{$prefix}";
+
+            var gRows = $('#' + this.params.datagrid.id);
+            var r = gRows.datagrid("getRows");
+            var rlen = r.length;
+            for(var i= 0;i<rlen;i++){
+
+				if(r[i].pd_num == undefined || r[i].pd_num == ''){
+                	that.submit_switch = 1;
+                    messager.alert("实际盘点量不能为空！");
+                    return false;
+                }
+				var index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',r[i]);
+                if(!$('#'+this.params.datagrid.id).datagrid('validateRow',index)) { 
+					that.submit_switch = 1;
+					messager.alert("实际盘点量不能为空！");
+					return false;  
+				}
+                
+            }
+            if(this.params.show_type == "dialog"){
+				getRowStr = {};
+				getRowStr['del_spec']		= gRows.datagrid("getChanges","deleted");
+				getRowStr['update_spec']	= gRows.datagrid("getChanges","updated");
+				getRowStr['add_spec'] 		= gRows.datagrid("getChanges","inserted");
+                getRowStr = JSON.stringify(getRowStr);
+            }else{
+                var getRowStr = JSON.stringify($('#' + this.params.datagrid.id).datagrid("getRows"));
+            }
+
+            this.enableFormInput();
+            $('#' + this.params.form.id).form('options').queryParams ={'rows': getRowStr};
+            $('#' + this.params.form.id).form('options').ajax = true;
+			var form_params = $('#' + this.params.form.id).form('get');
+
+			$.post(this.params.form.url,form_params,function (data) {
+                    var result = data;               
+				   if (result['status'] == 1) {
+
+                    	that.disabledFormInput();
+                        messager.alert(result['info']+'请点击重置');
+
+                    }
+                    else if(result['status'] == 2){
+                        //messager.alert('编辑成功！');
+                        $('#reason_show_dialog').dialog('close');
+                        window[that.params.stockin_management_info.stockManagementObject].refresh();
+                    }else if(result['status'] == 0)
+                    {	
+						//messager.alert('保存成功！');
+						if(result['stockinventory_auto_commit'] == 1){$('.font_stoInvent_auto_commit').show();}else{$('.font_stoInvent').show();}
+						$('#'+that.params.datagrid.id).datagrid('options').onClickCell = function(){return;};
+                    	$('#'+that.params.form.id).form('load',{'search[stockinven_no]':result['info']});
+                    	that.disEditableFormList();
+						
+                    }else if(result['status'] == 3){
+					   $('.font_stoInvent').show();
+					   $('#'+that.params.datagrid.id).datagrid('options').onClickCell = function(){return;};
+					   $('#'+that.params.form.id).form('load',{'search[stockinven_no]':result['info']});
+					   that.disEditableFormList();
+					   messager.alert(result['msg']);
+				   }
+                },'json');
+
+        },
+
+        stInOrdDelete : function() {
+
+            var check_rows = $('#' + this.params.datagrid.id).datagrid('getRows');
+            var selected_row = $('#' + this.params.datagrid.id).datagrid('getSelected');
+
+            if ($.isEmptyObject(selected_row) || selected_row.length == 0) {
+                messager.alert('请选择行');
+                return;
+            }
+            var datagrid_id 	= this.params.datagrid.id;
+            //获取选择的行信息
+            var selected_row 	= $('#' + datagrid_id).datagrid("getSelected");
+            var selected_index 	= $('#' + datagrid_id).datagrid("getRowIndex", selected_row);
+
+            $('#' + datagrid_id).datagrid("deleteRow", selected_index);
+
+        },
+        stInOrdReset : function() {
+			$('.font_stoInvent').hide();
+			$('.font_stoInvent_auto_commit').hide();
+			this.stock_pd_type = 0;
+            this.initStoInOrdForm(this.stock_pd_type);
+			$('#'+this.params.datagrid.id).datagrid('options').onClickCell = this.keepClickCell;
+        },
+        sioFormatterRows : function(rows) {
+            var format_row = {};
+            var before_row = rows;
+
+            for (var i in before_row) {
+                if (before_row.length == 0)
+                    break;
+                var key = before_row[i]['id'];
+                format_row[key] = before_row[i];
+            }
+            return format_row;
+        },
+
+
+
+        //对话框中上表格datagrid的id :uId,对话框中下表格datagrid的id : dId
+        submitGoodsSpecDialog : function(uId,dId,stockinvenObject){
+        	var merge_result_old = [];
+            var merge_result_new = [];
+            var merge_result = [];
+            var src_price = [];
+
+            //获取对话框中的添加的数据
+			var add_rows = $("#"+dId).datagrid("getRows");
+            var gs_format_rows = stockinvenObject.sioFormatterRows(add_rows);
+            var sio_datagrid_id = stockinvenObject.params.datagrid.id;
+
+            var sio_rows = $('#' + sio_datagrid_id).datagrid('getRows');
+            var sio_format_rows = stockinvenObject.sioFormatterRows(sio_rows);
+			//过滤重复的单品列表
+            for (var j in gs_format_rows) {
+                gs_format_rows[j].pd_num = gs_format_rows[j].num;
+                if (sio_format_rows[j] == undefined) {
+                	//审查输入的值
+                	stockinvenObject.keepDataIntact(gs_format_rows[j])
+					merge_result_new.push(gs_format_rows[j]);
+                }
+            }
+			for(var new_key in merge_result_new){
+				$('#' + sio_datagrid_id).datagrid('appendRow', merge_result_new[new_key]);
+			}
+            $('#' + stockinvenObject.params.select.id).dialog('close');
+        },
+
+
+        disEditableFormList:function(){
+        	$('#'+this.tool_bar_id+" :input").attr('disabled',true);
+        	$('#'+this.params.id_list.src_order).textbox('disable');
+            this.form_input_selector_list.warehouse_id.combobox('disable');
+
+        	var a_dom_ar = $('#'+this.tool_bar_id+' a[class~="easyui-linkbutton"]');
+        	$.each(a_dom_ar,function(i,a_dom){
+        		$(a_dom).linkbutton({'disabled':true});
+        		});
+        	$('#'+this.reset_button_id).linkbutton({'disabled':false});
+			$('#'+this.params.id_list.invenmanage).linkbutton({'disabled':false});
+        },
+        editableFormList:function(){
+        	$('#'+this.tool_bar_id+" :input").attr('disabled',false);
+            this.form_input_selector_list.warehouse_id.combobox('enable');
+            var a_dom_ar = $('#'+this.tool_bar_id+' a[class~="easyui-linkbutton"]');
+        	$.each(a_dom_ar,function(i,a_dom){
+        		$(a_dom).linkbutton({'disabled':false});
+        		});
+        },
+
+        disabledFormInput : function(){
+        	for(var disabled_item in this.disabled_input_list){
+        		if(this.disabled_input_list[disabled_item]){
+        			var input_type = this.input_type_list[disabled_item];
+                    if(input_type == 'combobox'){
+                        this.form_input_selector_list[disabled_item][input_type]('disable');
+                    }else{
+                        this.form_input_selector_list[disabled_item][input_type]({disabled:true});
+                    }
+        		}
+        	}
+        },
+        enableFormInput	: function(){
+        	for(var enable_item in this.enable_input_list){
+        		if(this.enable_input_list[enable_item]){
+        			var input_type = this.input_type_list[enable_item];
+                    if(input_type == 'combobox'){
+                        this.form_input_selector_list[enable_item][input_type]('enable');
+                    }else{
+                        this.form_input_selector_list[enable_item][input_type]({disabled:false});
+                    }
+        		}
+        	}
+        },
+        keepDataIntact : function(row_data){
+            if(!$.isNumeric(row_data['stock_num']) || row_data['stock_num'] == 0){row_data['stock_num'] 	= (0).toFixed(4);}
+            if(!$.isNumeric(row_data['pd_num']) || row_data['pd_num'] == 0){row_data['pd_num'] = '';}
+            if(!$.isNumeric(row_data['pl_num']) || row_data['pl_num'] == 0){
+				if(row_data['pd_num'] == ''){
+					row_data['pl_num'] = '';
+				}else{
+					var pl_num = parseFloat(row_data['pd_num'])-parseFloat(row_data['stock_num']) ;	 row_data['pl_num'] = pl_num; }}
+            if(!$.isNumeric(row_data['remark']) || row_data['remark'] == 0){row_data['remark'] = '';}
+        }
+
+	}
+
+    </script>
+</block>
+<!-- dialog -->
+<block name="dialog">
+<div id="{$id_list.add}"></div>
+<div id="{$id_list.select}"></div>
+<div id="{$id_list.saomiao}"></div>
+</block>
+<block name="tabs">
+</block>

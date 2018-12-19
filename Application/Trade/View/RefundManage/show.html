@@ -1,0 +1,445 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div><div id="exchangeRefundGoods"></div><div id="{$id_list.exchange}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>退货单号：</label><input class="easyui-textbox txt" type="text" name="search[refund_no]" />
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[tid]" />
+<label>　系统单号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+<label style="display:none;"><input id="refund_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>
+<label>　状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('api_refund_status')"/>
+<a href="javascript:void(0)" onclick="salesRefund.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="salesRefund.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="salesRefund.loadFormData();">重置</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+</label>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+<label>　物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+<label>　电话号码：</label><input class="easyui-textbox txt" type="text" name="search[return_mobile]" />
+<label>　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+</div>
+<div class="form-div">
+<label>货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" /> 
+<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<label>　类别：</label><input class="easyui-combobox txt" name="search[type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_type')"/>
+<!--<label>下单时间：</label><input class="easyui-datetimebox" type="text" value="{date='y-m-d',###}" name="start_time" style="width:145px;"/>
+<label>截止：</label><input class="easyui-datetimebox" type="text" value="{date='y-m-d',###}" name="end_time" style="width:145px;"/> -->
+</div>
+<div class="form-div">
+<label>退换标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+<label>　收货地址：</label><input class="easyui-textbox txt" type="text" name="search[receiver_address]" />
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="salesRefund.addRefund()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="salesRefund.editRefund()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="salesRefund.agreeRefund()">同意</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-clear',plain:true" onclick="salesRefund.rejectRefund()">拒绝</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="salesRefund.cancelRefund()">取消</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="salesRefund.revertCheck()">驳回</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-warehouse',plain:true" onclick="salesRefund.rerundStockin()">一键入库</a>
+<a id="refund_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="salesRefund.showDisabled()">显示取消</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="salesRefund.setFlag()">标记管理</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-sign',plain:true,menu:'#salesRefund-flag'">标记订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="salesRefund.checkNumber()">查看号码</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/RefundManage','refund_manage','{$datagrid.id}',1)">设置表头</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick = "salesRefund.send()";>推送</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick = "salesRefund.cancel_sr()";>取消委外单</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-database-go',plain:true,menu:'#salesRefund_out'" >导出功能</a>
+</div>
+<div id="salesRefund_out">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="salesRefund.exportToExcel('csv')">导出csv(推荐)</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="salesRefund.exportToExcel('excel')">导出到Excel</a>
+</div>
+<div id="salesRefund-flag" style="width:100px;height:150px;" noline="true" >
+	<volist name='list.flag' id='vo'>
+		<div onclick="salesRefund.newSelectFlag({$vo.id})"><span style="margin-left: -25px; background-color:{$vo.bg_color}; font-family:{$vo.family}; color: {$vo.color};">{$vo.name}</span></div>
+	</volist>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		salesRefund = new RichDatagrid(JSON.parse('{$params}')); 
+		salesRefund.setFormData();
+		salesRefund.checkEdit=function(){
+			var row=salesRefund.selectRows[0];
+			if(row.id!=undefined&&(parseInt(row.id)<=0||parseInt(row.id)=='NaN')){ messager.alert('请选择有效的退换单'); return false;}
+			if(row.type!=undefined&&row.type==1){ messager.alert('退款单,不可编辑'); return false;}
+			if(row.process_status!=undefined&&row.process_status!=20&&row.process_status!=63&&row.process_status!=64){ messager.alert('退换单状态不正确,不可编辑'); return false;}
+			return true;
+		}
+		//添加
+		salesRefund.addRefund=function(){
+			var url='{$url_list.edit_url}';
+			url += url.indexOf('?') != -1 ? '&id='+0 : '?id='+0;
+			var buttons=[ {text:'确定',handler:function(){addEditRefund.submitEditDialog();}}, {text:'取消',handler:function(){salesRefund.cancelDialog(0);}} ];
+			salesRefund.showDialog(0,'新建退换单',url,560,1000,buttons);
+		}
+		//编辑
+		salesRefund.editRefund=function(){
+			if(salesRefund.selectRows==undefined) { messager.alert('请选择操作的行!'); return false; }
+			if(!salesRefund.checkEdit()){return false;}
+			var row=salesRefund.selectRows[0];
+			var url='{$url_list.edit_url}';
+			url += (url.indexOf('?') != -1) ? '&id='+row.id : '?id='+row.id;
+			var buttons=[ {text:'确定',handler:function(){addEditRefund.submitEditDialog(); }}, {text:'取消',handler:function(){salesRefund.cancelDialog(0)}} ];
+			salesRefund.showDialog(0,'编辑退换单',url,560,1000,buttons);
+		},
+		salesRefund.submitEditDialog=function(){addEditRefund.submitEditDialog();}
+		//结果信息显示方法
+		salesRefund.dealDatagridReasonRows=function(result,list){
+			if(result.status==1){ messager.alert(result.message); return;}
+			if(list!=undefined&&list.length>0){
+				var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+				result.info.rows=$.merge(list,fail);
+				result.info.total+=list.length;
+				result.status=2;
+			}
+			if(result.status==2){ $.fn.richDialog("response", result.info, 'refundmanage');}
+			if((result.status==0||result.status==2)&&result.data!=undefined){
+				var rows=salesRefund.selectRows;
+				var index;
+				var refund_dg=$('#'+salesRefund.params.datagrid.id);
+				for(var i in rows){
+					for(var x in result.data.rows){
+						if(rows[i].id==result.data.rows[x].id){ 
+							index=refund_dg.datagrid('getRowIndex',rows[i]); 
+							if(result.process_status!=undefined){ rows[i].process_status=result.process_status; }
+							if(result.is_refresh){rows[i].process_status=result.data.rows[x].process_status;}
+							if(result.check_number){rows[i].return_mobile=result.data.rows[x].return_mobile;rows[i].return_telno=result.data.rows[x].return_telno;}
+							if(result.revert_reason&&result.revert_reason!=''){rows[i].revert_reason=result.revert_reason;}
+							refund_dg.datagrid('refreshRow',index);
+						}
+					}
+				}
+			}
+		}
+		salesRefund.doPost=function(ids,list,url){
+			if(ids.length>0){
+				var cancel_ids=JSON.stringify(ids);
+				$.post(url,{'ids':cancel_ids},function(res){ 
+					salesRefund.dealDatagridReasonRows(res,list); 
+				},'JSON');
+			}else{
+				var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+				salesRefund.dealDatagridReasonRows(res,undefined); 
+			}
+		}
+		//同意
+		salesRefund.agreeRefund=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.alert('请选择操作的行');return false;}
+			var ids=[]; var list=[];
+			for(var i in rows){
+				if(rows[i]['id']==undefined||rows[i]['id']<1){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'无效退货单'});continue;
+				}
+				if(rows[i]['process_status']!=undefined&&rows[i]['process_status']!=20){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'退换单状态不正确'});continue;
+				}
+				ids.push(rows[i]['id']);
+			}
+            var url='{$url_list.agree_url}';
+            $.post('{:U("Trade/RefundManage/checkAgree")}',{ids:JSON.stringify(ids)},function(res){
+                if(!res.status)
+                {
+                    messager.confirm('该订单下已存在退换单，是否继续？',function(r){
+                        if(r)
+                        {
+                            salesRefund.doPost(ids,list,url);
+                        }
+                    });
+                }else
+                {
+                    salesRefund.doPost(ids,list,url);
+                }
+            },'JSON');
+		}
+		//拒绝
+		salesRefund.rejectRefund=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.alert('请选择操作的行');return false;}
+			var ids=[]; var list=[];
+			for(var i in rows){
+				if(rows[i]['id']==undefined||rows[i]['id']<1){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'无效退货单'});continue;
+				}
+				if(rows[i]['process_status']!=undefined&&rows[i]['process_status']!=20&&rows[i]['process_status']!=30){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'退换单状态不正确'});continue;
+				}
+				ids.push(rows[i]['id']);
+			}
+			var url='{$url_list.reject_url}';
+			salesRefund.doPost(ids,list,url);
+		}
+		//取消
+		salesRefund.cancelRefund=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.alert('请选择操作的行');return false;}
+			var ids=[]; var list=[];
+			for(var i in rows){
+				if(rows[i]['id']==undefined||rows[i]['id']<1){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'无效退货单'});continue;
+				}
+				if(rows[i]['process_status']!=undefined&&rows[i]['process_status']!=20){
+					list.push({refund_no:rows[i]['refund_no'],result_info:'退换单状态不正确'});continue;
+				}
+				ids.push(rows[i]['id']);
+			}
+			var url='{$url_list.cancel_url}';
+			salesRefund.doPost(ids,list,url);
+		}
+		//驳回
+		salesRefund.revertCheck=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.alert('请选择操作的行');return false;}
+			var ids=[]; var list=[];
+			var resultBeforeCheck = [];
+			for(var i in rows){
+				var temp_result = {'refund_no':rows[i]['refund_no']};
+				if(rows[i]['type']!=undefined&&rows[i]['type']==1){
+					messager.alert('退款单,不能驳回！'); return false;
+				}
+				if(rows[i]['id']==undefined||rows[i]['id']<1){
+					temp_result['result_info'] = "无效退货单";
+					resultBeforeCheck.push(temp_result);continue;
+				}
+				if(rows[i]['process_status']!=undefined&&rows[i]['process_status']!=60){
+					temp_result['result_info'] = "退换单状态不正确,仅待收货状态可驳回";
+					resultBeforeCheck.push(temp_result);continue;
+				}
+				ids.push(rows[i]['id']);
+			}
+			if($.isEmptyObject(ids))
+			{
+				$.fn.richDialog("response", resultBeforeCheck, 'refundmanage');
+				return;
+			}
+			var ids = ids.toString();
+			messager.confirm('确定选中的都驳回吗？',function(r) {
+				if(!r){return false;}
+				salesRefund.setReason('revert_reason',ids,resultBeforeCheck);
+			});
+		}
+		//一键入库
+		salesRefund.rerundStockin=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.alert('请选择操作的行');return false;}
+			if(rows.length>1){messager.alert("请选择一条退换单进行一键入库,暂不支持多条");return false;}
+			var row=rows[0];
+			//if(row.type!=2&&row.type!=3){messager.alert('该退换单不需要入库，请选择退货单或者换货单');return false;}
+			if(row.type==1){messager.alert('该退款单不需要入库，请选择退货单或者换货单');return false;}
+			if(row.type==4){messager.alert('该退款不退货单不需要入库，请选择退货单或者换货单');return false;}
+			if(row.process_status>70){messager.alert('该退换单的货品已全部入库，不需要再次入库');return false;}
+			if(row.process_status!=20&&row.process_status!=60&&row.process_status!=70){messager.alert('该退换单处理状态不正确，不需要入库。');return false;}
+			if(row.process_status==20){
+				messager.confirm('该退换单为待审核状态，确定要同意退换单并一键入库吗？', function(r) {
+					if(!r){return false;}
+					else{
+						var url="{$url_list.stockin_url}";
+						var id=JSON.stringify(row.id);
+						$.post(url,{'id':id},function(res){ 
+							if(res.status==1){
+								messager.alert(res.info);
+							}else{
+								var index;
+								var refund_dg=$('#'+salesRefund.params.datagrid.id);
+								index=refund_dg.datagrid('getRowIndex',row); 
+								row.process_status=90;
+								refund_dg.datagrid('refreshRow',index);
+							}
+						},'JSON');
+					}
+				});
+			}else{
+				var url="{$url_list.stockin_url}";
+				var id=JSON.stringify(row.id);
+				$.post(url,{'id':id},function(res){ 
+					if(res.status==1){
+						messager.alert(res.info);
+					}else{
+						var index;
+						var refund_dg=$('#'+salesRefund.params.datagrid.id);
+						index=refund_dg.datagrid('getRowIndex',row); 
+						row.process_status=90;
+						refund_dg.datagrid('refreshRow',index);
+					}
+				},'JSON');
+			}
+		}
+		//查看号码
+		salesRefund.checkNumber=function(){
+			var rows=salesRefund.selectRows;
+			if(rows==undefined){messager.info('请选择操作的行');return false;}
+			var ids=[];
+			var list=[];
+			for(var i in rows){ 
+				if(rows[i]['return_mobile']==''&&rows[i]['return_telno']==''){
+                    list.push({refund_no:rows[i]['refund_no'],result_info:'手机和固话均为空！'});
+					continue;
+				}
+				ids.push(rows[i]['id']);
+			}
+			if(ids.length>0){
+				$.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'sales_refund'},function(res){
+					salesRefund.dealDatagridReasonRows(res,list); 
+				},'JSON');
+			}else{
+                var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+                salesRefund.dealDatagridReasonRows(res,undefined); 
+            }
+		}
+		salesRefund.newSelectFlag=function(id){
+			var flag=[];
+			flag.id=id;
+			salesRefund.selectFlag(flag);
+		}
+		
+		salesRefund.send = function(){
+				var that = this;
+                var data = salesRefund.selectRows;;
+				var selects_info = {};
+				var resultBeforeCheck = [];
+                if($.isEmptyObject(data)){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+				for(var item in data){	
+					 var temp_result = {'result':'推送失败'};
+					if(data[item]['process_status']!=63 && data[item]['process_status']!=64){
+						temp_result['message'] = "不是待推送或推送失败的单子";
+						resultBeforeCheck.push(temp_result);
+						continue;
+					}
+					var temp_index = $('#'+salesRefund.params.datagrid.id).datagrid('getRowIndex',data[item]);
+					selects_info[temp_index] = data[item].id;
+				}
+				if($.isEmptyObject(selects_info)){
+					$.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(salesRefund){salesRefund.refresh();}}});
+					return;
+				}
+                messager.confirm('确定推送退换单吗？',function(r){
+                	if(r){
+	                	$.post("{:U('Trade/RefundManage/send')}",{ids:JSON.stringify(selects_info)},function(r){
+							r = JSON.parse(r);
+							for(var k in r){
+							if(k == 'updated'){messager.alert('推送成功');}
+							else if(k == 'error'){messager.alert(r[k]);}
+							else{
+							    var resultBeforeCheck =  r[1];
+								$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+								break;
+							}
+							}
+							salesRefund.refresh();
+	                	});
+	                }
+                });
+			}
+			
+			salesRefund.cancel_sr = function(){
+				var that = this;
+                var data = salesRefund.selectRows;;
+				var resultBeforeCheck = [];
+				var selects_info = {};
+                if($.isEmptyObject(data)){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+				for(var item in data){	
+					 var temp_result = {'result':'取消失败'};
+					if(data[item]['process_status']!=65 && data[item]['process_status']!=63){
+						temp_result['message'] = "不是已推送或待推送的订单";
+						resultBeforeCheck.push(temp_result);
+						continue;
+					}
+					var temp_index = $('#'+salesRefund.params.datagrid.id).datagrid('getRowIndex',data[item]);
+					selects_info[temp_index] = data[item].id;
+				}
+				if($.isEmptyObject(selects_info)){
+					$.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(salesRefund){salesRefund.refresh();}}});
+					return;
+				}
+                messager.confirm('确定取消退换单吗？',function(r){
+                	if(r){
+	                	$.post("{:U('Trade/RefundManage/cancel_sr')}",{ids:JSON.stringify(selects_info)},function(r){
+		                    /*switch (r.status){
+		                        case 0:
+		                            messager.alert(r.info);
+		                            break;
+		                        case 1:
+		                            messager.alert(r.info);
+		                            break;
+		                        default :
+		                            messager.alert("系统错误，请与管理员联系！");
+		                    }*/
+							r = JSON.parse(r);
+							for(var k in r){
+							if(k == 'updated'){messager.alert('取消成功');}
+							else if(k == 'error'){messager.alert(r[k]);}
+							else{
+							    var resultBeforeCheck =  r[1];
+								$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+								break;
+							}
+							}
+	                	});
+						salesRefund.refresh();
+	                }
+                });
+			}
+		//导出到Excel
+		salesRefund.exportToExcel = function(type){
+			var dg = $('#'+salesRefund.params.datagrid.id);
+			var queryParams = dg.datagrid('options').queryParams;
+			var search=JSON.stringify(queryParams);
+			var url= "{:U('RefundManage/exportToExcel')}";
+			var id_list=[];
+			//获取选中行数据的id
+			for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+			var form=JSON.stringify(salesRefund.params.search.form_data);
+			var search_form=JSON.stringify($('#{$id_list.form}').form('get'));
+			var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+			if(rows==''){
+				messager.confirm('导出不能为空！');
+			}else if(id_list!=''){
+				messager.confirm('确定导出选中的退换单吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&type='+type);
+				})
+			}else if(search=='{}'||search_form==form){
+				messager.confirm('确定导出所有的退换单吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&type='+type);
+				})
+			}else{
+				messager.confirm('确定导出搜索的退换单吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+				})
+			}
+		}
+
+		salesRefund.showDisabled =function(){
+                    if($("#refund_show_disabled").val()==0){
+                        $("#refund_show_disabled").val('1');
+                        salesRefund.submitSearchForm(this);
+                        $("#refund_but_disabled").linkbutton({text:'隐藏取消'});
+                    }else{
+                        $("#refund_show_disabled").val('0');
+                        salesRefund.submitSearchForm(this);
+                        $("#refund_but_disabled").linkbutton({text:'显示取消'});
+                    }
+                }
+		
+	}, 0); 
+});
+</script>
+</block>

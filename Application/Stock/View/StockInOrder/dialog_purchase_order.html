@@ -1,0 +1,55 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div class="form-div">
+<label>采购单号:　</label><input class="easyui-textbox txt" type="text" name="search[purchase_no]" style="width: 130px;"/>
+<label>供应商:　</label><select class="easyui-combobox sel" name="search[provider_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='provider_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+
+<label>收货仓库:　</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+<label>采购人：　</label><select class="easyui-combobox sel" name="search[purchaser_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='employee_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+</div>
+<div class="form-div">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="purchaseInorder.submitSearchForm();">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="purchaseInorder.loadFormData();">重置</a>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</div>
+<script>
+//# sourceURL = purchase.js
+$(function(){
+	setTimeout(function(){
+		purchaseInorder = new RichDatagrid(JSON.parse('{$params}'));
+		purchaseInorder.setFormData();
+		},0);
+	});
+function stockinSubmitAddPurchaseOrder(stockin_p){
+    var select_row = $('#'+purchaseInorder.params.datagrid.id).datagrid('getSelected');
+    if($.isEmptyObject(select_row))
+    {
+        messager.alert('请选择采购单');
+        return;
+    }
+    var purchase_id = select_row['id'];
+    $.post("{:U('Purchase/PurchaseOrder/getPurchaseinfo')}",{id:purchase_id},function(infor){
+
+        stockin_p.initByType("11");
+        $('#'+stockin_p.form_id).form('filterLoad',infor.form_data);
+        var rows = infor.detail_data.rows;
+        for(var index in rows)
+        {
+			if(rows[index]['num'] > 0){
+				$('#'+stockin_p.datagrid_id).datagrid('appendRow',rows[index]);
+			}
+        }
+        stockin_p.calcPrice();
+		$('#'+stockin_p.params.add[stockin_p.stockin_type].id).dialog('close');
+    },"json");
+}
+	
+</script>
+</block>

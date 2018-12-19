@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<form id = "cfgLogistics_auth_form" style="height:auto;width:100%;">
+	<if condition="($logistics.bill_type eq '0')">
+		<div class="form-div" style="margin: 10px 0 5px 10px;">
+			<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户编号：</label>
+			<input class="easyui-textbox txt" type="text" name="customer_code" data-options="required:true"/>
+		</div>
+		<div class="form-div" style="margin: 0 0 10px 10px;">
+			<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户密码：</label>
+			<input class="easyui-textbox txt" type="text" name="customer_pwd" data-options="required:true,validType:'username'"/>
+		</div>
+	<elseif condition="($logistics.bill_type eq '1')"/>
+		<div class="form-div" style="margin: 10px 0 5px 10px;">
+			<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户编号：</label>
+			<input class="easyui-textbox txt" type="text" name="customer_code" data-options="required:true"/>
+		</div>
+		<if condition="($logistics.logistics_type eq '1311')">
+			<div class="form-div" style="margin: 0 0 10px 10px;">
+				<label   style="margin-left: 45px;width: auto;display: inline-block;">店铺：</label>
+				<select class="easyui-combobox sel" name="shop_id" data-options="panelHeight:'100px'">
+					<option value="0">无</option><volist name='shop_list' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+				</select>
+			</div>
+		<else/>
+			<div class="form-div" style="margin: 0 0 10px 10px;">
+				<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户密码：</label>
+				<input class="easyui-textbox txt" type="text" name="customer_pwd" data-options="required:true"/>
+			</div>
+		</if>
+	    <switch name="logistics.logistics_type" >
+			 <case value="6" break="1">{// 申通快递}
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">发货网点：</label>
+					<input class="easyui-textbox txt" type="text" name="branch_name" data-options="required:true"/>
+				 </div>
+			</case>
+			 <case value="8" break="1">{// 顺丰速运}
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">月结卡号：</label>
+					<input class="easyui-textbox txt" data-options="prompt:'不填为现结'" type="text" name="banded_type" />
+				 </div>
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">付款方式：</label>
+					<select class="easyui-combobox sel" name="pay_type" data-options="panelHeight:'100px'">
+							<option value="0">寄方支付</option>
+							<option value="1">收方支付</option>
+							<option value="2">第三方支付</option>
+					</select>
+				 </div>
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					 <label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">保价类型：</label>
+					 <select class="easyui-combobox sel" name="insures_type" id="insureId" data-options="panelHeight:'100px'">
+						 <option value="0">无</option>
+						 <option value="1">以订单金额保价</option>
+						 <option value="2">以固定金额保价</option>
+					 </select>
+				 </div>
+				 <div class="form-div" id="insureAmountId" style="margin: 0 0 10px 10px;display: none">
+					 <label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">保价金额：</label>
+					 <input class="easyui-textbox txt" type="text" name="insure_amount"/>
+				 </div>
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">物流类型：</label>
+					<select class="easyui-combobox sel" name="type_sf" data-options="panelHeight:'100px'">
+							<option value="0">标准快递</option>
+							<option value="1">顺丰特惠</option>
+							<option value="7">顺丰次晨</option>
+							<option value="6">顺丰即日</option>
+							<option value="10">顺丰干配</option>
+							<option value="4">云仓专配次日</option>
+							<option value="5">云仓专配隔日</option>
+					</select>
+				 </div>
+			</case>
+	    </switch>
+	<elseif condition="($logistics.bill_type eq '9')"/>
+		<div class="form-div" style="margin: 10px 0 5px 10px;">
+			<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户编号：</label>
+			<input class="easyui-textbox txt" type="text" name="customer_code" data-options="required:true"/>
+		</div>
+		<div class="form-div" style="margin: 10px 0 5px 10px;">
+			<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">客户名称：</label>
+			<input class="easyui-textbox txt" type="text" name="vendorName" data-options="required:true"/>
+		</div>
+		<div class="form-div" style="margin: 0 0 10px 10px;">
+			<label   style="margin-left: 45px;width: auto;display: inline-block;">店铺：</label>
+			<select class="easyui-combobox sel" name="shop_id" data-options="panelHeight:'100px'">
+				<option value="0">无</option><volist name='shop_list' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+			</select>
+		</div>
+		<div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">付款方式：</label>
+					<select class="easyui-combobox sel" name="pay_type" data-options="panelHeight:'100px'">
+							<option value="0">寄方支付</option>
+							<option value="1">收方支付</option>
+							<option value="2">第三方支付</option>
+					</select>
+		</div>
+		<switch name="logistics.type" >
+			 <case value="1" break="1">{// 直营商}
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">月结卡号：</label>
+					<input class="easyui-textbox txt" type="text" name="settlementCode" data-options="required:true"/>
+				 </div>
+			</case>
+			<case value="0" break="1">{// 加盟商}
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">发货网点：</label>
+					<input class="easyui-textbox txt" type="text" name="branch_name" data-options="required:true"/>
+				 </div>
+			</case>
+	    </switch>
+	    <switch name="logistics.logistics_type" >
+			 <case value="8" break="1">{// 顺丰速运}
+				 <div class="form-div" style="margin: -5px 0 10px 10px;">
+					<label style="margin-left: 20px;width: auto;display: inline-block;" class="five-character-width">物流类型：</label>
+					<select class="easyui-combobox sel" name="type_sf" data-options="panelHeight:'100px'">
+							<option value="0">标准快递</option>
+							<option value="1">顺丰特惠</option>
+							<option value="7">顺丰次晨</option>
+							<option value="6">顺丰即日</option>
+							<option value="10">顺丰干配</option>
+							<option value="4">云仓专配次日</option>
+							<option value="5">云仓专配隔日</option>
+					</select>
+				 </div>
+			</case>
+	    </switch>
+	<elseif condition="($logistics.bill_type eq '2')"/>
+		<div class="form-div" style="margin: 10px 0 5px 10px;">
+			<label   style="margin-left: 60px; width: auto;display: inline-block;">店铺：</label>
+			<select class="easyui-combobox sel" name="shop_id" data-options="panelHeight:'100px'">
+				<option value="0">无</option><volist name='shop_list' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+			</select>
+		</div>
+
+			<switch name="logistics.logistics_type" >
+				<case value="8" break="1">
+					<div class="form-div" style="margin: 0 0 10px 10px;">
+						<label   style="width: auto;display: inline-block;">物流商产品类型：</label>
+					<select class="easyui-combobox sel" name="product_type" data-options="panelHeight:'100px'">
+						<option value="STANDARD_EXPRESS">标准快递</option>
+						<option value="SF_E_COMMERCE">顺丰电商</option>
+						<option value="SF_STANDARD">顺丰标快</option>
+						<option value="ECONOMY_EXPRESS">经济快递</option>
+						<option value="FRESH_DISTRIBUTION">生鲜配送</option>
+					</select>
+
+						</div>
+					<div class="form-div" style="margin: 0 0 10px 10px;">
+						<label style="width: auto;display: inline-block;">　　　服务类型：</label>
+
+						<select class="easyui-combobox sel" name="TIMED-DELIVERY"
+								data-options="panelHeight:'100px'">
+							<option value="0">顺丰时效</option>
+							<option value="TODAY">顺丰即日</option>
+							<option value="NEXT-MORNING">顺丰次晨</option>
+							<option value="NEXT-DAY">顺丰次日</option>
+							<option value="SEVERAL-DAYS">顺丰隔日</option>
+						</select>
+					</div>
+				</case>
+				<default />
+				<div class="form-div" style="margin: 0 0 10px 10px;">
+					<label   style="width: auto;display: inline-block;">物流商产品类型：</label>
+				<select class="easyui-combobox sel" name="product_type" data-options="panelHeight:'100px'">
+					<option value="STANDARD_EXPRESS">标准快递</option>
+				</select>
+
+		</div>
+			</switch>
+	</if>
+</form>
+<script type="text/javascript">
+    $(function(){
+        $("#insureId").combobox({
+            onSelect:function(record){
+				if(record.value == 2){
+					$("#insureAmountId").show();
+				}else{
+                    $("#insureAmountId").hide();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

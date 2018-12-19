@@ -1,0 +1,30 @@
+<div class="easyui-panel" style="background-color: #F4F4F4;width: 100%;" data-options="fit:true">
+    <div style="margin: 0 0 0 20px;">
+
+    <volist name="waybill_detail" id="logistics">
+        <div style="display: inline-block;vertical-align:middle;width:350px;margin-top: 20px">
+            <hr style="width:50px;display: inline-block;vertical-align:middle;"><label style="font-size: larger;font-weight: bolder">快递公司编码：{$logistics.cp_code}[{$logistics.cp_type}]</label>
+                <volist name="logistics.branch" id="branch">
+                    <div>
+                        <fieldset style="border:  2px solid #7CAAB1;padding-bottom: 5px;margin-top: 10px"><legend><label style="font-size:medium;">网点名称：{$branch.branch_name}</label></legend>
+                        <label>可用单数：</label><label style="color:red;;margin-right: 20px">{$branch.quantity}</label>
+                        <label>已用单数：</label><label style="color:green;">{$branch.allocated_quantity}</label></br>
+                        <!--<label>已经打印的面单总数：</label><label>{$branch.print_quantity}</label></br>
+                        <label>取消的面对总数：</label><label>{$branch.cancel_quantity}</label></br>
+-->                        <label>网点下发货地址：</label></br>
+                        <volist name="branch.waybill_address" id="address">
+                            <div style="margin-bottom: 2px;width:95%">
+                                <fieldset style="border:  1px solid #7CAAB1;padding-bottom: 3px;">
+                                <label>省：</label><label style="margin-right: 10px">{$address.province}</label><label>市：</label><label  style="margin-right: 10px">{$address.city}</label><label>区：</label><label>{$address.area}</label></br>
+                                <label style="word-break:break-all;">详细地址：{$address.address_detail}</label>
+                                </fieldset>
+                            </div>
+                        </volist>
+                        </fieldset>
+                    </div>
+                </volist>
+        </div>
+    </volist>
+    </div>
+
+</div>

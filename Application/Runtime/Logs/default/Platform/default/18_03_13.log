@@ -1,0 +1,16 @@
+2018-03-13 20:22:50	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:02	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:14	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:21	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:21	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:22	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:22	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:23:23	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:24:06	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:24:49	PHP Error Severity: 8 --> Undefined offset: 0 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2018-03-13 20:54:37	SQL ERROR: Connection to database failedHost '221.216.141.192' is not allowed to connect to this MySQL server,'','error'
+2018-03-13 20:54:37	邮件错误信息: The following From address failed: ekb_erp@163.com
+2018-03-13 20:54:45	SQL ERROR: Connection to database failedHost '221.216.141.255' is not allowed to connect to this MySQL server,'','error'
+2018-03-13 20:54:45	邮件错误信息: The following From address failed: ekb_erp@163.com
+2018-03-13 21:20:52	SQL ERROR: Connection to database failedHost '221.216.143.195' is not allowed to connect to this MySQL server,'','error'
+2018-03-13 23:07:11	SQL ERROR: Connection to database failedHost '221.216.141.255' is not allowed to connect to this MySQL server,'','error'

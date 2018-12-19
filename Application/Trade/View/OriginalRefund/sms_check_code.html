@@ -1,0 +1,40 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        originalRefund.smsAgreeRefund = function () {
+            var form = $("#{$params.form_id}");
+            var url = "{$params.form_url}";
+            var dialog = $("#"+"{$params.dialog_id}");
+            if (!form.form("validate")) {
+                return false;
+            }
+            form.form('options').queryParams = {};
+            var check_code = form.form('get');
+            $.post(url,check_code,function (res) {
+                if (res.status == 0) {
+                    dialog.dialog("close");
+                    messager.alert(res.info);
+                    originalRefund.refresh();
+                } else {
+                    dialog.dialog("close");
+                    messager.alert(res.info);
+
+                }
+            },'json');
+
+        }
+    </script>
+</block>
+<block name="datagrid">
+    <div class="form-div">
+        <form method="post" id="{$params.form_id}" style="padding:20px 45px 20px 45px">
+            <div style="display: none;"> <input hidden="true" name="id" value="{$params.rec_id}"/> </div>
+                <div class="form-div" style="margin-bottom:10px">
+                    <label>验证码：</label><input class="easyui-numberbox txt" type="text" required="true" name="check_code"/>
+                </div>
+        </form>
+    </div>
+</block>

@@ -1,0 +1,6 @@
+2018-01-25 23:25:18	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 141
+2018-01-25 23:25:19	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 254
+2018-01-25 23:25:20	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 254
+2018-01-25 23:26:05	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 141
+2018-01-25 23:26:07	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 254
+2018-01-25 23:26:07	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 254

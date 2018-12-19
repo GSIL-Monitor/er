@@ -1,0 +1,20 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+</block>
+<block name="dialog">
+</block>
+<block name="tabs">
+    <script>
+        //# sourceURL=salesStockPrintmodifyPrintSataus.js
+        $( function(){setTimeout(function(){
+            var salesPrintStatusChg = new ThinDatagrid($('#'+'{$datagrid_id}'),undefined,false);
+            $('#'+"{$datagrid_id}").datagrid('loadData',[{'print_class':'logistics_print_status','print_order_name':'物流单','print_status':'all'},{'print_class':'sendbill_print_status','print_order_name':'发货单','print_status':'all'},{'print_class':'picklist_print_status','print_order_name':'分拣单','print_status':'all'}])
+//            $('#'+'{$datagrid_id}').datagrid('enableCellEditing');
+        }, 0);
+        });
+
+    </script>
+</block>
+<block name="script">
+
+</block>

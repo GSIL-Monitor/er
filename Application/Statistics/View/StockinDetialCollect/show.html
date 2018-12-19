@@ -1,0 +1,119 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+    <div id="{$id_list.help_id}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding:5px 0;margin-top: 0;height:auto">
+        <form id="statistics-form-stock-in-detial" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>　　   &nbsp;仓库：</label>
+                <select class="easyui-combobox sel"	name="search[warehouse_id]" data-options="panelHeight:'200px',editable:false,">
+                    <option value="0">全部</option>
+                    <volist name='list.warehouse' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>　入库类别：</label>
+                <input class="easyui-combobox txt" name="search[src_order_type]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockin_type')"/>
+                <label>&emsp;审核时间： </label><input id="{$id_list.dailystat_start}" class="easyui-datebox txt" type="text" name="search[day_start]" value={$current_date} />
+                <label>　　   &nbsp;&emsp; 到： </label><input id="{$id_list.dailystat_end}" class="easyui-datebox txt" type="text" name="search[day_end]" value={$current_date} />
+                <a href="javascript:void(0)" style="margin: 0 5px;" onclick="stockin_detial_collect_grid.clickMore(this);">更多</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="stockin_detial_collect_grid.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="stockin_detial_collect_grid.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/StockinDetialCollect','stockindetialcollect','{$datagrid.id}',1)">设置表头</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true"
+                   onclick="stockin_detial_collect_grid.exportToExcel()">导出到Excel</a>
+            </div>
+            <div id="{$id_list.more_content}">
+                <div class="form-div">
+                    <label>　入库单号： </label><input class="easyui-textbox txt" type="text" name="search[stockin_no]"/>
+                    <label>　 经 办 人： </label>
+                    <select class="easyui-combobox sel" name="search[operator_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+                        <option value="all">全部</option>
+                        <volist name='list.employee' id='vo'>
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                    <label>　货品名称： </label><input class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+                    <label>　商家编码： </label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                </div>
+                <div class="form-div">
+                    <label>　货品编码： </label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+                    <label>　货品分类： </label><input class="txt" id="stockin_detial_collect_goods_class" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                    <label>　货品品牌： </label><select class="easyui-combobox sel" name="search[brand_id]"><option value="all">全部</option><volist name='list.brand' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                </div>
+            </div>
+        </form>
+        <div style="display: none;"><input hidden="true" id="{$id_list.hidden_flag}" value="1"/> </div>
+    </div>
+    <script type="text/javascript">
+        var stockin_detial_collect = JSON.parse('{$params}');
+        $('#stockin_detial_collect_goods_class').changStyleTreeCombo('stockin_detial_collect_goods_class');
+        $(function(){
+            setTimeout(function () {
+                stockin_detial_collect_grid = new RichDatagrid(stockin_detial_collect);
+                stockin_detial_collect_grid.setFormData();
+                stockin_detial_collect_grid.exportToExcel = function(){
+                    var id_list=[];
+                    for(i in this.selectRows){
+                        if(this.selectRows[i].id){
+                            id_list.push(this.selectRows[i].id);
+                        }
+                    }
+                    var url= "{:U('StockinDetialCollect/exportToExcel')}";
+                    var search=JSON.stringify($('#statistics-form-stock-in-detial').form('get'));
+                    var data = $("#{$datagrid.id}").datagrid("getData");
+                    if(data.total==1){
+                        messager.confirm('导出不能为空！');
+                    }else if(id_list.length > 0){
+                        messager.confirm('确定导出选中的订单吗？',function(res){
+                            if(!res){return false;}
+                            window.open(url+'?search='+search+'&id_list='+id_list);
+                        })
+                    }else {
+                        messager.confirm('确定导出搜索的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?search='+search+'&id_list='+id_list);
+                        })
+                    }
+                };
+                var datagrid_id = stockin_detial_collect_grid.params.datagrid.id;
+                $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+                    var page_size = $(this).datagrid('options').pageSize ;
+                    if (row.stockin_no == '合计'){
+                        return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                    }
+                }});
+                $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+                    $(this).datagrid('clearSelections'); //更新表格选中行
+                    var rows = $(this).datagrid('getRows');
+                    var stat_fields = [
+                        'num',
+                        'cost_price',
+                        'total_cost'
+                    ];
+                    var append_row = {};
+                    append_row['stockin_no'] = '合计';
+                    StockinDetialCollectTotalCompute(rows,stat_fields,append_row);
+                    $(this).datagrid('appendRow',append_row);
+                }});
+            });
+        });
+        function StockinDetialCollectTotalCompute(page_rows,arr_fields,append_row){
+            var rows = page_rows;
+            for(var index in arr_fields){
+                var field = arr_fields[index];
+                append_row[field] = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    append_row[field] += parseFloat(rows[i][field]);
+                }
+                append_row[field] = append_row[field].toFixed(4);
+            }
+        }
+    </script>
+</block>
+<block name="tabs">
+</block>

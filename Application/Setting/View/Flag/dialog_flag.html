@@ -1,0 +1,128 @@
+<table id="flag-datagrid"></table>
+<div id="flag-datagrid-toolbar">
+	<if condition="$flag_class eq 7">
+		<label style="margin-left: 120px;color:blue">#以下项为<span style="color:red">系统内置标记</span>，用户可自主修改<span style="color:red">背景颜色、字体颜色和字体</span><span style="color:red">(重新打开页面才会生效)</span>#</label>
+	<else/>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="setFlag.append({id:'0',flag_class:'0',bg_color:'#ffffff',font_color:'#000000'})">添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="setFlag.reject()">取消</a>
+		<label style="margin-left: 30px;color:blue">#前{$is_builtin_count}项为<span style="color:red">系统内置标记</span>，用户可自主修改<span style="color:red">背景颜色、字体颜色和字体</span>；另外也可根据需要<span style="color:red">添加自定义标记</span>#。</label>
+	</if>
+
+</div>
+<script type="text/javascript">
+//# sourceURL=set.flag.js
+$('#flag-datagrid').datagrid({
+	toolbar: '#flag-datagrid-toolbar',
+	border:false,
+	collapsible:true,
+	singleSelect:true,
+	fitColumns:true,  
+	rownumbers:true,
+	data:{$flag_datagrid_data},
+	fit:true,
+	onEndEdit:endFlagEdit,
+    columns:[[
+              {field:'id',hidden:true}, 
+              {field:'flag_class',hidden:true}, 
+              {field:'flag_name',title:'标记名称',width:300,editor:{type:'textbox',options:{required:true,validType:'flag_name_unique'}}},
+              {field:'bg_color',title:'背景颜色',width:300,formatter:flagBgColorFormatter},
+              {field:'font_color',title:'字体颜色',width:300,formatter:flagFontColorFormatter},
+              {field:'font_id',title:'字体',width:300,formatter:formatter.font_family,editor:{type:'combobox', options:{ valueField:'font_id', textField:'font_name', data:formatter.get_data('font_family'), panelHeight:'auto',editable:false,required:true }}}
+    		]]
+});
+function iColorPickerHide(){
+	$("#iColorPickerBg").hide();
+	$("#iColorPicker").fadeOut();
+}
+function flagBgColorFormatter(value,row){
+	var format=[];
+	format.push('<input id="bg_'+row.flag_class+'_'+row.id+'" class="iColorPicker" type="button" style="width:100px;background-color:'+value+'" onClick="iColorPickerHide()" /><a href="javascript:void(null)" id="icp_bg_' +row.flag_class+'_'+row.id+ '" onclick="iColorShow(\'bg_' + row.flag_class+'_'+row.id + '\',\'icp_bg_' + row.flag_class+'_'+row.id + '\','+22+','+30+')"><img src="' + imageUrl + '" style="border:0;margin:0 0 0 3px" align="absmiddle" ></a>');
+	return format;
+}
+function flagFontColorFormatter(value,row){
+	var format=[];
+	format.push('<input id="font_'+row.flag_class+'_'+row.id+'" class="iColorPicker" type="button" style="width:100px;background-color:'+value+'" onClick="iColorPickerHide()"/><a href="javascript:void(null)" id="icp_font_' +row.flag_class+'_'+row.id+ '" onclick="iColorShow(\'font_' + row.flag_class+'_'+row.id + '\',\'icp_font_' + row.flag_class+'_'+row.id + '\','+22+','+30+')"><img src="' + imageUrl + '" style="border:0;margin:0 0 0 3px" align="absmiddle" ></a>');
+	return format;
+}
+var record_update_color_arr={};
+function isOwnEmpty(obj){
+    for(var name in obj){if(obj.hasOwnProperty(name)){ return false;}}
+    return true;
+}
+function endFlagEdit(index,row,changes){
+	var flag_class={$flag_class};
+	var bg_color=row.bg_color;
+	var font_color=row.font_color;
+	row.bg_color=$("#bg_"+row.flag_class+"_"+row.id).getHexBackgroundColor();
+	row.font_color=$("#font_"+row.flag_class+"_"+row.id).getHexBackgroundColor();
+	if(row.id=='0'&&row.flag_class=='0'){row.id+=index;row.flag_class=flag_class;}
+	else if((!isOwnEmpty(changes))||bg_color.toLowerCase()!=row.bg_color.toLowerCase()||font_color.toLowerCase()!=row.font_color.toLowerCase()){record_update_color_arr[row.id]=index;}
+}
+function submitFlagsDialog(flags){
+	if(!setFlag.endEdit(true)){return;}
+	var selector=$('#flag-datagrid');
+	var data={};
+	data['add']=selector.datagrid('getChanges','inserted');
+	var rows=selector.datagrid('getRows');
+	var i=0;
+	data['update']=[];
+	$.each(record_update_color_arr,function(key,val){
+		data['update'][i++]=rows[val];
+	});
+	var len=(data['add'].length>=data['update'].length?data['add'].length:data['update'].length);
+	if(rows.length==0){ $('#'+flags.dialog.id).dialog('close');return;}
+	for(var i=0;i<rows.length;i++){
+		for(var j=0;j<len;j++){
+			if(j<data['add'].length&&data['add'][j].flag_name.toLowerCase()==rows[i].flag_name.toLowerCase()&&data['add'][j].id!=rows[i].id){
+				messager.alert('标记名称重名-'+rows[i].flag_name);return;
+			}
+			if(j<data['update'].length&&data['update'][j].flag_name.toLowerCase()==rows[i].flag_name.toLowerCase()&&data['update'][j].id!=rows[i].id){
+				messager.alert('标记名称重名-'+rows[i].flag_name);return;
+			}
+		}
+	}
+	$.post(flags.dialog.url,data,function(res){if(!res.status){messager.alert(res.info);}else{$('#'+flags.dialog.id).dialog('close');
+		var res_ids=JSON.parse(res.info);
+		for(var i=0;i<data['update'].length;i++){
+			for(var j=0;j<flags.list_flag.length;j++){
+				if(data['update'][i].id==flags.list_flag[j].id){
+					flags.list_search[j].name=flags.list_flag[j].name=data['update'][i].flag_name;
+					flags.list_search[j].clazz=flags.list_flag[j].clazz='background-color:'+data['update'][i].bg_color+';color:'+data['update'][i].font_color+';font-family:'+data['update'][i].font_id+';';
+				}
+			}
+			flags.json_flag[data['update'][i].id]='background-color:'+data['update'][i].bg_color+';color:'+data['update'][i].font_color+';font-family:'+data['update'][i].font_id+';';
+		}
+		for(var i=0;i<data['add'].length;i++){
+			flags.list_search[flags.list_flag.length+i]=flags.list_flag[flags.list_flag.length+i]={id:res_ids[data['add'][i].id],name:data['add'][i].flag_name,clazz:'background-color:'+data['add'][i].bg_color+';color:'+data['add'][i].font_color+';font-family:'+data['add'][i].font_id+';'};
+			flags.json_flag[res_ids[data['add'][i].id]]='background-color:'+data['add'][i].bg_color+';color:'+data['add'][i].font_color+';font-family:'+data['add'][i].font_id+';';
+		}
+		$('#'+flags.set_flag).combobox("loadData",flags.list_flag);
+		$('#'+flags.search_flag).combobox("loadData",flags.list_search);
+	}},'json');
+}
+function disableField(index,row){
+	if(row.is_builtin==1){
+		var cellEdit=$('#flag-datagrid').datagrid('getEditor', {index:index,field:'flag_name'});
+		cellEdit.target.textbox('disable');
+	}
+}
+$(function(){
+	iColorPicker('#flag-datagrid-toolbar');
+	setTimeout(function () { 
+		setFlag = new ThinDatagrid($('#flag-datagrid'),disableField,false);
+		$.extend($.fn.validatebox.defaults.rules, {
+		    flag_name_unique: {
+		        validator: function (value) {
+		        	if(value.trim()==''||/[<>/]+/g.test(value)){return false;}
+		            if (typeof(value) != "undefined") {
+		                var rows = setFlag.selector.datagrid("getRows");
+		                for (var i in rows) { if (i!=setFlag.editIndex && value==rows[i].flag_name) { return false; } }
+		            }
+		            return true;
+		        },
+		        message: "标记名称不能为空，且不能重复（不能含有<>/字符）"
+		    }
+		});
+	}, 0);
+});
+</script>

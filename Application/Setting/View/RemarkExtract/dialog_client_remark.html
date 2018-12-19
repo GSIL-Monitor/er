@@ -1,0 +1,19 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$client_id_list.add}"></div><div id="{$client_id_list.edit}"></div></block>
+<block name='toolbar'>
+<div id="{$client_id_list.toolbar}" style="padding:5px;height:auto">
+<div class="form-div">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="clientRemark.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="clientRemark.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="clientRemark.remove()">删除</a>
+</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	setTimeout(function () { 
+		clientRemark=new RichDatagrid(JSON.parse('{$client_params}')); 
+	}, 0); 
+});
+</script>
+</block>
+<block name="tabs"></block>

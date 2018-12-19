@@ -1,0 +1,21 @@
+<form id="force-check-pwd">
+<div class="form-div">
+	<label>　请输入强制审核的密码：</label><br>
+	&nbsp;&nbsp;&nbsp;<input class="easyui-textbox txt" type="password" id="force_pwd" name="force_pwd" style="width: 220px;" data-options='required:true'/>
+</div>
+</form>
+<script>
+tradeCheck.submitTradeCheckDialog=function(id){ 
+	var pwd=$("#force_pwd").textbox('getText');
+	if(pwd==''){messager.alert('请输入密码。');return false;}
+	Post('{:U('TradeCheck/forceCheckPwd')}?pwd='+pwd,'', function(res){
+		if(res!=1){
+			{messager.alert('密码错误，请重新输入。');return false;}
+		}else{
+			checkTrade(1,'',id);
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+		}
+
+	},"JSON");
+}
+</script>

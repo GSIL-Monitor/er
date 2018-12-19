@@ -1,0 +1,59 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name='toolbar'>
+    <div id='{$id_list.tool_bar}' style='padding:5px;height:auto'>
+        <form id='{$id_list.form}' class='easyui-form' method='post'  style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <label> 名称</label><input class='easyui-textbox' type='text' name='search[provider_group_name]  '/>
+            <label> 编号</label><input class='easyui-textbox' type='text' name='search[provider_group_no]  '/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="providergroup.submitSearchForm(this);">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="providergroup.loadFormData();">重置</a>
+        </form>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-add",plain:true' onclick='providergroup.add()'>添加</a>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-edit",plain:true' onclick='check_data_group("edit")'>编辑</a>
+        <a href='javascript:void(0)' class='easyui-linkbutton' data-options='iconCls:"icon-remove",plain:true' onclick='check_data_group("delete")'>删除</a>
+    </div>
+    <script type='text/javascript'>
+        function check_data_group(type){
+            var data=providergroup.getSelectRows();
+            if(!data[0]){
+                messager.alert('请选择操作的行!');
+                return false;
+            }
+            if(data[0].id==1){
+                messager.alert('系统默认供应商分组，无法删除或修改！');
+                return false;
+            }
+            if(type=='edit'){
+                providergroup.edit();
+            }else{
+                providergroup.remove("providergroup");
+            }
+        }
+        $(function(){
+            setTimeout(function(){
+                providergroup = new RichDatagrid(JSON.parse('{$params}'));
+                providergroup.setFormData();
+                providergroup.checkEdit = function(){
+                    var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+                    if(row.id==1){messager.alert('系统默认供应商，无法删除或修改！');return false; }
+                    return true;
+                }
+                providergroup.initProviderGroupCheckbox = function (id) {
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if (value != 1) {
+                        check.checked = false;
+                    }else {
+                        check.checked = true;
+                    }
+                }
+            },0)
+
+        });
+    </script>
+</block>
+<block name="tabs"></block>
+<block name="dialog">
+<div id = '{$id_list.add}'></div>
+<div id = '{$id_list.edit}'></div>
+
+</block>

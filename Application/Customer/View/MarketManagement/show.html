@@ -1,0 +1,168 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="marketManagement.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+    <div id="{$id_list.add_customer}"></div>
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <!--<div class="form-div">
+                <label>方案名称</label><input id="plan_name" class="easyui-textbox txt" type="text" name="search[plan_name]" value=""/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="market_management.submitSearchForm_sms(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="market_management.loadFormData()">重置</a>
+            </div>-->
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain=true onclick="marketManagement.add(0)">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" plain=true onclick="marketManagement.edit(0)">修改</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" plain=true onclick="marketManagement.remove(0)">删除</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="size:'small',iconCls:'icon-sms'" plain=true onclick="marketManagement.sendMarketSms()">发送营销短信</a>
+                <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" plain=true onclick="market_management.disable(0)">停用</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" plain=true onclick="market_management.recover(0)">恢复</a>-->
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function(){
+                marketManagement = new RichDatagrid(JSON.parse('{$params}'));
+                marketManagement.addCustomer = function () {
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null)
+                    {
+                        messager.alert('请选择营销方案');
+                        return;
+                    }
+                    var status = [];
+                    for(i in this.selectRows){status.push(this.selectRows[i].status)}
+                    if(status ==1){
+                        messager.alert('已营销方案无法添加客户');
+                        return;
+                    }
+                    var id = [];
+                    for(i in this.selectRows){id.push(this.selectRows[i].id)}
+                    var params={'prefix':'add_market_plan','type':false,'id':id};
+                    $('#'+'{$id_list.add_customer}').richDialog('customer', '', params, false);
+                }
+                marketManagement.importCustomer = function(){
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null)
+                    {
+                        messager.alert('请选择营销方案');
+                        return;
+                    }
+                    var status = [];
+                    for(i in this.selectRows){status.push(this.selectRows[i].status)}
+                    if(status == 1){
+                        messager.alert('已营销方案无法添加客户');
+                        return;
+                    }
+                    var dialog = $("#{$id_list.fileDialog}");
+                    var title = '导入客户';
+                    dialog.dialog({
+                        title: title,
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save'
+                    });
+                }
+                marketManagement.upload = function(){
+                    var id = [];
+                    for(i in this.selectRows){id.push(this.selectRows[i].id)}
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('MarketManagement/uploadExcel')}"+"?id="+id;
+                    var dg = $("#{$id_list.datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    var sub_dg = $('#tabs_market_detail_datagrid');
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "正在导入,请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (res.status==1) {
+                                messager.alert(res.info);
+                            } else if (res.status == 0) {
+                                dg.datagrid("reload");
+                                dialog.dialog("close");
+                                sub_dg.datagrid("reload");
+                            } else if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "importResponse");
+                                dialog.dialog("close");
+                                dg.datagrid("reload");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    });
+                }
+                marketManagement.removeCustomer = function(){
+                    var status = [];
+                    for(i in this.selectRows){status.push(this.selectRows[i].status)}
+                    if(status ==1){
+                        messager.alert('已营销状态无法删除客户信息');
+                        return;
+                    }
+                    var sub_dg = $('#tabs_market_detail_datagrid');
+                    var row = sub_dg.datagrid('getSelected');
+                    if(row == null || row.length == 0)
+                    {
+                        messager.alert('请选择操作的行');
+                        return
+                    }
+                    var id = row.id;
+                    $.post("{:U('MarketManagement/delMarketCustomer')}",{id:id},function(res)
+                    {
+                        sub_dg.datagrid("reload");
+                        messager.alert(res.info);
+                    },'json')
+
+                }
+
+
+                marketManagement.sendMarketSms = function()
+                {
+                    //获取该行id要放在confirm外
+                    var plan_id = [];
+                    for(i in this.selectRows){plan_id.push(this.selectRows[i].id)}
+                    var status = [];
+                    for(i in this.selectRows){status.push(this.selectRows[i].status)}
+                    var dg = $("#{$id_list.datagrid}");
+                    messager.confirm('确定要给该营销方案所有用户发送短信？', function(r) {
+                        if(!r){return false;}
+                        if(status == 1){
+                            messager.alert('该方案为已营销状态,请选择未营销或营销失败方案进行营销');
+                            return;
+                        }
+                        $("#{$id_list.datagrid}").datagrid('loading');
+                        $.post("{:U('MarketManagement/sendMarketSms')}",{id:plan_id},function(res)
+                        {
+                            $("#{$id_list.datagrid}").datagrid("reload");
+                            //dg.datagrid("reload");
+                            messager.alert(res.info);
+                        },'json')
+                    });
+
+                }
+
+            },0);
+        });
+    </script>
+</block>

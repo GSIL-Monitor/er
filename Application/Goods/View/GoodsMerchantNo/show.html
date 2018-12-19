@@ -1,0 +1,58 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+	<form id="{$id_list.form}">
+		<div class="form-div">
+			<label>商家编码：</label><input class="easyui-textbox txt" type="text" name="search[merchant_no]" />
+			<label>货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="goodsMerchantNo.submitSearchForm(this);">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="goodsMerchantNo.loadFormData();">重置</a>
+			<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-database-go',plain:true,menu:'#goods_merchantno_export'" >导出功能</a>
+			<div id="goods_merchantno_export">
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goodsMerchantNo.exportToExcel('csv')">导出Csv(推荐)</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="goodsMerchantNo.exportToExcel('excel')">导出到Excel</a>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	//# sourceURL=goodsmerchantno.js
+	$(function(){
+		setTimeout(function () {
+		goodsMerchantNo = new RichDatagrid(JSON.parse('{$params}'));
+		goodsMerchantNo.setFormData();
+		goodsMerchantNo.exportToExcel = function(type){
+			var url= "{:U('GoodsMerchantNo/exportToExcel')}";
+			var id_list=[];
+			for(i in this.selectRows){id_list.push(this.selectRows[i].rec_id);}
+			var search=JSON.stringify($('#{$id_list.form}').form('get'));
+			var form=JSON.stringify(goodsMerchantNo.params.search.form_data);
+			var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+			if(rows==''){
+				messager.confirm('导出不能为空！');
+			}
+			else if(id_list!=''){
+				messager.confirm('确定导出选中的商家编码吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&type='+type);
+				})
+			}
+			else if(search==form){
+				messager.confirm('确定导出所有的商家编码吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&type='+type);
+				})
+			}
+			else{
+				messager.confirm('确定导出搜索的商家编码吗？',function(r){
+					if(!r){return false;}
+					window.open(url+'?id_list='+id_list+'&'+'search='+search+'&type='+type);
+				})
+			}
+		}
+	}, 0);
+});
+</script>
+</block>

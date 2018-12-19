@@ -1,0 +1,4479 @@
+[ 2018-01-07T16:36:52+08:00 ] 127.0.0.1 /index.php/stock/stock_management/downloadtemplet.html
+ERR: 模板不存在
+[ 2018-01-07T21:31:30+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689648
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:32:48+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689649
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:37:54+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689651
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:38:58+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689654
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(167): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:39:18+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689656
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(167): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:42:34+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689658
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:43:09+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689660
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:43:59+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689661
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:44:16+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689662
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:44:45+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689663
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T21:45:08+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=6&ids=13210&isMulti=0&_=1515304689664
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php(323): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php(166): Platform\Manager\NewWayBillManager->getTemplates(NULL, '6')
+#2 [internal function]: Stock\Controller\WayBillController->getTemplates('6')
+#3 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Stock\Controller\WayBillController), Array)
+#4 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#5 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#6 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#7 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#8 {main}
+)
+
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm72vjitu
+)
+
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:02:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:45:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:45:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:45:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:45:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4009xrp
+)
+
+[ 2018-01-07T22:45:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:45:17+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:45:36+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:45:36+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:45:37+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:45:37+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8b34sh8
+)
+
+[ 2018-01-07T22:45:37+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:45:37+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:46:53+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:46:53+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:46:53+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:46:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w41npi1n
+)
+
+[ 2018-01-07T22:46:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:46:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:47:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:47:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:47:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:47:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w42mgelf
+)
+
+[ 2018-01-07T22:47:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:47:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:50:18+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:50:18+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:50:18+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:50:19+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w454la3l
+)
+
+[ 2018-01-07T22:50:19+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:50:19+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:50:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:50:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:50:50+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:50:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8geg7au
+)
+
+[ 2018-01-07T22:50:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:50:51+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:55:15+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:55:15+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:55:15+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:55:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8kw0ahd
+)
+
+[ 2018-01-07T22:55:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:55:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4bdyfaz
+)
+
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:56:28+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T22:57:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T22:57:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T22:57:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T22:57:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4c1d6y4
+)
+
+[ 2018-01-07T22:57:06+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T22:57:07+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4fpd4km
+)
+
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:00:43+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8qwxu2z
+)
+
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:01:11+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8urpf8l
+)
+
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:04:59+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm8zm1beh
+)
+
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:09:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:10:25+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:10:25+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:10:25+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:10:25+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4pkgjwk
+)
+
+[ 2018-01-07T23:10:25+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:10:26+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4py4rmk
+)
+
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:10:48+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:11:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:11:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:11:16+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:11:17+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4qfq4mj
+)
+
+[ 2018-01-07T23:11:17+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:11:17+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:11:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:11:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:11:45+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:11:46+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => cwxtm91nl533
+)
+
+[ 2018-01-07T23:11:46+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:11:46+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:15:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:15:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:15:54+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:15:55+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4v56qj8
+)
+
+[ 2018-01-07T23:15:55+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:15:55+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w4xnhpfp
+)
+
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:18:23+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w52iidgm
+)
+
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:23:10+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 
+[ 2018-01-07T23:23:33+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topGetWaybill start 13210
+[ 2018-01-07T23:23:33+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+DEBUG: topGetWaybill--- 请求的电子面单详情Array
+(
+    [0] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品
+            [num] => 2.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+    [1] => Array
+        (
+            [stockout_id] => 13210
+            [stockout_no] => CK2018010415
+            [package_count] => 1
+            [warehouse_id] => 1
+            [warehouse_type] => 1
+            [src_order_id] => 195380
+            [src_order_no] => JY201801040014
+            [logistics_no] => 1100015301532
+            [receiver_area] => 北京 北京市 海淀区
+            [receiver_name] => 柳眉
+            [receiver_address] => 朝阳
+            [receiver_mobile] => 18582985995
+            [receiver_telno] => 
+            [receiver_province] => 110000
+            [receiver_city] => 110100
+            [receiver_district] => 110108
+            [receiver_zip] => 
+            [receiver_dtb] => 
+            [calc_weight] => 0.0000
+            [goods_name] => 档口测试货品2
+            [num] => 3.0000
+            [shop_id] => 1
+            [src_tids] => JY201801040014
+            [delivery_term] => 1
+            [cod_amount] => 0.0000
+            [trade_type] => 2
+            [app_key] => {"key":"","secret":"","session":"f9e13771f27a3b23bb8372a97753a8"}
+            [platform_id] => 13
+            [shop_contact] => 苏宁联系人
+            [shop_mobile] => 15230026001
+            [shop_telno] => 6512001
+            [sender_name] => 11111
+            [sender_address] => 测试地址
+            [sender_telno] => 
+            [sender_mobile] => 15236364542
+            [sender_zip] => 
+            [sender_province] => 浙江省
+            [sender_city] => 杭州市
+            [sender_district] => 余杭区
+        )
+
+)
+
+[ 2018-01-07T23:23:33+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply start :  logistics_id----6Array
+(
+    [cp_code] => EMS
+    [sender] => Array
+        (
+            [address] => Array
+                (
+                    [province] => 浙江省
+                    [city] => 杭州市
+                    [district] => 余杭区
+                    [detail] => 测试地址
+                )
+
+            [name] => 11111
+            [phone] => 
+            [mobile] => 15236364542
+        )
+
+    [trade_order_info_dtos] => Array
+        (
+            [0] => Array
+                (
+                    [recipient] => Array
+                        (
+                            [name] => 柳眉
+                            [mobile] => 18582985995
+                            [address] => Array
+                                (
+                                    [province] => 北京
+                                    [city] => 北京市
+                                    [district] => 海淀区
+                                    [detail] => 朝阳
+                                )
+
+                        )
+
+                    [order_info] => Array
+                        (
+                            [order_channels_type] => SN
+                            [trade_order_list] => Array
+                                (
+                                    [0] => JY201801040014
+                                )
+
+                        )
+
+                    [package_info] => Array
+                        (
+                            [items] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [count] => 2
+                                            [name] => 档口测试货品
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [count] => 3
+                                            [name] => 档口测试货品2
+                                        )
+
+                                )
+
+                            [id] => 13210
+                        )
+
+                    [user_id] => 2054718218
+                    [template_url] => http://cloudprint.cainiao.com/template/standard/701/124
+                    [object_id] => 0
+                )
+
+        )
+
+)
+
+[ 2018-01-07T23:23:34+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 返回结果：retval--stdClass Object
+(
+    [modules] => stdClass Object
+        (
+            [waybill_cloud_print_response] => Array
+                (
+                    [0] => stdClass Object
+                        (
+                            [object_id] => 0
+                            [print_data] => {"data":{"cpCode":"EMS","needEncrypt":false,"parent":false,"recipient":{"address":{"city":"北京市","detail":"朝阳","district":"海淀区","province":"北京"},"mobile":"18582985995","name":"柳眉"},"routingInfo":{"consolidation":{},"origin":{"code":"EMS"},"sortation":{}},"sender":{"address":{"city":"杭州市","detail":"测试地址","district":"余杭区","province":"浙江省"},"mobile":"15236364542","name":"11111","phone":""},"shippingOption":{"code":"STANDARD_EXPRESS","title":"标准快递"},"waybillCode":"1100015301532"},"signature":"MD:bwZT4VZ/171gZWPDc10dHQ==","templateURL":"http://cloudprint.daily.taobao.net/template/standard/137411"}
+                            [waybill_code] => 1100015301532
+                        )
+
+                )
+
+        )
+
+    [request_id] => d457w52wy1jc
+)
+
+[ 2018-01-07T23:23:34+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: topWaybillBatchDealApply end :  logistics_id----6
+[ 2018-01-07T23:23:34+08:00 ] 127.0.0.1 /index.php/stock/sales_stockout_examine/getexamineprintdata.html
+INFO: 13210:1100015301532成功 

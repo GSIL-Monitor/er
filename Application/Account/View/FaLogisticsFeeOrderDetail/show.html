@@ -1,0 +1,114 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="FaLogisticsFeeOrderDetail.import()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>物流公司：</label><select class="easyui-combobox sel" id="fa_logistics_fee_order_logistics_id" name="logistics_id">
+                <option value="all">全部</option>
+                <volist name='list.logistics' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel'" onclick="FaLogisticsFeeOrderDetail.importDialog()">导入物流资费</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-calculate'" onclick="FaLogisticsFeeOrderDetail.charge()">结算</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="FaLogisticsFeeOrderDetail.downloadTemplet()">下载模板</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=falogisticsorderdetail.js
+        $(function () {
+            setTimeout(function () {
+                FaLogisticsFeeOrderDetail = new RichDatagrid(JSON.parse('{$params}'));
+                FaLogisticsFeeOrderDetail.importDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}");
+                    dialog.dialog({
+                        title: "导入物流资费",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+                FaLogisticsFeeOrderDetail.import = function () {
+                    var form = $("#{$id_list.fileForm}");
+                    var logistics_id = $("#fa_logistics_fee_order_logistics_id").combobox("getValue");
+                    var url = "{:U('FaLogisticsFeeOrderDetail/importLogisticsCost')}" + "?logistics_id=" + logistics_id;
+                    var dg = $("#{$id_list.id_datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    var datagrid = $("#{$id_list.datagrid}");
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (!res.status) {
+                                dg.datagrid("reload");
+                                dialog.dialog("close");
+                                datagrid.datagrid("reload", {"order_id": res.order_id});
+                                FaLogisticsFeeOrderDetail.params.order_id = res.order_id;
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                FaLogisticsFeeOrderDetail.charge = function () {
+                    var url = "{:U('FaLogisticsFeeOrderDetail/charge')}";
+                    var datagrid = $("#{$id_list.datagrid}");
+                    if (typeof(FaLogisticsFeeOrderDetail.params.order_id) == "undefined") {
+                        messager.alert("请先导入数据，再重新结算");
+                        return false;
+                    }
+                    $.post(url, {order_id: FaLogisticsFeeOrderDetail.params.order_id}, function (res) {
+                        if (!res.status) {
+                            messager.alert(res.info);
+                            datagrid.datagrid("reload");
+                            FaLogisticsFeeOrderDetail.params.order_id = null;
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    });
+                }
+                FaLogisticsFeeOrderDetail.downloadTemplet = function(){
+                    var url= "{:U('FaLogisticsFeeOrderDetail/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                }
+            }, 0);
+        })
+    </script>
+</block>
+<block name="tabs"></block>

@@ -1,0 +1,243 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.sms_check_code}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px; height:auto">
+    <style type="text/css">
+        #RefundManage_next_link {float: right; margin-right: 10px;}
+    </style>
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label >类　型：</label><input class="easyui-combobox txt" name="search[type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('api_refund_type')"/>
+                <label class="five-character-width">　系统状态：</label><input class="easyui-combobox txt" name="search[process_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('api_refund_process_status')"/>
+                <label class="five-character-width">　退款单号：</label><input class="easyui-textbox txt" type="text" name="search[refund_no]"/>
+                <label>　　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[tid]"/>
+                <label class="five-character-width">　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]"/>
+                <a href="javascript:void(0)" onclick="originalRefund.clickMore(this)">更多</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="originalRefund.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="originalRefund.loadFormData()">重置</a>
+                <a href="javascript:void(0)" id="RefundManage_next_link" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('退换管理', '{:U('Trade/RefundManage/getSalesRefundList')}')">退换管理</a>
+            </div>
+            <div id="{$id_list.more_content}">
+                <div class="form-div">
+                	<label >店　铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                    <label class="five-character-width">　物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]"/>
+                    <label class="five-character-width">　平台状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('api_refund_status')"/>
+                    <label>　　订单状态：</label><input class="easyui-combobox txt" name="search[trade_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('trade_status')"/>
+                    <label class="five-character-width">　退款原因：</label><input class="easyui-combobox txt" name="search[reason]" data-options="panelHeight:200,valueField:'name',textField:'name',data:formatter.get_data('api_refund_reason')"/>
+                </div>
+                <div class="form-div">
+                	<label >操作人：</label><select class="easyui-combobox sel" name="search[operator_id]"><volist name='list.employee' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                    <label class="five-character-width">　退款时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+					<label class="five-character-width">　　　　至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" data-options="editable:false"/> 
+					<label>申请退款金额：</label><input class="easyui-numberbox txt " type="text" name="search[start_amount]" />
+					<label class="five-character-width">　　　　至：</label><input class="easyui-numberbox txt" type="text"    name="search[end_amount]" /> 
+                </div>
+            </div>
+        </form>
+        <div style="display: none;"><input hidden="true" id="{$id_list.hidden_flag}" value="1"/> </div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-submit',plain:true" onclick="originalRefund.submitOriginalRefund()">递交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" name="agreeRefund" data-options="iconCls:'icon-ok',plain:true" onclick="originalRefund.agreeRefund()">同意退款</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" name="agreeRefund" data-options="iconCls:'icon-ok',plain:true" onclick="originalRefund.agreeRefund('sms')">同意退款短信验证</a>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=OriginalTrade.js
+        $(function () {
+            var select_id = "{$id_list.toolbar}";
+            var select_box = {
+                'agreeRefund' :  $('#'+select_id+" a[name='agreeRefund']"),
+            };
+            var name = ['agreeRefundApi'];
+            var button_type = ['linkbutton'];
+            var right = JSON.parse('{$right}');
+            var operator_id = '{$operator_id}';
+            setTimeout(function () {
+                originalRefund = new RichDatagrid(JSON.parse('{$params}'));
+                originalRefund.setFormData();
+                //查看号码
+                originalRefund.checkNumber = function () {
+                    var rows = originalRefund.selectRows;
+                    if (rows == undefined) {
+                        messager.info('请选择操作的行');
+                        return false;
+                    }
+                    var ids = [];
+                    for (var i in rows) {
+                        if (rows[i]['receiver_mobile'] == '' && rows[i]['receiver_telno'] == '') {
+                            continue;
+                        }
+                        ids.push(rows[i]['id']);
+                    }
+                    if (ids.length > 0) {
+                        $.post("{:U('Trade/TradeCommon/checkNumber')}", {
+                            ids: JSON.stringify(ids),
+                            key: 'api_trade'
+                        }, function (res) {
+                            originalRefund.dealDatagridReasonRows(res);
+                        }, 'JSON');
+                    }
+                }
+                originalRefund.dealDatagridReasonRows = function (result) {
+                    if (result.status == 1) {
+                        messager.alert(result.message);
+                        return;
+                    }
+                    if ((result.status == 0 || result.status == 2) && result.data != undefined) {
+                        var rows = originalRefund.selectRows;
+                        var index;
+                        var trade_dg = $('#' + originalRefund.params.datagrid.id);
+                        for (var i in rows) {
+                            for (var x in result.data.rows) {
+                                if (rows[i].id == result.data.rows[x].id) {
+                                    index = trade_dg.datagrid('getRowIndex', rows[i]);
+                                    if (result.check_number) {
+                                        rows[i].receiver_mobile = result.data.rows[x].receiver_mobile;
+                                        rows[i].receiver_telno = result.data.rows[x].receiver_telno;
+                                        trade_dg.datagrid('refreshRow', index);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                originalRefund.submitOriginalRefund = function () {
+                    var row = $("#" + "{$id_list[id_datagrid]}").datagrid("getSelections");
+                    var ids = {};
+                    var url = "{:U('OriginalRefund/submitOriginalRefund')}";
+                    if(row.length==undefined||row.length==0){
+                    	messager.confirm("确定递交所有类型为“退款”的原始单吗？（最多100条）",function(r){
+                			if(!r){return false;}
+                			$.post(url, {"id": ids}, function (res) {
+                                if (res.status == 1) {
+                                    $.fn.richDialog("response", res.info, "trade");
+                                    originalRefund.refresh();
+                                } else if (res.status == 0) {
+                                	originalRefund.refresh();
+                                } else if (res.status == 2) {
+                                    messager.alert(res.info);
+                                }
+                            });
+                		});
+                    }else{
+                    	var type = row[0]['type'];
+                        for (var x in row) {
+                            ids[x] = row[x]["id"];
+                            if(row[x]['type']!=type){messager.alert("请选择相同类型的原始退款单进行递交。");return false;}
+                        }
+                        if((type==2||type==3)&&row.length>1){
+                        	messager.alert("退货、换货单只支持单条递交，请不要选择多条。");return false;
+                        }
+                        if(type==2||type==3){
+                        	var url = "{:U('RefundManage/editRefund')}";
+                        	var is_api=1;
+                        	url += url.indexOf('?') != -1 ? '&id='+ids[0]+'&is_api='+is_api : '?id='+ids[0]+'&is_api='+is_api ;
+                        	var buttons=[ {text:'确定',handler:function(){addEditRefund.submitEditDialog();}}, {text:'取消',handler:function(){originalRefund.cancelDialog(0);}} ];
+                        	if(row[0].process_status>20||row[0].process_status==10){messager.alert("原始退款单状态不正确，不需要递交。");return false;}
+                        	$.post('{:U('OriginalRefund/checkIsSubmit')}',{id:ids[0]},function(res){
+                        		if(res==1){messager.alert("未找到该退款单对应的系统订单。");return false;}
+                        		else if(res==2){messager.alert("该退款单对应的系统订单未发货。");return false;}
+                        		else if(row[0].process_status==20){
+                        			messager.confirm("该原始退换单已递交，是否继续？",function(r){
+                            			if(!r){return false;}
+                            			originalRefund.showDialog(0,'新建退换单',url,510,1000,buttons);
+                            		});
+                        		}else{
+                        			originalRefund.showDialog(0,'新建退换单',url,510,1000,buttons);
+                        		}
+                        	});
+                        }else{
+                        	$.post(url, {"id": ids}, function (res) {
+                                if (res.status == 1) {
+                                    $.fn.richDialog("response", res.info, "trade");
+                                    originalRefund.refresh();
+                                } else if (res.status == 0) {
+                                	originalRefund.refresh();
+                                } else if (res.status == 2) {
+                                    messager.alert(res.info);
+                                }
+                            });
+                        }
+                    }
+                }
+                originalRefund.agreeRefund = function(type)
+                {
+
+                    var rows = originalRefund.selectRows;
+                    if (rows == undefined) {
+                        messager.info('请选择操作的行');
+                        return false;
+                    }
+                    var ids = [];
+                    var shop_id = rows[0]['shop_id']
+                    for (var i in rows) {
+                        if(rows[i]['shop_id']!=shop_id){messager.alert("请选择相同店铺的退款单进行批量操作。");return false;}
+                        ids.push(rows[i]['id']);
+                    }
+                    if(type =='sms')
+                    {
+                        var that = this;
+                        var dg = $('#'+'{$id_list.sms_check_code}');
+                        var url = "{:U('Trade/OriginalRefund/showSmsCheck')}"+'?id='+ids;
+                        var buttons = [{
+                            text: '确定', handler: function () {
+                                that.smsAgreeRefund();
+                            }
+                        }
+                        ];
+                        dg.dialog({
+                            title:'请输入验证码...',
+                            iconCls:'icon-sms',
+                            width:400,
+                            height:150,
+                            href:url,
+                            closed:false,
+                            inline:true,
+                            modal:true,
+                            buttons:buttons
+                        });
+                    }else{
+                        var url = "{:U('OriginalRefund/agreeRefundApi')}";
+                        $.post(url, {"id": ids}, function (res) {
+                            if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "agreeRefund");
+                            } else {
+                                messager.alert(res.info);
+                            }
+                        });
+                    }
+                }
+                function disabled(list){
+                    for(var i in list){
+                        var list_index = $.inArray(list[i],name);
+                        if(button_type[list_index] == 'combobox'){
+                            select_box[list[i]][button_type[list_index]]('disable');
+                        }else{
+                            select_box[list[i]][button_type[list_index]]({disabled:true});
+                        }
+                    }
+                }
+                function enable(){
+                    for(var i in name){
+                        for(var j in right){
+                            if(name[i] == right[j]['action']){
+                                select_box[name[i]][button_type[i]]({disabled:false});
+                            }
+                        }
+                    }
+                }
+                if(operator_id < 2){
+                    disabled();
+                }else{
+                    disabled(name);
+                }
+                enable();
+            }, 0);
+        });
+
+    </script>
+</block>

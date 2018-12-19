@@ -1,0 +1,139 @@
+<table id="{$mark}_employee_datagrid"></table>
+<div id="employee_{$mark}_dialog_toolbar">
+    <form id="employee_{$mark}_dialog_form" method="post">
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">账&nbsp;&nbsp;&nbsp;号</label>
+            <input class="easyui-textbox txt"
+                   type="text" name="account" id="account"
+                   style="width:150px;"
+                   data-options="required:true,validType:'englishOrNum'"
+                   missingMessage="不能为空"/>
+            <label   style="width: 60px;display: inline-block;">姓&nbsp;&nbsp;&nbsp;名</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="fullname"
+                   style="width:150px;"
+                   data-options="required:true,validType:'chineseOrEngOrNum'"
+                   missingMessage="不能为空"/>
+            </div>
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">职&nbsp;&nbsp;&nbsp;位</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="position"
+                   style="width:150px;"
+                   data-options="validType:'loginName'"
+                   invalidMessage="只允许汉字、英文字母、数字及下划线"
+                   />
+            <label style="width: 60px;display: inline-block;">手&nbsp;&nbsp;&nbsp;机</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="mobile_no"
+                   style="width:150px;"
+                   data-options="required:true,validType:'mobile'"
+                   invalidMessage="请填写手机号"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">Q&nbsp;&nbsp;&nbsp;&nbsp;Q</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="qq"
+                   style="width:150px;"
+                   data-options="validType:'QQ'"
+                   missingMessage="不能为空"/>
+            <label style="width: 60px;display: inline-block;">旺&nbsp;&nbsp;&nbsp;旺</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="wangwang"
+                   style="width:150px;"
+                   data-options="validType:'englishOrNum'"
+                   invalidMessage="请输入英文或数字"
+                   missingMessage="不能为空"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">邮&nbsp;&nbsp;&nbsp;箱</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="email"
+                   style="width:150px;"
+                   data-options="validType:'email'"
+                   missingMessage="不能为空"/>
+            <label   style="width:60px;display: inline-block;">性&nbsp;&nbsp;&nbsp;别</label>
+            <input class="easyui-combobox sel"
+                    name="gender"
+                    data-options="panelHeight:'auto',editable:false, required:true,valueField:'id',textField:'name',data:formatter.get_data('sex','def')"
+                    style="width:150px;"/>
+        </div>
+		<if condition="$mark eq 'add'">
+			<div class="form-div" id="{$mark}_pwd">
+				<label style="width: 60px;display: inline-block;">密&nbsp;&nbsp;&nbsp;码</label>
+				<input id="password" style="width:150px;" name="password" type="password" class="easyui-textbox" missingMessage="不能为空" data-options="required:true,validType:'password'" />   
+				
+				<label style="width: 60px;display: inline-block;">确&nbsp;认&nbsp;密&nbsp;码</label>
+				<input id="repassword" style="width:150px;" name="repassword" type="password" class="easyui-textbox" missingMessage="两次输入的密码不匹配" data-options="required:true,validType:'equalTo[\'#password\']'"/>  
+			</div>
+		</if>
+		<if condition="$role gt 3">
+			<div class="form-div">
+				<label   style="width: 60px;display: inline-block;">角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：</label>
+           		<input class="easyui-combobox"
+                   name="roles_mask"
+                   data-options="editable:false, required:true,disabled:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('role','1')"
+                   style="width:150px;"/>
+                <label style="width: 100px; display: inline-block;">
+				查看号码权限<input type="checkbox" name="field_rights" value="0"/></label>
+			</div>
+		<elseif condition="$role gt 3" />
+			<div class="form-div">
+				<label   style="width: 60px;display: inline-block;">角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：</label>
+           		<input class="easyui-combobox sel"
+                   name="roles_mask"
+                   data-options="editable:false, required:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('role','2')"
+                   style="width:150px;"/>
+                <label style="width: 100px; display: inline-block;">
+				查看号码权限<input type="checkbox" name="field_rights" value="0"/></label>
+			</div>
+		<elseif condition="($role gt 0)"/>
+			<div class="form-div">
+				<label style="width: 100px; display: inline-block;">
+				查看号码权限<input type="checkbox" name="field_rights" value="0"/></label>
+			</div>
+		</if>
+    </form>
+</div>
+<if condition="$role gt 0">
+<script>
+$(function(){
+	var fieldRight=$("#employee_{$mark}_dialog_form :input[name='field_rights']");
+	if('{$field_rights}'==1){ fieldRight.attr('checked',true); fieldRight.val(1);}else{ fieldRight.attr('checked',false); }
+	fieldRight.bind('click',function(){if(fieldRight.is(':checked')){fieldRight.val(1);}else{fieldRight.val(0);} });
+});
+</script>
+</if>
+<script>
+    //# sourceURL=employee_edit.js
+	
+    setTimeout(function () {
+		if('edit' == '{$mark}'){
+			$('#{$mark}_pwd').hide();
+            $('#employee_{$mark}_dialog_form').form('load', {$form});
+            $('#employee_edit_dialog_form :input[textboxname="mobile_no"]').textbox('disable');
+        }
+        employee_obj.submitEditDialog = employee_obj.submitAddDialog = function() {
+        	var form=$("#employee_{$mark}_dialog_form");
+        	if(!form.form('validate')){return;}
+        	var data = form.form('get'); data.type = "{$mark}"; data.id=0;
+        	if(data.type=='edit'){
+        		var row=$("#employee_datagrid").datagrid('getSelected');
+            	if(!row){messager.info('请选择操作的行！');return;}
+            	data.id=row.id;
+        	}
+        	$.post("{:U('Setting/Employee/saveEmployee')}",data,function(res){
+        		res=JSON.parse(res);
+        		if(res.status==1){messager.alert(res.info);return;}
+                employee_obj.refresh();
+                $("#employee_{$mark}").dialog('close');
+        	});
+        }
+    }, 0);
+</script>

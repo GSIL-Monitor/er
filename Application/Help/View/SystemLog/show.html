@@ -1,0 +1,25 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><!-- <div id="{$id_list.edit}"></div> --></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+    <label>操作类型：</label><input class="easyui-combobox txt" name="search[type]" data-options="valueField:'id',textField:'name',width:'160px',data:formatter.get_data('sys_other_log_type')"/>
+    <label>　操作人员：</label><select class="easyui-combobox sel" name="search[operator_id]"><option value="all">全部</option><volist name='list.employee' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+	<label>  　操作时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" value={$start_time} data-options="editable:false"/>
+	<label>　 至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]" value={$end_time} data-options="editable:false"/>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="systemLog.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="systemLog.loadFormData();">重置</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+$(function () {
+	setTimeout(function () {
+		systemLog = new RichDatagrid(JSON.parse('{$params}'));
+		systemLog.setFormData();
+	}, 0);
+});
+</script>
+</block>
+<block name="tabs"></block>

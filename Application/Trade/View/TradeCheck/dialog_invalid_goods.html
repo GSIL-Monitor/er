@@ -1,0 +1,107 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.toolbar}">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>　　　　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　　　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[tid]" />
+<label>　规格商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_code]" />
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="invalidGoods.submitSearchForm(this);">搜索</a>
+</div>
+<div class="form-div">
+<label>平台货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" />
+<label>　平台规格名称：</label><input class="easyui-textbox txt" type="text" name="search[spec_name]" />
+<label>　平台货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="invalidGoods.loadFormData();">重置</a>
+</div>
+<div class="form-div">
+<label>平台规格编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<a href="javascript:void(0)" id="menu-match-goods" class="easyui-menubutton" data-options="iconCls:'icon-match',menu:'#mbut-match-goods',plain:false" style="margin-left: 10px;">关联货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" onclick="invalidGoods.submitTrades()">全部递交</a>
+</div>
+<div class="form-div">
+<label style="color: blue;" >#选中未匹配货品，点击<span style="color:red">关联货品</span>下的<span style="color:red">关联单品</span>或者<span style="color:red">关联组合装</span>，选择相应的单品或组合装即可#</label>
+</div>
+</form>
+</div>
+<div id="mbut-match-goods"><div>关联单品</div><div>关联组合装</div></div>
+<script>
+//# sourceURL=invalid.goods.js
+//未匹配货品--数量动态记录
+//menubutton事件
+$($('#menu-match-goods').menubutton().menubutton('options').menu).menu({
+onClick:function(item){
+ var row=$('#{$id_list.id_datagrid}').datagrid('getSelected');
+ if(row==undefined){messager.alert('请选择关联的未匹配货品');return;}
+ switch(item.text){
+ case '关联单品':
+	 var params={'prefix': 'match_order', 'type': false};
+	 $('#invalid_good_match').richDialog('goodsSpec', invalidGoods.matchSpecOrder, params);
+	 break;
+ case '关联组合装':
+	 $('#invalid_good_match').richDialog('goodsSuite', invalidGoods.matchSuiteOrder, 'match_order');
+	 break;
+ }}
+});
+$(function(){
+	setTimeout(function () { 
+		invalidGoods = new RichDatagrid(JSON.parse('{$params}')); 
+		invalidGoods.setFormData();
+		//数据加载成功触发事件
+		var invalid_num='{$invalid_num}';
+		invalidGoods.loadSuccess=function(data){
+			invalid_num=(invalid_num>data.total?invalid_num:data.total);
+		}
+		//订单递交
+		invalidGoods.submitTrades=function(){ 
+		    $.post('{:U('OriginalTrade/submitOriginalTrade')}', {'id': ''}, function (res) {
+		        if (res.status == 1) { $.fn.richDialog("response", res.info, "trade"); } 
+		        else if (res.status == 0) { messager.alert('递交成功'); } 
+		        else if (res.status == 2) { messager.alert(res.info); }
+		    },'JSON');
+		}
+		//单品匹配
+		invalidGoods.matchSpecOrder=function(spec_dg_id){
+			var spec_dg=$('#'+spec_dg_id);
+		    var spec_row=spec_dg.datagrid('getSelected');
+		    var show_dg=$('#'+invalidGoods.params.datagrid.id);
+		    $('#invalid_good_match').dialog('close');
+		    var show_row=show_dg.datagrid('getSelected');
+		    if(spec_row==undefined||spec_row==null){return false;}
+		    $.post('{:U('Goods/PlatformGoods/matchGoodsSpec')}', {'id': show_row.ags_id, 'spec_id': spec_row.id}, function (res) {
+		        if (!res.status) {
+		            messager.alert(res.info);
+		        } else {
+		            if (res.msg!=undefined&&res.msg!='') {
+		            	messager.alert(res.msg+",请开启<span style='color:blue;'>#平台货品#</span>权限后重试");return;
+		            }
+		            var rowIndex = show_dg.datagrid('getRowIndex', show_row);
+		            show_dg.datagrid('reload');
+		            // show_dg.datagrid('deleteRow',rowIndex);
+		            if(invalid_num>0){invalid_num--;}
+		        }
+		    },'JSON');
+		}
+		//组合装匹配
+		invalidGoods.matchSuiteOrder=function(suite_dg_id){
+			 var suite_dg=$('#'+suite_dg_id);
+			 var suite_row=suite_dg.datagrid('getSelected');
+			 var show_dg=$('#'+invalidGoods.params.datagrid.id);
+			 $('#invalid_good_match').dialog('close');
+			 var show_row=show_dg.datagrid('getSelected');
+			 if(suite_row==undefined||suite_row==null){return false;}
+			 $.post('{:U('Goods/PlatformGoods/matchGoodsSuite')}', {"id": show_row.ags_id, "suite_id": suite_row.id}, function (res) {
+			        if (!res.status) {
+			            messager.alert(res.info);
+			        } else {
+			            //messager.alert(res.info);
+			            var rowIndex = show_dg.datagrid('getRowIndex', show_row);
+			            show_dg.datagrid('reload');
+			            // show_dg.datagrid('deleteRow',rowIndex);
+			            if(invalid_num>0){invalid_num--;}
+			        }
+			  },'JSON');
+		}
+	}, 0); 
+});
+</script>

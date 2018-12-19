@@ -1,0 +1,42 @@
+<div id="about_dlg" class="easyui-tabs">
+    <h3 style="text-align: center">旺店通ERP</h3>
+    <hr/>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr/>
+    <h5 style="text-align: center">版权所有©北京掌上先机网络科技有限公司️</h5>
+    <h5 style="text-align: center">网址 <a>http://www.wangdian.cn</a></h5>
+    <h5 style="text-align: center">电话 400-010-8388</h5>
+</div>
+<style>
+    a{
+        text-decoration: none;
+    }
+    hr{
+        height:1px;border:none;border-top:1px dashed #0066CC;
+    }
+</style>
+<script>
+    $(function(){
+        //在初始化的时候打开dialog
+        var dialog = $("#about_dlg");
+        dialog.dialog({
+            title: "关于",
+//            left:100,
+//            right:100,
+            width: 400,
+            height: 250,
+            modal: true,
+            closed: false,
+            inline: false,
+        });
+    })
+    function closeAbout() {
+        var tab = $('#container').tabs('getSelected');
+        var index = $('#container').tabs('getTabIndex', tab);
+        $("#container").tabs("close", index);
+    }
+</script>

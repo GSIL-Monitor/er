@@ -1,0 +1,26 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label class="five-character-width">策略编码：</label><input class="easyui-textbox txt" type="text" name="search[rule_no]" />
+<label class="five-character-width" style="margin-left:20px;">规则名称：</label><input class="easyui-textbox txt" type="text" name="search[rule_name]" />
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="giftNotSendReason.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="giftNotSendReason.loadFormData();">重置</a>
+</div>
+<div class="form-div">
+<label class="five-character-width">店　　铺：</label><select class="easyui-combobox sel" name="search[shop_list]"><volist name='shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		giftNotSendReason=new RichDatagrid(JSON.parse('{$params}')); 
+		giftNotSendReason.setFormData();
+	}, 0); 
+});
+</script>
+</block>
+<block name="tabs"></block>

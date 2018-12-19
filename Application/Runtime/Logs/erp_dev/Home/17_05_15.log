@@ -1,0 +1,8 @@
+[ 2017-05-15T10:52:38+08:00 ] 127.0.0.1 /index.php
+ERR: getShopByName SQL ERRSQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-15T10:52:38+08:00 ] 127.0.0.1 /index.php
+ERR: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-15T10:52:39+08:00 ] 127.0.0.1 /index.php
+ERR: WayBillManager-manual getUserDb failed in waybillManager!!erp_dev
+[ 2017-05-15T10:52:39+08:00 ] 127.0.0.1 /index.php
+ERR: WayBillManager-manual电子面单获取店铺账号信息失败

@@ -1,0 +1,509 @@
+/*
+设置流程图部分的显示图标样式
+*/
+.process-map a div p{color:#fff;}
+.process-map a .png i{margin-top: 12px;font-size: 44px;color: #fff;}
+.process-map a .png p{font-size: 14px;margin:0px;color: #fff;}
+.process-map a .png-sam i{margin-top: 7px;font-size: 39px;color: #fff;}
+.font-img{position:absolute; display:block; width:88px; height:88px; background-image:url(../Image/Process/icon_bg.png);  text-align:center;}
+.font-img:HOVER{background-image:url(../Image/Process/icon_bg1.png);}
+/*
+ *proce
+ */
+.process{width: 977px; height: 200px; border: 1px solid #69c4ff; background-color: #FFF; position: relative; margin: 40px auto 40px auto;}
+.process .title{border-radius:2px;position: absolute; top: -20px; left: 20px; width: 120px; height: 32px; background-color: #0a8ebb;text-align: center; color: #FFF; line-height: 32px;}
+.process .content{padding: 18px 30px 10px 30px; font-size: 14px; font-weight: normal; }
+.process .arrow-img1{float: left; margin-left: 10px; padding-top: 32px;}
+.process .arrow-img2{float: left; margin-left: 10px; padding-top: 73px;}
+.process .pmenu{float: left; margin-left: 10px; padding-top: 5px;}/*border:1px solid #95B8E7;*/
+.process .pmenu li{ padding:1px 3px; height: 26px; margin-bottom: 10px; padding: 22px 5px; text-align: center;list-style-type:none;}
+.process .pmenu li a{border-radius:2px;height:26px;line-height:26px;width: 80px;font-size:14px;color:#FFF;background-color:#666666;text-decoration:none;display:inline-block;}
+.process .pmenu li a:hover{background-color: #0a8ebb;}
+.process .pmenu li.p1{padding: 22px 5px 0px 5px;}
+.process .pmenu li.p2{padding: 57px 5px 0px 5px;}
+
+.process-menu{float: left;text-align: center;}
+.process-menu a{border-radius: 3px;padding:3px; height:30px;line-height:30px;width: 100px;font-size:14px;color:#FFF;background-color:#0099FF;text-decoration:none;display:inline-block;}
+.process-menu a:hover{background-color: #096e90;}
+
+/*
+ *trade_process
+ */
+.trade_process{position:relative; background:url(../Image/Process/Trade/bg_no.png) no-repeat; height:490px;width:1200px; margin:0px auto;}
+.trade_process .down,.trade_process .orig,.trade_process .manu,.trade_process .adva,.trade_process .chec,.trade_process .mana,.trade_process .fina,.trade_process .prin,.trade_process .logi{position:absolute; display:block; width:88px; height:88px; background-image:url(../Image/Process/icon_bg.png);  text-align:center;}
+.trade_process .down{left: 16px;top:206px;}
+.trade_process .font-img:HOVER {background-image:url(../Image/Process/icon_bg1.png);}
+.trade_process .orig{left: 193px;top:206px;}
+.trade_process .manu{left: 193px;top:46px;}
+.trade_process .adva{left: 447px;top:342px;}
+.trade_process .chec{left: 540px;top:206px;}
+.trade_process .mana{left: 540px;top:46px;}
+.trade_process .fina{left: 730px;top:46px;}
+.trade_process .prin{left: 840px;top:206px;}
+.trade_process .logi{left: 1092px;top:206px;}
+.trade_process .gift,.trade_process .logi_m,.trade_process .ware{position:absolute; display:block; width:70px; height:70px; background-image:url(../Image/Process/icon_sg.png);  text-align:center;}
+.trade_process .gift{left:161px;top:365px;}
+.trade_process .gift:HOVER {background-image:url(../Image/Process/icon_sg1.png);}
+.trade_process .logi_m{left:243px;top:365px;}
+.trade_process .logi_m:HOVER {background-image:url(../Image/Process/icon_sg1.png);}
+.trade_process .ware{left:328px;top:365px;}
+.trade_process .ware:HOVER {background-image:url(../Image/Process/icon_sg1.png);}
+.trade_process .excel,.trade_process .subm,.trade_process .trade_c{position:absolute; display:block; width:48px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.trade_process .excel{left:101px;top:129px;line-height: 24px;}
+.trade_process .subm{left:336px;top:226px;}
+.trade_process .trade_c{left:680px;top:225px;}
+.trade_process .consign{position:absolute; display:block; width:70px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 24px;font-weight: bold;}
+.trade_process .consign{left:982px;top:225px;}
+.trade_process .advance_on,.trade_process .facheck_on{position:absolute; display:block; width:80px; height:25px;border-radius:24px;font-size: 12px; textcolor:#ffffff;background-color:#addef8;text-align: center;line-height: 24px;font-weight: bold;}
+.trade_process .advance_on{left:449px;top:440px;}
+.trade_process .facheck_on{left:730px;top:15px;width: 88px;}
+
+.trade_process a div p{color:#fff;}
+.trade_process a .png i{margin-top: 12px;font-size: 44px;color: #fff;}
+.trade_process a .png p{font-size: 14px;margin:0px;color: #fff;}
+.trade_process a .png-sam i{margin-top: 5px;font-size: 40px;color: #fff;}
+
+.item .fa{font-size: 14px;width:16px;text-align:center; }
+
+.return_process{position:relative; background:url(../Image/Process/Trade/return_bg_d.png) no-repeat; height:247px;width:1500px; background-size: 95% 100%; margin:70px 0 70px 70px;display: block;}
+.return_process .audit,.return_process .stockin,.return_process .inmanagement,.return_process .print,.return_process .returnmanagement,.return_process .originalrefundtrade,.return_process .mana,.return_process .fina,.return_process .prin,.return_process .logi{position:absolute; display:block; width:88px; height:88px; background-image:url(../Image/Process/icon_bg.png);  text-align:center;}
+.return_process .audit{left: 925px;top:80px;}
+.return_process .font-img:HOVER {background-image:url(../Image/Process/icon_bg1.png);}
+.return_process .stockin{left: 925px;top:-30px;}
+.return_process .inmanagement{left: 1174px;top:-30px;}
+.return_process .print{left: 1174px;top:80px;}
+.return_process .returnmanagement{left: 425px;top:90px;}
+.return_process .originalrefundtrade{left: -38px;top:92px;}
+
+
+.return_process .make,.return_process .return-goods,.return_process .return-money,.return_process .change-goods,
+.return_process .return-money-agree,.return_process .return-money-finish,.return_process .return-goods-agree,.return_process .change-goods-agree,
+.return_process .audit-goods,.return_process .audited,.return_process .change-goods-finish,.return_process .return-goods-finish,.return_process .original-from,
+.return_process .original-from,.return_process .original-return-money,.return_process .original-return-change,.return_process .original-return-money-submit,.return_process .original-return-change-submit,.return_process .original-return-change-make,
+.return_process .return-over,.return_process .return-make,.return_process .return-submit{position:absolute; display:block; width:48px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.return_process .make{left:446px;top:-20px;line-height: 48px;}
+.return_process .return-goods{left:605px;top:-10px;line-height: 48px;}
+.return_process .return-over{left:813px;top:-10px;line-height: 48px;}
+.return_process .return-make{left:1068px;top:-10px;line-height: 48px;}
+.return_process .return-submit{left:1318px;top:-10px;line-height: 48px;}
+.return_process .return-goods-agree{left:713px;top:-10px;line-height: 48px;}
+.return_process .return-goods-finish{left:1425px;top:-10px;line-height: 48px;}
+
+.return_process .original-from{left:5px;top:-20px;line-height: 24px;}
+.return_process .original-return-money{left:105px;top:48px;line-height: 48px;}
+.return_process .original-return-change{left:105px;top:155px;line-height: 24px;}
+.return_process .original-return-money-submit{left:215px;top:48px;line-height: 48px;}
+.return_process .original-return-change-submit{left:215px;top:155px;line-height: 48px;}
+.return_process .original-return-change-make{left:322px;top:155px;line-height: 48px;}
+
+.return_process .change-goods{left:605px;top:98px;line-height: 48px;}
+.return_process .change-goods-agree{left:713px;top:98px;line-height: 48px;}
+.return_process .audited{left:1068px;top:98px;line-height: 48px;}
+.return_process .audit-goods{left:1318px;top:98px;line-height: 24px;}
+.return_process .change-goods-finish{left:1425px;top:98px;line-height: 48px;}
+
+.return_process .return-money{left:605px;top:212px;line-height: 48px;}
+.return_process .return-money-agree{left:713px;top:212px;line-height: 48px;}
+.return_process .return-money-finish{left:820px;top:212px;line-height: 48px;}
+
+.initialize_process{position:relative; background:url(../Image/Process/Trade/initializ.png) no-repeat; height:370px;width:2930px; margin-left:100px;margin-top:90px;display: block;}
+.initialize_process .shop_1,.initialize_process .system,.initialize_process .goods,.initialize_process .goods_2,.initialize_process .goods_archives,.initialize_process .goods_archives_2,
+.initialize_process .shop_2,.initialize_process .warehouse,.initialize_process .logistics,.initialize_process .goods_3,.initialize_process .inventory_management
+{position:absolute; display:block; width:88px; height:88px; background-image:url(../Image/Process/icon_bg.png);  text-align:center;}
+.initialize_process .shop_1{left: 63px;top:120px;}
+.initialize_process .shop_2{left: 1908px;top:120px;}
+.initialize_process .warehouse{left: 2172px;top:120px;}
+.initialize_process .logistics{left: 1775px;top:120px;}
+.initialize_process .system{left: 534px;top:40px;}
+.initialize_process .goods{left: 534px;top:198px;}
+.initialize_process .goods_2{left: 971px;top:39px;}
+.initialize_process .goods_3{left: 2471px;top:-20px;}
+.initialize_process .goods_archives{left: 971px;top:198px;}
+.initialize_process .goods_archives_2{left: 1373px;top:120px;}
+.initialize_process .inventory_management{left: 2475px;top:200px;}
+
+
+.initialize_process .begin,.initialize_process .finish
+{position:absolute; display:block; width:70px; height:60px;border-radius:20px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.initialize_process .begin{left: -70px;top:130px;}
+.initialize_process .finish{left:2820px;top:130px;}
+
+.initialize_process .down_goods,.initialize_process .automatic_goods,.initialize_process .manual_goods,.initialize_process .system_goods,.initialize_process .system_goods_2,.initialize_process .out_to_excel,
+.initialize_process .goods_class,.initialize_process .logistics_stock,.initialize_process .down_logistics,.initialize_process .stock_1,.initialize_process .stock_2,.initialize_process .stock_3,.initialize_process .excel_in_stock
+{position:absolute; display:block; width:80px; height:60px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.initialize_process .down_goods{left: 380px;top:130px;}
+.initialize_process .automatic_goods{left: 665px;top:55px;}
+.initialize_process .manual_goods{left: 665px;top:205px;}
+.initialize_process .system_goods{left: 810px;top:130px;}
+.initialize_process .system_goods_2{left: 1135px;top:-17px;}
+.initialize_process .out_to_excel{left: 1135px;top:132px;}
+.initialize_process .goods_class{left: 1253px;top:132px;}
+.initialize_process .logistics_stock{left: 1645px;top:130px;}
+.initialize_process .down_logistics{left: 2038px;top:130px;}
+.initialize_process .stock_1{left: 2305px;top:130px;}
+.initialize_process .stock_2{left: 2650px;top:130px;}
+.initialize_process .stock_3{left: 2650px;top:-25px;}
+.initialize_process .excel_in_stock{left: 2650px;top:290px;}
+
+.initialize_process .make_1,.initialize_process .accredit,.initialize_process .make_2,.initialize_process .in_from_excel
+{position:absolute; display:block; width:48px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.initialize_process .make_1{left: 198px;top:138px;}
+.initialize_process .accredit{left: 294px;top:138px;}
+.initialize_process .make_2{left: 1140px;top:215px;}
+.initialize_process .in_from_excel{left: 1501px;top:134px; width:65px; height:50px;line-height: 24px;border-radius:18px;}
+
+.initialize_process .isTaobao{position:absolute; display:block; width:80px; height:25px;border-radius:24px;font-size: 12px; textcolor:#ffffff;background-color:#addef8;text-align: center;line-height: 24px;font-weight: bold;}
+.initialize_process .isTaobao{left:580px;top:-10px;}
+
+.check_process{position:relative; background:url(../Image/Process/Trade/che.png) no-repeat; height:330px;width:1150px; margin-left:160px;margin-top:130px;display: block;}
+
+.check_process .begin,.check_process .finish
+{position:absolute; display:block; width:70px; height:60px;border-radius:20px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.check_process .begin{left: -70px;top:55px;}
+
+.check_process .stock_1,.check_process .stock_2,.check_process .check,.check_process .check_management
+{position:absolute; display:block; width:88px; height:88px; background-image:url(../Image/Process/icon_bg.png);  text-align:center;}
+.check_process .stock_1{left: 81px;top:120px;}
+.check_process .font-img:HOVER {background-image:url(../Image/Process/icon_bg1.png);}
+.check_process .stock_2{left: 873px;top:-34px;}
+.check_process .check{left: 81px;top:-34px;}
+.check_process .check_management{left:553px;top:-34px;}
+
+.check_process .check_goods,.check_process .add_goods,.check_process .save_1,.check_process .save_2,.check_process .submit
+{position:absolute; display:block; width:75px; height:48px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.check_process .add_goods{left: 245px;top:-15px;}
+.check_process .check_goods{left: 245px;top:138px;}
+.check_process .save_1{left: 398px;top:138px;}
+.check_process .save_2{left: 398px;top:-15px;}
+.check_process .submit{left: 720px;top:-15px;}
+
+.check_process .finish_1,.check_process .finish_2
+{position:absolute; display:block; width:48px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.check_process .finish_1{left:551px;top:140px;}
+.check_process .finish_2{left:1041px;top:-13px;}
+
+/*初始化流程图部分 start*/
+
+.platform_process{position:relative; background:url(../Image/Process/Trade/p.png) no-repeat; height:290px;width:1000px; margin-left:240px;margin-top:140px;display: block;}
+.platform_process .shop{left: 63px;top:40px;}
+.platform_process .system{left: 534px;top:-35px;}
+.platform_process .goods{left: 534px;top:120px;}
+
+.platform_process .isTaobao{position:absolute; display:block; width:110px; height:25px;border-radius:24px;font-size: 12px; textcolor:#ffffff;background-color:#addef8;text-align: center;line-height: 24px;font-weight: bold;}
+.platform_process .isTaobao{left:580px;top:-80px;}
+
+.platform_process .down_goods,.platform_process .automatic_goods,.platform_process .manual_goods,.platform_process .finish,.platform_process .begin,.platform_process .make,.platform_process .accredit
+{position:absolute; display:block; width:80px; height:60px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.platform_process .down_goods{left: 380px;top:60px;}
+.platform_process .automatic_goods{left: 665px;top:-20px;}
+.platform_process .manual_goods{left: 665px;top:135px;}
+.platform_process .begin{left: -70px;top:55px;line-height: 60px;}
+.platform_process .finish{left: 814px;top:50px;line-height: 60px;}
+.platform_process .make{left: 198px;top:60px;width:48px; height:48px;border-radius:24px;line-height: 48px;}
+.platform_process .accredit{left: 294px;top:60px; width:48px; height:48px;border-radius:24px;line-height: 48px;}
+
+.goods_process{position:relative; background:url(../Image/Process/Trade/goods1.png) no-repeat; height:340px;width:1000px; margin-left:220px;margin-top:100px;display: block;}
+.goods_process .goods{left: 360px;top:40px;}
+.goods_process .class{left: 45px;top:120px;}
+.goods_process .brand {left: 180px;top:120px;}
+.goods_process .goods_archives_excel {left: 618px;top:210px;}
+.goods_process .goods_archives_make {left: 640px;top:100px;}
+
+.goods_process .finish,.goods_process .begin,.goods_process .make,.goods_process .out_to_excel,.goods_process .in_from_excel,.goods_process .system_goods
+{position:absolute; display:block; width:80px; height:60px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.goods_process .begin{left: -80px;top:130px;line-height: 60px;}
+.goods_process .finish{left: 940px;top:115px;line-height: 60px;}
+.goods_process .out_to_excel{left: 520px;top:110px;}
+.goods_process .in_from_excel{left: 765px;top:110px;line-height: 60px;}
+.goods_process .system_goods{left: 520px;top:-20px;}
+.goods_process .make{left: 750px;top:230px; width:48px; height:48px;line-height: 48px;border-radius:24px;}
+
+.stock_process{position:relative; background:url(../Image/Process/Trade/stock.png) no-repeat; height:370px;width:1200px; margin-left:120px;margin-top:70px;display: block;}
+.stock_process .warehouse{left: 448px;top:120px;}
+.stock_process .logistics{left: 55px;top:120px;}
+.stock_process .goods{left: 760px;top:-30px;}
+.stock_process .inventory_management{left: 760px;top:200px;}
+.stock_process .shop{left: 185px;top:120px;}
+
+.stock_process .begin,.stock_process .finish,.stock_process .down_logistics,.stock_process .stock_title,.stock_process .stock_goods,.stock_process .stock_stock,.stock_process .excel_in_stock
+{position:absolute; display:block; width:80px; height:60px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.stock_process .begin{left: -70px;top:130px;line-height: 60px;}
+.stock_process .finish{left: 1100px;top:130px;line-height: 60px;}
+.stock_process .down_logistics{left: 318px;top:130px;}
+.stock_process .stock_title{left: 585px;top:130px;}
+.stock_process .stock_goods{left: 930px;top:290px;}
+.stock_process .stock_stock{left: 930px;top:-25px;}
+.stock_process .excel_in_stock{left: 930px;top:130px;}
+
+/*初始化流程图部分 end*/
+
+/*退换预入库流程图*/
+.returnPre_process{position:relative; background:url(../Image/Process/Trade/returnPre.png) no-repeat; height:350px;width:890px; margin-left:390px;margin-top:140px;display: block;}
+.returnPre_process .stock_in{left: 75px;top:-30px;line-height: 60px;}
+.returnPre_process .stock_management{left: 347px;top:-30px;line-height: 60px;}
+.returnPre_process .refund_manage{left: 75px;top:120px;line-height: 60px;}
+
+.returnPre_process .begin,.returnPre_process .finish,.returnPre_process .add_or_edit
+{position:absolute; display:block; width:80px; height:60px;border-radius:18px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 30px;font-weight: bold;}
+.returnPre_process .begin{left: -80px;top:-20px;line-height: 60px;}
+.returnPre_process .finish{left: 624px;top:130px;line-height: 60px;}
+.returnPre_process .add_or_edit{left: 218px;top:130px;line-height: 30px;}
+
+.returnPre_process .make,.returnPre_process .relation,.returnPre_process .examine
+{position:absolute; display:block; width:48px; height:48px;border-radius:24px;font-size: 16px; textcolor:#005498;background-color:#addef8;text-align: center;line-height: 48px;font-weight: bold;}
+.returnPre_process .make{left: 220px;top:-15px;line-height: 48px;}
+.returnPre_process .relation{left: 367px;top:140px;line-height: 48px;}
+.returnPre_process .examine{left: 492px;top:140px;line-height: 48px;}
+
+/*策略设置流程图部分*/
+.rule_process{width: 95%; border: solid 1px #eeeeee; margin: 0 auto;margin-top: 30px;overflow: auto;}
+.rule_process .rule_process_title{padding:10px 13px; padding-left:15px; font-size:16px; letter-spacing: 0; color: #313131; background-color: #f5f5f5; font-family: "Microsoft YaHei", "微软雅黑";min-width: 1212px;}
+.rule_process .rule_process_bg{position:relative; background:url(../Image/Process/Trade/rule_process_bg.png) no-repeat; height:400px;width:1212px; top:0;right:0;bottom:0;left:0; margin:0 auto;margin-top: 30px;}
+.rule_process_bg span,.rule_process_bg div{position:absolute; display:block;text-align:center;}
+.rule_process_bg div{cursor: pointer;}
+.rule_process_bg .rule_process_start{left: 46px;top: 172px;font-size: 14px;}
+.rule_process_bg .rule_process_warehouse{left: 190px;top:5px;font-size: 14px;}
+.rule_process_bg .select_warehouse{left: 190px;top:57px;}
+.rule_process_bg .goods_goods{left: 190px;top:153px;}
+.rule_process_bg .goods_spec{left: 190px;top:250px;}
+.rule_process_bg .logistics_strategy{left: 443px;top:5px;font-size: 14px;}
+.rule_process_bg .logistics_match{left: 443px;top:57px;}
+.rule_process_bg .logistics_postage{left:443px;top:249px;}
+.rule_process_bg .remark_strategy{left:698px;top:4px;}
+.rule_process_bg .customer_remark{left:698px;top:59px;font-size: 12px;}
+.rule_process_bg .service_remark{left:698px;top:249px;font-size: 12px;}
+.rule_process_bg .gift_strategy_msg{left:952px;top:5px;}
+.rule_process_bg .gift_strategy{left:952px;top:147px;font-size: 12px;}
+.rule_process_bg .rule_process_end{left:1126px;top:172px;font-size: 14px;}
+
+/*高级设置*/
+.ad_set{
+ display: inline-block;
+ width: 620px;
+ height: 220px;
+ margin:15px;
+ border:2px dotted #0099c9;
+ border-radius: 5px;
+ line-height: 20px;
+ margin-left: 2px;
+ font-size: 12px;
+ text-align: left;
+}
+.ad_set li{
+ padding:10px;
+ font-size: 20px;
+ color: #003366;
+ text-align: center;
+}
+.ad_set li1{
+ font-size: 12px;
+ color:#FF6600;
+ font-weight: bold;
+}
+.ad_set label{
+ margin-left: 10px;
+}
+.ad_set li2{
+ font-size: 14px;
+ color:#003399;
+ cursor: pointer;
+}
+.ad_set li2 i{
+ font-size: 18px;
+}
+.ad_set sp{
+ color:#009966;
+ cursor: pointer;
+}
+.ad_set sp:HOVER {
+ color:#00CC00;
+}
+/*新手任务文字颜色*/
+.font-green{color: #23af60;font-size: 12px;}
+.font-green-msg{color: #318252;font-size: 12px;}
+.font-blue{color:#31a1fa;font-size: 14px;}
+.font-orange{color:#e89318;font-size: 12px;}
+.font-white{color:#ffffff;font-size: 14px;}
+.font-violet{color:#D072D6;font-size: 14px;}
+/*新手任务销售流程样式*/
+/*基本*/
+.sales_process{position:relative; background:url(../Image/Process/Trade/sales_process_off_bg.png) no-repeat; height:340px;width:750px; top:0;right:0;bottom:0;left:0;margin:0px auto;}
+.sales_process span,.sales_process div{position:absolute; display:block;text-align:center;}
+.sales_process .sales_source{top:12px;left:97px;font-size: 14px;color: #308252;}
+.sales_process .sales_platform{top:59px;left:36px;}
+.sales_process .sales_download{top:144px;left:36px;cursor: pointer;}
+.sales_process .sales_original{top:144px;left:137px;cursor: pointer;}
+.sales_process .sales_manual{top:47px;left:137px;cursor: pointer;}
+.sales_process .sales_deliver{top:154px;left:249px;}
+.sales_process .sales_tradecheck{top:144px;left:391px;cursor: pointer;}
+.sales_process .sales_check{top:154px;left:490px;}
+.sales_process .sales_printing{top:144px;left:560px;cursor: pointer;}
+.sales_process .sales_confirm{top:154px;left:644px;}
+.sales_process .logistics_sync{top:144px;left:728px;cursor: pointer;}
+.sales_process .sales_advance_on{top:300px;left:461px;cursor: pointer;color: #318252;font-size: 12px;}
+.sales_process .sales_financial_on{top:50px;left:639px;cursor: pointer;color: #318252;font-size: 12px;}
+/*开启预订单*/
+.sale_process_advance{position:relative; background:url(../Image/Process/Trade/sales_process_advance_bg.png) no-repeat; height:340px;width:750px; top:0;right:0;bottom:0;left:0;margin:0px auto;}
+.sale_process_advance span,.sale_process_advance div{position:absolute; display:block;text-align:center;}
+.sale_process_advance .sales_source{top:12px;left:97px;font-size: 14px;color: #308252;}
+.sale_process_advance .sales_platform{top:59px;left:37px;}
+.sale_process_advance .sales_download{top:144px;left:36px;cursor: pointer;}
+.sale_process_advance .sales_original{top:144px;left:137px;cursor: pointer;}
+.sale_process_advance .sales_manual{top:47px;left:137px;cursor: pointer;}
+.sale_process_advance .sales_deliver{top:154px;left:249px;}
+.sale_process_advance .sales_stock_full{top:154px;left:318px;}
+.sale_process_advance .sales_tradecheck{top:144px;left:391px;cursor: pointer;line-height: 16px;}
+.sale_process_advance .sales_stock_less{top:266px;left:306px;}
+.sale_process_advance .sales_advance{top:255px;left:395px;cursor: pointer;}
+.sale_process_advance .sales_check{top:154px;left:490px;}
+.sale_process_advance .sales_printing{top:144px;left:560px;cursor: pointer;}
+.sale_process_advance .sales_confirm{top:154px;left:644px;}
+.sale_process_advance .logistics_sync{top:144px;left:728px;cursor: pointer;}
+.sale_process_advance .sales_all_off{top:300px;left:461px;cursor: pointer;color: #318252;font-size: 12px;}
+.sale_process_advance .sales_all_on{top:50px;left:639px;cursor: pointer;color: #318252;font-size: 12px;}
+/*开启财务审核*/
+.sale_process_financial{position:relative; background:url(../Image/Process/Trade/sales_process_financial_bg.png) no-repeat; height:340px;width:750px; top:0;right:0;bottom:0;left:0;margin:0px auto;}
+.sale_process_financial span,.sale_process_financial div{position:absolute; display:block;text-align:center;}
+.sale_process_financial .sales_source{top:11px;left:95px;font-size: 14px;color: #308252;}
+.sale_process_financial .sales_platform{top:58px;left:36px;}
+.sale_process_financial .sales_download{top:142px;left:36px;cursor: pointer;}
+.sale_process_financial .sales_original{top:142px;left:137px;cursor: pointer;}
+.sale_process_financial .sales_manual{top:47px;left:137px;cursor: pointer;}
+.sale_process_financial .sales_deliver{top:154px;left:249px;}
+.sale_process_financial .sales_stock_full{top:154px;left:318px;}
+.sale_process_financial .sales_tradecheck{top:142px;left:391px;cursor: pointer;}
+.sale_process_financial .sales_stock_less{top:266px;left:306px;}
+.sale_process_financial .sales_check{top:154px;left:460px;}
+.sale_process_financial .sales_financial{top:20px;left:558px;line-height: 16px;cursor: pointer;}
+.sale_process_financial .sales_printing{top:142px;left:560px;cursor: pointer;}
+.sale_process_financial .sales_confirm{top:154px;left:644px;}
+.sale_process_financial .logistics_sync{top:142px;left:728px;cursor: pointer;}
+.sale_process_financial .sales_all_on{top:300px;left:461px;cursor: pointer;color: #318252;font-size: 12px;}
+.sale_process_financial .sales_all_off{top:50px;left:639px;cursor: pointer;color: #318252;font-size: 12px;}
+/*全部*/
+.sales_process_all{position:relative; background:url(../Image/Process/Trade/sales_process_all_bg.png) no-repeat; height:340px;width:781px; top:0;right:0;bottom:0;left:0;margin:0 auto;}
+.sales_process_all span,.sales_process_all div{position:absolute; display:block;text-align:center;}
+.sales_process_all .sales_source{top:11px;left:110px;font-size: 14px;color: #308252;}
+.sales_process_all .sales_platform{top:58px;left:50px;}
+.sales_process_all .sales_download{top:143px;left:49px;cursor: pointer;}
+.sales_process_all .sales_original{top:143px;left:150px;cursor: pointer;}
+.sales_process_all .sales_manual{top:47px;left:151px;cursor: pointer;}
+.sales_process_all .sales_deliver{top:154px;left:261px;}
+.sales_process_all .sales_stock_full{top:154px;left:318px;}
+.sales_process_all .sales_tradecheck{top:140px;left:405px;cursor: pointer;line-height: 16px;}
+.sales_process_all .sales_stock_less{top:266px;left:306px;}
+.sales_process_all .sales_advance{top:254px;left:407px;cursor: pointer;}
+.sales_process_all .sales_check{top:154px;left:472px;}
+.sales_process_all .sales_financial{top:20px;left:572px;line-height: 16px;cursor: pointer;}
+.sales_process_all .sales_printing{top:142px;left:574px;cursor: pointer;}
+.sales_process_all .sales_confirm{top:154px;left:657px;}
+.sales_process_all .logistics_sync{top:142px;left:742px;cursor: pointer;}
+.sales_process_all .sales_financial_on{top:300px;left:468px;cursor: pointer;color: #318252;font-size: 12px;}
+.sales_process_all .sales_advance_on{top:50px;left:639px;cursor: pointer;color: #318252;font-size: 12px;}
+/*新手任务售后流程样式*/
+.a_sale_process_button,.a_sale_process_button tr td {border:1px solid #d2d2d2;}
+.a_sale_process_button{text-align: center;color: #313131;border-collapse:collapse;margin: 0 auto;margin-bottom: 10px;}
+.a_sale_process_button .click_style{background-color: #edf9f2;color:#23af60;}
+.a_sale_process_button tr td {cursor: pointer;padding:0px 15px;}
+.a_sale_process_button tr td:hover {background-color: #edf9f2;color:#23af60;}
+/*全部*/
+.a_sale_process{position:relative; background:url(../Image/Process/Trade/after_sales_bg.png) no-repeat; height:307px;width:915px; top:0;right:0;bottom:0;left:0;margin:0 auto;}
+.a_sale_process span,.a_sale_process div{position:absolute; display:block;text-align:center;}
+.a_sale_process .a_sale_start{top:11px;left:23px;}
+.a_sale_process .a_sale_refund{top:95px;left:7px;cursor: pointer;}
+.a_sale_process .a_sale_deliver{top:106px;left:69px;}
+.a_sale_process .a_sale_refund1{top:16px;left:133px;}
+.a_sale_process .a_sale_return1{top:115px;left:133px;}
+.a_sale_process .a_sale_exchange1{top:216px;left:133px;}
+.a_sale_process .a_sale_creturn{top:106px;left:182px;}
+.a_sale_process .a_sale_cexchange{top:206px;left:182px;}
+.a_sale_process .a_sale_refundmanagement{top:95px;left:275px;cursor: pointer;}
+.a_sale_process .a_sale_agree{top:106px;left:342px;}
+.a_sale_process .a_sale_refund2{top:14px;left:428px;}
+.a_sale_process .a_sale_refund_finish{top:14px;left:830px;}
+.a_sale_process .a_sale_return2{top:115px;left:428px;}
+.a_sale_process .a_sale_return_goods{top:106px;left:518px;}
+.a_sale_process .a_sale_storage{top:106px;left:697px;}
+.a_sale_process .a_sale_return_finish{top:115px;left:830px;}
+.a_sale_process .a_sale_exchange2{top:214px;left:428px;}
+.a_sale_process .a_sale_changed{top:206px;left:474px;}
+.a_sale_process .a_sale_check{top:196px;left:549px;cursor: pointer;}
+.a_sale_process .a_sale_through{top:206px;left:619px;}
+.a_sale_process .a_sale_printing{top:196px;left:688px;cursor: pointer;}
+.a_sale_process .a_sale_confirm{top:206px;left:752px;}
+.a_sale_process .a_sale_change_finish{top:215px;left:830px;}
+/*退款*/
+.a_sale_process_refund{position:relative; background:url(../Image/Process/Trade/after_sales_refund_bg.png) no-repeat; height:307px;width:750px; top:0;right:0;bottom:0;left:0;margin:0 auto;}
+.a_sale_process_refund span,.a_sale_process_refund div{position:absolute; display:block;text-align:center;}
+.a_sale_process_refund .a_sale_start{top:11px;left:23px;}
+.a_sale_process_refund .a_sale_refund{top:93px;left:8px;cursor: pointer;}
+.a_sale_process_refund .a_sale_deliver{top:106px;left:82px;}
+.a_sale_process_refund .a_sale_refundmanagement{top:93px;left:131px;cursor: pointer}
+.a_sale_process_refund .a_sale_agree{top:106px;left:247px;}
+.a_sale_process_refund .a_sale_refund2{top:113px;left:358px;}
+.a_sale_process_refund .a_sale_refund_finish{top:113px;left:579px;}
+/*退货*/
+.a_sale_process_return{position:relative; background:url(../Image/Process/Trade/after_sales_return_bg.png) no-repeat; height:307px;width:815px; top:0;right:0;bottom:0;left:0; margin:0 auto;}
+.a_sale_process_return span,.a_sale_process_return div{position:absolute; display:block;text-align:center;}
+.a_sale_process_return .a_sale_start{top:9px;left: 25px;}
+.a_sale_process_return .a_sale_refund{top:94px;left:10px;cursor: pointer;}
+.a_sale_process_return .a_sale_deliver{top:106px;left:77px;}
+.a_sale_process_return .a_sale_return1{top:115px;left:135px;}
+.a_sale_process_return .a_sale_creturn{top:106px;left:193px;}
+.a_sale_process_return .a_sale_refundmanagement{top:95px;left:280px;cursor: pointer;}
+.a_sale_process_return .a_sale_agree{top:106px;left:359px;}
+.a_sale_process_return .a_sale_return2{top:115px;left:432px;}
+.a_sale_process_return .a_sale_return_goods{top:106px;left:501px;}
+.a_sale_process_return .a_sale_storage{top:106px;left:632px;}
+.a_sale_process_return .a_sale_return_finish{top:115px;left:731px;}
+/*换货*/
+.a_sale_process_exchange{position:relative; background:url(../Image/Process/Trade/after_sales_exchange_bg.png) no-repeat; height:307px;width:860px; top:0;right:0;bottom:0;left:0;margin:0 auto;}
+.a_sale_process_exchange span,.a_sale_process_exchange div{position:absolute; display:block;text-align:center;}
+.a_sale_process_exchange .a_sale_start{top:14px;left:24px;}
+.a_sale_process_exchange .a_sale_refund{top:99px;left:8px;cursor: pointer;}
+.a_sale_process_exchange .a_sale_deliver{top:109px;left:79px;}
+.a_sale_process_exchange .a_sale_creturn{top:109px;left:150px;}
+.a_sale_process_exchange .a_sale_refundmanagement{top:99px;left:233px;cursor: pointer;}
+.a_sale_process_exchange .a_sale_agree{top:109px;left:300px;}
+.a_sale_process_exchange .a_sale_return2{top:35px;left:384px;}
+.a_sale_process_exchange .a_sale_return_goods{top:26px;left:476px;}
+.a_sale_process_exchange .a_sale_storage{top:26px;left:664px;}
+.a_sale_process_exchange .a_sale_return_finish{top:35px;left:787px;}
+.a_sale_process_exchange .a_sale_exchange2{top:206px;left:384px;}
+.a_sale_process_exchange .a_sale_changed{top:198px;left:432px;}
+.a_sale_process_exchange .a_sale_check{top:188px;left:507px;cursor: pointer;}
+.a_sale_process_exchange .a_sale_through{top:198px;left:579px;}
+.a_sale_process_exchange .a_sale_printing{top:188px;left:646px;cursor: pointer;}
+.a_sale_process_exchange .a_sale_confirm{top:199px;left:711px;}
+.a_sale_process_exchange .a_sale_change_finish{top:207px;left:787px;}
+/*新手任务入库流程样式*/
+.stockin_process{position:relative; background:url(../Image/Process/Trade/stockin_bg.png) no-repeat; height:200px;width:860px; top:0;right:0;bottom:0;left:0;margin:90px auto;}
+.stockin_process span,.stockin_process div{position:absolute; display:block;text-align:center;}
+.stockin_process .stockinp_start{top:8px;left:33px;}
+.stockin_process .stockinp_other{top:93px;left:21px;}
+.stockin_process .stockinp_return{top:118px;left:21px;}
+.stockin_process .stockinp_quick{top:142px;left:21px;}
+.stockin_process .stockinp_purbilling{top:-14px;left:132px;cursor: pointer;}
+.stockin_process .stockinp_save1{top:-1px;left:226px;}
+.stockin_process .stockinp_purmanagement{top:-14px;left:308px;cursor: pointer;}
+.stockin_process .stockinp_check{top:-1px;left:387px;}
+.stockin_process .stockinp_inbilling{top:-14px;left:484px;cursor: pointer;}
+.stockin_process .stockinp_save2{top:-1px;left:582px;}
+.stockin_process .stockinp_inmanagement{top:-14px;left:660px;cursor: pointer;}
+.stockin_process .stockinp_submit{top:-1px;left:735px;}
+.stockin_process .stockinp_finish{top:8px;left:795px;}
+
+/*新手任务盘点流程样式*/
+.inventory_process{position:relative; background:url(../Image/Process/Trade/inventory_bg.png) no-repeat; height:340px;width:880px; top:0;right:0;bottom:0;left:0; margin:0 auto;}
+.inventory_process span,.inventory_process div{position:absolute; display:block;text-align:center;}
+.inventory_process .inventory_start{top: 139px; left: 41px;}
+.inventory_process .inventory_normal{top: 38px; left: 193px;}
+.inventory_process .inventory_excel{top: 139px; left: 177px;}
+.inventory_process .inventory_quick{top: 238px; left: 193px;}
+.inventory_process .inventory_billing{top:19px; left: 321px;cursor: pointer;}
+.inventory_process .inventory_addgoods{top:28px; left: 410px;}
+.inventory_process .inventory_management{top:20px; left: 496px;cursor: pointer;}
+.inventory_process .inventory_submit{top:28px; left:586px;}
+.inventory_process .inventory_stock1{top:20px; left:640px;cursor: pointer;}
+.inventory_process .inventory_stock2{top:221px; left:322px;cursor: pointer;}
+.inventory_process .inventory_finish{top:139px; left:777px;}

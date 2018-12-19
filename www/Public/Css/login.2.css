@@ -1,0 +1,7 @@
+#footer{height: 60px;}
+.link{height: 40px;line-height: 50px; text-align: center;}
+.link a:hover{color: orange;cursor: pointer;}
+.link ul{list-style-type:none;margin: 8px auto;display: inline-block;width:246px;}
+.link li{float: left; margin: 5px 0; padding: 0 16px; line-height: 14px; border-right: 1px solid #666;}
+.link .last{border-right:none;}
+.copyright{height: 20px;line-height: 20px; text-align: center;}

@@ -1,0 +1,108 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<!-- /*
+**created by gaosong
+ */ -->
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]"/>
+                <label>物流公司：</label><select style="width: 120px;" class="easyui-combobox sel" name="search[logistics_id]" data-options=""> <option value="all">全部</option><volist name='logistics_list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label   style="width: 60px;display: inline-block;">热敏类型</label>
+                <select class="easyui-combobox sel"
+                        name="search[bill_type]"
+                        data-options="panelHeight:'auto',editable:false, required:true"
+                        style="width:100px;">
+                    <option value="all">全部</option>
+                    <option value="1">线下热敏</option>
+                    <option value="2">云栈热敏</option>
+                </select>
+                <label>单号状态：</label><input class="easyui-combobox sel" name="search[status]" id="status" style="width:100px;  "data-options="valueField:'id',textField:'name',data:formatter.get_data('stock_logistics_no_status')"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="stocklogno_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="stocklogno_obj.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="stocklogno_obj.cancel();">回收电子面单</a>
+                <label class="form-div">
+                    <a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+                 </label>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=stocklogno_obj.js
+        $(function () {
+            setTimeout(function () {
+                stocklogno_obj = new RichDatagrid(JSON.parse('{$params}'));
+                stocklogno_obj.setFormData();
+                stocklogno_obj.cancel = function()
+                {
+                    var that = this;
+                    var selected_rows = this.getSelectRows();
+                    if($.isEmptyObject(selected_rows)){
+                        messager.alert('请选择操作的行');
+                        return;
+                    }
+                    var selects_info ={};
+                    var resultBeforeCheck = [];
+                    for(var item in selected_rows){
+                        var temp_result = {'rec_id':selected_rows[item]['id'],'logistics_no':selected_rows[item]['logistics_no']};
+                       if(selected_rows[item]['status'] != 5 && selected_rows[item]['status'] != 4){
+                            temp_result['msg'] = "必须是处于待回收、回收失败的电子面单";
+                            resultBeforeCheck.push(temp_result);
+                            continue;
+                        }
+                        /*if(selected_rows[item]['bill_type'] != 2){
+                            temp_result['msg'] = "非菜鸟电子面单不能回收";
+                            resultBeforeCheck.push(temp_result);
+                            continue;
+                        }*/
+
+                        var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+                        selects_info[temp_index] = selected_rows[item].id;
+                    }
+                    if($.isEmptyObject(selects_info)){
+                        $.fn.richDialog("response", resultBeforeCheck, "waybill");
+                        return;
+                    }
+                    messager.confirm('确定取消电子面吗？', function(r){
+                        if(r){
+                            $('#'+that.params.datagrid.id).datagrid('loading');
+                            $.post("{:U('StockLogNo/retrieve')}", {ids:JSON.stringify(selects_info)}, function(result){
+                                $('#'+that.params.datagrid.id).datagrid('loaded');
+                                if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+                                    result.status = 2;
+                                    result.data.fail = resultBeforeCheck.concat(result.data.fail);
+                                }
+                                if(parseInt(result.status)==0) {
+                                    messager.info(result.info);
+                                    that.refresh();
+                                    return true;
+                                }
+                                if(parseInt(result.status) == 1){
+                                    messager.alert(result.info);
+                                    return false;
+                                }
+                                if(parseInt(result.status) == 2){
+                                    if(!$.isEmptyObject(result.data.fail)){
+                                        //调用dialog显示处理结果
+                                        $.fn.richDialog("response", result.data.fail, "waybill");
+                                    }
+                                    that.refresh();
+                                    return true;
+                                }
+                                return;
+                            },'json');
+                        }else{return;}
+                    });
+
+                };
+
+            }, 0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>

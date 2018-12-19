@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8"> 
+<meta name="keywords " content="E快帮,E快帮ERP,旺店通,ERP,店铺管理,店铺管理ERP"/>
+<title>{:C('SYSTEM_NAME')}-欢迎登录</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.css?v={$version_number}">
+<link rel="icon" href="__ROOT__/Public/Image/favicon.ico"  type="image/x-icon">
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.md5.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.cookie.js"></script>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.2.css">
+<script type="text/javascript" src="__ROOT__/Public/Js/json.2.js"></script>
+<![endif]-->
+<script type="text/javascript" src="__ROOT__/Public/Js/login.util.js"></script>
+</head>
+<body>
+<div class="w">
+	<div id="logo"><a href="__ROOT__/index.php/home/login/login.html"><img alt="E快帮" src="__ROOT__/Public/Image/Login/login-logo.png" border="0"></a></div>
+</div>
+<div id="content">
+	<div class="login-body w">
+		<div class="login-img"><img alt="云服务" src="__ROOT__/Public/Image/Login/cloud.png" border="0"></div>
+		<div class="login-wrap">
+			<div class="login-tab" style="border-radius: 3px;">
+				<div class="login-form">
+					<div class="top cell" style="padding:10px;margin-bottom: 0;">E快帮会员</div>
+					<div class="cell"><label for="username">用户名</label><input class="text" type="text" id="username" name="username" maxlength="30"/></div>
+					<div class="cell"><label for="password">密码</label><input class="text" type="password" id="password" name="password" maxlength="30"/></div>
+					<div class="cell"><label for="sid">卖家账号</label><input class="text" type="text" id="sid" name="sid" maxlength="25"/></div>
+					<!-- <div class="cell2"><label style="display:inline-block;vertical-align: middle;color:#999;font-size: 12px;font-weight: normal;cursor:default;"><input class="checkbox" type="checkbox" id="autologin" name="autologin" onfocus="this.blur()"/>7天内自动登录</label></div> -->
+					<div class="cell1"><a href="{:U('Home/Login/reset')}">忘记密码？</a></div>
+					<div class="cell2"><a id="submit" href="#" class="button">登录</a></div>
+					<div class="cell2 msg-err" id="msg-err"></div>
+				</div>
+			</div>
+			<div class="login-bottom"></div>
+		</div>
+	</div>
+</div>
+<div class="w">
+	<div id="footer">
+		<!-- <div class="link">
+			<ul>
+				<li><a href="http://www.wangdian.cn/">联系我们</a></li>
+				<li><a href="http://www.wangdian.cn/">友情链接</a></li>
+				<li class="last"><a>关于我们</a></li>
+			</ul>
+		</div> -->
+		<div class="copyright">Copyright©2015-2017  E快帮 版权所有</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+
+	//检测浏览器版本
+	check_navigator();
+	function check_navigator(){
+		var userAgent=navigator.userAgent.toLowerCase();
+		var appVersion=navigator.appVersion.toLowerCase();
+		var status=1;
+		if (!!window.ActiveXObject || "ActiveXObject" in window){
+			if(appVersion.match(/msie 8./i)=="msie 8."){
+				status=0;
+			}else if(appVersion.match(/msie 7./i)=="msie 7."){
+				status=0;
+			}else if(appVersion.match(/msie 5./i)=="msie 5."){
+				status=0;
+			}
+		}
+		if(status==0){
+			alert('当前浏览器版本无法正常使用本系统，请更换谷歌浏览器！');
+		}
+	}
+
+
+	login.autoLogin();
+	fancyForm.setup();
+	$('#submit').bind('click',function(){login.doLogin();});
+	$('.login-form .cell input').bind('keydown',function(e){if(e.keyCode==13){login.doLogin();}});
+});
+var login=function(){
+	return{
+		doLogin:function(isAutoLogin){
+			//isAutoLogin=!isAutoLogin?false:true;
+			isAutoLogin=false;
+			var data={};
+			data.username=$('#username').val();
+			if(!checkLogin($('#username'),data.username,{info:'用户名不能为空',err:'非法用户名'})){return;}
+			data.password=$('#password').val();
+			if(!checkLogin($('#password'),data.password,{info:'密码不能为空'})){return;}
+			data.sid=$('#sid').val();
+			if(!checkLogin($('#sid'),data.sid,{info:'卖家账号不能为空',err:'非法卖家账号'})){return;}
+			if(!isAutoLogin){
+				data.password = $.md5(data.password);
+			}
+			var userinfo=JSON.stringify(data);
+			$.post("{:U('Home/Login/access')}", {data: userinfo}, function (res) {
+		    	if (0 == res.status) {
+		    		if(!isAutoLogin){
+						if($('#autologin').is(':checked')){$.cookie('userinfo',userinfo,{expires:7, path:'/'});}
+						else if($.cookie('userinfo')!=undefined){$.cookie('userinfo',null,{expires:-1, path:'/'});}
+					}
+		    		$.cookie('username',data.username,{expires:10, path:'/'});
+		    		$.cookie('sid',data.sid,{expires:10, path:'/'});
+					if(res.hasOwnProperty('valid_day')){
+						var valid_day = res.valid_day;
+						dl_alert('温馨提示',"您的账号有效期剩余"+valid_day+"天，请及时续费哟！",function(){
+							window.location.href=res.info
+						});
+					}else{
+						window.location.href=res.info;
+					}
+
+		        } else if (2 == res.status) {
+					window.top.location = res.info;
+				}else {
+					try{
+						showResultInfo(res.info);
+					}catch (e){
+						$('#msg-err').html(res.info);
+					}
+		        }
+		    });
+		},
+		autoLogin:function(){
+			var isLogout='{$logout}';
+			/* if(isLogout=='logout'&&$.cookie('userinfo')!=undefined){
+				$.cookie('userinfo',null,{expires:-1, path:'/'});
+			}else if($.cookie('userinfo')!=undefined){
+				$('#autologin').attr('checked',true);
+				var user=JSON.parse($.cookie('userinfo'));
+				$('#username').val(user.username);
+				$('#password').val(user.password);
+				$('#sid').val(user.sid);
+				this.doLogin(true);
+				return;
+			} */
+			if($.cookie('username')!=undefined){
+				$('#username').val($.cookie('username'));
+			}
+			if($.cookie('sid')!=undefined){
+				$('#sid').val($.cookie('sid'));
+			}
+		}
+	};
+}();
+</script>
+</body>
+</html>

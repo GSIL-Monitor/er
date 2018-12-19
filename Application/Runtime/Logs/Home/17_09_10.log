@@ -1,0 +1,15 @@
+[ 2017-09-10T13:23:27+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: Class 'Memcached' not found
+
+[ 2017-09-10T13:24:20+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: Class 'Memcached' not found
+
+[ 2017-09-10T13:27:17+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: Class 'Memcached' not found
+
+[ 2017-09-10T13:27:38+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: Class 'Memcached' not found
+
+[ 2017-09-10T13:28:50+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: Class 'Memcached' not found
+

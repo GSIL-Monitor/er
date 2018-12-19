@@ -1,0 +1,131 @@
+<taglib name="TagLib\EasyUI" />
+<style>
+.txt-split{width:100px;}
+.footer-split{padding-left:5px;height:5%;background-color: #f4f4f4;}
+</style>
+<script>
+</script>
+<div style="height: 43%;">
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+<div id="passel_split_common_datagrid_toolbar">
+<div class="form-div">
+<span style="color:#0E2D5F;font-weight:bold;"><label>已选订单相同货品列表　　</label></span>
+<label style="color: blue;margin-left: 20px;" >#编辑对应货品的<span style="color:red">拆分数</span>->选择仅拆出<span style="color:red">一条</span>拆分单还是<span style="color:red">多条</span> ->点击<span style="color:red">预览新订单</span>->确认无误，点击<span style="color:red">确定</span>#</label>
+</div>
+</div>
+</div>
+<div style="height: 43%;">
+<easyui:datagrid id="{$datagrid2.id}" style="{$datagrid2.style}" class="{$datagrid2.class}" options="datagrid2.options" fields="datagrid2.fields" />
+<div id="passel_split_new_datagrid_toolbar">
+<div class="form-div">
+<span style="color:#0E2D5F;font-weight:bold;"><label>拆出货品列表　　</label></span>
+<label>拆出订单数量：</label>
+<select class="easyui-combobox sel" name="split_num" id="split_num" data-options="panelHeight:'auto',editable:false, required:true" style="width:70px;">
+        <option value="0"></option><option value="1">一条</option><option value="2">多条</option>
+</select>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="splitMainTradeToSubOrder()" data-options="iconCls:'icon-add'">预览新订单</a>
+<label style="color: blue;margin-left: 30px;" >#上方为原订单所剩货品信息，下方为拆分单货品信息#</label>
+</div>
+</div>
+</div>
+<div class='form-div' style="color:red;margin:8px">注：拆出订单数量选择“一条”则每条主订单仅拆分出一条拆分订单；<br>　　拆出订单数量选择“多条”则根据主订单的对应货品数量尽可能多的拆分订单。</div>
+<script type="text/javascript">
+//# sourceURL=trade.split.js
+tradeCheck.datagrid_id='{$datagrid.id}';
+tradeCheck.datagrid_id_new='{$datagrid2.id}';
+tradeCheck.split_flag_arr={};
+tradeCheck.split_flag_arr.tip_type=0;
+tradeCheck.split_value_arr={}
+$(function(){
+	setTimeout(loadOrdersData,0);
+	$('#'+tradeCheck.datagrid_id).datagrid().datagrid('enableCellEditing');
+});
+function loadOrdersData(){	
+	var json_orders={$passel_split_common_order};
+	$('#'+tradeCheck.datagrid_id).datagrid('loadData',json_orders);
+}
+function endSplitTradeEdit(index,row,changes){
+	tradeCheck.split_flag_arr.tip_type=0;
+	if(parseFloat(row.split_num)>parseFloat(row.left_num)){
+		tradeCheck.split_flag_arr.tip_type=1;
+		messager.alert('拆分的数量不能大于货品数量');
+		row.split_num=0;//大于剩余数量，置为0
+		return;
+	}else if(parseFloat(row.split_num)<0){
+		tradeCheck.split_flag_arr.tip_type=2;
+		messager.alert('拆分的数量不能小于0');
+		row.split_num=0;//小于0，置为0
+		return;
+	}else if(row.split_num==undefined){
+		row.split_num=0;//为空，置为0
+		return;
+	}
+	row.left_num=parseFloat(row.num-row.split_num).toFixed(4);
+	return;
+}
+function getSplitTradeSelect(index, row){
+	tradeCheck.split_flag_arr.index=index;
+}
+function splitMainTradeToSubOrder(){
+	var dg=$('#'+tradeCheck.datagrid_id);
+	dg.datagrid('endEdit',tradeCheck.split_flag_arr.index);
+	switch(tradeCheck.split_flag_arr.tip_type){
+	case 1:tradeCheck.split_flag_arr.tip_type=0;return;
+	case 2:tradeCheck.split_flag_arr.tip_type=0;return;
+	}
+	var rows=dg.datagrid('getRows');
+	var rows_new=[];
+	var set_val=[0,0,0,0];//设置默认 set_val[0]=0;set_val[1]=0;set_val[2]=0;set_val[3]=0;
+	var sum_goods=0;
+	var j=0;//计数-拆分出来的订单数量
+	var row_new=[];
+	$.each(rows,function(key,val){
+		sum_goods+=parseFloat(val.left_num);
+		if(val.split_num>0){
+			if(parseFloat(val.split_num)>parseFloat(val.num)||parseFloat(val.split_num)<0||val.split_num==undefined){messager.alert('拆分的数量不能大于货品数量并且不能少于0');return;}
+			row_new=$.extend(true, [], val);
+			row_new.num=row_new.split_num;
+			row_new.actual_num=row_new.num;
+			rows_new[j]=row_new;
+			set_val[0]+=parseFloat(rows_new[j].price)*rows_new[j].num/parseFloat(val.actual_num); set_val[1]+=parseFloat(rows_new[j].share_post)*rows_new[j].num/parseFloat(val.actual_num); set_val[2]+=parseFloat(rows_new[j].discount)*rows_new[j].num/parseFloat(val.actual_num); set_val[3]+=parseFloat(rows_new[j].share_amount)*rows_new[j].num/parseFloat(val.actual_num);
+			j++;
+		}
+	});
+	var new_dg=$('#'+tradeCheck.datagrid_id_new);
+	var new_rows=new_dg.datagrid('getRows');
+	if(j==0&&new_rows.length==0){messager.alert('至少有一件货品被拆分');return;}
+	set_val[3]+=parseFloat(set_val[1]);//新拆分出来的订单-应收合计(需加上邮资)
+	var data={total:j,rows:rows_new};
+	new_dg.datagrid('loadData',data);
+}
+tradeCheck.submitPasselSplitDialog=function(){
+	var split_num=$('#split_num').combobox('getValues');
+	if (split_num[0]==0||split_num[0]==undefined){messager.alert('请选择拆出订单数量');return;}
+	var split={};
+	var data={};
+	var rows=$('#'+tradeCheck.datagrid_id).datagrid('getRows');
+	var rows_arr=[];
+	for(var i=0,j=0;i<rows.length;i++){if(parseFloat(rows[i].split_num)>0){ rows_arr[j]=rows[i];j++;}}
+	var rows2=$('#'+tradeCheck.datagrid_id_new).datagrid('getRows');
+	if(rows2.length==0){messager.info('请先点击“生成新订单”');return;}
+	if(rows_arr.length==0||rows2.length==0){$.messager.confirm('提示','未拆分订单，是否关闭',function(r){if(!r){return;} else{$('#'+tradeCheck.params.edit.id).dialog('close');return;}})}
+	split=JSON.parse('{$split}');
+	data['info']=rows_arr;
+	data['ids']=split.ids;
+	data['type']=0;
+	data['split_num']=split_num[0];
+	data=JSON.stringify(data);
+	Post('{:U('TradeCheck/passelSplit')}?split='+split,{data:data},function(res){
+		if(!res.status){
+			$('#passel_split').dialog('close');
+			messager.alert(res.info);
+			return false;
+		}else{
+			messager.alert(res.info);
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			$('#passel_split').dialog('close');
+			tradeCheck.refresh();
+		}
+	},"JSON");
+}
+</script>

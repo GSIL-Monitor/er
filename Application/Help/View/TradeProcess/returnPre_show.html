@@ -1,0 +1,34 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="退换预入库流程" data-options="headerCls:'panel-header-title'" style="width:100%;">
+        <div class="returnPre_process process-map" style="border:none;" id="returnPre_process">
+            <span class="begin" href="javascript:void(0);" >开始</span>
+            <a class="stock_in font-img" href="javascript:void(0);" onClick="open_menu('{$returnPre.stock_in.text}', '{$returnPre.stock_in.href}')"><div class="png"><i class="fa {$returnPre.stock_in.img}"></i><p>{$returnPre.stock_in.text}</p></div></a>
+            <a class="stock_management font-img" href="javascript:void(0);" onClick="open_menu('{$returnPre.stock_management.text}', '{$returnPre.stock_management.href}')"><div class="png"><i class="fa {$returnPre.stock_management.img}"></i><p>{$returnPre.stock_management.text}</p></div></a>
+            <a class="refund_manage font-img" href="javascript:void(0);" onClick="open_menu('{$returnPre.refund_manage.text}', '{$returnPre.refund_manage.href}')"><div class="png"><i class="fa {$returnPre.refund_manage.img}"></i><p>{$returnPre.refund_manage.text}</p></div></a>
+            <a class="make" href="javascript:void(0);"  onmouseover="show_returnPre_text(event,'make')" onmouseout="close_returnPre_text()">新建</a>
+            <a class="relation" href="javascript:void(0);" onmouseover="show_returnPre_text(event,'relation')" onmouseout="close_returnPre_text()">关联</a>
+            <a class="examine" href="javascript:void(0);"  onmouseover="show_returnPre_text(event,'examine')" onmouseout="close_returnPre_text()">提交</a>
+            <a class="add_or_edit" href="javascript:void(0);"  onmouseover="show_returnPre_text(event,'add_or_edit')" onmouseout="close_returnPre_text()">新建<br>编辑</a>
+            <span class="finish" href="javascript:void(0);" >完成</span>
+            <div id="show_platform_Div" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function show_returnPre_text(event,key){
+        var platform=document.getElementById('returnPre_process');
+        var text=JSON.parse('{$text}');
+        var showDiv = document.getElementById('show_platform_Div');
+        var x=event.clientX;
+        var y=parseInt(event.clientY)+parseInt(10);
+        showDiv.style.left =(x-platform.getBoundingClientRect().left)+'px';
+        showDiv.style.top = (y-platform.getBoundingClientRect().top)+'px';
+        showDiv.style.display = 'block';
+        showDiv.innerHTML = text[key];
+    }
+    function close_returnPre_text() {
+        var showDiv = document.getElementById('show_platform_Div');
+        showDiv.style.display = 'none';
+        showDiv.innerHTML = '';
+    }
+</script>

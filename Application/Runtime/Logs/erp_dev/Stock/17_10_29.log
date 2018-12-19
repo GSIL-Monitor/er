@@ -1,0 +1,22 @@
+[ 2017-10-29T11:37:02+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/synchronouslogistics.html
+INFO: 预同步-call-I_SALES_CREATE_LOGISTICS_SYNC: stockout_id:2897
+[ 2017-10-29T12:01:45+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/revertstockoutorder.html
+INFO: salesstockout-revertSalesStockout-printconfigArray
+(
+    [stockout_must_checkout] => 0
+    [stockout_disable_revert] => 1
+    [stockout_consign_disable_revert] => 1
+)
+
+[ 2017-10-29T12:01:45+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/revertstockoutorder.html
+INFO: salesstockout-revertStockoutOrder-salestrade_final_status:Array
+(
+    [0] => Array
+        (
+            [trade_id] => 188
+            [trade_no] => JY201609010016
+            [trade_status] => 30
+        )
+
+)
+

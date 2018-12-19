@@ -1,0 +1,207 @@
+<div style="margin: 20px 65px;">
+    <div class="sales_process" id="sale_process">
+        <span class="sales_source">订单来源</span>
+        <span class="sales_platform font-blue">平台订单</span>
+        <div class="sales_download font-green" href="javascript:void(0);" onClick="open_menu('订单下载','index.php/Trade/TradeDownload/getShopList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_trade_download.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download.png'"/>
+            <br/>订单下载
+        </div>
+        <div class="sales_original font-green" href="javascript:void(0);" onClick="open_menu('原始订单','index.php/Trade/OriginalTrade/getOriginalTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_original.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_original_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_original.png'"/>
+            <br/>原始订单
+        </div>
+        <div class="sales_manual font-green" href="javascript:void(0);" onClick="open_menu('手工建单','index.php/Trade/TradeManual/addTrade');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_manual.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual.png'"/>
+            <br/>手工建单
+        </div>
+        <span class="sales_deliver font-green-msg">递交</span>
+        <div class="sales_tradecheck font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="sales_check font-green-msg">审核</span>
+        <div class="sales_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="sales_confirm font-green-msg">确认发货</span>
+        <div class="logistics_sync font-green" href="javascript:void(0);" onClick="open_menu('物流同步','index.php/Stock/ApiLogisticsSync/getApiLogisticsSyncList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/logistics_sync.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync.png'"/>
+            <br/>物流同步
+        </div>
+        <div class="sales_advance_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_on.png"/>
+            开启预订单
+        </div>
+        <div class="sales_financial_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_on.png"/>
+            开启财务审核
+        </div>
+    </div>
+    <div class="sale_process_advance" id="sale_process_advance" style="display: none">
+        <span class="sales_source">订单来源</span>
+        <span class="sales_platform font-blue">平台订单</span>
+        <div class="sales_download font-green" href="javascript:void(0);" onClick="open_menu('订单下载','index.php/Trade/TradeDownload/getShopList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_trade_download.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download.png'"/>
+            <br/>订单下载
+        </div>
+        <div class="sales_original font-green" href="javascript:void(0);" onClick="open_menu('原始订单','index.php/Trade/OriginalTrade/getOriginalTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_original.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_original_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_original.png'"/>
+            <br/>原始订单
+        </div>
+        <div class="sales_manual font-green" href="javascript:void(0);" onClick="open_menu('手工建单','index.php/Trade/TradeManual/addTrade');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_manual.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual.png'"/>
+            <br/>手工建单
+        </div>
+        <span class="sales_deliver font-green-msg">递交</span>
+        <span class="sales_stock_full font-green-msg">库存充足</span>
+        <div class="sales_tradecheck font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="sales_stock_less font-green-msg">库存不足</span>
+        <div class="sales_advance font-orange" href="javascript:void(0);" onClick="open_menu('预订单','index.php/Trade/AdvanceTrade/getAdvanceTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_advance.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_advance_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_advance.png'"/>
+            <br/>预订单
+        </div>
+        <span class="sales_check font-green-msg">审核</span>
+        <div class="sales_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="sales_confirm font-green-msg">确认发货</span>
+        <div class="logistics_sync font-green" href="javascript:void(0);" onClick="open_menu('物流同步','index.php/Stock/ApiLogisticsSync/getApiLogisticsSyncList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/logistics_sync.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync.png'"/>
+            <br/>物流同步
+        </div>
+        <div class="sales_all_off" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_off.png"/>
+            关闭预订单
+        </div>
+        <div class="sales_all_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_on.png"/>
+            开启财务审核
+        </div>
+    </div>
+    <div class="sale_process_financial" id="sale_process_financial" style="display: none">
+        <span class="sales_source">订单来源</span>
+        <span class="sales_platform font-blue">平台订单</span>
+        <div class="sales_download font-green" href="javascript:void(0);" onClick="open_menu('订单下载','index.php/Trade/TradeDownload/getShopList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_trade_download.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download.png'"/>
+            <br/>订单下载
+        </div>
+        <div class="sales_original font-green" href="javascript:void(0);" onClick="open_menu('原始订单','index.php/Trade/OriginalTrade/getOriginalTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_original.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_original_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_original.png'"/>
+            <br/>原始订单
+        </div>
+        <div class="sales_manual font-green" href="javascript:void(0);" onClick="open_menu('手工建单','index.php/Trade/TradeManual/addTrade');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_manual.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual.png'"/>
+            <br/>手工建单
+        </div>
+        <span class="sales_deliver font-green-msg">递交</span>
+        <div class="sales_tradecheck font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="sales_check font-green-msg">审核</span>
+        <div class="sales_financial font-orange" href="javascript:void(0);" onClick="open_menu('财务审核','index.php/Trade/FinancialCheck/getFinancialCheckList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_financial.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_financial_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_financial.png'"/>
+            <br/>财务审核
+        </div>
+        <div class="sales_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="sales_confirm font-green-msg">确认发货</span>
+        <div class="logistics_sync font-green" href="javascript:void(0);" onClick="open_menu('物流同步','index.php/Stock/ApiLogisticsSync/getApiLogisticsSyncList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/logistics_sync.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync.png'"/>
+            <br/>物流同步
+        </div>
+        <div class="sales_all_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_on.png"/>
+            开启预订单
+        </div>
+        <div class="sales_all_off" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_off.png"/>
+            关闭财务审核
+        </div>
+    </div>
+    <div class="sales_process_all" id="sale_process_all" style="display: none">
+        <span class="sales_source">订单来源</span>
+        <span class="sales_platform font-blue">平台订单</span>
+        <div class="sales_download font-green" href="javascript:void(0);" onClick="open_menu('订单下载','index.php/Trade/TradeDownload/getShopList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_trade_download.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_trade_download.png'"/>
+            <br/>订单下载
+        </div>
+        <div class="sales_original font-green" href="javascript:void(0);" onClick="open_menu('原始订单','index.php/Trade/OriginalTrade/getOriginalTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_original.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_original_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_original.png'"/>
+            <br/>原始订单
+        </div>
+        <div class="sales_manual font-green" href="javascript:void(0);" onClick="open_menu('手工建单','index.php/Trade/TradeManual/addTrade');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_manual.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_manual.png'"/>
+            <br/>手工建单
+        </div>
+        <span class="sales_deliver font-green-msg">递交</span>
+        <div class="sales_advance font-orange" href="javascript:void(0);" onClick="open_menu('预订单','index.php/Trade/AdvanceTrade/getAdvanceTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_advance.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_advance_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_advance.png'"/>
+            <br/>预订单
+        </div>
+        <div class="sales_tradecheck font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="sales_check font-green-msg">审核</span>
+        <div class="sales_financial font-orange" href="javascript:void(0);" onClick="open_menu('财务审核','index.php/Trade/FinancialCheck/getFinancialCheckList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_financial.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_financial_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_financial.png'"/>
+            <br/>财务审核
+        </div>
+        <div class="sales_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="sales_confirm font-green-msg">确认发货</span>
+        <div class="logistics_sync font-green" href="javascript:void(0);" onClick="open_menu('物流同步','index.php/Stock/ApiLogisticsSync/getApiLogisticsSyncList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/logistics_sync.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/logistics_sync.png'"/>
+            <br/>物流同步
+        </div>
+        <div class="sales_financial_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_off.png"/>
+            关闭预订单
+        </div>
+        <div class="sales_advance_on" href="javascript:void(0);" onClick="change_process(this);">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_off.png"/>
+            关闭财务审核
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function change_process(that){
+        var name = $(that).attr("class");
+        switch(name){
+            case 'sales_all_off':
+                $('#sale_process').show();
+                $('#sale_process_advance').hide();
+                $('#sale_process_financial').hide();
+                $('#sale_process_all').hide();
+                break;
+            case 'sales_advance_on':
+                $('#sale_process').hide();
+                $('#sale_process_advance').show();
+                $('#sale_process_financial').hide();
+                $('#sale_process_all').hide();
+                break;
+            case 'sales_financial_on':
+                $('#sale_process').hide();
+                $('#sale_process_advance').hide();
+                $('#sale_process_financial').show();
+                $('#sale_process_all').hide();
+                break;
+            case 'sales_all_on':
+                $('#sale_process').hide();
+                $('#sale_process_advance').hide();
+                $('#sale_process_financial').hide();
+                $('#sale_process_all').show();
+                break;
+        }
+    }
+</script>

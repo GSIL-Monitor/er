@@ -1,0 +1,65 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar"> 
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="{$id_list.search_form}" class="easyui-form" method="post">
+<div class="form-div">
+    <label>类　　型：</label> <input class="easyui-combobox txt" name="search[type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_type_select').splice(0,3)"/>
+    <label>店　　铺：</label> <select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+    <label>客户网名：</label> <input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+    <a href="javascript:void(0)" onclick="sioSalesRefund.clickMore(this)">更多</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="sioSalesRefund.submitSearchForm(this);">搜索</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="sioSalesRefund.loadFormData();">重置</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+	
+    <label>状　　态：</label> <input class="easyui-combobox txt" name="search[process_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_process_status_stockin')"/>
+    <label>标　　记：</label> <input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+    <label>原始单号：</label> <input class="easyui-textbox txt" type="text" name="search[tid]" />
+</div>
+<div class="form-div">
+    <label>物流单号：</label> <input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+    <label>姓　　名：</label> <input class="easyui-textbox txt" type="text" name="search[receiver_name]" />
+    <label>电　　话：</label> <input class="easyui-textbox txt" type="text" name="search[return_mobile]" />
+</div>
+<div class="form-div">
+    <label>条　　码：</label> <input class="easyui-textbox txt" type="text" name="search[barcode]" />
+    <label>退换单号：</label> <input class="easyui-textbox txt" type="text" name="search[refund_no]" />
+</div>
+</div>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</form>
+</div>
+</block>
+<block name="dialog"> </block>
+<block name="script">
+<script>
+//# sourceURL=sales_refund.js
+$(function(){
+    setTimeout(function(){
+        sioSalesRefund = new RichDatagrid(JSON.parse('{$params}'));
+        sioSalesRefund.setFormData();
+    },0);
+});
+function stockinSubmitAddTradeRefund(stockin_p){
+    var select_row = $('#'+sioSalesRefund.params.datagrid.id).datagrid('getSelected');
+    if($.isEmptyObject(select_row))
+    {
+        messager.alert('请选择退换单');
+        return;
+    }
+    var sales_refund_id = select_row['id'];
+    $.post("{:U('StockInOrder/getSalesRefundInfo')}",{id:sales_refund_id},function(infor){
+        stockin_p.initByType("3");
+        $('#'+stockin_p.form_id).form('filterLoad',infor.form);
+        var rows = infor.data.rows;
+        for(var index in rows)
+        {
+            $('#'+stockin_p.datagrid_id).datagrid('appendRow',rows[index]);
+        }
+        stockin_p.calcPrice();
+        $('#'+stockin_p.params.add[stockin_p.stockin_type].id).dialog('close');
+    },"json");
+}
+</script>
+</block>

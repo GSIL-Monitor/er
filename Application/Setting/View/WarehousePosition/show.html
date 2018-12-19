@@ -1,0 +1,112 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="position.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post" style="background-color: #f3f3f3;margin: 0;display: inline;">
+			<div class="form-div" style="padding:10px;display:inline;">
+				<label class="five-character-width">仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+						<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+				<label class="five-character-width">货位名称：</label><input class="easyui-textbox txt" type="text" name="search[position_no]"/>
+                <label style="display:none;"><input id="posi_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="position.submitSearchForm()">搜索</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="position.loadFormData()">重置</a>
+			</div>
+		</form>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="position.add()">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="position.edit()">编辑</a>
+        <a id="posi_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="position.showDisabled()">显示停用</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="position.uploadDialog()">导入货位</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="position.downloadTemplet()">下载模板</a>
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=position.js
+        $(function(){
+            setTimeout(function(){
+                position = new RichDatagrid(JSON.parse('{$params}'));
+			    position.setFormData();
+                position.upload = function () {
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('WarehousePosition/uploadExcel')}";
+                    var dg = $("#{$id_list.datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if ( res.status==0) {
+                                dialog.dialog("close");
+                                dg.datagrid("reload");
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                            } else if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "importResponse");
+                                dialog.dialog("close");
+                                dg.datagrid("reload");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                position.showDisabled =function(){ 
+                    if($("#posi_show_disabled").val()==0){
+                        $("#posi_show_disabled").val('1');
+                        position.submitSearchForm(this);
+                        $("#posi_but_disabled").linkbutton({text:'隐藏停用'});
+                    }else{
+                        $("#posi_show_disabled").val('0');
+                        position.submitSearchForm(this);
+                        $("#posi_but_disabled").linkbutton({text:'显示停用'});
+                    }
+                }
+                position.uploadDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}");
+                    dialog.dialog({
+                        title: "导入货位",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+                position.downloadTemplet = function(){
+                    var url= "{:U('WarehousePosition/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                }
+            },0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>

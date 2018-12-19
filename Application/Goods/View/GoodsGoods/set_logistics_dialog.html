@@ -1,0 +1,62 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.toolbar}">
+    <form id="{$id_list.form}">
+        <input type="hidden"  name="{$type}_goods_id" value="{$datagrid.goods_id}">
+        <input type="hidden"  name="{$type}_type"     value="{$datagrid.type}">
+        <div class="form-div"  style="margin-bottom:10px;">
+            <label>  店铺：</label><select id="logistics_{$type}_shop" class="easyui-combobox sel" name="{$type}_shop_id" data-options="editable:false,required:true,onSelect:selectChange"><option value="0">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+            <label>  仓库：</label><select id="logistics_{$type}_warehouse" class="easyui-combobox sel" name="{$type}_warehouse_id" data-options="editable:false,required:true,onSelect:selectChange"><option value="0">全部</option><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+            <!--<label class="form-div" style="margin-left:260px;">-->
+                <!--<a href="{$faq_url}#warehouse_selection_by_goods_explain" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>-->
+            <!--</label>-->
+            <br>
+            <label style="color:red;align:center;">#请按照所需到[设置]->[系统设置]中启用按货品选物流策略#</label>
+        </div>
+    </form>
+</div>
+<script>
+    // 加载数据
+    $(function(){
+        $('#{$datagrid.id}').datagrid().datagrid('enableCellEditing',false);
+    });
+    function selectChange(){
+        var shop_id = $('#logistics_{$type}_shop').combobox('getValue');
+        var warehouse_id = $('#logistics_{$type}_warehouse').combobox('getValue');
+        var goods_id = $("input[name='{$type}_goods_id']").val();
+        var type = $("input[name='{$type}_type']").val();
+        var dg = $("#{$id_list.id_datagrid}");
+        $.post("{:U('GoodsGoods/getLogisticsList')}",{'goods_id':goods_id,'shop_id':shop_id,'warehouse_id':warehouse_id,'type':type},function(res){
+            dg.datagrid("loadData",res);
+        },'JSON');
+    }
+    function submitSetOutLogistics(){
+        var sow_dg=$("#{$id_list.id_datagrid}");
+        var type = $("input[name='{$type}_type']").val();
+        var goods_id = $("input[name='{$type}_goods_id']").val();
+        var shop_id=$("#logistics_{$type}_shop").combobox('getValue');
+        var warehouse_id=$("#logistics_{$type}_warehouse").combobox('getValue');
+        // 获取所有信息，并将设置了优先级或选中的数据选出
+        var allRows = sow_dg.datagrid('getRows');
+        var rows = new Array();
+        for (var i=0; i<allRows.length; i++) {
+            if (allRows[i].priority!=''||allRows[i].is_select==1) {
+                rows[rows.length]=allRows[i];
+            }
+        }
+        sow_dg.datagrid('endEdit',sow_dg.datagrid('getRowIndex',sow_dg.datagrid('getSelected')));// 结束当前行的编辑
+        for (var i=0; i<rows.length; i++) {
+            if(rows[i].is_select==1&&rows[i].priority==''){messager.info('物流:'+rows[i].logistics_name+',优先级不能为空！');return;}
+            if (rows[i].is_select==0&&rows[i].priority!=''&&rows[i].rec_id==0) {messager.info('物流:'+rows[i].logistics_name+',未选中仓库,无需设置优先级');return;}
+        }
+        $.post("{:U('Goods/GoodsGoods/setOutLogistics')}", {type:type,goods_id:goods_id,shop_id:shop_id,warehouse_id:warehouse_id,out_logistics:JSON.stringify(rows)}, function(res) {
+            if (res.status==0) {messager.info(res.info);return;}
+            for (var i=0; i<rows.length; i++) {
+                if (rows[i].is_select==0&&rows[i].priority!=''&&rows[i].rec_id!=0){rows[i].rec_id=0;}
+                if (rows[i].is_select==1&&rows[i].priority!=''&&rows[i].rec_id==0){rows[i].rec_id=1;}
+            }
+            sow_dg.datagrid('acceptChanges');
+        });
+        return true;
+    }
+</script>

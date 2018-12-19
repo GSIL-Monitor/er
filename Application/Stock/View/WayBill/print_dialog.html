@@ -1,0 +1,98 @@
+
+<div>
+ <a href="javascript:void(0)" id="printing_dialog" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="together_print()">打印</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="newPreviewGoodsAndLogistics()">预览</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="printerSetting()">设置</a></div>
+<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="selectPrinter()">选择打印机</a> -->
+<div style="margin-top:10px;margin-left:5px;float:left;">
+<div><span style="color:red;margin-left:100px;"><label for="stockSalesPrint_printer_list">发货单打印 </label></span></div>
+<div><span><label for="stockSalesPrint_printer_list">打&nbsp印&nbsp机：&nbsp</label></span>
+<input id="stockSalesPrint_printer_goods" class="easyui-combobox" data-options="width:161,onSelect:function(res){onPrinterSelect(res.name,'goods');}"/>
+</div><div style="margin-top:10px">
+<label>选择模板：</label>
+<select class='easyui-combobox sel' data-options="width:161,onSelect:function(res){newTemplateOnSelect('goods');}" id='stock_sales_goods_print_template'>
+<volist name='goods_template' id='vo'><option value="{$vo.id}">{$vo.title}</option></volist>
+</select>
+</div>
+</div>
+
+<div style="margin-top:10px; margin-left:30px; padding-left:10px;">
+<div><span style="color:red;margin-left:100px;"><label for="stockSalesPrint_printer_list">物流单打印 </label></span></div>
+<div><span><label for="stockSalesPrint_printer_list">打&nbsp印&nbsp机：&nbsp</label></span>
+<input id="stockSalesPrint_printer_logistics" class="easyui-combobox" data-options="width:161,onSelect:function(res){onPrinterSelect(res.name,'logistics');}"/></div><div style="margin-top:10px">
+<label>选择模板：</label>
+<select class="easyui-combobox sel" data-options="width:161,onSelect:function(res){newTemplateOnSelect('logistics');}" id="stock_sales_logistics_print_template">
+<volist name='waybill_templates' id='vo'><option value="{$vo.id}">{$vo.title}</option></volist>
+</select>
+</div>
+
+<div id="GuidetemplateDiv" style="margin-top:7px;margin-left:57px;display:none;"><span style="color:red">没有模板？去</span><a href="javascript:changeTemplatePage()">打印模板</a><span style="color:red">界面下载模板</span></div>
+<input type="text" style="display:none" value="" name="stdTemplates"/>
+</div>
+	<script>
+	//# sourceURL=print_dialog.js
+	
+var default_template_id = {$waybill_template_id};
+var default_goods_template_id = {$template_id};
+$(function(){
+	stockSalesPrint.goods_contents = {$contents};
+	stockSalesPrint.printing ='printing_dialog';
+	stockSalesPrint.goods_print = 'stockSalesPrint_printer_goods';
+	stockSalesPrint.goods_print_template ='stock_sales_goods_print_template'; 
+	stockSalesPrint.logistics_contents = {$waybill_contents};
+	stockSalesPrint.logistics_print = 'stockSalesPrint_printer_logistics';
+	stockSalesPrint.logistics_print_template ='stock_sales_logistics_print_template';
+	var templates = '{$stdTemplates}';
+	if(templates !== ''){
+		templates = JSON.parse(templates);
+		if(templates.status == 1){
+			messager.alert(templates.msg);
+			$('#stocksalesprint_print_dialog').dialog('close');
+		}else {
+			$('input[name=stdTemplates]').val(templates.success[0].standard_template_url);
+		}
+	}
+
+	setTimeout(function(){
+		newSelectPrinter('goods');
+		if($('#stock_sales_goods_print_template').combobox('getData').length == 0 || $('#stock_sales_logistics_print_template').combobox('getData').length==0)
+			$('#GuidetemplateDiv').show();
+		if(default_goods_template_id != '-1'){
+			$('#stock_sales_goods_print_template').combobox('select',{$template_id});}
+		newSelectPrinter('logistics');
+		if(default_template_id != '-1')
+			$('#stock_sales_logistics_print_template').combobox('select',{$waybill_template_id});
+	},0);
+});
+function getGoodsTemplatesContents(){
+	var contents = {$contents};
+	return contents;
+}
+function getGoodsGoodsDetail(){
+	var goods = {$goods};
+	return goods;
+}
+function getPreviewFormat(){
+	var format = "{$preview_format}";
+	return format;
+}
+function getLogisticsTemplatesContents(){
+	var contents = {$waybill_contents};
+	return contents;
+}
+function getLogisticsGoodsDetail(){
+	var goods = {$goods};
+	return goods;
+}
+function together_print(){
+	newDealBeforePrint('logistics',{$isMulti},'','together')
+}
+
+function newPreviewGoodsAndLogistics(){
+newPreviewGoods();
+newPreviewLogistics({$isMulti});
+
+}
+
+</script>
+</div>

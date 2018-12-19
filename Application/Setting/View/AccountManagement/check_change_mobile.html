@@ -1,0 +1,33 @@
+<form id="account_change_mobile" method="post">
+    <div class="form-div">
+        <label>手机号:&emsp;&emsp;</label>
+        <input class="easyui-textbox"  name="mobile" value="{$mobile}" data-options="required:true,validType:'mobile',disabled:true">
+    </div>
+    <div class="form-div">
+        <label>验证码:&emsp;&emsp;</label>
+        <input class="easyui-textbox" id="account_change_code" name="code" style="width:92px;" missingMessage="验证码为六位整数" data-options="required:true,validType:'code'">
+        <div class="account-input-code" style="display:inline">
+            <a href="javascript:void(0);" class="easyui-linkbutton" style="width:76px;" data-options="required:true,validType:'zip'" onclick="clickSendCode();">获取验证码</a>
+        </div>
+    </div>
+    <div class="account-input-msg" style="font-size: 12px;color: red;"></div>
+</form>
+<script>
+
+    function clickSendCode(){
+        if('{$mobile}'!=''){
+            sendCodeByMobile('account-input-code',"{$mobile}");
+        }else{
+            messager.alert('未获取到手机号，请联系管理员！');
+            $('#accountmanagement_dialog').dialog('close');
+            return false;
+        }
+    }
+    function submitAccountManagementDialog(){
+        if(!$('#account_change_mobile').form('validate')){ return false;}
+        if(setTime.count==60&&!setTime.send){messager.info('请先获取验证码');return false;}
+        var data = $('#account_change_code').val();
+        return data;
+    }
+</script>
+

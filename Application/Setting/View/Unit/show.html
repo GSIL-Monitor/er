@@ -1,0 +1,24 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post" style="background-color: #f3f3f3;margin: 0;display: inline;">
+        </form>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="unit_obj.add()">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="unit_obj.edit()">修改</a>
+    </div>
+    <script type="text/javascript">
+        //# sourceURL=unit_obj.js
+        $(function(){setTimeout(function(){
+            unit_obj = new RichDatagrid(JSON.parse('{$params}'));
+            unit_obj.checkEdit = function(){
+                if(unit_obj.selectRows[0].id==0){
+                    messager.info('系统内置，无法修改');
+                    return false;
+                }
+                return true;
+            }
+        },0);});
+    </script>
+</block>
+<block name="tabs">
+</block>

@@ -1,0 +1,33 @@
+<style>
+    .wa-div label{vertical-align:middle;width: 65px;display:inline-block; font-size: 12px;text-align: right;}
+</style>
+<div>
+    <form id="warehouse_auths" method="post">
+        <div class="form-div wa-div">
+            <label>客户编号：</label><input class="easyui-textbox txt" type="text" name="customerId" data-options="required:true,validType:'loginName'" missingMessage="不能为空 "/>
+            <label>货主编号：</label><input class="easyui-textbox txt" type="text" name="ownerCode" data-options="validType:'loginName'"/>
+        </div>
+        <div class="form-div wa-div">
+            <label>仓库编号：</label><input class="easyui-textbox txt" type="text" name="warehouseCode" data-options="required:true,validType:'loginName'" missingMessage="不能为空 "/>
+            <label>所属仓库：</label><input class="easyui-textbox txt" type="text" name="ownerWarehouse" data-options="validType:'loginName'"/>
+        </div>
+        <div class="form-div wa-div">
+            <label>接口地址：</label><input class="easyui-textbox txt" type="text" name="api_url" data-options=""/>
+        </div>
+
+    </form>
+</div>
+<script>
+    $(function(){
+        var api_key = {$api_key};
+        setTimeout(function () {
+//            if($.isEmptyObject(api_key)){
+//                operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district);
+//            }else{
+                $("#warehouse_auths").form('filterLoad', {$api_key});
+//                var area_code = area.area_id(warehouse_info);
+//                operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district,area_code);
+//            }
+        }, 0);
+    });
+</script>

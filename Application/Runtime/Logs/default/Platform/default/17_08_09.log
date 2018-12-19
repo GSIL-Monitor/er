@@ -1,0 +1,15 @@
+2017-08-09 00:01:01	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-09 00:01:01	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-09 00:01:02	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:01:02	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:01:02	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-09 00:03:23	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-09 00:03:23	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-09 00:03:23	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:03:23	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:03:23	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-09 00:04:26	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-09 00:04:26	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-09 00:04:26	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:04:26	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-09 00:04:26	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27

@@ -1,0 +1,253 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><!-- <div id="{$id_list.edit}"></div> --></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<style type="text/css">
+#financialCheck_next_link {
+    float: right;
+    margin-right: 10px;
+}
+</style>
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>订单编号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tids]" />
+<label>　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+<label>　电话号码：</label><input class="easyui-textbox txt" type="text" name="search[receiver_mobile]" />
+<label>　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<a href="javascript:void(0)" onclick="financialCheck.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="financialCheck.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="financialCheck.loadFormData();">重置</a>
+<a href="javascript:void(0)" id="financialCheck_next_link" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('单据打印', '{:U('Stock/StockSalesPrint/getPrintList')}')">单据打印</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>客服备注：</label><input class="easyui-textbox txt" type="text" name="search[cs_remark]" />
+<label>　物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　订单来源：</label><input class="easyui-combobox txt" name="search[trade_from]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_from')"/> 
+<label>　发货条件：</label><input class="easyui-combobox txt" name="search[delivery_term]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('delivery_term')"/>
+<label>　类别：</label><input class="easyui-combobox txt" name="search[trade_type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type')"/>
+</div>
+<div class="form-div">
+<label>驳回原因：</label><select class="easyui-combobox sel" name="search[revert_reason]"><option value="all">全部</option><volist name='list.reason' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　退款状态：</label><input class="easyui-combobox txt" name="search[refund_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_status')"/> 
+<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<label>　标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+</div>
+<div class="form-div">
+<label>货品品牌：</label><select class="easyui-combobox sel" name="search[brand_id]"><option value="all">全部</option><volist name='list.brand' id='vo'><option value="{$vo.brand_id}">{$vo.brand_name}</option></volist></select>
+ <label class="">　货品分类：</label><input class="txt" id="tree_class_show_spec_cash" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+<label>　下单时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+<label>　　　　至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" data-options="editable:false"/> 
+</div>
+</div>
+</form>
+<div id="menu" class="easyui-menu" style="width:120px;">
+    <div data-options="iconCls:'icon-search',menu:'#mbut-financial-check'" onclick="checkFinancial(0)">审核</div>
+    <div onclick="checkFinancial(1)">强制审核</div>
+    <div class="menu-sep"></div>
+    <div data-options="iconCls:'icon-search',plain:true" onclick="financialCheck.checkNumber()">查看号码</div>
+    <div class="menu-sep"></div>
+    <div data-options="iconCls:'icon-back',plain:true" title="驳回至订单审核" onclick="financialCheck.revertCheck()">驳回审核</div>
+</div>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="financialCheck.setFlag()">标记管理</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-sign',plain:true,menu:'#financialCheck-flag'">标记订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="financialCheck.checkNumber()">查看号码</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-search',menu:'#mbut-financial-check'" onclick="checkFinancial(0)">审核</a>
+<div id="mbut-financial-check"><div data-options="iconCls:'icon-search'" onclick="checkFinancial(1)">强制审核</div></div>
+<a href="javascript:void(0)" class="easyui-linkbutton" title="驳回至订单审核" data-options="iconCls:'icon-back',plain:true" onclick="financialCheck.revertCheck()">驳回审核</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/FinancialCheck','financial_check','{$datagrid.id}',1)">设置表头</a>
+</div>
+<div id="financialCheck-flag" style="width:100px;height:150px;" noline="true" >
+	<volist name='list.flag' id='vo'>
+		<div onclick="financialCheck.newSelectFlag({$vo.id})"><span style="margin-left: -25px; background-color:{$vo.bg_color}; font-family:{$vo.family}; color: {$vo.color};">{$vo.name}</span></div>
+	</volist>
+</div>
+<script type="text/javascript">
+$(function () { 
+    $('#tree_class_show_spec_cash').changStyleTreeCombo('tree_class_show_spec_cash');
+	setTimeout(function () { 
+		financialCheck = new RichDatagrid(JSON.parse('{$params}')); 
+		financialCheck.setFormData();
+		//查看号码
+		financialCheck.checkNumber=function(){
+            var rows=financialCheck.selectRows;
+            if(rows==undefined){messager.info('请选择操作的行');return false;}
+            var ids=[];
+            var list=[];
+            for(var i in rows){ 
+                if(rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+                    list.push({trade_no:rows[i]['trade_no'],result_info:'手机和固话均为空！'});
+                    continue;
+                }
+                ids.push(rows[i]['id']); 
+            }
+            if(ids.length>0){
+                $.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'sales_trade'},function(res){
+                    financialCheck.dealDatagridReasonRows(res,list); 
+                },'JSON');
+            }else{
+                var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+                financialCheck.dealDatagridReasonRows(res,undefined); 
+            }
+        }
+        $("#{$id_list.id_datagrid}").datagrid('options').onRowContextMenu=function(e, rowIndex, rowData){
+            //三个参数：e，rowIndex当前点击时所在行的索引，rowData当前行的数据
+                e.preventDefault(); //阻止浏览器捕获右键事件
+                $(this).datagrid("clearSelections"); //取消所有选中项
+                $(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+                $(this).datagrid('options').that.click(rowIndex,rowData);
+                $('#menu').menu('show', {
+                    //显示右键菜单
+                    hideOnUnhover: false,
+                    left: e.pageX,//在鼠标点击处显示菜单
+                    top: e.pageY
+                });
+        };
+        
+        financialCheck.dealDatagridReasonRows=function(result,list){
+            if(result.status==1){ messager.alert(result.message); return;}
+            if(list!=undefined&&list.length>0){
+                var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+                result.info.rows=$.merge(list,fail);
+                result.info.total+=list.length;
+                result.status=2;
+            }
+            if(result.status==2){ $.fn.richDialog("response", result.info, 'tradecheck');}
+            var rows=financialCheck.selectRows;
+            var selectrows_length = 0;
+            for(var j=0;j<financialCheck.selectRows.length;j++){
+                if(financialCheck.selectRows[j] != undefined){selectrows_length += 1;}
+            }
+            var index;
+            var trade_dg=$('#'+financialCheck.params.datagrid.id);
+            if((result.status==0||result.status==2)&&result.data!=undefined){
+                for(var i in rows){
+                    for(var x in result.data.rows){
+                        if(rows[i].id==result.data.rows[x].id){ 
+                            index=trade_dg.datagrid('getRowIndex',rows[i]); 
+                            if(result.check_number){rows[i].receiver_mobile=result.data.rows[x].receiver_mobile;rows[i].receiver_telno=result.data.rows[x].receiver_telno;trade_dg.datagrid('refreshRow',index);}
+                            else if(result.check!=undefined&&result.check){trade_dg.datagrid('deleteRow',index);delete financialCheck.selectRows[i];selectrows_length -= 1;if(selectrows_length == 0){delete financialCheck.selectRows;}break;}
+                        }
+                    }
+                }
+            }else{
+                for(var i in rows){
+                    for(var item in result)
+                    {
+                        if(rows[i].id == result[item].id)
+                        {
+                           index = trade_dg.datagrid('getRowIndex',rows[i]);
+                           trade_dg.datagrid('deleteRow',index);
+                        }
+                    }
+                }
+            }
+        }
+
+        //驳回审核
+        financialCheck.revertCheck = function(){
+            var rows = financialCheck.selectRows;
+            var selects_info = [];
+            var resultBeforeCheck = [];
+            if(rows == undefined){messager.info('请选择操作的行');return false;}
+            for(var item in rows){
+                var temp_result = {'trade_no':rows[item]['trade_no']};
+                if(rows[item]['trade_status'] != 35){
+                    temp_result['result_info'] = "订单状态错误，禁止驳回";
+                    resultBeforeCheck.push(temp_result);
+                    continue;
+                }
+                selects_info.push(rows[item].id);
+
+            }
+            if($.isEmptyObject(selects_info))
+            {
+                $.fn.richDialog("response", resultBeforeCheck, "tradecheck");
+                return;
+            }
+
+            var ids = selects_info.toString();
+
+            this.setReason('revert_reason',ids,resultBeforeCheck);
+        }
+
+        financialCheck.newSelectFlag=function(id){
+    		var flag=[];
+    		flag.id=id;
+    		financialCheck.selectFlag(flag);
+    	}
+	}, 0); 
+});
+function editTradeRowStyler(i,row){
+	var refund_bg_color='{$refund_color}';
+	if(row.refund_status>1){return refund_bg_color;}
+	return;
+}
+function checkFinancial(checkType,checkRows){
+    checkType=(checkType==undefined?0:checkType);
+    var rows=(checkRows==undefined?financialCheck.selectRows:checkRows);
+    if(rows==undefined){messager.alert('请选择审核的订单');return false;}
+    var ids=[];
+    var list=[];
+    for(var i in rows){
+        if(rows[i]['id']<1){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+        }
+        if(rows[i]['trade_status']!=undefined&&rows[i]['trade_status']!=35){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'订单状态不正确'});continue;
+        }
+        //检查物流公司是否支持货到付款;无效店铺;无效的物流方式;->前端未验证
+        if(rows[i]['shop_id']!=undefined&&rows[i]['shop_id']<1){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'无效店铺'});continue;
+        }
+        if(rows[i]['warehouse_id']!=undefined&&rows[i]['warehouse_id']<1){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'无效仓库'});continue;
+        }
+        if(rows[i]['warehouse_type']!=undefined&&rows[i]['warehouse_type']<0){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'仓库类型不确定'});continue;
+        }
+        if(rows[i]['freeze_reason']!=undefined&&rows[i]['freeze_reason']!=0){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'订单已被冻结'});continue;
+        }
+        if(rows[i]['refund_status']!=undefined&&rows[i]['refund_status']==1){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'申请退款'});continue;
+        }
+        if(rows[i]['receiver_name']!=undefined&&rows[i]['receiver_name']==''){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'收件人为空'});continue;
+        }
+        if(rows[i]['receiver_address']!=undefined&&($.trim(rows[i]['receiver_address'])=='')){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'收件地址为空'});continue;
+        }
+        if(rows[i]['revert_reason']!=undefined&&rows[i]['revert_reason']!=0){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'驳回订单'});continue;
+        }
+        //以下判断强制审核跳过
+        if(checkType!=1&&rows[i]['logistics_id']!=undefined&&rows[i]['logistics_id']<=0){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'无效的物流'});continue;
+        }
+        if(checkType!=1&&rows[i]['receiver_mobile']!=undefined&&rows[i]['receiver_telno']!=undefined&&rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'收件人电话不能为空'});continue;
+        }
+        if(checkType!=1&&rows[i]['trade_type']!=undefined&&rows[i]['customer_id']!=undefined&&rows[i]['trade_type']==1&&rows[i]['customer_id']<1){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'无效的客户'});continue;
+        }
+        if(checkType!=1&&rows[i]['bad_reason']!=undefined&&rows[i]['bad_reason']!=0){
+            list.push({trade_no:rows[i]['trade_no'],result_info:'异常订单'});continue;
+        }
+        ids.push(rows[i]['id']);
+    }
+    if(ids.length>0){
+        var check_financial_ids=JSON.stringify(ids);
+        $.post('{:U('Trade/FinancialCheck/financialCheck')}',{'ids':check_financial_ids,'type':checkType},function(res){
+            financialCheck.dealDatagridReasonRows(res,list);
+        },'JSON');
+    }else{
+        var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+        financialCheck.dealDatagridReasonRows(res);
+    }
+}
+</script>
+</block>

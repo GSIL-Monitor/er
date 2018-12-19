@@ -1,0 +1,23 @@
+<taglib name="TagLib\EasyUI" />
+ <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+               <label>日期:</label><input class="easyui-datebox txt"  type="text" name="search[start_time]" value="{$current_month_date}" data-options="editable:false"/>
+				<label>　　　至:</label><input class="easyui-datebox txt"  type="text" name="search[end_time]" value="{$current_date}" data-options="editable:false"/>
+				 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="ShowBalance.submitSearchForm();">搜索</a>
+              
+			</div>	
+        </form>
+	</div>
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}"
+ class="{$datagrid.class}" options="datagrid.options" headerCls="panel-header-title"
+ singleSelect="true" nowrap="false" fields="datagrid.fields" />
+<script>
+    $(function(){
+        setTimeout(function () {
+            ShowBalance = new RichDatagrid(JSON.parse('{$params}'));
+			  ShowBalance.setFormData();
+        }, 0);
+		
+    });
+</script>

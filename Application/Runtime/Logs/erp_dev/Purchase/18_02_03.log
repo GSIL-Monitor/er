@@ -1,0 +1,4 @@
+[ 2018-02-03T20:55:06+08:00 ] 127.0.0.1 /index.php/purchase/sorting_wall/submitboxgoodstrans.html
+ERR: SortingWall-submitBoxGoodsTrans-stockout_order-更新失败
+[ 2018-02-03T20:55:21+08:00 ] 127.0.0.1 /index.php/purchase/sorting_wall/boxrelease.html
+ERR: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AND `sort_status` = 0' at line 1

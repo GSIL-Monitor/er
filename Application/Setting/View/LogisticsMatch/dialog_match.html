@@ -1,0 +1,269 @@
+<taglib name="TagLib\EasyUI" />
+<style>
+.red{
+ color:red;
+}
+</style>
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:540px;width:900px;">
+<div data-options="region:'west',title:'适用范围',split:true" style="width:250px;height:540px;overflow:auto"> 
+		<ul id="match-area-tree"></ul>
+</div>
+<div data-options="region:'center',title:'匹配规则'" style="overflow:auto;">
+<form  id="{$id_list.form_id}">
+<div class="form-div" style="float: right;width:175px;margin-right: 10px;color:blue;">
+	#金额单位<span class="red">元</span>，重量单位<span class="red">千克</span>#<br>
+	#已付金额和重量区间要从上往<br>　下<span class="red">依次</span>填写，不能<span class="red">跳行</span>填写#<br>
+	#优先执行<span class="red">已付金额</span>匹配策略#</div>
+<div class='form-div'>
+<label>默认物流公司：</label><select class="easyui-combobox sel" type="text" name="logistics_id"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['logistics_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<if condition="$model eq 1">
+<label> 适用仓库：</label><select class="easyui-combobox sel" type="text" name="warehouse_target_id"  data-options="editable:false,required:true"><volist name='list.warehouse' id='vo'><if condition="$vo['id'] eq $trade['shop']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<else />
+<label> 适用店铺：</label><select class="easyui-combobox sel" type="text" name="shop_target_id"  data-options="editable:false,required:true"><volist name='list.shop' id='vo'><if condition="$vo['id'] eq $trade['shop']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</if>
+</div>
+<hr style="margin-top: 10px;border:none;border-top:2px dotted #95B8E7;width: 412px;" align="left">
+<div class='form-div'>
+<label>1.已付金额满：</label><input class="easyui-numberbox txt" name="paid_amount1" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="amount_logistics_id1"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['amount_logistics_id1']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</div>
+<div class='form-div'>
+<label>2.已付金额满：</label><input class="easyui-numberbox txt" name="paid_amount2" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="amount_logistics_id2"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['amount_logistics_id2']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</div>
+<div class='form-div'>
+<label>3.已付金额满：</label><input class="easyui-numberbox txt" name="paid_amount3" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="amount_logistics_id3"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['amount_logistics_id3']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</div>
+<hr style="margin-top: 10px;border:none;border-top:2px dotted #95B8E7;">
+<div class='form-div'>
+<label>1.重量不超过：</label><input class="easyui-numberbox txt" name="weight1" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="weight_logistics_id1"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['weight_logistics_id1']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="logisticsMatch.setExcept(1)">不到地址1</a>
+<a href="{$faq_url.logistics_m_weight_except}" target="_blank" class="easyui-linkbutton" title="点击查看重量区间不到地址解释" data-options="iconCls:'icon-help',plain:true">不到地址解释</a>
+</div>
+<div class="form-div" id="except_word_weight1" style="display: none;margin-left: 10px;">
+	<label>限重1不到地址关键词：</label><span style="color:blue">#多个关键词以<span style="color:red">英文半角逗号,</span>隔开，如：<span style="color:red">村,监狱</span>#</span><br>
+	<input class="easyui-textbox" name="except_words_weight1" data-options="multiline:true" style="width:398px;height:50px" value=""/>
+</div>
+<div class='form-div'>
+<label>2.重量不超过：</label><input class="easyui-numberbox txt" name="weight2" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="weight_logistics_id2"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['weight_logistics_id2']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="logisticsMatch.setExcept(2)">不到地址2</a>
+</div>
+<div class="form-div" id="except_word_weight2" style="display: none;margin-left: 10px;">
+	<label>限重2不到地址关键词：</label><span style="color:blue">#多个关键词以<span style="color:red">英文半角逗号,</span>隔开，如：<span style="color:red">村,监狱</span>#</span><br>
+	<input class="easyui-textbox" name="except_words_weight2" data-options="multiline:true" style="width:398px;height:50px" value=""/>
+</div>
+<div class='form-div'>
+<label>3.重量不超过：</label><input class="easyui-numberbox txt" name="weight3" data-options="min:0,precision:4"/>
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="weight_logistics_id3"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['weight_logistics_id3']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<a href="javascript:void(0)" class="easyui-linkbutton" onclick="logisticsMatch.setExcept(3)">不到地址3</a>
+</div>
+<div class="form-div" id="except_word_weight3" style="display: none;margin-left: 10px;">
+	<label>限重3不到地址关键词：</label><span style="color:blue">#多个关键词以<span style="color:red">英文半角逗号,</span>隔开，如：<span style="color:red">村,监狱</span>#</span><br>
+	<input class="easyui-textbox" name="except_words_weight3" data-options="multiline:true" style="width:398px;height:50px" value=""/>
+</div>
+<hr style="margin-top: 10px;border:none;border-top:2px dotted #ff6600;">
+	<div class="form-div">
+		<label>一级不到关键词：</label><input class="easyui-textbox" name="except_words" data-options="multiline:true,validType:'check_merchant_no'" style="width:312px;height:50px" />
+		<label>不到改用：</label><select class="easyui-combobox sel" type="text" name="except_logistics_id"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['weight_logistics_id3']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+	</div>
+	<div class="form-div">
+		<label>二级不到关键词：</label><input class="easyui-textbox" name="except_words2" data-options="multiline:true,validType:'check_merchant_no'" style="width:312px;height:50px" />
+		<label>不到改用：</label><select class="easyui-combobox sel" type="text" name="except_logistics_id2"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $match['weight_logistics_id3']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+	</div>
+	<div class="form-div">
+		<span style="color:blue">#多个关键词以<span style="color:red">英文半角逗号,</span>隔开，如：<span style="color:red">村,监狱</span>#</span>
+		<a href="{$faq_url.logistics_m_except_word}" target="_blank" class="easyui-linkbutton" title="点击查看不到改用解释" data-options="iconCls:'icon-help',plain:true">不到改用解释</a>
+	</div>
+</form>
+</div>
+</div>
+<script type="text/javascript">
+var match=JSON.parse('{$match}');
+$(function(){
+	initMatchAreaTree();
+	setTimeout(function(){
+		initLogisticsMatch();
+	},0);
+});
+function initMatchAreaTree(){
+	$('#match-area-tree').tree({cascadeCheck:true, checkbox:true, lines:true, });
+	var tree=$('#match-area-tree');
+	$.post("{:U('Setting/WarehouseRule/getAreaTree')}", {}, function(data){
+		tree.tree('loadData',data);
+		tree.tree('collapseAll');
+		tree.tree('expand',$('#match-area-tree>li>div'));
+		tree.tree('uncheck',$('#match-area-tree>li>div'));
+		var area=tree.tree('getData',$('#match-area-tree>li>div'));
+		var areas=[];areas.push(area);
+		setMatchCheckedTree(match['area'],areas,tree);
+	});
+}
+function initLogisticsMatch(){
+	$('#{$id_list.form_id}').form('filterLoad',match);
+}
+function setMatchCheckedTree(logistics,areas,tree){
+	if(logistics==undefined){return false;}
+	for (var i=0; i<logistics.length; i++) {
+		switch(parseInt(logistics[i].level)){
+			case 0://全国
+				tree.tree('check',areas[0].target);return;
+				// areas[0].checked=true;return;
+			case 1://省
+				var p=getMatchTreeIndexById(areas[0].children,logistics[i].province);
+				tree.tree('check',areas[0].children[p].target);break;
+				// areas[0].children[p].checked=true;break;
+			case 2://市
+				var p=getMatchTreeIndexById(areas[0].children,logistics[i].province);
+				var c=getMatchTreeIndexById(areas[0].children[p].children,logistics[i].city);
+				tree.tree('check',areas[0].children[p].children[c].target);break;
+				// areas[0].children[p].children[c].checked=true;break;
+			case 3://区
+				var p=getMatchTreeIndexById(areas[0].children,logistics[i].province);
+				var c=getMatchTreeIndexById(areas[0].children[p].children,logistics[i].city);
+				var d=getMatchTreeIndexById(areas[0].children[p].children[c].children,logistics[i].district);
+				tree.tree('check',areas[0].children[p].children[c].children[d].target);break;
+				// areas[0].children[p].children[c].children[d].checked=true;break;
+		}
+	}
+}
+
+function getMatchTreeIndexById(areas,id){
+	var index=0;
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].id==id) {index=i; break;}
+	}
+	return index;
+}
+function getLogisticsMatch(){
+	var form=$('#{$id_list.form_id}');
+	if(!form.form('validate')){ return false;}
+	var model='{$model}';
+	var data={};
+	data['info']=form.form('get');
+	if (model==1) {
+		data.info['target_id']=data.info['warehouse_target_id'];
+	}else{
+		data.info['target_id']=data.info['shop_target_id'];
+	}
+	if(data.info['logistics_id']==0){messager.info('请选择默认物流公司');return false;}
+	else{
+		for(var i=1;i<4;i++){
+			if(data.info['paid_amount'+i]==''||parseFloat(data.info['paid_amount'+i])==0){
+				if(data.info['amount_logistics_id'+i]!=0){messager.info('已付金额'+i+'不能为空且大于0');return false;}
+			}else{
+				if(data.info['amount_logistics_id'+i]==0){messager.info('请选择已付金额'+i+'对应的物流公司');return false;}
+				if(i>1&&(parseFloat(data.info['paid_amount'+i])<=parseFloat(data.info['paid_amount'+(i-1)]))){messager.info('已付金额'+i+'必须要比上一级大');return false;}
+			}
+			if(i>1&&data.info['amount_logistics_id'+i]!=0&&data.info['amount_logistics_id'+(i-1)]==0){messager.info('请不要跳行填写已付金额');return false;}
+		}
+		for(var i=1;i<4;i++){
+			if(data.info['weight'+i]==''||parseFloat(data.info['weight'+i])==0){
+				if(data.info['weight_logistics_id'+i]!=0){messager.info('重量区间'+i+'不能为空且大于0');return false;}
+			}else{
+				if(data.info['weight_logistics_id'+i]==0){messager.info('请选择重量区间'+i+'对应的物流公司');return false;}
+				if(i>1&&(parseFloat(data.info['weight'+i])<=parseFloat(data.info['weight'+(i-1)]))){messager.info('重量区间'+i+'必须要比上一级大');return false;}
+			}
+			if(i>1&&data.info['weight_logistics_id'+i]!=0&&data.info['weight_logistics_id'+(i-1)]==0){messager.info('请不要跳行填写重量区间');return false;}
+		}
+		if(data.info['except_words']!=''&&data.info['except_logistics_id']==0){messager.alert('请设置不到地址改用物流。');return false;}
+		if(data.info['except_words']==''&&data.info['except_logistics_id']!=0){messager.alert('请设置不到地址关键词。');return false;}
+		if(data.info['except_words']==''&&(data.info['except_words2']!=''||data.info['except_logistics_id2']!=0)){messager.alert('请先设置一级不到地址。');return false;}
+		if(data.info['except_words2']!=''&&data.info['except_logistics_id2']==0){messager.alert('请设置二级不到地址改用物流。');return false;}
+		if(data.info['except_words2']==''&&data.info['except_logistics_id2']!=0){messager.alert('请设置二级不到地址关键词。');return false;}
+	}
+	return data;
+}
+
+logisticsMatch.submitEditDialog=function(){
+	// var match=JSON.parse('{$match}');
+	var data=getLogisticsMatch();
+	var logistics=[];
+	var tree=$('#match-area-tree');
+	var target=$('#match-area-tree>li>div');
+	var area=tree.tree('getData',target);
+	getMatchAreaTree(logistics,[area],0);
+	if(logistics.length==0){messager.info('请选择策略适用范围');return false;}
+	data.info['area']=JSON.stringify(logistics);
+	// data.info['old_area']=match['area'];
+	if(data==false){return;}
+	data.id='{$id}';
+	$.post("{:U('LogisticsMatch/editLogisticsMatch')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+logisticsMatch.params.edit.id).dialog('close');
+			logisticsMatch.refresh();
+		}
+	},"JSON");
+}
+
+logisticsMatch.submitAddDialog = function(){
+	var data=getLogisticsMatch();
+	var logistics=[];
+	var tree=$('#match-area-tree');
+	var target=$('#match-area-tree>li>div');
+	var area=tree.tree('getData',target);
+	getMatchAreaTree(logistics,[area],0);
+	if(logistics.length==0){messager.info('请选择策略适用范围');return false;}
+	data.info['area']=JSON.stringify(logistics);
+	if(data==false){return;}
+	$.post("{:U('logisticsMatch/addLogisticsMatch')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+logisticsMatch.params.add.id).dialog('close');
+			logisticsMatch.refresh();
+		}
+	},"JSON");
+}
+function getMatchAreaTree(logistics,areas,level){
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].checked) {
+			var address={level:level};
+			switch(level){
+				case 0:
+				case 1:
+					address.province=parseInt(areas[i].id);
+					address.city=0;
+					address.district=0;
+					break;
+				case 2:
+					address.province=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					address.city=parseInt(areas[i].id);
+					address.district=0;
+					break;
+				case 3:
+					address.province=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					address.city=parseInt((areas[i].id+'').substring(0,4)+'00');
+					switch(address.city){
+						case 110200:
+							address.city=110100;break;
+						case 120200:
+							address.city=120100;break;
+						case 310200:
+							address.city=310100;break;
+						case 500200:
+						case 500300:
+							address.city=500100;break;
+					}
+					address.district=parseInt(areas[i].id);
+					break;
+			}
+			logistics.push(address);
+		}else if ((!!areas[i].children)&&areas[i].children.length>0) {
+			getMatchAreaTree(logistics,areas[i].children,level+1);
+		}
+	}
+}
+logisticsMatch.setExcept=function(k){
+	var div=document.getElementById('except_word_weight'+k);
+	if(div.style.display=='none'){
+		div.style.display='block';
+	}else{
+		div.style.display='none';
+	}
+}
+</script>

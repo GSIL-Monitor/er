@@ -1,0 +1,300 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="stockinventory_search_form" class="easyui-form" method="post">
+<div class="form-div">
+<label >盘点单号：</label><input class="easyui-textbox txt" type="text" name="search[pd_no]" />
+
+<label >　　盘点单状态：</label>
+<input class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockpd_status')"/>
+
+<label>　　仓&nbsp;&nbsp;库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'200px'"> <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+<label>　　盘点人：</label>
+<select class="easyui-combobox sel" name="search[creator_id]" data-options="panelHeight:'100px',editable:false " >
+<volist name='employee_array' id='vo'>
+<option value="{$vo.id}">{$vo.name}</option>
+</volist>
+</select>
+<a class="easyui-linkbutton" data-options="iconCls:'icon-search'" accesskey="" onclick="StockInventoryManagement.submitSearchForm();">搜索</a>
+<a class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="StockInventoryManagement.loadFormData();">重置</a>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="StockInventoryManagement.edit()" ;>编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-submit',plain:true" onclick="StockInventoryManagement.submitStockoutOrder()" ;>提交</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="StockInventoryManagement.cancelStockOutOrder()" ;>取消</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="StockInventoryManagement.uploadDialog()">盘点导入</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="StockInventoryManagement.downloadTemplet()">下载模板</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-excel',plain:true,menu:'#stock_inventory_export'" >导出功能</a>
+<div id="stock_inventory_export">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="StockInventoryManagement.exportToExcel('csv')">导出csv(推荐)</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="StockInventoryManagement.exportToExcel('excel')">导出到Excel</a>
+</div>
+</div>
+<script>
+//# sourceURL=stockoutmanagement.js
+
+$(function () {
+    setTimeout(function () {
+        StockInventoryManagement = new RichDatagrid(JSON.parse('{$params}'));
+        StockInventoryManagement.setFormData();
+        StockInventoryManagement.checkEdit = function() {
+            var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+            var rows = $('#' + this.params.datagrid.id).datagrid('getSelections');
+            if (data == null) {messager.alert("请选择操作的行!");return false;}
+			if (rows.length > 1) {messager.alert("请选择单行编辑!");return false;}
+            var status = data.status;
+            if(status != '1'){ messager.alert("盘点单状态不正确，请重新选择！");return false;}
+            return true;
+        };
+        StockInventoryManagement.edit = function(){
+        	if(!this.checkEdit()){return;}
+        	var data = $('#' + this.params.datagrid.id).datagrid('getSelected');
+			Dialog.show('reason_show_dialog','盘点单编辑',this.params.edit.url+"&id="+data.id+'&parent_win='+'{"dialog_id":"reason_show_dialog","datagrid_id":"'+this.params.datagrid.id+'"}',600,1000,[]);
+
+        };
+		
+		StockInventoryManagement.uploadDialog = function(){
+			var dialog = $("#{$id_list.file_dialog}");
+			dialog.dialog({
+				title:'盘点导入',
+				width:'350px',
+				height:'160px',
+				modal:true,
+				closed:false,
+				inline:true,
+				iconCls: 'icon-save',
+			});
+		};
+		StockInventoryManagement.upload = function(){
+			var form = $("#{$id_list.file_form}");
+			var dg = $("#{$id_list.datagrid}");
+			var dialog = $("#{$id_list.file_dialog}");
+			var url = "{:U('Stock/StockInventoryManagement/upload')}";
+			$.messager.progress({
+				title:"请稍等",
+				msg:"该操作可能需要几分钟，请稍候",
+				text :'',
+				interval:100
+			
+			});
+			form.form("submit",{
+				url:url,
+				success:function(res){
+					$.messager.progress("close");
+					res =JSON.parse(res);
+					
+					if(res.status == 1){
+						messager.alert(res.msg);
+					}else if(res.status == 0){
+						dg.datagrid("reload");
+                        dialog.dialog("close");
+					}else{
+						 $.fn.richDialog("response", res.data, "importResponse");
+                         dg.datagrid("reload");
+					}
+				form.form("load", {"file": ""});
+				},
+			});
+		};
+		
+		StockInventoryManagement.downloadTemplet = function(){
+                    var url= "{:U('Stock/StockInventoryManagement/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                };
+		
+        StockInventoryManagement.submitStockoutOrder = function () {
+        	var that = this;
+            var rows = $('#' + this.params.datagrid.id).datagrid('getSelections');
+            if (rows[0] == null) {messager.alert("请选择操作的行!");return;}
+			var id_list = '';
+			var pd_no_list = '';
+			var error_list = {total:0,rows:[]};
+			var rows_list = [];
+			for(var i=0; i<rows.length;i++){
+				if(rows[i].status == 1){
+					id_list += rows[i].id + ',';
+					pd_no_list += rows[i].pd_no + ',';
+					rows_list.push(rows[i]);
+				}else{
+					error_list.total += 1;
+					error_list.rows.push({"pd_no":rows[i].pd_no,"info":'盘点单类型不正确，只能提交编辑中的盘点单！'});
+				}
+			}
+			id_list = id_list.substr(0,id_list.length-1);
+			pd_no_list = pd_no_list.substr(0,pd_no_list.length-1);
+			if (id_list == '') {$.fn.richDialog("response", error_list, 'inventory_management_result');return;}
+            messager.confirm('确定提交盘点单吗？',function(r){
+            	if(r){ 
+		            $.post("{:U('Stock/StockInventoryManagement/submitStockInvenOrder')}", {'ids': id_list,'pd_nos':pd_no_list}, function (r) {
+						if(r == '' ||r == null){
+							if(error_list.total == 0){
+								messager.alert('提交成功');
+							}else{
+								$.fn.richDialog("response", error_list, 'inventory_management_result');
+							}
+							var index;
+							for(var i=0; i<rows_list.length; i++){
+								index = $('#' + that.params.datagrid.id).datagrid('getRowIndex', rows_list[i]);
+								$('#' + that.params.datagrid.id).datagrid('updateRow', {
+									index: index,
+									row: {
+										status: '2',
+									}
+								});
+							}
+					   }else{
+							var r_length = r.length;
+							for(var i=0; i< r_length;++i){
+								error_list.rows.push({"pd_no":r[i]['pd_no'],"info":r[i]['info']});
+							}
+							error_list.total += r_length;
+							$.fn.richDialog("response", error_list, 'inventory_management_result');
+							var index;
+							var rows_list_err = rows_list;
+							for(var i=0; i<rows_list.length; i++){
+								for(var j=0; j< r_length;++j){
+									if(rows_list[i]['pd_no'] == r[j]['pd_no']){
+										rows_list_err.splice(i,1);
+										continue;
+									}
+								}
+							}
+							for(var i=0; i<rows_list_err.length; i++){
+								index = $('#' + that.params.datagrid.id).datagrid('getRowIndex', rows_list_err[i]);
+								$('#' + that.params.datagrid.id).datagrid('updateRow', {
+									index: index,
+									row: {
+										status: '2',
+									}
+								});
+							}
+						}
+					   
+		            });
+            	}
+            });
+        };
+        StockInventoryManagement.cancelStockOutOrder = function() {
+        	var that = this;
+            var rows = $('#' + this.params.datagrid.id).datagrid('getSelections');
+            if (rows[0] == null) {messager.alert("请选择操作的行!");return;}
+			var id_list = '';
+			var error_list = {total:0,rows:[]};
+			var rows_list = [];
+			for(var i=0; i<rows.length;i++){
+				if(rows[i].status == 1){
+					id_list += rows[i].id + ',';
+					rows_list.push(rows[i]);
+				}else{
+					error_list.total += 1;
+					error_list.rows.push({"pd_no":rows[i].pd_no,"info":'盘点单类型不正确，只能取消编辑中的盘点单！'});
+				}
+			}
+			id_list = id_list.substr(0,id_list.length-1);
+            if (id_list == '') {$.fn.richDialog("response", error_list, 'inventory_management_result');return;}
+            messager.confirm('确定取消盘点单吗？',function(r){
+            	if(r){
+		            $.post("{:U('Stock/StockInventoryManagement/deleteStockInvenOrder')}", {'ids': id_list}, function (r) {
+		                switch (r.status) {
+		                    case 1:
+								$.fn.richDialog("response", error_list, 'inventory_management_result');
+		                        break;
+		                    case 0:
+								if(error_list.total == 0){
+									messager.alert(r.info);
+								}else{
+									$.fn.richDialog("response", error_list, 'inventory_management_result');
+								}
+								var index;
+								for(var i=0; i<rows_list.length; i++){
+									index = $('#' + that.params.datagrid.id).datagrid('getRowIndex', rows_list[i]);
+									$('#' + that.params.datagrid.id).datagrid('updateRow', {
+										index: index,
+										row: {
+											status: '3',
+										}
+									});
+								}
+		                        break;
+		                    default :
+		                        messager.alert("系统发生错误，请与管理员联系！");
+		                }
+		            });
+            	}
+            });
+        };
+		StockInventoryManagement.exportToExcel = function(type){
+			var url = "{:U('Stock/StockInventoryManagement/exportToExcel')}";
+			var id_list = [];
+			for(var i in this.selectRows){id_list.push(this.selectRows[i].id);}
+			var forms = $('#stockinventory_search_form').form('get');
+			var search = JSON.stringify(forms);
+			var form=JSON.stringify(StockInventoryManagement.params.search.form_data);
+			var rows = $("#{$datagrid.id}").datagrid("getRows");
+            if(rows == ''){
+				messager.alert('导出不能为空');
+			}
+			else if(id_list != ''){
+				messager.confirm('确定导出选中的盘点单？',function(r){
+					if(!r){
+						return false;
+					}
+					window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+				});
+
+			}else if(form == search){
+                var total = $("#{$datagrid.id}").datagrid("getData").total;
+                var num = workTime.getWorkTimeNum(type);
+                if(total>num){
+                    if(type == 'csv'){
+                        messager.alert('8:00-19:00可以导出10000条，其余时间可以导出20000条!');
+                    }else {
+                        messager.alert('8:00-19:00可以导出1000条，其余时间可以导出4000条!');
+                    }
+                    return;
+                }
+				messager.confirm('确定导出所有的盘点单？',function(r){
+					if(!r){
+						return false;
+					}
+					window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+				});
+			}else{
+				messager.confirm('确定导出搜索的盘点单？',function(r){
+					if(!r){
+						return false;
+					}
+					window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+				});
+			}
+		};
+       
+    }, 0);
+});
+
+</script>
+</block>
+<block name="dialog">
+<div id="{$edit}"></div>
+<div id="{$id_list.file_dialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.file_form}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="StockInventoryManagement.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>

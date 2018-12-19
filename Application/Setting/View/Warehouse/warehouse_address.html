@@ -1,0 +1,17 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" headerCls="panel-header-title" singleSelect="true" nowrap="false" fields="datagrid.fields" />
+<script>
+//# sourceURL=address.js
+    $(function(){
+        setTimeout(function () {
+            address = new RichDatagrid(JSON.parse('{$params}'));
+			var datagrid = address.params.datagrid.id;
+			$('#'+datagrid).datagrid('options').onDblClickRow = function(index,row){
+				var parent_datagrid_id = address.params.parentObject;
+				var parent_object = $('#'+parent_datagrid_id).datagrid('options').erpTabObject;
+				parent_object.updateAddress(row);
+			};
+			
+        }, 0);
+    });
+</script>

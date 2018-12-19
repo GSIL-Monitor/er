@@ -1,0 +1,175 @@
+<style>
+.wh-div label{vertical-align:middle;width: 60px;display:inline-block; font-size: 12px;text-align: right;}
+</style>
+<div>
+    <form id="{$dialog_list.form}" method="post">
+        <div class="form-div wh-div">
+            <label>仓库名称：</label><input class="easyui-textbox txt" type="text"  name="name"  data-options="required:true,validType:'specialCharacter'" missingMessage="不能为空 " />
+            <label>仓库类别：</label><input class="easyui-combobox txt" id="{$type}_warehouse" name="type"  data-options=" required:true,validType:'cfg_warehouse_type'" />
+            <label>残次品库：</label><select class="easyui-combobox sel" name="is_defect" data-options="panelHeight:'auto',editable:false, required:true" > <option value="0">否</option> <option value="1">是</option> </select>
+        </div>
+        <div class="form-div wh-div">
+            <label>手机：</label><input class="easyui-textbox txt" type="text" name="mobile" data-options="validType:'mobile'"/>
+            <label>固话：</label><input class="easyui-textbox txt" type="text" name="telno" data-options="validType:'telno'" />
+            <label>备注：</label><input class="easyui-textbox txt" type="text" name="remark" data-options="validType:'loginName'" invalidMessage = "只允许汉字、英文字母、数字及下划线"  />
+        </div>
+        <div class="form-div wh-div">
+            <label>联系人：</label><input class="easyui-textbox txt" data-options="validType:'loginName'" invalidMessage = "只允许汉字、英文字母、数字及下划线" type="text" name="contact"/>
+            <label>邮编：</label><input class="easyui-textbox txt" data-options="validType:'zip'" type="text" name="zip" />
+            <label>停用：</label><select class="easyui-combobox sel" name="is_disabled" data-options="panelHeight:'auto',editable:false, required:true" > <option value="0">否</option> <option value="1">是</option></select>
+        </div>
+        <div class="form-div wh-div">
+            <label>省份：</label><select class="easyui-combobox sel" name="province"  id="{$dialog_list.province}" data-options="panelHeight:'200', editable:false,required:true,validType:'cfg_warehouse_address'" > </select>
+            <label>城市：</label><select class="easyui-combobox sel" name="city"      id="{$dialog_list.city}"     data-options="panelHeight:'200',   editable:false,required:true,validType:'cfg_warehouse_address'" > </select>
+            <label>区县：</label><select class="easyui-combobox sel" name="district"  id="{$dialog_list.district}" data-options="editable:false" > </select>
+        </div>
+        <div class="form-div wh-div">
+            <label>地址：</label><input class="easyui-textbox txt" type="text" name="address"  style="width:325px;" data-options="required:true"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" name="warehouse_address" data-options="iconCls:'icon-add',plain:true" onclick="warehouse_obj.address();" style="margin-left:20px;" >选择已授权地址</a>
+	
+	   </div>
+        <div class="form-div wh-div" style="color:darkred;">*注：如果是菜鸟电子面单的发货仓库则省、市、区、地址必须与申请菜鸟电子面单时所填仓库地址完全一样*</div>
+		</form>
+</div>
+<script>
+    //# sourceURL={$dialog_list.source_js}.js
+$(function(){
+    var warehouse_info  = {$warehouse_info};
+    var dialog_list     = JSON.parse('{$dialog_list_json}');
+    var operator_object ={};
+    $.extend($.fn.validatebox.defaults.rules, {
+        cfg_warehouse_type :{
+            'validator':function (value, param){
+                return !value.match(/请选择|不限/)?true:false;
+            },
+            message: '仓库类型不正确'
+        },
+        cfg_warehouse_address :{
+            'validator':function (value, param){
+                return $.trim(value) == '无'?false:true;
+            },
+            message: '请填写完整地址'
+        },
+
+    });
+    warehouse_obj.submitEditDialog = warehouse_obj.submitAddDialog = function(){
+
+        if (!$("#"+dialog_list.form).form('validate')) { return false; }
+
+        var address_name_json = JSON.stringify(operator_object.address_object.getText());
+        var address_code_json = JSON.stringify(operator_object.address_object.getValue());
+        $("#"+dialog_list.form).form('options').queryParams = {};
+        var warehouse_params = $("#"+dialog_list.form).form('get');
+        warehouse_params.address_names = address_name_json;
+
+        warehouse_params.address_codes = address_code_json;
+
+        warehouse_params.warehouse_id = warehouse_info.warehouse_id;
+		if(warehouse_obj.type == 'edit'){
+			warehouse_params.type = warehouse_info.type;
+		}
+        $.post("{:U('Setting/Warehouse/saveWarehouse')}",warehouse_params,function(r){
+            if(r.status == 1){ messager.alert(r.info); return; }
+            if(r.status == 2){
+                messager.alert(r.info);
+                $('#' + warehouse_obj.params.edit.id).dialog('close');
+                warehouse_obj.refresh();
+            }
+            if(r.status == 0) {
+                if ($.isEmptyObject(warehouse_info)) {
+                    $('#' + warehouse_obj.params.add.id).dialog('close');
+                }else{
+                    $("#" + warehouse_obj.params.edit.id).dialog('close');
+                }
+                warehouse_obj.refresh();
+                return;
+            }
+        },'json');
+    }
+	warehouse_obj.address = function(){
+		var that = this;
+		
+		var url='{:U("Setting/Warehouse/address")}?parentObject='+warehouse_obj.params.datagrid.id;
+		var buttons=[
+	         		{text:'取消',handler:function(){$('#address').dialog('close');}},
+	       		];
+		$('#address').dialog({ title:'选择地址', iconCls:'icon-save', width:900, height:360, closed:false, inline:true, modal:true, href:url, buttons:buttons });
+	}
+	warehouse_obj.updateAddress = function(row){
+		 $("#"+dialog_list.form).form('filterLoad', row);
+		 $('#address').dialog('close');
+	}
+	
+
+
+    warehouse_obj.WarehouseAuth = function(){
+        var that = this;
+        //var warehouse_params = $("#warehouse_auth").form('post');
+        var rows=warehouse_obj.selectRows;
+        if(rows == null){return;}
+        var save_url = "{:U('Setting/Warehouse/saveWarehouseAuth')}?id="+rows[0]['id'];
+        var url = "{:U('Setting/Warehouse/warehouseAuth')}?id="+rows[0]['id'];
+        Dialog.show('reason_show_dialog','仓库授权',url,160,430,[
+
+                {'text':'保存',handler:function(){
+                    var warehouse_params = $("#warehouse_auths").form('get');
+                    //console.log(warehouse_params);
+                    $.post(save_url,warehouse_params,function(r){
+//                        if(r.status == 0){
+//                            messager.alert(r.info);
+//                            return;
+//                        }
+//                        if(r.status == 1){
+//                            logistics_obj.refresh();
+//                            switch (r.type){
+//                                case "edit":
+//                                    $("#logistics_edit").dialog('close');
+//                                    break;
+//                                case "add":
+//                                    $("#logistics_add").dialog('close');
+//                                    break;
+//                            }
+//                            return;
+//                        }
+//                        messager.alert("系统错误请联系管理员！");
+                    },'json');
+                    $('#reason_show_dialog').dialog('close');
+                }},
+                {'text':'关闭',handler:function(){
+                    $('#reason_show_dialog').dialog('close');
+                }}
+
+        ]);
+
+
+    };
+
+    setTimeout(function () {
+        var type = "{$type}";
+        var warehouse_type = $('#'+type+'_warehouse');
+        if(type == 'edit'){
+            warehouse_type.combobox({data: formatter.get_data('warehouse_type','sel'),valueField: 'id',textField: 'name'});
+            warehouse_type.combobox({disabled: true});
+        }else if(type == 'add'){
+            var data=formatter.get_data('warehouse_type','sel');
+            for(var i= 0;i<data.length;i++){
+                if(data[i]['id']==2){data.splice(i,1)}
+            }
+            warehouse_type.combobox({data: data,valueField: 'id',textField: 'name'});
+            warehouse_type.combobox({disabled: false});
+        }
+		warehouse_obj.type = type;
+        if($.isEmptyObject(warehouse_info)){
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district);
+        }else{
+            $("#"+dialog_list.form).form('filterLoad', warehouse_info);
+            var area_code = area.area_id(warehouse_info);
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district,area_code);
+        }
+
+
+    }, 0);
+
+});
+
+</script>

@@ -1,0 +1,347 @@
+<style> .six {display: inline-block; width: 94px;text-align: right;} </style>
+<style> .seven {display: inline-block; padding-left: 40px;text-align: left;} </style>
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:560px;width:850px;overflow:hidden;">
+<div data-options="region:'center'" style="padding:2px;background:#eee;" id='rule_add_edit_top'>
+	<form  id="{$id_list.form_id}">
+	<div class="form-div">
+		<label class="six">策略编码：</label><input class="easyui-textbox txt" type="text" name="rule_no" data-options="validType:'englishOrNum'" />
+		<label>规则名称：</label><input class="easyui-textbox txt" type="text" name="rule_name" data-options="required:true"/>
+		<label class="seven"><input type="checkbox" name="is_enough_gift" value="0" />赠品库存大于：</label><input id="limit_gift" class="easyui-numberbox txt" type="text" name="limit_gift_stock" value="0" missingMessage="必填选项，只能为数字" data-options="min:0,required:true"/>
+		<label class="seven">
+			<a href="{$faq_url}#strategy_group_explain_gift_rule" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">分组实例</a>
+		</label>
+	</div>
+	<div class="form-div">
+		<label class="six" title="同一分组只执行一个策略">分&nbsp;&nbsp;组<sup style="color:red;margin-left: 3px;">①</sup>：</label><input id="rule_group_id" class="easyui-numberbox txt" type="text" name="rule_group" value="0" missingMessage="同一分组只执行一个策略" data-options="min:0,required:true"/>
+		<label title="数字越大，优先级越高">　优先级：</label><input class="easyui-combobox txt" type="text" name="rule_priority" data-options="editable:false,required:true,valueField:'id',textField:'name',panelHeight:'auto',data:formatter.get_data('rule_priority','def')"/>	
+		<label class="seven"><input type="checkbox" name="is_disabled" value="0"/>停　用</label>
+	</div>
+	<div class="form-div">
+		<label class="six">备　　注：</label><input class="easyui-textbox txt" type="text" name="remark" style="width:324px;" />
+		<label class="seven" style="color:red;font-size:12px;">&nbsp; ①：不同分组可同时执行多条策略，同一分组只执行一个策略</label>	
+		<input type="hidden" name="gift_is_random" value="0" id="is_random" />	
+	</div>
+	<hr style="margin-top: 10px;border:none;border-top:2px dotted #95B8E7;">
+	<div class="form-div">
+	<label class="six">规则条件：</label><input class="easyui-combobox txt" type="text" name="gift_rules" style="width:324px;" data-options="editable:false,multiple:true,required:true,valueField:'id',textField:'name',data:formatter.get_data('gift_rules'),onChange:giftRule.selectGiftRules"/><sup style="color:red;margin-left: 3px;">②</sup><label class="seven" style="color:red;font-size:12px;">②：当勾选数量或金额规则时，最大值为0表示无限大</label>
+	</div>
+	<div class="form-div" name="rule-shop_list"  style="display: none">
+	<label class="six">店　　铺：</label><input class="easyui-combobox txt" type="text" name="shop_list" style="width:324px;" data-options="required:true,editable:false,multiple:true,valueField:'id',textField:'name'"/>
+	</div>
+	<div class="form-div" name="rule-time_type"  style="display: none">
+	<label class="six">策略有效期：</label><input class="easyui-combobox txt" type="text" name="time_type" data-options="editable:false,required:true,valueField:'id',textField:'name',panelHeight:'auto',data:formatter.get_data('time_type','def')"/>
+	<label>开始时间：</label><input class="easyui-datetimebox txt" name="start_time" type="text" value="{$today}" style="width:175px;" data-options="editable:false,required:true"/>
+	<label>结束时间：</label><input class="easyui-datetimebox txt" name="end_time" type="text" value="{date='y-m-d',###}" style="width:175px;" data-options="editable:false,required:true" />
+	</div>
+	<div class="form-div" name="rule-goods_count" style="display: none">
+	<label class="six">货品总数：</label><input class="easyui-numberbox txt" type="text" name="min_goods_count" value="0" data-options="required:true"/>
+	<label>　　　至：</label><input class="easyui-numberbox txt" type="text" name="max_goods_count" value="0" data-options="min:0,required:true"/>
+	</div>
+	<div class="form-div" name="rule-specify_count" style="display: none">
+	<label class="six">指定货品数量：</label><input class="easyui-numberbox txt" type="text" name="min_specify_count" value="0" data-options="required:true"/>
+	<label>　　　至：</label><input class="easyui-numberbox txt" type="text" name="max_specify_count" value="0" data-options="min:0,required:true"/>
+	</div>
+	<div class="form-div" name="rule-goods_amount" style="display: none">
+	<label class="six">订单货款总额：</label><input class="easyui-numberbox txt" type="text" name="min_goods_amount" value="0" data-options="required:true,precision:4"/>
+	<label>　　　至：</label><input class="easyui-numberbox txt" type="text" name="max_goods_amount" value="0" data-options="min:0,required:true,precision:4"/>
+	</div>
+	<div class="form-div" name="rule-specify_amount" style="display: none">
+	<label class="six">指定货品金额：</label><input class="easyui-numberbox txt" type="text" name="min_specify_amount" value="0" data-options="required:true,precision:4"/>
+	<label>　　　至：</label><input class="easyui-numberbox txt" type="text" name="max_specify_amount" value="0" data-options="min:0,required:true,precision:4"/><label class="six"><input type="checkbox" name="is_specify_sum" value="0"/>指定金额和</label>
+	</div>
+	<div class="form-div" name="rule-receivable" style="display: none">
+	<label class="six">订单实收金额：</label><input class="easyui-numberbox txt" type="text" name="min_receivable" value="0" data-options="required:true,precision:4"/>
+	<label>　　　至：</label><input class="easyui-numberbox txt" type="text" name="max_receivable" value="0" data-options="min:0,required:true,precision:4"/>
+	</div>
+	<div class="form-div" name="rule-specify_multiple" style="display: none">
+	<label class="six">指定货品倍增：</label><input class="easyui-numberbox txt" type="text" name="specify_count" value="0" data-options="required:true"/>
+	<label>最大数量：</label><input class="easyui-numberbox txt" type="text" name="limit_specify_count" value="0" data-options="min:0,required:true"/><sup style="color:red;margin-left: 3px;">③</sup><label class="seven" style="color:red;font-size:12px;">③：最大数量指的是赠品列表中单个赠品最多可赠送的个数</label>	
+	</div>	
+	<div class="form-div" name="rule-goods_name_keyword" style="display: none">
+	<label>平台规格关键词：</label><input class="easyui-textbox txt" type="text" name="spec_key_word" value="" data-options=""/>
+	<label>平台货品关键词：</label><input class="easyui-textbox txt" type="text" name="goods_key_word" value="" data-options=""/><sup style="color:red;margin-left: 3px;">④</sup><label style="color:red;font-size:12px;margin-left: 3px;">④：此规则优先级高于其他规则；二者同时满足才会赠送</label>
+	</div>
+	<div class="form-div" name="rule-csremark_keyword" style="display: none">
+	<label>客服备注关键词：</label><input class="easyui-textbox txt" type="text" name="csremark_key_word" value="" data-options=""/>
+	</div>
+	</form>
+</div>
+<div data-options="region:'south',split:true" style="height:224px;background:#eee;hoverflow:hidden;">
+	<div class="easyui-tabs" data-options="fit:true,border:false,plain:true,onLoad:giftRule.loadTab,onSelect:giftRule.selectTab" id="{$id_list.tab_container}"> </div>
+</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=edit.gift_rule.js
+$(function(){
+	initGiftRuleElement();
+	setTimeout(function(){
+		add_tabs(JSON.parse('{$arr_tabs}'));
+		giftRule.initEvent();
+		$("#rule_group_id").textbox({'prompt':'请输入数字'});
+	},0);
+});
+function initGiftRuleElement(){
+	var form_id='{$id_list.form_id}';
+	giftRule.div_element_map={};
+	giftRule.tabDatagrid={};
+	var rules=formatter.get_data('gift_rules');
+	$.each(rules,function(i,o){ 
+		giftRule.div_element_map[o.id]=false; 
+	});
+	giftRule.rule_element={
+			0:$('#'+form_id+" :input[name='gift_rules']"),
+			1:$('#'+form_id+" :input[name='shop_list']"),
+			2:$('#'+form_id+" :input[name='is_disabled']"),
+			3:$('#'+form_id+" :input[name='rule_no']"),
+			4:$('#'+form_id+" :input[name='is_enough_gift']"),
+			5:$('#'+form_id+" :input[name='is_specify_sum']"),
+			is_random:0,
+	};
+}
+giftRule.initEvent=function(){
+	giftRule.rule_element[1].combobox('loadData',{$list.shop});
+	giftRule.form_data={$rule};
+	if(giftRule.form_data.id>0){giftRule.rule_element[3].textbox('disable');}
+	giftRule.rule_element.is_random=giftRule.form_data.gift_is_random;
+	$('#{$id_list.form_id}').form('filterLoad',giftRule.form_data);
+	giftRule.rule_element[2].bind('click',function(){if(giftRule.rule_element[2].is(':checked')){giftRule.rule_element[2].val(1);}else{giftRule.rule_element[2].val(0);} });
+	giftRule.rule_element[4].bind('click',function(){if(giftRule.rule_element[4].is(':checked')){giftRule.rule_element[4].val(1);$('#limit_gift').numberbox({disabled:false});}else{giftRule.rule_element[4].val(0);$('#limit_gift').numberbox({disabled:true});} });
+	giftRule.rule_element[5].bind('click',function(){if(giftRule.rule_element[5].is(':checked')){giftRule.rule_element[5].val(1);}else{giftRule.rule_element[5].val(0);} });
+	if(giftRule.form_data.is_disabled==1){ giftRule.rule_element[2].prop('checked',true); }else{giftRule.rule_element[2].prop('checked',false);}
+	if(giftRule.form_data.is_enough_gift==1){ giftRule.rule_element[4].prop('checked',true);giftRule.rule_element[4].val(1); }else{giftRule.rule_element[4].prop('checked',false);$('#limit_gift').numberbox({disabled:true});giftRule.rule_element[4].val(0);}
+	if(giftRule.form_data.is_specify_sum==1){ giftRule.rule_element[5].prop('checked',true); giftRule.rule_element[5].val(1);}else{giftRule.rule_element[5].prop('checked',false);giftRule.rule_element[5].val(0);}
+	$.each(giftRule.div_element_map,function(k,v){
+		if(!v){ $("#{$id_list.form_id} div[name='rule-"+k+"']").find('input').attr('disabled',true); }
+	});
+	if(giftRule.form_data.gift_is_random==1){$('#is_random').val(1);}else{$('#is_random').val(0);}
+}
+//选择-规则-事件
+giftRule.selectGiftRules=function(record){
+	var form_id='{$id_list.form_id}';
+	var map={};var element={};
+	$.each(record,function(i,v){
+		if(!giftRule.div_element_map[v]){
+			element=$('#'+form_id+" div[name='rule-"+v+"']");
+			element.find('input').attr('disabled',false);
+			element.show();
+			giftRule.div_element_map[v]=true;
+			$("#rule_add_edit_top").scrollTop($('#rule_add_edit_top')[0].scrollHeight);
+		}
+		map[v]=true;
+	});
+	$.each(giftRule.div_element_map,function(k,v){
+		if(v&&!map[k]){
+			element=$('#'+form_id+" div[name='rule-"+k+"']")
+			element.find('input').attr('disabled',true);
+			element.hide();
+			giftRule.div_element_map[k]=false;
+		}
+	});
+}
+//Tab-onLoad事件
+giftRule.loadTab=function(tab){
+	giftRule.tabIndex=!giftRule.tabIndex?0:giftRule.tabIndex;
+	var tab_dg_id=tab.find('.easyui-datagrid').attr('id');
+	giftRule.tabDatagrid[giftRule.tabIndex]=tab_dg_id;
+	giftRule.tabDatagrid[tab_dg_id]=new ThinDatagrid($('#'+tab_dg_id),undefined,false);
+	if(giftRule.tabIndex==0&&!(!giftRule.form_data.tab_range_url)){
+		$('#'+tab_dg_id).datagrid('options').url=giftRule.form_data.tab_range_url;
+		$('#'+tab_dg_id).datagrid('reload',{id:giftRule.form_data.id,type:1,tab:'range'});
+	}
+	if(giftRule.tabIndex==1&&!(!giftRule.form_data.tab_amount_url)){
+		$('#'+tab_dg_id).datagrid('options').url=giftRule.form_data.tab_amount_url;
+		$('#'+tab_dg_id).datagrid('reload',{id:giftRule.form_data.id,type:3,tab:'amount'});
+	}
+	if(giftRule.tabIndex==2&&!(!giftRule.form_data.tab_multiple_url)){
+		$('#'+tab_dg_id).datagrid('options').url=giftRule.form_data.tab_multiple_url;
+		$('#'+tab_dg_id).datagrid('reload',{id:giftRule.form_data.id,type:2,tab:'multiple'});
+	}
+	if(giftRule.tabIndex==3&&!(!giftRule.form_data.tab_gift_url)){
+		if(giftRule.form_data.gift_is_random==1){ 
+			$('#random').prop('checked',true); $('#random').val(1); 
+			$('#'+tab_dg_id).datagrid('showColumn', 'gift_group'); 
+		}else{
+			$('#random').val(0);$('#random').prop('checked',false);
+		}
+		$('#'+tab_dg_id).datagrid('options').url=giftRule.form_data.tab_gift_url;
+		$('#'+tab_dg_id).datagrid('reload',{id:giftRule.form_data.id,tab:'gift'});
+	}
+	if(giftRule.tabIndex==3){ $('#'+tab_dg_id).datagrid().datagrid('enableCellEditing'); }
+}
+//Tab-onSelect事件
+giftRule.selectTab=function(title,index){
+	giftRule.tabIndex=index;
+	if(!giftRule.tabDatagrid[index]){
+		giftRule.tabDatagrid[index]=$('#{$id_list.tab_container}').tabs('getTab',index).find('.easyui-datagrid').attr('id');
+	}
+	if(index==3&&giftRule.rule_element.is_random==1){
+		$('#random').prop('checked',true);$('#random').val(1); 
+		$('#'+giftRule.tabDatagrid[3]).datagrid('showColumn', 'gift_group'); 
+		$('#'+giftRule.tabDatagrid[3]).datagrid('reload');
+	}else{
+		$('#random').val(0); $('#random').prop('checked',false);
+	}
+}
+//选择添加单品(tab)
+giftRule.addSpec=function(spec_dg_id,sub_dg_id){
+	//获取对话框中的添加的数据
+	var spec_dg=$('#'+sub_dg_id);
+    var spec_rows=spec_dg.datagrid('getRows');
+    //获取赠品中原有数据
+    var show_dg=$('#'+giftRule.tabDatagrid[giftRule.tabIndex]); 
+    $('#{$id_list.add}').dialog('close');
+    var show_rows=show_dg.datagrid('getRows');
+    var flag=false;var show_index=0;
+    var repeat_no='';
+    for(var i in spec_rows){
+    	switch(giftRule.tabIndex){ case 0: spec_rows[i].goods_type=1;break; case 1: spec_rows[i].goods_type=3;break; case 2: spec_rows[i].goods_type=2;break;}
+    	spec_rows[i].gift_num=parseFloat(spec_rows[i].num).toFixed(4); flag=false;
+    	for(var x in show_rows){
+    		if(spec_rows[i].spec_no==show_rows[x].merchant_no){
+    			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+    			show_dg.datagrid('refreshRow',show_index);
+    			flag=true;
+    			repeat_no+=spec_rows[i].spec_no+'、';
+    		}
+    	}
+    	if(!flag){
+    		spec_rows[i].merchant_no=spec_rows[i].spec_no;
+    		spec_rows[i].is_suite=0;
+    		show_dg.datagrid('appendRow',spec_rows[i]);
+    	}
+    }
+    if(repeat_no.length>0){
+    	repeat_no=repeat_no.substring(0,repeat_no.length-1);
+    	messager.alert('单品'+repeat_no+'已存在列表中，请直接修改数量。');
+    }
+}
+//选择添加组合装(tab)
+giftRule.addSuite=function(suite_dg_id){
+	var suite_dg=$('#'+suite_dg_id);
+    var suite_row=suite_dg.datagrid('getSelected');
+    var show_dg=$('#'+giftRule.tabDatagrid[giftRule.tabIndex]);
+    $('#{$id_list.add}').dialog('close');
+    var show_rows=show_dg.datagrid('getRows');
+    var flag=false; var show_index=0;
+	suite_row.gift_num=parseFloat('1').toFixed(4); suite_row.is_suite=1;
+    switch(giftRule.tabIndex){ case 0: suite_row.goods_type=1;break; case 1: suite_row.goods_type=3;break; case 2: suite_row.goods_type=2;break;}
+    for(var x in show_rows){
+    	if(suite_row.suite_no==show_rows[x].suite_no){
+    		show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+			show_dg.datagrid('refreshRow',show_index);
+			flag=true;
+			break;
+    	}
+    }
+    if(!flag){
+		suite_row.goods_name=suite_row.suite_name;
+		suite_row.merchant_no=suite_row.suite_no; 
+		suite_row.goods_no=suite_row.suite_no; 
+    	show_dg.datagrid('appendRow',suite_row);
+	}
+}
+//获取参加活动的货品
+giftRule.getAttendGoods=function(rule_id){
+	var attend={};
+	if(giftRule.div_element_map['specify_count']){
+		if(!giftRule.tabDatagrid[0]){messager.info('请选择指定货品(数量)');return false;}
+		var count_dg=$('#'+giftRule.tabDatagrid[0]);
+		var count_rows=count_dg.datagrid('getRows');
+		if(count_rows.length==0){messager.info('请选择指定货品(数量)');return false;}
+		if(rule_id==0){
+			attend['add']=count_rows;
+		}else{
+			attend['insert']=count_dg.datagrid('getChanges','inserted');
+			attend['delete']=count_dg.datagrid('getChanges','deleted');
+			for(var i in attend['delete']){attend['delete'][i]['goods_type']=1;}
+		}
+	}
+	if(giftRule.div_element_map['specify_amount']){
+		if(rule_id==0){
+			if(!giftRule.tabDatagrid[1]){messager.info('请选择指定货品(金额)');return false;}
+			var amount_dg=$('#'+giftRule.tabDatagrid[1]);
+			var amount_rows=amount_dg.datagrid('getRows');
+			if(amount_rows.length==0){messager.info('请选择指定货品(金额)');return false;}
+			if(!attend['add']){attend['add']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['add'].push(row); });};
+		}else{
+			if(!!giftRule.tabDatagrid[1]){
+				var amount_dg=$('#'+giftRule.tabDatagrid[1]);
+				var amount_rows=amount_dg.datagrid('getRows');
+				if(amount_rows.length==0){messager.info('请选择指定货品(金额)');return false;}
+				amount_rows=amount_dg.datagrid('getChanges','inserted');
+				if(!attend['insert']){attend['insert']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['insert'].push(row); });};
+				amount_rows=amount_dg.datagrid('getChanges','deleted');
+				for(var i in amount_rows){amount_rows[i]['goods_type']=3;}
+				if(!attend['delete']){attend['delete']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['delete'].push(row); });};
+			}
+		}
+	}
+	if(giftRule.div_element_map['specify_multiple']){
+		if(rule_id==0){
+			if(!giftRule.tabDatagrid[2]){messager.info('请选择指定货品(倍增)');return false;}
+			var amount_dg=$('#'+giftRule.tabDatagrid[2]);
+			var amount_rows=amount_dg.datagrid('getRows');
+			if(amount_rows.length==0){messager.info('请选择指定货品(倍增)');return false;}
+			if(!attend['add']){attend['add']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['add'].push(row); });};
+		}else{
+			if(!!giftRule.tabDatagrid[2]){
+				var amount_dg=$('#'+giftRule.tabDatagrid[2]);
+				var amount_rows=amount_dg.datagrid('getRows');
+				if(amount_rows.length==0){messager.info('请选择指定货品(倍增)');return false;}
+				amount_rows=amount_dg.datagrid('getChanges','inserted');
+				if(!attend['insert']){attend['insert']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['insert'].push(row); });};
+				amount_rows=amount_dg.datagrid('getChanges','deleted');
+				for(var i in amount_rows){amount_rows[i]['goods_type']=2;}
+				if(!attend['delete']){attend['delete']=amount_rows;}else{$.each(amount_rows,function(i,row){ attend['delete'].push(row); });};
+			}
+		}
+	}
+	return attend;
+}
+//submit-提交数据
+giftRule.submitAddDialog=giftRule.submitEditDialog=function(){
+	var form=$('#{$id_list.form_id}');
+	var rule_id=giftRule.form_data.id;
+	if(!giftRule.div_element_map['time_type']||!giftRule.div_element_map['shop_list']){messager.info('赠品策略必须设置店铺和策略有效期');return;}
+	if(!form.form('validate')){ return false;}
+	var data={};
+	var attend=giftRule.getAttendGoods(rule_id);
+	if(!attend){return false;}else{data['attend_goods']=JSON.stringify(attend);}
+	var info=form.form('get',{gift_rules:false,shop_list:true});
+	data['info']=JSON.stringify(info);
+	if(giftRule.div_element_map['goods_name_keyword']){if ((info.goods_key_word==undefined||info.goods_key_word=='')&&(info.spec_key_word==undefined||info.spec_key_word=='')) {messager.info('请填写平台规格关键词或平台货品关键词');return;}}
+	if(rule_id==0){ 
+		if(!giftRule.tabDatagrid[3]){messager.info('请选择赠品');return;}
+		var gift_rows=$('#'+giftRule.tabDatagrid[3]).datagrid('getRows');
+		if(gift_rows.length==0){messager.info('请选择赠品');return;}
+		if(data['info']['gift_is_random']==1){
+			for(var i=0;i<gift_rows.length;i++){
+				if(!(gift_rows[i]['gift_group'])){
+					messager.info('请填写第'+(i+1)+'条赠品的分组号');return;
+				}
+			}
+		}
+		data['send_goods']=JSON.stringify(gift_rows);
+	}else{
+		if(!!giftRule.tabDatagrid[3]){
+			var gift_dg=$('#'+giftRule.tabDatagrid[3]);
+			var gift_rows=gift_dg.datagrid('getRows');
+			if(gift_rows.length==0){messager.info('请选择赠品');return;}
+			var gifts={};
+			gifts['insert']=gift_dg.datagrid('getChanges','inserted');
+			gifts['update']=gift_dg.datagrid('getChanges','updated');
+			gifts['delete']=gift_dg.datagrid('getChanges','deleted');
+			data['send_goods']=JSON.stringify(gifts);
+		}
+	}
+	data['id']=rule_id;
+	$.post("{:U('GiftRule/editGiftRule')}",data,function(res){
+		if(!res.status){
+			messager.alert(res.info);
+		}else{
+			$('#'+giftRule.params.edit.id).dialog('close');
+			giftRule.refresh();
+		}
+	},"JSON");
+}
+</script>

@@ -1,0 +1,242 @@
+[ 2017-05-24T14:47:51+08:00 ] 127.0.0.1 /index.php
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T14:51:59+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T14:52:21+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T14:58:15+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T14:59:59+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Common\Common\function.php
+    [line] => 83
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(164): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(202): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:00:21+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:07:00+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:07:22+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(258): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:13:36+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Common\Common\function.php
+    [line] => 83
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(257): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(164): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(202): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:13:58+08:00 ] 127.0.0.1 /
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(257): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+
+[ 2017-05-24T15:14:45+08:00 ] 127.0.0.1 /index.php
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(257): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+

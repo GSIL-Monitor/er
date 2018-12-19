@@ -1,0 +1,199 @@
+<div style="margin: 20px 15px;" >
+    <div id="advanced_setting" class="easyui-panel" title="高级设置" data-options="headerCls:'panel-header-title'" style="width:100%;">
+    <div  style="text-align: center;">
+        <div class="ad_set" id="ad_set_system" style="margin-left: 15px;float:left;height: 275px;">
+        	<li><i class="fa fa-cogs"></i> 基本设置</li>
+        	
+        	<li1>- -余额不足自动提醒</li1><br>
+                <label><input type="checkbox" name="waybill_num_alarm" onclick="adSetCheckboxOnclick(this)"/>电子面单余额不足<input type="text" class="easyui-numberbox" name="waybill_num_alarm_num" data-options="min:0" style="width:70px"/>条进行提醒</label></br>
+                <label><input type="checkbox" name="sms_num_alarm" onclick="adSetCheckboxOnclick(this)"/>短信余额不足<input type="text" class="easyui-numberbox" name="sms_num_alarm_num" data-options="min:0" style="width:70px"/>条进行提醒</label></br>
+            <li1>- -自动发送短信（发货、退货入库、换货发出、催未付款）</li1><br>
+                <label><input type="checkbox" name="cfg_open_message_strategy" onclick="adSetCheckboxOnclick(this)"/>启用短信发送策略</label>
+                <label onclick="open_menu('短信策略', '{:U('Setting/SmsSendRule/getSmsSendRule')}'+'?dialog=smssendrule')"><sp>(点击这里跳转到短信策略进行设置)</sp></label></br>
+            <li1>- -自主设置登录间隔时间</li1><br>
+            	<label>用户登录时间间隔&nbsp;<input type="text" class="easyui-numberbox" name="cfg_login_interval" data-options="min:5,max:120" style="width:70px"/>&nbsp;分钟(间隔范围为5 - 120分钟)</label><br/>
+           	<li1>- -保护买家隐私，可开启手机号码显示成星号，则订单中买家的手机号码中间4位为*</li1><br>
+           		<label><input type="checkbox" name="show_number_to_star" onclick="adSetCheckboxOnclick(this)"/>手机号码显示成星号</label></br>
+			<if condition="$role gt 1">
+           	<div style="margin:13px 15px 0 15px">
+           	<!-- <li2 onclick=""><i class="fa fa-angle-double-right"></i> 更多</li2> -->
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="adSaveSetting('system')" style="float: right;">保存配置</a>
+           	</div>
+           	</if>
+           	<if condition="$role lt 1">
+           		<div style="color:red;font-size: 16px;margin: 15px;">您无权限保存配置，仅管理员可设置</div>
+           	</if>
+        </div>
+        <div class="ad_set" id="ad_set_goods" style="float:right;height: 275px;">
+        	<li><i class="fa fa-th-large"></i> 货品设置</li>
+        	<li1>- -自动下载淘宝店铺的货品</li1><br>
+        	    <label><input type="checkbox" name="goods_auto_download" onclick="adSetCheckboxOnclick(this)"/>启用淘宝货品自动下载</label></br>
+        	<li1>- -自动将系统库存同步到线上店铺</li1><br>
+        		<label>按店铺、仓库、货品分类品牌设置库存同步策略</label><br>
+        		<label>按不同货品设置单品库存同步策略</label><br>
+        	<li1>- -按照货品设置选仓策略，不同的货品可自主匹配不同仓库</li1><br>
+            	<label><input type="checkbox" name="sales_trade_warehouse_bygoods" onclick="adSetCheckboxOnclick(this)"/>启用按货品选仓库策略</label>
+            	<label onclick="open_menu('货品档案', '{:U('Goods/GoodsGoods/getGoodsList')}')"><sp>（点击这里按货品设置出库仓库）</sp></label>
+            	<label onclick="open_menu('单品列表', '{:U('Goods/GoodsSpec/getGoodsSpec')}')"><sp>（点击这里按单品设置出库仓库）</sp></label></br>
+        	<li1>- -平台货品名称变动自动加标记，也可自动更新对应系统货品名称</li1><br>
+        	    <label><input type="checkbox" name="flag_goods_name_changed" onclick="adSetCheckboxOnclick(this)"/>标记平台货品名称变动的商品</label></br>
+                <label><input type="checkbox" name="specname_goodsname_allow_update" onclick="adSetCheckboxOnclick(this)"/>开启更新系统货品名</label></br>
+            <div style="margin:0 15px 0 15px">
+           		<!-- <li2 onclick=""><i class="fa fa-angle-double-right"></i> 更多</li2> -->
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="adSaveSetting('goods')" style="float: right;">保存配置</a>
+           	</div>
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <div class="ad_set" id="ad_set_trade" style="margin-left: 15px;float: left;height: 260px;">
+        	<li><i class="fa fa-file-text-o"></i> 订单设置</li>
+        	<li1>- -订单抓取到系统后自动递交到订单审核</li1><br>
+        		<label><input type="checkbox" name="order_auto_submit" onclick="adSetCheckboxOnclick(this)"/>自动递交原始单</label></br>
+        	<li1>- -按照店铺自动合并（买家+收件人+地址）相同的订单，选择分组则可跨店铺合并</li1><br>
+        		<label><input type="checkbox" name="order_deliver_auto_merge" onclick="adSetCheckboxOnclick(this)"/>递交自动合并订单，合并方式：</label>
+        		<label><input name="order_auto_merge_mode" type="radio" value="0" style="margin-bottom: 4px;"/>店铺+买家+收件人+地址</label>
+        		<label><input name="order_auto_merge_mode" type="radio" value="1" style="margin-left: 20px;margin-bottom: 4px;" />分组+买家+收件人+地址</label></br>
+        	<li1>- -买家申请退款的订单不和正常订单自动合并，可避免在订单审核前进行拆单</li1><br>
+        		<label><input type="checkbox" name="order_deliver_auto_merge_ban_refund" onclick="adSetCheckboxOnclick(this)"/>禁止申请退款单自动合并</label></br>
+        	<li1>- -审核订单时自动拦截库存不足的订单和客户标记为黑名单的订单</li1><br>
+        		<label><input type="checkbox" name="order_check_no_stock" onclick="adSetCheckboxOnclick(this)"/>阻止库存不足订单通过审核</label></br>
+                <label><input type="checkbox" name="order_check_black_customer" onclick="adSetCheckboxOnclick(this)"/>阻止黑名单客户通过审核</label></br>
+            <div style="margin:3px 15px 0 15px">
+<!--            		<li2 onclick=""><i class="fa fa-angle-double-right"></i> 更多</li2> -->
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="adSaveSetting('trade')" style="float: right;">保存配置</a>
+           	</div>
+        </div>
+        <div class="ad_set" id="ad_set_stock" style="float: right;height: 345px;">
+        	<li><i class="fa fa-home"></i> 库存设置</li>
+        	<li1>- -自主设置系统中库存数量显示的小数点位数</li1><br>
+        	    <label >库存数量显示小数点位数</label><label style="padding-left: 1em"><input id="system_point_number" class="easyui-combobox txt" text="txt" style="width:50px" name="point_number" data-options="valueField:'id',textField:'name',data:[{'id':'0','name':'0'},{'id':'1','name':'1'},{'id':'2','name':'2'},{'id':'3','name':'3'},{'id':'4','name':'4'}]"></label></br>
+        	<li1>- -自主设置单据打印界面显示的订单日期</li1><br>
+        	    <label >单据打印默认显示订单的时间段</label><label style="padding-left: 1em"><input  class="easyui-combobox txt" text="txt" style="width:100px" name="sales_print_time_range" data-options="valueField:'id',textField:'name',data:[{'id':'7','name':'7天'},{'id':'15','name':'15天'},{'id':'30','name':'30天'},{'id':'60','name':'60天'},{'id':'90','name':'90天'}]"></label></br>
+        	<li1>- -打印单据时，发货人信息显示仓库的联系人还是店铺联系人</li1><br>
+        		<label><input type="checkbox" name="stock_print_sender_from" onclick="adSetCheckboxOnclick(this)"/>发件人(姓名,联系方式)使用店铺信息(注:不勾选使用的是仓库信息)</label></br>
+        	<li1>- -可发库存的计算方式，审核时判断是否负库存即按照此方式计算现有可发库存</li1><br>
+        		<input type="hidden" name="sys_available_stock" value="640"/><label >可发库存  =  实际库存</label>
+                <label style="margin-left:0.1px;"><input type="checkbox" name="sys_available_stock-7" onclick="adSetCheckboxOnclick(this)"/>－待审核量</label>
+                <label style="margin-left:0.1px;"><input type="checkbox" name="sys_available_stock-9" onclick="adSetCheckboxOnclick(this)"/>－待发货量</label></br>
+        	<li1>- -验货、称重成功后订单自动确认发货配置</li1><br>
+        		<label><input type="checkbox" name="stockout_examine_auto_consign" onclick="adSetCheckboxOnclick(this)"/>验货后自动发货</label></br>
+                <label><input type="checkbox" name="stockout_weight_auto_consign" onclick="adSetCheckboxOnclick(this)"/>称重后自动发货</label></br>
+            <li1>- -自主设置预警库存，可以统一设置，也可按照单品单独设置</li1><br>
+            	<label><input type="checkbox" name="purchase_alarmstock_open" onclick="adSetCheckboxOnclick(this)"/>开启库存预警</label>
+            	<label onclick="open_menu('库存预警', '{:U('Setting/AlarmStock/ShowAlarmStockRule')}'+'?dialog=alarmstock')"><sp>(点击这里设置全局库存预警)</sp></label>
+            	<label onclick="open_menu('库存管理', '{:U('Stock/StockManagement/getStockSpec')}')"><sp>(点击这里按照货品设置库存预警)</sp></label></br>
+        	<div style="margin:0 15px 0 15px">
+<!--            		<li2 onclick=""><i class="fa fa-angle-double-right"></i> 更多</li2> -->
+            	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="adSaveSetting('stock')" style="float: right;">保存配置</a>
+           	</div>
+        </div>
+    </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function () {
+    var setting = JSON.parse('{$setting}');
+    $("#advanced_setting input").each(function () {
+        var that = this;
+        if (that.type == "checkbox") {
+            var name = that.name;
+            if(name.search("sys_available_stock") != -1){return;}
+			if (typeof(setting) != "undefined" && (setting[name] == 1)) {
+				that.value = 1;
+                that.indeterminate = false;
+				that.checked = true;
+			}
+            else if(typeof(setting) != "undefined" && (setting[name] == '3')){
+                that.value = 'all';
+                that.indeterminate = true;
+            }
+            else {
+				that.value = 0;
+                that.indeterminate = false;
+				that.checked = false;
+			}
+
+        } else if(that.type =="radio"){
+        	var name=that.name;
+        	$("input[name='"+name+"']").get(setting[name]).checked=true; 
+        }else {
+            var name = that.name;
+            if(name == "cfg_login_interval"){
+                (setting[name]==undefined || $.trim(setting[name])=='' || setting[name].length==0)?setting[name]=30:setting[name]=setting[name];
+            }
+			if(name == "point_number"){
+                setting[name]==undefined?setting[name]=0:setting[name]=setting[name];
+            }
+            if(name == "sys_available_stock"){
+                (setting[name]==undefined || setting[name]=='')?setting[name]=640:setting[name]=setting[name];
+                var available_stock_elements = $('#advanced_setting'+" :input[name^='sys_available_stock']");
+                var available_value = setting[name];
+                available_stock_elements.each(function(){
+                    var split_ar = $(this).attr('name').split('-');
+                    if(parseInt(available_value)&Math.pow(2,parseInt(split_ar[1]))){
+                        $(this).prop('checked',true);
+                        $(this).attr('value',1);
+                    }else{
+                        $(this).attr('value',0);
+                    }
+                });
+            }
+            that.value = setting[name];
+        }
+    });
+    $('#system_setting_tab').tabs({
+        border: false,
+        fit: true
+    });
+})
+ function adSetCheckboxOnclick(that) {
+    var value = that.value;
+    if (value == 0) {
+        that.checked = true;
+        that.value = 1;
+    } else {
+        that.checked = false;
+        that.value = 0;
+    }
+    if(that.name.search('sys_available_stock') != -1)
+    {
+        var available_stock_elements = $('#advanced_setting' + " :input[name^='sys_available_stock']");
+        var available_value = 0;
+        available_stock_elements.each(function(){
+            var split_ar = $(this).attr('name').split('-');
+            if($(this).prop('checked')){
+                available_value= parseInt(available_value) | Math.pow(2,parseInt(split_ar[1]));
+            }
+        });
+        $('#advanced_setting'+" :input[name='sys_available_stock']").attr('value',available_value);
+    }
+}
+function adSaveSetting(type){
+	var data = {};
+    $("#ad_set_"+type+" input").each(function () {
+        var that = this;
+        if(that.name.search('sys_available_stock') !=-1){
+            if(that.name !='sys_available_stock'){
+                return;
+            }else{
+                data[that.name] = that.value;
+            }
+        }
+        if(that.type=="radio"){
+        	data[that.name]=$("input[name='"+that.name+"']:checked").val();
+        	return;
+        }
+        if (typeof(that.name) != "undefined" && that.name != "" && that.name != 0) {
+            data[that.name] = that.value;
+        }
+    });
+    var url = "{:U('Setting/System/updateSystemSetting')}";
+    $.post(url, {"data": data}, function (res) {
+        if (res.status) {
+            messager.alert(res.info, "info");
+        } else {
+            messager.alert(res.info);
+        }
+    });
+}
+</script>

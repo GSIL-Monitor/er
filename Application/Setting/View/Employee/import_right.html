@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        html,body{
+            height: 100%;/*设置html和body的width和height为100%，可使全屏生效*/
+            width: 100%;
+            font-size: 16px;
+            font-family: 微软雅黑, 宋体, 黑体;
+            color: #535353;
+            margin: 0px; /*设置上下左右的相对位置为0，可避免超出范围出现滚动条*/
+        }
+    </style>
+    <include file="../Application/Common/View/Common/css.html"/>
+    <include file="../Application/Common/View/Common/js.html"/>
+</head>
+<body style="border: 1px red solid">
+
+    <div id="uploademployeeright_dialog" class="easyui-panel" style="padding:25px 50px 25px 50px">
+    <form id="uploademployeeright_form" method="post" enctype="multipart/form-data">
+        <div style="margin-bottom:25px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="downloadEmployeeRightTemplet()">下载模板</a>
+
+            <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:50%;">
+
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="width:20%" onclick="uploadEmployeeRight()">上传</a>
+        </div>
+    </form>
+</div>
+    <div id="response_dialog"><table id="response_dialog_datagrid"></table></div>
+
+    <script type="text/javascript">
+/*    (function(){*/
+        var dialog = $("#uploademployeeright_dialog");
+        dialog.dialog({
+            title: "权限导入",
+            width: "500px",
+            height: "160px",
+            modal: true,
+            closed: false,
+            inline: false,
+            iconCls: 'icon-save',
+        });
+       function uploadEmployeeRight() {
+            var form = $("#uploademployeeright_form");
+            var url = "{:U('Employee/uploadRightExcel')}";
+            var dg = $("#{$id_list.datagrid}");
+            var dialog = $("#{$id_list.file_dialog}");
+            $.messager.progress({
+                title: "请稍后",
+                msg: "该操作可能需要几分钟，请稍等...",
+                text: "",
+                interval: 100
+            });
+            form.form("submit", {
+                url: url,
+                success: function (res) {
+                    $.messager.progress('close');
+                    res = JSON.parse(res);
+                    if (res.status==1) {
+                        messager.alert(res.info);
+                    } else if (res.status == 0) {
+                        dg.datagrid("reload");
+                        dialog.dialog("close");
+                    } else if (res.status == 2) {
+                        $.fn.richDialog("response", res.data, "importResponse");
+                        dg.datagrid("reload");
+                    }
+                    form.form("load", {"file": ""});
+                }
+            });
+        };
+        downloadEmployeeRightTemplet = function(){
+            var url= "{:U('Employee/downloadRightTemplet')}";
+            if (!!window.ActiveXObject || "ActiveXObject" in window){
+                messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                    if(!r){return false;}
+                    window.open(url);
+                })
+            }else{
+                messager.confirm('确定下载模板吗？',function(r){
+                    if(!r){return false;}
+                    window.open(url);
+                })
+            }
+        };
+/*
+    })();
+*/
+
+
+</script>
+</body>
+</html>

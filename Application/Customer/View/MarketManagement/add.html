@@ -1,0 +1,99 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['add_form']}" class="form-div">
+        <div class="form-div">
+            <label class="five-character-width">名　　称: </label> <input class="easyui-textbox txt" type="text" id="market_plan_name" name="plan_name" required="true"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">方案类型:</label>
+            <select class="easyui-combobox txt"  id="market_plan_type" name="plan_type" data-options="editable:false" panelHeight="30">
+                <option value="1">短信</option></if>
+            </select>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">模板名称:</label>
+            <select class="easyui-combobox txt" id="template_id_market_management" name="template_id" data-options="editable:false">
+                <volist name='template' id='vo'>
+                    <if condition="$vo['id'] eq 0"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if>
+                </volist>
+            </select>
+        </div>
+        <div class="form-div">
+            <label style="vertical-align:middle" class="five-character-width">消息内容:</label>
+            <textarea id="{$id_list['message']}" class="easyui-textarea" style="height: 80px;width: 200px; vertical-align:middle"/>
+        </div>
+
+        <div class="form-div">
+            <label class="five-character-width">备　　注:</label>
+            <textarea id="{$id_list['remark']}" class="easyui-textarea" style="height: 80px;width: 200px; vertical-align:middle"/>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script>
+        $(function () {
+            setTimeout(function () {
+                function templateToContent(newValue,oldValue){
+                    var sms_id =  $("#template_id_market_management").combobox('getValue');
+                    if(sms_id=='无'){
+                        $("#" + "{$id_list['message']}").val('');
+                    }else{
+                        var content_url ="{:U('Stock/SalesStockOut/templateToContent')}";
+                        $.post(content_url,{"id":sms_id}, function (res) {
+                            if(res.status == 1){
+                                messager.alert(res.info);
+                            }else {
+                                $("#" + "{$id_list['message']}").val(res);
+                            }
+                        })
+                    }
+
+                }
+                $('#template_id_market_management').combobox({onChange:function(newValue, oldValue){ templateToContent(newValue, oldValue);}});
+            }, 0);
+
+            marketManagement.submitAddDialog = function () {
+                var sms = {};
+                sms['name'] = $("#market_plan_name").val();
+                sms['name'] = $.trim(sms['name']);
+                if(sms['name']==null || sms['name'] =='' || sms['name'] == undefined){
+                    messager.alert('名称不能为空,请填写');
+                    return;
+                }
+                sms["message"] =  $("#" + "{$id_list['message']}").val();
+                sms['message'] = $.trim(sms['message']);
+                if(sms['message']==null || sms['message']=='' || sms['message'] == undefined){
+                    messager.alert('内容不能为空,请填写内容或选择模板');
+                    return;
+                }
+                var url = "{:U('MarketManagement/addMarketPlan')}";
+                rege =new RegExp("\\【.+\\】", "i");
+                regexp =new RegExp("\\{.+\\}", "i");
+                var re = regexp.test(sms["message"]);
+                if(re){
+                    messager.alert('营销短信内容中不能包含模板变量');
+                    return false;
+                }
+                var reg=rege.test(sms["message"]);
+                if(!reg){
+                    messager.alert('短信内容中必须含有【】签名');
+                    return false;
+                }
+                sms['remark'] = $('#' + "{$id_list['remark']}").val();
+                $.post(url, {"sms": sms}, function (res) {
+                    if (!res.status) {
+                        messager.alert(res.info, "info");
+                        marketManagement.refresh();
+                        $('#add_market_management').dialog('close');
+                    } else {
+                        messager.alert(res.info);
+                    }
+                });
+
+            }
+       });
+    </script>
+</block>

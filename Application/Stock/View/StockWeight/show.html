@@ -1,0 +1,396 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="datagrid">
+<div data-options=""
+	style="padding: 30px; height: 800px; background-color: #F4F4F4">
+	<form id="{$id_list.form}" class="easyui-form" method="post">
+		<div>
+			<label class="seven-character-width">扫描订单：</label>
+			<input class="easyui-textbox txt" type="text"
+				name="trade_no_or_logistics_no" />
+			<label>*订单编号或物流单号（扫单后）按回车或重扫订单以确认称重</label>
+			<div>
+				<strong name='messager_info'
+					style="vertical-align: middle; font-size: 20px; margin-left: 20px"></strong>
+			</div>
+			<div id="StockWeightWSMessage">
+				<p></p>
+			</div>
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">订单编号：</label>
+			<input class="easyui-textbox txt" type="text" name="trade_no" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">物流方式：</label>
+			<input class="easyui-textbox txt" type="text" name="logistics_name"
+				data-options="valueField:'id',textField:'name',data:formatter.get_data('logistics_type')" />
+			<label class="seven-character-width" style="text-align: right">物流单号：</label>
+			<input class="easyui-textbox txt" type="text" name="logistics_no" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">收件人：</label>
+			<input class="easyui-textbox txt" type="text" name="receiver_name" />
+			<label class="seven-character-width" style="text-align: right">地区：</label>
+			<input class="easyui-textbox txt" type="text"
+				name="receiver_district" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">地址：</label>
+			<input class="easyui-textbox txt" type="text" name="receiver_address"
+				style="width: 376px;" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">已称重量：</label>
+			<input class="easyui-numberbox txt" type="text" name="weight"
+				data-options="min:0,precision:4,required:true,onChange:function(newValue,oldValue){ var that = this; stockWeight.setWeight(newValue,oldValue,that);}" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">估算重量：</label>
+			<input class="easyui-numberbox txt" type="text" name="calc_weight"
+				data-options="min:0,precision:4" />
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">估算差值：</label>
+			<input class="easyui-numberbox txt" type="text" name="D_value"
+				data-options="precision:4" />（已称重量-估算重量）
+		</div>
+		<div style="margin-top: 20px;">
+			<label class="seven-character-width">已称订单数：</label>
+			<strong name='scan_order_num' style="vertical-align: middle;">0</strong>
+			<span id="stockWeightMessageArea" style="margin-left:210px;font-size: 1.5em;"></span>
+		</div>
+		<input type="hidden" name='stockout_id' value="0">
+	</form>
+	<div>
+		<a href="javascript:void(0)"
+			style="margin-top: 20px; font-size: 50px;" class="easyui-linkbutton"
+			data-options="iconCls:'icon-save'"
+			onclick="stockWeight.submitStockWeight()";>确定</a>
+		<a href="javascript:void(0)"
+			style="font-size: 50px; margin-top: 20px;" class="easyui-linkbutton"
+			data-options="iconCls:'icon-remove'" onclick="stockWeight.clear()";>清空</a>
+	</div>
+
+	<div style="margin-top: -151px; margin-left: 301px;">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			data-options="iconCls:'icon-edit',plain:true"
+			onclick="stockWeight.settingEScale()">电子秤设置</a>
+	</div>
+	<input type="text" style="display:none" name="escaleVersion"/>
+	</div><div id="stockWeightEscaleDialog"></div>
+	<script>
+        //# sourceURL=stockweight.js
+         var StockoutWeightWS;
+        var escale = {
+         	save:function(){
+         		$('#stockWeightEscaleDialog').dialog('close');
+         	    var bandrate = $("#bandrate").combobox('getText');
+         	    var escaleType = parseInt($("#escaleList").combobox('getValue'));
+         	    var defaultType = getDefault();
+         	    if(escaleType != defaultType.type)
+         	    $.post("{:U('stockWeight/setEscale')}",{bandrate:bandrate,type:escaleType,defaultType:defaultType.type,defaultBandrate:defaultType.bandrate},function(ret){
+         	        if(ret.status == 1){
+         	        	messager.alert(ret.fail.msg);
+         	        }
+         	    });
+         	    var escaleInfo = getEscaleInfo();
+         	    var port = $("#escalePort").combobox('getText');
+         	    port += "," + escaleInfo[escaleType].pattern;
+         	   StockoutWeightWS.send(port);
+         	}
+         };
+        
+		function StockWeight(params,form_selector_list){
+			this.params = params;
+			var init_form = {
+				"trade_no"	: "", "logistics_name"		: "", "logistics_no"		: "", "trade_no_or_logistics_no"		: "{$src_order_no}",'stockout_id':'0','receiver_name':'','receiver_district':'','receiver_address':'','calc_weight':'0','weight':'0','D_value':'0','scan_order_num':'0','messager_info':''
+			};
+			this.input_type_list = {
+				"trade_no":"textbox","logistics_name":"textbox", "logistics_no":"textbox", "trade_no_or_logistics_no"	:"textbox","stockout_id":"input","receiver_name":'textbox','receiver_district':'textbox','receiver_address':'textbox','calc_weight':'numberbox','weight':'numberbox','D_value':'numberbox','scan_order_num':'html','messager_info':'html'
+			};
+			this.disabled_input_list ={
+				"trade_no"	: 1, "logistics_name"		: 1, "logistics_no"		: 1, "trade_no_or_logistics_no"		: 0,'receiver_name':1,'receiver_district':1,'receiver_address':1,'calc_weight':1,'weight':0,'D_value':1
+			};
+			this.stockout_id = 0;
+			this.form_selector_list = form_selector_list;
+			this.init_form_data =$.extend({},init_form);
+			this.scan_order_num = 0;
+			this.oldWeight = 0;
+			this.oldTime = (new Date()).valueOf();
+			this.autoSubmit = {$setting.stock_auto_submit_time};
+			this.scanOnce = {$setting.stock_scan_once};
+			this.overflowWeight = {$setting.overflow_weight_alarm};
+			this.overflowWeightSmall = {$setting.overflow_weight_small};
+			this.overflowWeightBig = {$setting.overflow_weight_big};
+		}
+		StockWeight.prototype={
+
+			initShow:function(){
+				var that=this;
+				var init_data=this.init_form_data;
+				this.form_selector_list.trade_no_or_logistics_no.textbox('textbox').bind('keydown',function(e){
+					if(e.keyCode==13){stockWeight.getTradeInfo(e);
+					}});
+				$('#'+this.params.form.id).form('filterLoad',init_data);
+				this.disableFormList();
+			},
+			submitStockWeight:function(){
+				stockWeight.oldTime = (new Date()).valueOf();
+				var that=this;
+				var stockout_id = that.stockout_id;
+				if(!$('#'+that.params.form.id).form('validate')){
+					return;
+				}
+				var  weight=that.form_selector_list.weight.numberbox('getValue');
+				if(stockout_id==0||$.isEmptyObject(stockout_id)){
+					//messager.alert('请先扫描订单');
+					$("#stockWeightMessageArea").html("请先扫描订单");
+					$("#stockWeightMessageArea").css("color","red");
+					return;
+				}
+				var D_value = that.form_selector_list.D_value.numberbox('getValue');
+				if(stockWeight.overflowWeight==1&&(D_value<=-stockWeight.overflowWeightSmall||D_value>=stockWeight.overflowWeightBig)){
+					messager.confirm('实际称重与预估重量超出重量提示范围，是否继续？',function(r){
+						if(r){
+							stockWeight.submitStockWeightPost(stockout_id,weight,that);
+						}else{
+							return;
+						}
+					});
+				}else{
+					stockWeight.submitStockWeightPost(stockout_id,weight,that);
+				}
+			},
+			submitStockWeightPost:function(stockout_id,weight,that){
+				$.post('{:U("Stock/StockWeight/submitStockWeight")}',{stockout_id:stockout_id,weight:weight},function(r){
+					if(r.status == 1){
+						//messager.alert(r.info);
+						$("#stockWeightMessageArea").html(r.info);
+						$("#stockWeightMessageArea").css("color","red");
+						that.form_selector_list.scan_order_num.html(that.scan_order_num);
+					}else if(r.status == 2){
+						$.fn.richDialog("response", r.data.fail, "stockout");
+					}else{
+						that.stockout_id = 0;
+						that.scan_order_num++;
+						that.form_selector_list.scan_order_num.html(that.scan_order_num);
+						//messager.info(r.info);
+						$("#stockWeightMessageArea").html(r.info);
+						$("#stockWeightMessageArea").css("color","");
+						stockWeight.form_selector_list.trade_no_or_logistics_no.textbox('setValue','');
+						$('input[textboxname=trade_no_or_logistics_no]').textbox().next('span').find('input').focus();
+						stockWeight.form_selector_list.trade_no_or_logistics_no.textbox('textbox').bind('keydown',function(e){
+							if(e.keyCode==13){
+								stockWeight.getTradeInfo(e);
+							}
+						});
+					}
+				},'json');
+			},
+			disableFormList:function(){
+				var disable_list=this.disabled_input_list;
+				for(var item_name in disable_list){
+					if(disable_list[item_name]==1){
+					var disable_type=this.input_type_list[item_name];
+					if(disable_type=='textbox' || disable_type=='numberbox'){
+						this.form_selector_list[item_name][disable_type]('disable');
+						}
+					}
+				}
+			},
+			setWeight : function(newValue, oldValue,that) {
+				if( isNaN(parseFloat(newValue))){
+				  $(that).numberbox('setValue',parseFloat(oldValue));
+					return;
+				}else{
+					newValue =parseFloat(newValue);
+				}
+				var calc_weight=this.form_selector_list.calc_weight.textbox('getValue');
+				var D_value= newValue -parseFloat(calc_weight);
+				this.form_selector_list.D_value.numberbox('setValue',D_value);
+			},
+			getTradeInfo:function(e){
+				var that=this;
+				var order_value=this.form_selector_list.trade_no_or_logistics_no.textbox('getValue');
+				if($.trim(order_value)==""||$.isEmptyObject(order_value)){
+					//messager.alert('出库单不存在');
+					$("#stockWeightMessageArea").html("出库单不存在");
+					$("#stockWeightMessageArea").css("color","red");
+					return;
+				} 
+				var scan_no=$.trim(order_value);
+				var oldTrade_no = $.trim(this.form_selector_list.trade_no.textbox('getValue'));
+				var oldLogistics_no = $.trim(this.form_selector_list.logistics_no.textbox('getValue'));
+				if(oldTrade_no == scan_no || oldLogistics_no == scan_no){
+					
+					stockWeight.submitStockWeight();
+					
+					return ;
+				}
+				$.post('{:U("Stock/StockWeight/getStockoutOrderInfo")}',{scan_no:scan_no},function(result){
+					if(result.status==0){
+						that.stockout_id = result.data.success.stockout_id;
+						$('#'+that.params.form.id).form('filterLoad',result.data.success);
+						that.form_selector_list.trade_no_or_logistics_no.textbox('setValue','');
+						$("#stockWeightMessageArea").html("");
+						var weight=that.form_selector_list.weight.textbox('getValue');
+						var calc_weight=that.form_selector_list.calc_weight.textbox('getValue');
+						var D_value= weight -parseFloat(calc_weight);
+						that.form_selector_list.D_value.numberbox('setValue',D_value);
+					}else if(result.status==2){
+						$.fn.richDialog("response", result.data.fail, "stockout");
+					}else{
+						//messager.alert(result.info);
+						$("#stockWeightMessageArea").html(result.info);
+						$("#stockWeightMessageArea").css("color","red");
+					}
+				},'json');
+			},
+			settingEScale:function(){
+				/*w = $('#stockSettingWin');
+					w.window('open');*/
+				$("#stockWeightEscaleDialog").dialog({
+					href:"{:U('StockWeight/getEscaleList')}",
+					width:323,
+					height:200,
+					inline: true,
+					modal: true,
+					title:"电子秤设置",
+					iconCls: 'icon-save',
+					toolbar:[{
+						text:'保存',
+						iconCls:'icon-edit',
+						handler:function(){escale.save();}
+					}]
+				});
+			},
+			clear:function(){
+				var that=this;
+				var now_form_data = $("#"+that.params.form.id).form('get');
+				var clear_data = $.extend(true,{},now_form_data,that.init_form_data,{scan_order_num:that.scan_order_num});
+				$("#"+that.params.form.id).form('filterLoad',clear_data);
+			}
+			,
+			Onmessage:function(event){
+				 var weight = $("input[textboxname=weight]");
+				 var pattern = new RegExp("COM\\d");
+				 var truank = "";
+				 var StockWeightWSMessage = $("#StockWeightWSMessage").children("p");
+				 if(pattern.test(event.data))
+				 {
+				 	if(StockWeightWSMessage.text().indexOf("未连接") > -1)
+				 	 StockWeightWSMessage.html("");
+				 	if(truank.indexOf(event.data) == -1){
+				 		truank = truank + ',' + event.data;
+				 		truank = truank.substr(1,truank.length-1);
+				 		$('#escalePort').combobox('setValue',[truank]);
+				 	}
+				 	return ;
+				 }else if(event.data.indexOf("没有串口")>=0) {
+				 		if(StockWeightWSMessage.children("span").length==0)
+				 		{
+							StockWeightWSMessage.append("<span>电子秤未连接<span>");
+							StockWeightWSMessage.children("span").css("color","red");
+						}
+				 		return ;
+				 }else if(event.data.toLowerCase().indexOf("version") > -1){
+				 	var version = event.data;
+				 	version = version.replace(" ","");
+				 	version = version.substr(8);
+				 	$("input[name=escaleVersion]").val(version);
+				 	return ;
+				 }else if(event.data.toLowerCase().indexOf("escaleoff") > -1){
+				 	if(StockWeightWSMessage.children("span").length==0){
+					 	StockWeightWSMessage.append("<span>电子秤未开启或连接线损坏<span>");
+						StockWeightWSMessage.children("span").css("color","red");
+					}
+					return;
+				 }
+				 if(StockWeightWSMessage.text().indexOf("未开启") > -1)
+				 	 StockWeightWSMessage.html("");
+				 weight.textbox('setValue',parseFloat(event.data));
+				 if(stockWeight.scanOnce == 1){
+					 if(stockWeight.oldWeight == 0||stockWeight.oldWeight != parseFloat(event.data))
+					 {
+					 	stockWeight.oldTime = (new Date()).valueOf();
+					 	stockWeight.oldWeight = parseFloat(event.data);
+					 }
+					 if((new Date()).valueOf() - stockWeight.oldTime >= stockWeight.autoSubmit*1000)
+					 	stockWeight.submitStockWeight();
+				 }
+			},
+			Onerror:function(){
+				StockoutWeightWS = null;
+				var StockWeightWSMessage = $("#StockWeightWSMessage").children("p");
+				StockWeightWSMessage.html("称重组件<strong>未下载</strong>或<strong>未开启</strong>或<strong>有页面已连接</strong>,点击下载：    <a href='{:U('stockWeight/downloadEscale')}' target='_blank'>下载</a>");
+				StockWeightWSMessage.css("color","red");
+			/*$('#reason_show_dialog').dialog({    
+		    title: '称重错误',    
+		    width: 300,    
+		    height: 185,    
+		    closed: false,    
+		    cache: false,    
+		    href:  "{:U('Stock/StockWeight/onWSError')}",    
+		    modal: true   
+			});    
+			$('#reason_show_dialog').dialog('refresh', "{:U('Stock/StockWeight/onWSError')}");*/
+			},
+			Onclose:function(){}
+		}
+		StockWeight.initFormSelectorList = function(form_id){
+		this.form_selector_list = {
+				'trade_no' 								: $('#'+form_id+' :input[name="trade_no"]'),	
+				'trade_no_or_logistics_no' 				: $('#'+form_id+' :input[name="trade_no_or_logistics_no"]'),	
+				'logistics_name' 			            : $('#'+form_id+' :input[name="logistics_name"]'),	
+				'logistics_no' 			                : $('#'+form_id+' :input[name="logistics_no"]'),	
+				'stockout_id' 							: $('#'+form_id+' :input[name="stockout_id"]'),	
+				'receiver_name' 		                : $('#'+form_id+' :input[name="receiver_name"]'),	
+				'receiver_district' 					: $('#'+form_id+' :input[name="receiver_district"]'),	
+				'receiver_address' 	  				    : $('#'+form_id+' :input[name="receiver_address"]'),	
+				'weight' 		 				   		: $('#'+form_id+' :input[name="weight"]'),
+				'calc_weight' 		     				: $('#'+form_id+' :input[name="calc_weight"]'),
+				'D_value' 		     				    : $('#'+form_id+' :input[name="D_value"]'),
+				'scan_order_num' 							: $('#'+form_id+' strong[name="scan_order_num"]'),
+				'messager_info' 							: $('#'+form_id+' strong[name="messager_info"]'),
+			};
+		};
+		$(function(){
+			$('#container').tabs({
+			  onClose:function(title){
+				if(title=="称重"){
+					if($.isEmptyObject(StockoutWeightWS))
+						return;
+					StockoutWeightWS.send('close');
+					StockoutWeightWS.close();
+					}
+				}
+		    });
+		    $('#container').tabs('select',"称重");
+			StockWeight.initFormSelectorList("{$id_list.form}");
+			setTimeout(function(){
+			stockWeight = new StockWeight(JSON.parse('{$params}'),StockWeight.form_selector_list);
+			stockWeight.initShow();
+			  var url = "127.0.0.1:4141";
+	    	   try{
+	    		   StockoutWeightWS = new WebSocket("ws://"+url);
+	    		   //StockoutWeightWS.onopen = stockWeight.Onopen;
+	    		   StockoutWeightWS.onclose = stockWeight.Onclose;
+	    		   StockoutWeightWS.onmessage = stockWeight.Onmessage;
+	    		   StockoutWeightWS.onerror = stockWeight.Onerror;
+	    	   }
+	    	   catch(ex){
+	    		   messager.alert("您的浏览器不支持WebSocket,请使用IE(10以及以上)、火狐或chrome浏览器");
+	    	   }
+			},0);
+			setTimeout(function(){
+				$('input[name=trade_no_or_logistics_no]').textbox();
+				$('input[textboxname=trade_no_or_logistics_no]').textbox().next('span').find('input').focus();
+				stockWeight.form_selector_list.trade_no_or_logistics_no.textbox('textbox').bind('keydown',function(e){
+					if(e.keyCode==13){stockWeight.getTradeInfo(e);
+					}});
+			},0);
+			
+		}); 
+	</script>
+</block>
+<block name="tabs"> </block>

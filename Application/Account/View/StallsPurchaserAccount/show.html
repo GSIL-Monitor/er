@@ -1,0 +1,66 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" />
+                <label>　　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+                <label>　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                <label>　　供货商名称：</label><select class="easyui-combobox sel" name="search[provider]" data-options="editable:false" style="width: 130px;">　　
+                <volist name='provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                &emsp;&emsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="stallsPurchaserAccount.submit_search_form_spa();">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stallsPurchaserAccount.loadFormData();">重置</a>　
+            </div>
+            <div class="form-div">
+                <!--<label>入库时间：</label><input class="easyui-datetimebox txt" type="text" name="search[start_time]" value="{$query_start_date}" data-options="editable:false" style="width: 154px;"/>
+                <label>　至：</label><input class="easyui-datetimebox txt" type="text"   name="search[end_time]" value="{$current_date}" data-options="editable:false" style="width: 154px;"/>-->
+                <label>　采购员：</label><select class="easyui-combobox sel" name="search[purchaser_name]" data-options="editable:false" style="width: 130px;">
+                <volist name='purchaser' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　　取货时间：</label><input id="stalls_purchaser_account_start" class="easyui-datetimebox txt" type="text" name="search[purchaser_start_time]" value="{$query_start_date}"  data-options="editable:false" style="width: 154px;"/>
+                <label>　至：</label><input id="stalls_purchaser_account_end" class="easyui-datetimebox txt" type="text"   name="search[purchaser_end_time]" value="{$current_date}" data-options="editable:false" style="width: 154px;"/>　　
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stallsPurchaserAccount.exportToExcel()">导出到Excel</a>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            setTimeout(function () {
+                stallsPurchaserAccount = new RichDatagrid(JSON.parse('{$params}'));
+                stallsPurchaserAccount.setFormData();
+                stallsPurchaserAccount.submit_search_form_spa = function(){
+                    if(stallsPurchaserAccount.checkSearchData()){
+                        stallsPurchaserAccount.submitSearchForm(this);
+                    }
+                }
+                stallsPurchaserAccount.checkSearchData = function(){
+                    var start_val = $('#stalls_purchaser_account_start').datebox('getValue');
+                    var now_str = (new Date()).toLocaleDateString();
+                    var now_timestampt = Date.parse(now_str);
+                    var start = Date.parse(start_val);
+                    if((now_timestampt-start)>86400000){messager.alert('开始时间不能小于昨天凌晨');return false;}
+                    return true;
+                }
+                stallsPurchaserAccount.exportToExcel = function(){
+                    if(stallsPurchaserAccount.checkSearchData() == false){
+                        return false;
+                    }
+                    var url= "{:U('Account/StallsPurchaserAccount/exportToExcel')}";
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var rows = $("#{$id_list.datagrid}").datagrid("getRows");
+                    if(rows==''){
+                        messager.alert('导出不能为空！');
+                        return false;
+                    }
+                    messager.confirm('确定导出搜索的数据吗？', function(r){
+                        if(!r){return false;}
+                        window.open(url+'?search='+search);
+                    })
+                }
+            },0);
+        });
+    </script>
+</block>
+
+
+
+

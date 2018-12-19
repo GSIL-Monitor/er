@@ -1,0 +1,54 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div class="form-div">
+<label>退货单号:　</label><input class="easyui-textbox txt" type="text" name="search[return_no]" style="width: 130px;"/>
+<label>供应商:　</label><select class="easyui-combobox sel" name="search[provider_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='provider_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+
+<label>退货仓库:　</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="purchaseoutorder.submitSearchForm();">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="purchaseoutorder.loadFormData();">重置</a>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</div>
+<script>
+//# sourceURL = purchase_return_out.js
+$(function(){
+	setTimeout(function(){
+		purchaseoutorder = new RichDatagrid(JSON.parse('{$params}'));
+		purchaseoutorder.setFormData();
+		},0);
+	});
+function stockoutSubmitReturn(stockout_p){
+    var select_row = $('#'+purchaseoutorder.params.datagrid.id).datagrid('getSelected');
+    if($.isEmptyObject(select_row))
+    {
+        messager.alert('请选择采购退货单');
+        return;
+    }
+    var return_id = select_row['id'];
+    $.post("{:U('Purchase/PurchaseReturn/getPurchaseReturn')}",{id:return_id},function(info){
+
+        stockout_p.initStockoutOrderInsert("3");
+        $('#'+stockout_p.params.form.id).form('filterLoad',info.form_data);
+		var so_datagrid_id = stockout_p.params.datagrid.id;
+	     stockout_p.endEdit(so_datagrid_id);
+        var rows = info.detail_data.rows;
+        for(var index in rows)
+        {
+			if(rows[index]['num'] > 0){
+				$('#'+stockout_p.params.datagrid.id).datagrid('appendRow',rows[index]);
+			}
+        }
+		$('#'+stockout_p.params.return.id).dialog('close');
+		 stockout_p.beginEdit(so_datagrid_id);
+    },"json");
+}
+	
+</script>
+</block>

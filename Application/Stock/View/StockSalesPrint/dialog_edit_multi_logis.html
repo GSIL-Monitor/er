@@ -1,0 +1,60 @@
+<style>
+    .wh-div label{vertical-align:middle;width: 60px;display:inline-block; font-size: 12px;text-align: right;}
+</style>
+<div style="margin:23px 33px;">
+    <form id="{$dialog_list.form}" method="post">
+        <div class="form-div wh-div">
+            <label>订单编号：</label><input class="easyui-textbox txt" type="text" name="trade_no" data-options="disable:true" />
+        </div>
+        <div class="form-div wh-div">
+            <label>物流公司：</label><select class="easyui-combobox sel" id="logisticSelect" name="logistics_id" data-options="panelHeight:'auto',editable:false, required:true" ><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+        </div>
+        <div class="form-div wh-div" id="lgId">
+            <label>物流单号：</label><input class="easyui-textbox txt" type="text" id="logisticNoInput"  name="logistics_no" data-options="validType:'',required:true"/>
+        </div>
+		<div class="form-div wh-div">
+			<label>填写重量：</label><input class="easyui-textbox txt" type="text"  value = 0  name="weight" data-options="validType:'',required:false" /> kg
+		</div>
+        <input type="hidden" name="stockout_id" value="{$stockout_id}"/>
+        <input type="hidden" name="id" value="{$rec_id}"/>
+        <input type="hidden" name="oldLogistics_no" value=""/>
+    </form>
+</div>
+<script type="text/javascript">
+
+    $(function(){
+        var form_info  = JSON.parse('{$form_info}');
+        var dialog_list = JSON.parse('{$dialog_list_info}');
+        var form_selector = {
+            'logistics_id' : $('#'+dialog_list.form+' select[name="logistics_id"]'),
+            'logistics_no' : $('#'+dialog_list.form+' input[name="logistics_no"]'),
+        };
+        form_info.oldLogistics_no = form_info.logistics_no;
+        var operator_object ={};
+        sspMultiLogistics.submitEditDialog = sspMultiLogistics.submitAddDialog = function(){
+            if (!$("#"+dialog_list.form).form('validate')) { return false; }
+            var multi_logis_info = $("#"+dialog_list.form).form('get');
+            $.post("{:U('Stock/StockSalesPrint/saveMultiLogistics')}",multi_logis_info,function(r){
+                if(r.status == 1){ messager.alert(r.info); return; }
+                if(r.status == 0) {
+                    if (multi_logis_info['id'] == '') {
+                        sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                        $('#' + sspMultiLogistics.params.add.id).dialog('close');
+                    }else{
+                        sspMultiLogistics.refresh($('#'+sspMultiLogistics.params.datagrid.id));
+                        $("#" + sspMultiLogistics.params.edit.id).dialog('close');
+                    }
+                    return;
+                }
+            },'json');
+        };
+        setTimeout(function () {
+            $('#'+dialog_list.form).form('filterLoad',form_info);
+            if(!!form_info.id){
+                form_selector.logistics_id.combobox('readonly');
+            }
+        }, 0);
+
+    });
+
+</script>

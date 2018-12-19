@@ -1,0 +1,20 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name='toolbar'>
+    <div id='{$id_list.tool_bar}' style='padding:5px;height:auto'>
+        <form id='{$id_list.form}' class='easyui-form' method='post'  style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <label> 名称</label><input class='easyui-textbox' type='text' name='search[provider_name]  '/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="purchaseprovider.submitSearchForm(this);">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="purchaseprovider.loadFormData();">重置</a>
+        </form>
+         </div>
+    <script type='text/javascript'>
+        $(function(){
+            setTimeout(function(){
+                purchaseprovider = new RichDatagrid(JSON.parse('{$params}'));
+                purchaseprovider.setFormData();
+            },0)
+
+        });
+    </script>
+</block>
+<block name="tabs"></block>

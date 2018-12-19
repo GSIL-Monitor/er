@@ -1,0 +1,201 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.help_id}"></div></block>
+<block name="toolbar">
+     <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>统计维度:</label><input class="easyui-combobox sel" name="search[stat_type]" data-options="valueField:'id',textField:'name',data:[{id:1,name:'按店铺统计',selected:true},{id:2,name:'按仓库统计'},{id:3,name:'按付款时间'}],onSelect:function(record){SalesAmountGoodsSpec.changStatType(record);}"/>
+                <label name="stat_name">　　店铺:</label><div name='shop' style="display: inline-block "><select class="easyui-combobox sel" name="search[shop_id]">
+                    <option value="all">全部</option><volist name='list.shop' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option></volist>
+                </select>
+                    </div><div name = 'warehouse' style="display: inline-block "><select class="easyui-combobox sel" name="search[warehouse_id]">
+                    <option value="all">全部</option><volist name='list.warehouse' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option></volist>
+                </select>
+                </div>
+                <label>商品品牌:</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+                <label >单品商家编码:</label><input class="easyui-textbox txt" type="txt" name="search[spec_no]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="SalesAmountGoodsSpec.submit_search_form_stat();">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="SalesAmountGoodsSpec.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-menubutton" name="platform_goods_export" data-options="iconCls:'icon-database-go',plain:true,menu:'#platform_export'" >导出功能</a>
+                <div id="platform_export">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="SalesAmountGoodsSpec.exportToExcel('excel')">导出Excel</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="SalesAmountGoodsSpec.exportToExcel('goods')">按货品合并导出</a>
+
+                </div>
+                <label class="form-div">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" title="点击查看统计说明" data-options="iconCls:'icon-help',plain:true" onclick="SalesAmountGoodsSpec.readHelp()">查看说明</a>
+                </label>
+                <br>
+                <label>　　分类:</label><input class="txt" id="tree_class_show_salesamount" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label>　　日期:</label><input class="easyui-datebox txt" id="sales_amount_goods_spec_start_time" type="text" name="search[start_time]" value="{$date['start']}" data-options="editable:false"/>
+                <label>　　　至:</label><input class="easyui-datebox txt" id="sales_amount_goods_spec_end_time" type="text" name="search[end_time]" value="{$date['end']}" data-options="editable:false"/>
+                <label >　　货品名称:</label><input class="easyui-textbox txt" type="txt" name="search[goods_name]"/>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=SalesAmountGoodsSpecShow.js
+(function(){
+    var elements = {
+        'stat_name': $('#{$id_list.form}'+' label[name="stat_name"]'),
+        'shop': $('#{$id_list.form}'+' div[name="shop"]'),
+        'warehouse': $('#{$id_list.form}'+' div[name="warehouse"]'),
+    };
+
+    $(function(){
+        $('#tree_class_show_salesamount').changStyleTreeCombo('tree_class_show_salesamount');
+        setTimeout(function (){
+            $(elements.warehouse).hide();
+
+            SalesAmountGoodsSpec = new RichDatagrid(JSON.parse('{$params}'));
+            SalesAmountGoodsSpec.setFormData();
+            SalesAmountGoodsSpec.changStatType = function(record){
+                var nowdate = new Date();
+                var y = nowdate.getFullYear();
+                var m = nowdate.getMonth()+1;
+                var pm = nowdate.getMonth();
+                var d = nowdate.getDate();
+                var formatnowdate = y+'-'+m+'-'+d;
+                var lastformatnowdate = y+'-'+pm+'-'+d;
+                switch(record.id){
+                    case 1:
+                    {
+                        $(elements.stat_name).html('　　店铺:');
+                        $(elements.shop).show();
+                        $(elements.warehouse).hide();
+                        $('#sales_amount_goods_spec_start_time').datebox('setValue',lastformatnowdate);
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','shop_id');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','warehouse_name');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','order_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','refund_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','gift_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','swap_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','unknown_goods_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','profit');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','guarante_refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_profit');
+                        SalesAmountGoodsSpec.submitSearchForm();
+                        break;
+                    }
+                    case 2:
+                    {
+                        $(elements.stat_name).html('　　仓库:');
+                        $(elements.shop).hide();
+                        $(elements.warehouse).show();
+                        $('#sales_amount_goods_spec_start_time').datebox('setValue',lastformatnowdate);
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','warehouse_name');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','shop_id');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','order_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','refund_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','gift_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','swap_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','unknown_goods_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','profit');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','guarante_refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','return_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','actual_profit');
+                        SalesAmountGoodsSpec.submitSearchForm();
+                        break;
+                    }
+                    case 3:
+                    {
+                        $(elements.stat_name).html('　　店铺:');
+                        $(elements.shop).show();
+                        $(elements.warehouse).hide();
+
+                        //实时查询，设置默认日期为当天。
+                        $('#sales_amount_goods_spec_start_time').datebox('setValue',formatnowdate);
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','warehouse_name');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','shop_id');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('showColumn','order_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','refund_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','return_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','gift_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','swap_num');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','unknown_goods_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','profit');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','return_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','guarante_refund_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','return_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','actual_amount');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','actual_goods_cost');
+                        $('#'+SalesAmountGoodsSpec.params.datagrid.id).datagrid('hideColumn','actual_profit');
+                        SalesAmountGoodsSpec.submitSearchForm();
+                        break;
+                    }
+                }
+            };
+            SalesAmountGoodsSpec.submit_search_form_stat = function(){
+                var stat_type = $("input[name='search[stat_type]']").val();
+                if(stat_type==3){
+                    var start_val = $('#sales_amount_goods_spec_start_time').datebox('getValue');
+                    var end_val = $('#sales_amount_goods_spec_end_time').datebox('getValue');
+                    var reg=/^(1|2\d{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3([0|1]))))?$/;
+                    if((!reg.test(start_val))||(!reg.test(end_val))){messager.alert('时间格式不正确');return;}
+                    var start=new Date(start_val.replace("-", "/").replace("-", "/"));
+                    var end=new Date(end_val.replace("-", "/").replace("-", "/"));
+                    if(start>end){messager.alert('开始时间不能大于结束时间');return;}
+                    if((end-start)>86400000*30){messager.alert('时间跨度不能超过30天');return;}//时间差不能大于30天
+                }
+                SalesAmountGoodsSpec.submitSearchForm(this);
+            }
+            SalesAmountGoodsSpec.exportToExcel = function(type){
+                var id_list=[];
+                var shopid_list = [];
+                for(i in this.selectRows){
+                    id_list.push(this.selectRows[i].id);
+                    shopid_list.push(this.selectRows[i].s_id);
+                }
+                var url= "{:U('SalesAmountGoodsSpec/exportToExcel')}";
+                var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                var data = $("#{$datagrid.id}").datagrid("getData");
+                if(data.total==0){
+                    messager.confirm('导出不能为空！');
+                }else if(id_list.length > 0){
+                    messager.confirm('确定导出选中的数据吗？',function(res){
+                        if(!res){return false;}
+                        window.open(url+'?search='+search+'&id_list='+id_list+'&shopid_list='+shopid_list+'&type='+type);
+                    })
+                }else {
+                        messager.confirm('确定导出搜索的数据吗？',function(r){
+                        if(!r){return false;}
+                        window.open(url+'?search='+search+'&id_list='+id_list+'&type='+type);
+                    })
+                }
+            }
+        },0);
+    })
+})();
+    </script>
+</block>

@@ -1,0 +1,198 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><!-- <div id="{$id_list.edit}"></div> --></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>订 单 编 号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tids]" />
+<label>　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+<label>　电话号码：</label><input class="easyui-textbox txt" type="text" name="search[receiver_mobile]" />
+<label>　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<a href="javascript:void(0)" onclick="tradeDetail.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tradeDetail.searchData(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="tradeDetail.loadData();">重置</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>客 服 备 注：</label><input class="easyui-textbox txt" type="text" name="search[cs_remark]" />
+<label>　物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　订单来源：</label><input class="easyui-combobox txt" name="search[trade_from]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_from')"/> 
+<label>　发货条件：</label><input class="easyui-combobox txt" name="search[delivery_term]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('delivery_term')"/>
+<label>　类别：</label><input class="easyui-combobox txt" name="search[trade_type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type')"/>
+</div>
+<div class="form-div">
+<label>驳 回 原 因：</label><select class="easyui-combobox sel" name="search[revert_reason]"><option value="all">全部</option><volist name='list.reason' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　退款状态：</label><input class="easyui-combobox txt" name="search[refund_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('order_refund_status')"/> 
+<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<label>　标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+</div>
+<div class="form-div">
+<label>订 单 状 态：</label><input class="easyui-combobox txt statu" type="text" name="search[trade_status]" data-options="valueField:'id',textField:'name',multiple:true,editable:false,data:formatter.get_data('trade_status')"/>
+<label>　　收件人：</label><input class="easyui-textbox txt" type="text" name="search[receiver_name]" />
+<label>　下单时间：</label><input class="easyui-datetimebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+<label>　　　　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[end_time]" data-options="editable:false"/> 
+<label>　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]"><option value="all">全部</option><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+
+</div>
+<div class="form-div">
+    <label>发货单打印：</label><input class="easyui-combobox txt" name="search[sendbill_print_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('print_status','def',{$print_status.stockout_sendbill_print_status}==3?'all':{$print_status.stockout_sendbill_print_status},true)"/>
+    <label>物流单打印：</label><input class="easyui-combobox txt" name="search[logistics_print_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('print_status','def',{$print_status.stockout_logistics_print_status}==3?'all':{$print_status.stockout_logistics_print_status},true)"/>
+    <label>　发货时间：</label><input class="easyui-datetimebox txt" type="text" name="search[consign_time_start]" data-options="editable:false"/>
+    <label>　　　　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[consign_time_end]" data-options="editable:false"/>
+</div>
+<div class="form-div">
+    <label>　付款时间：</label><input class="easyui-datetimebox txt" type="text" name="search[pay_start_time]" data-options="editable:false"/>
+    <label>　　　　至：</label><input class="easyui-datetimebox txt" type="text" name="search[pay_end_time]" data-options="editable:false"/>
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="tradeDetail.setFlag()">标记订单</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-sign',plain:true,menu:'#tradeDetail-flag'">标记订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="tradeDetail.checkNumber()">查看号码</a>
+<a href="javascript:void(0)" class="easyui-menubutton" name="tradeDetail_out" data-options="iconCls:'icon-database-go',plain:true,menu:'#tradeDetail_out'" >导出功能</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/TradeDetail','trade_detail','{$datagrid.id}',1)">设置表头</a>
+<span style="color:red;margin-left:10px;"><label>合计货品金额：</label><label id="trade-detail-goods-amount" style="margin-right: 10px;">0.0000</label>
+</div>
+<div id="tradeDetail_out">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="tradeDetail.exportToExcel('csv')">导出csv(推荐)</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="tradeDetail.exportToExcel('excel')">导出到Excel</a>
+</div>
+<div id="tradeDetail-flag" style="width:100px;height:150px;" noline="true" >
+	<volist name='list.flag' id='vo'>
+		<div onclick="tradeDetail.newSelectFlag({$vo.id})"><span style="margin-left: -25px; background-color:{$vo.bg_color}; font-family:{$vo.family}; color: {$vo.color};">{$vo.name}</span></div>
+	</volist>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		tradeDetail = new RichDatagrid(JSON.parse('{$params}')); 
+		tradeDetail.setFormData();
+        $('input',$('#{$id_list.form}')).bind('keydown',function(e){
+            if(e.keyCode==13){
+                tradeDetail.submitSearchForm();
+                tradeDetail.getGoodsAmount();
+            }
+        });
+        // 合计货款
+        tradeDetail.setGoodsAmount=function(num){
+            $('#trade-detail-goods-amount').text(num).css('color','red');          
+        }
+        tradeDetail.params.goods_amount_sum={$id_list.goods_amount_sum};
+        tradeDetail.setGoodsAmount(tradeDetail.params.goods_amount_sum);
+        tradeDetail.getGoodsAmount=function(){
+            var url= "{:U('tradeDetail/getGoodsAmount')}";
+            var forms = $('#{$id_list.form}').form('get');
+            var values = $('.statu').combobox('getValues');
+            forms["search[trade_status]"] = values;
+            var search=JSON.stringify(forms);
+            $.post(url+'?search='+search,'',function(res){
+                tradeDetail.setGoodsAmount(res);
+                return true;
+            });     
+        }
+        // 搜索
+        tradeDetail.searchData=function(){
+            tradeDetail.submitSearchForm(this);
+            tradeDetail.getGoodsAmount();
+        }
+        // 重置
+        tradeDetail.loadData=function(){
+            $("#{$id_list.form}").form('reset');
+            tradeDetail.loadFormData();
+            tradeDetail.getGoodsAmount();
+        }
+		//查看号码
+		tradeDetail.checkNumber=function(){
+            var rows=tradeDetail.selectRows;
+            if(rows==undefined){messager.info('请选择操作的行');return false;}
+            var ids=[];
+            var list=[];
+            for(var i in rows){ 
+                if(rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+                    list.push({trade_no:rows[i]['trade_no'],result_info:'手机和固话均为空！'});
+                    continue;
+                }
+                ids.push(rows[i]['id']); 
+            }
+            if(ids.length>0){
+                $.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'sales_trade'},function(res){
+                    tradeDetail.dealDatagridReasonRows(res,list); 
+                },'JSON');
+            }else{
+                var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+                tradeDetail.dealDatagridReasonRows(res,undefined);
+            }
+        }
+        tradeDetail.dealDatagridReasonRows=function(result,list){
+            if(result.status==1){ messager.alert(result.message); return;}
+            if(list!=undefined&&list.length>0){
+                var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+                result.info.rows=$.merge(list,fail);
+                result.info.total+=list.length;
+                result.status=2;
+            }
+            if(result.status==2){
+                result.info.title='订单号';
+                $.fn.richDialog("response", result.info, 'checknumber');
+            }
+            if((result.status==0||result.status==2)&&result.data!=undefined){
+                var rows=tradeDetail.selectRows;
+                var index;
+                var trade_dg=$('#'+tradeDetail.params.datagrid.id);
+                for(var i in rows){
+                    for(var x in result.data.rows){
+                        if(rows[i].id==result.data.rows[x].id){ 
+                            index=trade_dg.datagrid('getRowIndex',rows[i]); 
+                            if(result.check_number){rows[i].receiver_mobile=result.data.rows[x].receiver_mobile;rows[i].receiver_telno=result.data.rows[x].receiver_telno;trade_dg.datagrid('refreshRow',index);}
+                        }
+                    }
+                }
+            }
+        }
+        
+		tradeDetail.exportToExcel = function(type){
+                    var url= "{:U('TradeDetail/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].rec_id);}
+                    var forms = $('#{$id_list.form}').form('get');
+                    var values = $('.statu').combobox('getValues');
+                    forms["search[trade_status]"] = values;
+                    var search=JSON.stringify(forms);
+
+                    var form=JSON.stringify(tradeDetail.params.search.form_data);
+                    var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                    else if(id_list!=''){
+                        messager.confirm('确定导出选中的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else if(search==form){
+                        messager.confirm('确定导出所有的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else{
+                        messager.confirm('确定导出搜索的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+                        })
+                    }
+                }
+		tradeDetail.newSelectFlag=function(id){
+    		var flag=[];
+    		flag.id=id;
+    		tradeDetail.selectFlag(flag);
+    	}
+	}, 0); 
+});
+</script>
+</block>
+<block name="tabs"></block>

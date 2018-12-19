@@ -1,0 +1,77 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.search_form}" class="easyui-form" method="post">
+            <div class="form-div" style="width:100%">
+                <label class="five-character-width">同步状态：</label>
+                <select class="easyui-combobox sel" name="search[sync_status]">
+                    <volist name='list_sync_status' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+                </select>
+                <label class="five-character-width">店铺：</label>
+                <select class="easyui-combobox sel" name="search[shop_id]">
+                    <volist name='list_shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+                </select>
+                <label class="five-character-width">订单号：</label>
+                <input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+                <label class="five-character-width">原始单号：</label>
+                <input class="easyui-textbox txt" type="text" name="search[src_tid]" />
+                <a href="javascript:void(0)" onclick="historyApiLogisticsSync.clickMore(this)">更多</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="historyApiLogisticsSync.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="historyApiLogisticsSync.loadFormData();">重置</a>
+            </div>
+            <div id="{$id_list.more_content}" class="form-div">
+                <label class="five-character-width">客户网名：</label>
+                <input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+                <label class="five-character-width">物流单号：</label>
+                <input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+            </div>
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+    </div>
+</block>
+<block name="dialog">
+    <div id="historyApiLogisticsSync_solution"></div>
+</block>
+<block name="tabs">
+    <div data-options="region:'south',split:true" style="height:30%;overflow:hidden;">
+        <div class="easyui-tabs" data-options="fit:true,border:false,plain:true,showHeader:false" id="{$id_list.tab_container}">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //# sourceURL=stock_historyApiLogisticsSync.js
+        $(function(){
+            setTimeout('add_tabs(JSON.parse(\'{$arr_tabs}\'))',0);
+        });
+        var als_formatter = new Array();
+        als_formatter['shop_name'] = {$formatter_shop};
+        als_formatter['logistics_name'] ={$formatter_logistics};
+        //als_formatter['platform_name']  = {$formatter_platform};
+        $(function(){
+            setTimeout(function(){
+                historyApiLogisticsSync = new RichDatagrid(JSON.parse('{$params}'));
+                historyApiLogisticsSync.setFormData();
+                historyApiLogisticsSync.solution = function(id){
+                    var dialogId = 'historyApiLogisticsSync_solution';
+                    var datagridId = historyApiLogisticsSync.params.datagrid.id;
+                    var index = $('#'+datagridId).datagrid('getSelections');
+                    if(index.length>1){messager.alert('请选择单行查看');return}
+                    var url = "index.php/Stock/apiLogisticsSync/getErrorMsgSolution?id=" + id;
+                    $('#'+dialogId).dialog({
+                        title:'物流同步错误信息',
+                        iconCls:'icon-save',
+                        width:500,
+                        height:300,
+                        href:url,
+                        closed:false,
+                        inline:true,
+                        modal:true
+                    });
+
+                }
+            },0);
+        });
+    </script>
+</block>
+
+  

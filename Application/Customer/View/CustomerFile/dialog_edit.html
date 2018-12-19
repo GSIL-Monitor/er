@@ -1,0 +1,125 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="datagrid">
+    <form id="{$id_list['form']}" method="post">
+        <div class="easyui-form">
+            <div style="display: none;"><input value="{$customer.id}" name="id" hidden="true"/></div>
+            <div class="form-div">
+                <label class="four-character-width">客户编号:</label><input class="easyui-textbox txt" type="text" name="customer_no" value="{$customer.customer_no}"/>
+                <label class="four-character-width">网名:</label><input class="easyui-textbox txt" type="text" value="{$customer.nickname}" name="nickname" required="true"/>
+                <label class="four-character-width">姓名:</label><input class="easyui-textbox txt" type="text" value="{$customer.name}" name="name"/>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">性别:</label><input class="easyui-combobox txt" type="text" value="{$customer.sex}" name="sex" data-options="valueField:'id',textField:'name',data:formatter.get_data('sex','def',{$customer.sex})"/>
+                <label class="four-character-width">生日:</label><input class="easyui-datebox txt" type="text" value="{$customer.birthday}" name="birthday"/>
+                <label class="four-character-width">QQ:</label><input class="easyui-textbox txt" type="text" value="{$customer.qq}" name="qq" data-options="validType:'QQ'"/>
+            </div>
+            <div class="form-div">
+                <if condition="($id_list.right_flag eq 0)">
+                    <label class="four-character-width">手机:</label><input class="easyui-textbox txt" type="text" value="{$customer.mobile}" name="mobile" data-options="disabled:true"/>
+                    <label class="four-character-width">固话:</label><input class="easyui-textbox txt" type="text" value="{$customer.telno}" name="telno" data-options="disabled:true"/>
+                    <else/>
+                    <label class="four-character-width">手机:</label><input class="easyui-textbox txt" type="text" value="{$customer.mobile}" name="mobile" data-options="validType:'mobile'"/>
+                    <label class="four-character-width">固话:</label><input class="easyui-textbox txt" type="text" value="{$customer.telno}" name="telno"/>
+                </if>
+                <label class="four-character-width">旺旺:</label><input class="easyui-textbox txt" type="text" value="{$customer.wangwang}" name="wangwang"/>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">Email:</label><input class="easyui-textbox txt" type="text" value="{$customer.email}" name="email" data-options="validType:'email'"/>
+                <label class="four-character-width">客户类型:</label><input class="easyui-combobox txt" type="text" value="{$customer.type}" name="type" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_data('customer_type','def')"/>
+                <label class="four-character-width">地址:</label><input class="easyui-textbox txt" type="text" value="{$customer.address}" name="address"/>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">省:</label><input id="customerFileEditProvince" class="easyui-combobox txt" type="text" name="province"/>
+                <label class="four-character-width">市:</label><input id="customerFileEditCity" class="easyui-combobox txt" type="text" name="city"/>
+                <label class="four-character-width">县:</label><input id="customerFileEditDistrict" class="easyui-combobox txt" type="text" name="district"/>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">邮编:</label><input class="easyui-textbox txt" type="text" value="{$customer.zip}" name="zip" data-options="validType:'zip'"/>
+                <label class="four-character-width">默认快递:</label><input class="easyui-combobox txt" type="text" name="logistics_id" value="{$customer.logistics_id}" data-options="valueField:'id',textField:'name',data:formatter.get_data('logistics_type','def','{$customer.logistics_id}')"/>
+                <label class="four-character-width">备注:</label><input class="easyui-textbox txt" type="text" value="{$customer.remark}" name="remark"/>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">客户标签:</label><select class="easyui-combobox sel" name="class_id" data-options="editable:false">
+                    <volist name='class_name' id='vo'>
+                        <if condition="$vo['id'] eq $customer['class_id']">
+                            <option value="{$vo.id}" selected>{$vo.name}</option>
+                            <else/>
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </if>
+                    </volist>
+                </select>
+                <label>黑名单:</label><input id="customer_file_edit_is_black" class="easyui-checkbox" type="checkbox" value="{$customer.is_black}" data-options="on:1,off:0" onclick="CRM.initCustomerCheckbox('customer_file_edit_is_black', false)" name="is_black"/>
+                <label>停用:</label><input id="customer_file_edit_is_disabled" class="easyui-checkbox" type="checkbox" value="{$customer.is_disabled}" data-options="on:1,off:0" onclick="CRM.initCustomerCheckbox('customer_file_edit_is_disabled', false)" name="is_disabled"/>
+            </div>
+        </div>
+    </form>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="script">
+    <script>
+        //# sourceURL=dialog.edit.js
+        setTimeout(function () {
+            var params = {
+                "province": "{$customer['province']}",
+                "city": "{$customer['city']}",
+                "district": "{$customer['district']}"
+            };
+            customerFileEditArea = new area("customerFileEditProvince", "customerFileEditCity", "customerFileEditDistrict", params);
+            CRM.initCustomerCheckbox("customer_file_edit_is_black", true);
+            CRM.initCustomerCheckbox("customer_file_edit_is_disabled", true);
+        }, 0);
+        CRM.submitEditDialog = function () {
+            var dialog = $("#" + "{$id_list['edit']}");//获取dialog元素
+            var form = $("#" + "{$id_list['form']}");//获取form表单
+            if (!form.form("validate")) {
+                return false;
+            }
+            var queryParams = form.serializeArray();//序列化获取form表单元素value
+            var dg = $("#" + "{$id_list['datagrid']}");//获取show页面datagrid
+            var row = dg.datagrid("getSelected");//获取选中行的数据
+            var index = dg.datagrid("getRowIndex", row);//获取选中行的index
+            var customerFile = {};//form表单数据修改为key:value格式
+            for (var x in queryParams) {
+                if (queryParams[x] instanceof Function) {
+                    continue;
+                }
+                customerFile[queryParams[x]['name']] = queryParams[x]['value'];
+            }
+            //检查是否黑名单和是否停用是否有值
+            if (typeof(customerFile["is_black"]) == "undefined") {
+                customerFile["is_black"] = 0;
+            }
+            if (typeof(customerFile["is_disabled"]) == "undefined") {
+                customerFile["is_disabled"] = 0;
+            }
+            //检查客户编号和客户网名是否为空
+            if (!customerFile["nickname"]) {
+                messager.alert("客户网名不能为空");
+                return;
+            }
+            //检查默认物流方式，过滤掉no值
+            if (customerFile["type"] == "no") {
+                customerFile["type"] = 0;
+            }
+            if (customerFile["province"] == "no") {
+                customerFile["province"] = "";
+                customerFile["city"] = "";
+                customerFile["district"] = "";
+            }
+            var areaStr = customerFileEditArea.getText();
+            customerFile["area"] = areaStr["province"] + " " + areaStr["city"] + " " + areaStr["district"];
+            var url = "{:U('CustomerFile/editCustomer')}";
+            $.post(url, {"data": customerFile}, function (res) {
+                if (res.status) {
+                    dialog.dialog("close");
+                    dg.datagrid("reload");
+                    dg = null;
+                } else {
+                    messager.alert(res.info);
+                }
+            });
+        }
+    </script>
+</block>

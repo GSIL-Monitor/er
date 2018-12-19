@@ -1,0 +1,69 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+                <label>店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>仓库:</label>
+                <select class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                    <volist name="list.warehouse" id="v">
+                        <option value="{$v.id}">{$v.name}</option>
+                    </volist>
+                </select>
+                <label>创建时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]"  data-options="editable:false"/>
+                <label>至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="logisticsFeeManagement.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="logisticsFeeManagement.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-database-go',plain:true,menu:'#logistics_fee_management_export'" >导出功能</a>
+                <div id="logistics_fee_management_export">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="logisticsFeeManagement.exportToExcel('csv')">导出Csv(推荐)</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="logisticsFeeManagement.exportToExcel('excel')">导出到Excel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function (){
+                logisticsFeeManagement = new RichDatagrid(JSON.parse('{$params}'));
+                logisticsFeeManagement.setFormData();
+                logisticsFeeManagement.exportToExcel = function(type){
+                    var url= "{:U('LogisticsFeeManagement/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var form=JSON.stringify(logisticsFeeManagement.params.search.form_data);
+                    var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                    else if(id_list!=''){
+                        messager.confirm('确定导出选中的物流资费吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else if(search==form){
+                        messager.confirm('确定导出所有的物流资费吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else{
+                        messager.confirm('确定导出搜索的物流资费吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&'+'search='+search+'&type='+type);
+                        })
+                    }
+                }
+
+            },0);
+        })
+    </script>
+</block>
+

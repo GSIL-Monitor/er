@@ -1,0 +1,59 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="tabs"></block>
+<block name="dialog">
+    <div id="{$id_list.account_summary}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　　　　账单完成日期：</label><input class="easyui-datebox txt" id="alipay_detail_start_time" type="text" name="search[start_time]" value="{$query_start_date}"  data-options="editable:false"/>
+                <label>至：</label><input class="easyui-datebox txt" type="text"  id="alipay_detail_end_time"  name="search[end_time]" value="{$current_date}" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="alipayBillAccount.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="alipayBillAccount.loadFormData();">重置</a>
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Account/AlipayBillAccount','alipay_bill_account','{$datagrid.id}',1)">设置表头</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-chart-bar',plain:true" onclick="alipayBillAccount.accountSummary()">账务汇总合计</a>
+
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function (){
+                alipayBillAccount = new RichDatagrid(JSON.parse('{$params}'));
+                alipayBillAccount.setFormData();
+                var datagrid_id = alipayBillAccount.params.datagrid.id;
+                alipayBillAccount.accountSummary = function()
+                {
+                    var start_time = $('#alipay_detail_start_time').datebox('getValue');
+                    var end_time = $('#alipay_detail_end_time').datebox('getValue');
+                    var url = "{:U('AlipayBillAccount/showAccountSummary')}"+'?start_time='+start_time+'&end_time='+end_time;
+                    this.showDialog(
+                            "{$id_list.account_summary}",
+                            '账务汇总合计',
+                            url
+                    );
+                }
+
+
+            },0);
+        })
+
+        function statAlipayBillTotalCompute(page_rows,arr_fields,append_row) {
+            var rows = page_rows;
+            for(var index in arr_fields)
+            {
+                var field = arr_fields[index];
+                append_row[field] = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    append_row[field] += parseFloat(rows[i][field]);
+                }
+                append_row[field] = append_row[field].toFixed(4);
+            }
+
+        }
+    </script>
+</block>
+

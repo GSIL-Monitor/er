@@ -1,0 +1,667 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<!--提交-->
+<div class="form-div" style="border-bottom:  1px solid #7CAAB1">
+    <a href="javascript:void(0)" class="easyui-linkbutton" name="button_submit" data-options="iconCls:'icon-save',plain:true">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" name="button_reset" data-options="iconCls:'icon-redo',plain:true">重置</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" name="outsidemanage" data-options="iconCls:'icon-next',plain:true" style="float: right;margin-right:10px;" onClick="open_menu('委外出入库管理', '{:U('Stock/OutsideWmsManagement/showWmsManage')}')">委外出入库管理</a>
+</div>
+<!--form-->
+<div>
+<form id="{$id_list.form}" method="post">
+<div>
+
+<div style="display: inline-block;vertical-align:middle">
+
+<div class="form-div">
+<label>　单据类型：</label><input	class="easyui-combobox 	txt" 	name="search[order_type]" 	data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('wms_order_type','def')"/>
+<label>　　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]"  ><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　　联系人：</label><input class="easyui-textbox sel" type="text" name="search[receiver_name]" />
+<label>　联系电话：</label><input class="easyui-textbox sel" type="text" name="search[receiver_telno]" data-options="validType:'mobileAndTel'" />
+<label>　收货地址：</label><input class="easyui-textbox sel" type="text" name="search[receiver_address]"  style="width:300px" />
+</div>
+<div class="form-div">
+<label>　运输模式：</label><input	class="easyui-combobox 	txt" 	name="search[transport_mode]" 	data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('transport_mode','def')"/>
+
+<label>　物流方式：</label><select class="easyui-combobox sel" name="search[logistics_id]"  ><option value="0">无</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　物流单号：</label><input class="easyui-textbox sel" type="text" style="width:130px" name="search[logistics_no]"/>
+<label>　　　邮编：</label><input class="easyui-textbox sel" type="text" style="width:130px" name="search[receiver_zip]"/>
+</div>
+<div class="form-div">
+<label>　　　邮资：</label><input class="easyui-numberbox txt" type="text" name="search[logistics_fee]"  data-options="value:0.00,min:0,precision:4"/>
+<label>　其他金额：</label><input class="easyui-numberbox txt" type="text"  name="search[other_fee]" data-options="value:0.00,min:0,precision:4"/>
+<label>　　总金额：</label><input class="easyui-numberbox txt"  type="text" name="search[amount]" data-options="editable:false,min:0,readonly:true,value:0,precision:4"/>
+</div>
+<div class="form-div">
+<label>　　　备注：</label><input class="easyui-textbox sel" type="text" style="width:338px" name="search[remark]"/>
+</div>
+</div>
+
+</div><!--form-div-->
+</form>
+</div>
+<!-- operater datagrid-->
+<div class="form-div" style="border-top:  1px solid #7CAAB1;padding-top: 2px;margin-top: 5px;">
+
+<a href="javascript:void(0)" class="easyui-linkbutton" name="button_add_goods" data-options="iconCls:'icon-add',plain:true">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" name="button_del_goods" data-options="iconCls:'icon-remove',plain:true">删除</a>
+<a href="javascript:void(0)" name="apply_to_all_lines" class="easyui-linkbutton" data-options="plain:false">应用到所有行</a>
+<label style="color:red;margin-left: 5px;">#应用到所有行支持[开单数量]、[成本价]列#</label>
+<label style="color:red;margin-left:80px;font-size:30px;display:none;" class="font_Wmsoutside">保存成功</label>
+</div><!--toolbar-->
+</div>
+<script type="text/javascript">
+//# sourceURL=wmsoutside.js
+	var toolbar_id = '{$id_list.toolbar}';
+    var element_selectors ={
+		'order_type'             	:$('#'+toolbar_id+" :input[name='search[order_type]']"),
+		'transport_mode'            :$('#'+toolbar_id+" :input[name='search[transport_mode]']"),
+		'outsidemanage'				:$('#'+toolbar_id+" a[name='outsidemanage']"),
+        'provider_id'		        :$('#'+toolbar_id+" select[name='search[provider_id]']"),
+        'warehouse_id'		        :$('#'+toolbar_id+" select[name='search[warehouse_id]']"),
+ 		'receiver_name'		   		:$('#'+toolbar_id+" :input[name='search[receiver_name]']"),
+        'remark'		            :$('#'+toolbar_id+" :input[name='search[remark]']"),
+        'receiver_telno'		    :$('#'+toolbar_id+" :input[name='search[receiver_telno]']"),
+        'receiver_address'			:$('#'+toolbar_id+" :input[name='search[receiver_address]']"),
+        'logistics_id'		    	:$('#'+toolbar_id+" select[name='logistics_id']"),
+        'logistics_fee'		        :$('#'+toolbar_id+" :input[name='search[logistics_fee]']"),
+        'other_fee'	            	:$('#'+toolbar_id+" :input[name='search[other_fee]']"),
+		'amount'	                :$('#'+toolbar_id+" :input[name='search[amount]']"),
+		'button_add_goods'	    	:$('#'+toolbar_id+" a[name='button_add_goods']"),
+        'button_del_goods'	    	:$('#'+toolbar_id+" a[name='button_del_goods']"),
+		'button_submit'		    	:$('#'+toolbar_id+" a[name='button_submit']"),
+        'button_reset'		        :$('#'+toolbar_id+" a[name='button_reset']"),
+		'receiver_zip'				:$('#'+toolbar_id+" :input[name='search[receiver_zip]']"),
+		'logistics_no'				:$('#'+toolbar_id+" :input[name='search[logistics_no]']"),
+		'apply_to_all_lines'		:$('#'+toolbar_id+" a[name='apply_to_all_lines']"),
+	};
+	var WmsOutsideTool = function(params,element_selectors){
+		var tool_self = this;
+		this.params = params;
+		this.change_column  = '';
+		this.datagrid_id = this.params.datagrid;
+		this.form_id = this.params.form;
+		this.element_selectors = element_selectors;
+		this.toolbar_id = this.params.id_list.toolbar;
+		this.order_id = this.params.order_id;
+		this.init_form_data = $('#'+this.form_id).form('get');
+		this.element_selectors.amount.numberbox({'disabled':true});
+	
+		this.form_type_map = {
+			'transport_mode':'combobox','receiver_zip':'textbox','logistics_no':'textbox','order_type':'combobox','outsidemanage':'linkbutton','logistics_fee':'numberbox','other_fee':'numberbox','logistics_id':'combobox','amount':'numberbox','warehouse_id':'combobox', 'receiver_name':'textbox', 'receiver_telno':'textbox', 'receiver_address':'textbox','remark':'textbox','button_submit':'linkbutton','button_reset':'linkbutton','button_add_goods':'linkbutton','button_del_goods':'linkbutton'
+		};	
+		this.disabled_input_map ={
+           'transport_mode':1,'receiver_zip':1,'logistics_no':1,'order_type':1,'logistics_fee':1,'other_fee':1,'logistics_id':1,'amount':1,'warehouse_id':1, 'receiver_name':1, 'receiver_telno':1, 'receiver_address':1,'remark':1,'button_submit':1,'button_reset':1,'button_add_goods':1,'button_del_goods':1
+		};
+        //记录需要禁用的表单映射
+        this.enable_input_map ={
+          'transport_mode':1,'receiver_zip':1,'logistics_no':1, 'order_type':1,'logistics_fee':1,'other_fee':1,'logistics_id':1,'amount':1,'warehouse_id':1, 'receiver_name':1, 'receiver_telno':1, 'receiver_address':1,'remark':1,'button_submit':1,'button_reset':1,'button_add_goods':1,'button_del_goods':1
+		 };
+		 //注册事件
+        //保存按钮
+        this.element_selectors.button_submit.linkbutton({onClick:function(){
+            tool_self.submitWmsOrder();
+        }});
+		//应用到所有行
+        this.element_selectors.apply_to_all_lines.linkbutton({onClick:function(){
+            tool_self.applyToAllLines();
+        }});
+		
+        //重置按钮
+        this.element_selectors.button_reset.linkbutton({onClick:function(){
+            tool_self.resetDisplay();
+        }});
+        //添加货品按钮
+        this.element_selectors.button_add_goods.linkbutton({onClick:function(){
+            tool_self.addGoods();
+        }});
+        //删除货品按钮
+        this.element_selectors.button_del_goods.linkbutton({onClick:function(){
+            tool_self.delGoods();
+        }});
+		//邮费变动函数
+		this.element_selectors.logistics_fee.numberbox({onChange:function(newValue,oldValue){
+            var that = this;
+			tool_self.setPostFee(newValue,oldValue,that);
+        }});
+		//其他费用变动函数
+		this.element_selectors.other_fee.numberbox({onChange:function(newValue,oldValue){
+            var that = this;
+			tool_self.setOtherFee(newValue,oldValue,that);
+        }});
+		
+		var options = $('#'+this.datagrid_id).datagrid('options');
+		for(var i in options.columns[0])
+		{
+			if(options.columns[0][i].field == 'position_no')
+			{
+				options.columns[0][i].editor.options.onClickButton = function(){tool_self.addPosition(this);};
+			}
+		}
+		
+		$('#'+this.datagrid_id).datagrid('options').onEndEdit = function(index, row, changes){tool_self.endEditRow(index, row, changes,this);};
+		//单元格编辑模式 先后顺序必须保持
+       
+		$('#'+this.datagrid_id).datagrid('options').onClickCell = function(index,field,value){tool_self.onClickCell(index,field,value)};
+		 $('#'+this.datagrid_id).datagrid().datagrid('enableCellEditing');
+		 this.keepClickCell = $('#'+this.datagrid_id).datagrid('options').onClickCell;
+	   $('#'+this.form_id).form('filterLoad',this.init_form_data);
+		var warehouse_id = tool_self.element_selectors.warehouse_id.combobox('getValue');
+		tool_self.toWhOnChange(warehouse_id,'',tool_self);
+		
+	}
+	
+	WmsOutsideTool.prototype = {
+		isDisableformInput : function(is_disabled,map){
+			var map = !map?(is_disabled?this.disabled_input_map:this.enable_input_map):map;
+			var is_disabled = parseInt(is_disabled);
+			for(var item in map){
+				if(map[item]){
+					var type = this.form_type_map[item];
+					if(type == 'combobox'){
+						this.element_selectors[item][type](is_disabled?'disable':'enable');
+					}else if(type != 'html'){
+						this.element_selectors[item][type]({disabled:is_disabled?true:false});
+					}
+				}
+			}
+		},
+		
+		addPosition : function(editor_p){
+			var that = this;
+			var wms_order_type = this.element_selectors.order_type.combobox('getValue');
+			if (wms_order_type == "all" || wms_order_type == undefined || wms_order_type == 1) {
+				messager.alert('当前入库原因不符合添加条件');
+				return;
+			}
+			var stockin_warehouse = this.element_selectors.warehouse_id.combobox('getValue');
+			if(stockin_warehouse == null ||stockin_warehouse ==0 ){
+				this.submit_switch = 1;
+				messager.alert('请选择入库仓库');
+				return;
+			}else{
+				this.sel_warehouse = stockin_warehouse;
+			}
+			if($.isEmptyObject($.trim(this.sel_warehouse)) ||  $.trim(this.sel_warehouse) == '' || this.sel_warehouse ==0){
+				messager.alert('获取仓库失败,请先新建仓库');
+				return;
+			}
+
+			$('#flag_set_dialog').richDialog('warehousePosition', this.submitDialogWarehousePosition,{
+				'prefix':'stockin',
+				'warehouse_id':this.sel_warehouse,
+			},{m_p:that,editor_p:editor_p});
+		},
+		applyToAllLines : function(){
+			var that = this;
+			var show_dg=$('#'+this.datagrid_id);
+			var data=show_dg.datagrid('getData');
+			var rows=data.rows;
+			if(rows.length==0){return;}
+			for(var i in rows){
+				if (that.change_column.num!=undefined) {
+					rows[i].num=that.change_column.num;
+					show_dg.datagrid('updateRow',{index:parseInt(i), row:{num:that.change_column.num}});
+				}
+				if (that.change_column.cost_price!=undefined) {
+					rows[i].cost_price=that.change_column.cost_price;
+					show_dg.datagrid('updateRow',{index:parseInt(i), row:{cost_price:that.change_column.cost_price}});
+				}
+			}
+			//show_dg.datagrid('loadData',data);
+		},
+		
+		submitDialogWarehousePosition : function(up_d,d_d,form_id,params){
+			var up_sel_row = $('#'+up_d).datagrid('getSelected');
+			var down_rows = $('#'+d_d).datagrid('getRows');
+			var form_info = $('#'+form_id).form('get');
+			var row = $('#' + params.m_p.params.datagrid).datagrid('getSelected');
+			var index = $('#' + params.m_p.params.datagrid).datagrid('getRowIndex',row);
+			var update_r = $.data($('#'+params.m_p.params.datagrid)[0],'datagrid').updatedRows;
+			var insert_r = $.data($('#'+params.m_p.params.datagrid)[0],'datagrid').insertedRows;
+			if(form_info.has_other && down_rows.length!=0){
+				messager.confirm('该货位不存在该货品,存在其他货品!是否确定选择',function(r){
+					if(r){
+						$(params.editor_p).textbox('setValue',up_sel_row['position_no']);
+						if(row.position_id != up_sel_row['position_id'])
+						{
+							if(params.m_p.isset(insert_r,row)==-1)
+							{
+								if(params.m_p.isset(update_r,row)==-1)
+								{
+									update_r.push(row);
+								}
+							}
+						}
+						row.position_id =up_sel_row['id'];
+//						$('#' + params.m_p.params.datagrid.id).datagrid('updateRow',{index:index,});
+						$('#flag_set_dialog').dialog('close');
+                        $(params.editor_p).textbox('releaseFocus');
+					}else{
+						return;
+					}
+				});
+			}else{
+				$(params.editor_p).textbox('setValue',up_sel_row['position_no']);
+				if(row.position_id != up_sel_row['position_id'])
+				{
+					if(params.m_p.isset(insert_r,row)==-1)
+					{
+						if(params.m_p.isset(update_r,row)==-1)
+						{
+							update_r.push(row);
+						}
+					}
+				}
+				row.position_id =up_sel_row['id'];
+//				$('#' + params.m_p.params.datagrid.id).datagrid('updateRow',{index:index,row:{position_id:up_sel_row['id']}});
+				$('#flag_set_dialog').dialog('close');
+                $(params.editor_p).textbox('releaseFocus');
+			}
+
+
+		},
+		
+		onClickCell:function(index,field,value){
+			if(field=='position_no'){
+				var rows = $('#'+this.datagrid_id).datagrid('getRows');
+				var ed = $('#'+this.datagrid_id).datagrid('getEditor',{index:parseInt(index),field:field});
+				if((rows[index]['is_allocated'] == 1 || rows[index]['position_id'] == 0 ) ){
+					$(ed.target).textbox('readonly');
+					$(ed.target).textbox('releaseFocus');
+					$(ed.target).textbox('textbox').css({'background-color':'#C5C5C5'});
+					$(ed.target).textbox('textbox').siblings('a').unbind('mousedown');
+				}
+
+			}
+		},
+		
+		isset:function(rows,t){
+		for(var i=0,len=rows.length;i<len;i++){
+			if(rows[i]==t){
+				return i;
+			}
+		}
+		return -1;
+		},
+		
+		snapshot : function(parent_id,is_disabled){
+            $('#'+parent_id+' :input').attr('disabled',is_disabled);
+            var a_dom_ar = $('#'+parent_id+' a[class~="easyui-linkbutton"]');
+            $.each(a_dom_ar,function(i,a_dom){
+                $(a_dom).linkbutton({'disabled':is_disabled});
+            });
+            this.element_selectors.button_reset.linkbutton({'disabled':false});
+			this.element_selectors.outsidemanage.linkbutton({'disabled':false});
+        },
+        resetDisplay : function(){
+            this.snapshot(this.toolbar_id,false);
+            this.initShowByTypeAndMode();
+            $('#'+this.datagrid_id).datagrid('options').onClickCell = this.keepClickCell;
+			this.element_selectors.amount.numberbox({'disabled':true});
+			var warehouse_id = this.element_selectors.warehouse_id.combobox('getValue');
+			this.toWhOnChange(warehouse_id,'',this);
+			$('.font_Wmsoutside').hide();
+        },
+		initShowByTypeAndMode:function(type,mode){
+            var form_data = this.init_form_data;
+            $('#'+this.datagrid_id).datagrid('options').onClickCell = this.keepClickCell;
+            
+            $('#'+this.datagrid_id).datagrid('loadData',{'total':0,rows:[]});
+			$('#'+this.form_id).form('filterLoad',form_data);
+            
+        },
+		delGoods : function(){
+            var selected_row 	= $('#' + this.datagrid_id).datagrid("getSelected");
+			if ($.isEmptyObject(selected_row) || selected_row.length == 0) {
+                messager.alert('请选择行');
+                return;
+            }
+            var selected_index 	= $('#' + this.datagrid_id).datagrid("getRowIndex", selected_row);
+            $('#' + this.datagrid_id).datagrid("deleteRow", selected_index);
+            this.changeMoney();
+        },
+		changeMoney : function(){
+			 var rows = $('#'+this.datagrid_id).datagrid('getRows');
+			 var tax_fee = 0;
+			 var total = 0;
+			 for(var i in rows){	
+				if(rows[i].amount == null || rows[i].amount == undefined){
+					 total = 0;
+				}
+				else{
+					total = parseFloat(rows[i].amount);
+				}
+				tax_fee+=total;
+			 }
+			 var logistics_fee = this.element_selectors.logistics_fee.numberbox('getValue');
+			 var other_fee = this.element_selectors.other_fee.numberbox('getValue');
+			 var amount = tax_fee+parseFloat(logistics_fee)+parseFloat(other_fee);
+			 $('#' + this.form_id).form('load', {
+                'search[amount]': amount
+            });
+		},
+		setPostFee : function(newValue,oldValue,that) {
+			if( parseFloat(newValue)!=0 && newValue == ''){
+                $(that).numberbox('setValue',parseFloat(oldValue));
+				return ;
+            }else{
+                newValue =parseFloat(newValue);
+            }
+            if( parseFloat(oldValue)!=0 && $.isEmptyObject(oldValue)){
+                oldValue = parseFloat(newValue);
+            }else{
+                oldValue = parseFloat(oldValue);
+            }
+			$('#' + this.form_id).form('load', {
+                'search[logistics_fee]': newValue,
+            });
+			this.changeMoney();	
+		},
+		setOtherFee : function(newValue, oldValue,that) {
+			if( parseFloat(newValue)!=0 && newValue == ''){
+                $(that).numberbox('setValue',parseFloat(oldValue));
+               return;
+            }else{
+                newValue =parseFloat(newValue);
+            }
+            if( parseFloat(oldValue)!=0 && $.isEmptyObject(oldValue)){
+                oldValue = parseFloat(newValue);
+            }else{
+                oldValue = parseFloat(oldValue);
+            }
+			$('#' + this.form_id).form('load', {
+                'search[other_fee]': newValue,
+            });
+			this.changeMoney();	
+		},
+		addGoods : function(){
+		
+			var that =this;
+			var warehouse_id = that.element_selectors.warehouse_id.combobox('getValue');
+			if(!warehouse_id || warehouse_id == null){
+				messager.alert('请选择仓库！');
+				return ;
+			}
+			var wms_order_type = that.element_selectors.order_type.combobox('getValue');
+			if(wms_order_type == 1){
+				$('#'+that.params.dialog).richDialog('goodsSpec',that.submitGoodsSpecDialog,{
+					'prefix':that.params.prefix,
+					'type':true,
+					'warehouse_id':warehouse_id,
+					'model':'',
+				},that);
+				
+			}else{
+				$('#'+that.params.dialog).richDialog('goodsSpec',that.submitGoodsSpecDialog,{
+					'prefix':that.params.prefix,
+					'type':true,
+					'warehouse_id':warehouse_id,
+					'model':'stock',
+				},that);
+			}
+			
+		},
+		submitGoodsSpecDialog : function(uid,did,wmsoutside_obj){
+			var rows ;
+            rows = $('#'+did).datagrid('getRows');
+            var now_rows = $('#'+wmsoutside_obj.datagrid_id).datagrid('getRows');
+            var now_formatter_rows = utilTool.array2dict(now_rows,'spec_id','');
+            var append_rows = [];
+            for(var i in rows){
+                if(now_formatter_rows[rows[i].spec_id]){continue;}
+                append_rows.push(rows[i]);
+				
+			}
+            for(var j in append_rows)
+            {
+                var append_row = $.extend({},append_rows[j]);
+                $('#'+wmsoutside_obj.datagrid_id).datagrid('appendRow',append_rows[j]);
+				var index = $('#'+wmsoutside_obj.datagrid_id).datagrid('getRowIndex',append_rows[j]);
+				if(append_rows[j]['cost_price'] == undefined){
+					append_rows[j]['cost_price'] = append_rows[j]['price']; 
+				}
+				var amount = append_rows[j]['num'] * append_rows[j]['cost_price'];
+				$('#'+wmsoutside_obj.datagrid_id).datagrid('updateRow',{
+					index: index,
+					row: {
+							'amount': amount,
+							
+						}
+					});
+
+            }
+			
+            wmsoutside_obj.changeMoney();
+            $('#'+wmsoutside_obj.params.dialog).dialog('close');
+        },
+		
+		endEditRow : function(index, row, changes,datagrid_obj){
+			this.change_column = changes;
+			var amount = row.num * row.cost_price;
+			$('#'+this.datagrid_id).datagrid('updateRow',{
+					index: index,
+					row: {
+							'amount': amount,
+							
+						}
+					});
+
+            this.changeMoney();
+        },
+		submitWmsOrder : function(){
+			var that = this;
+			var rows = $('#'+this.datagrid_id).datagrid('getRows');
+			var order_type = this.element_selectors.order_type.combobox('getValue');
+			var good_count = 0;
+			var goods_type_count = 0;
+			var good_amount = 0;
+			if(!$('#'+that.form_id).form('validate')){return; }
+			if($.isEmptyObject(rows)){
+				messager.alert('请先添加货品!');
+				return ;
+			}
+			var deal_info = []; 
+			for(i in rows){
+				var temp_result = {'spec_no':rows[i].spec_no,};
+				var number = $('#'+this.datagrid_id).datagrid('getRowIndex',rows[i])+1;
+				if(parseFloat(rows[i].num) == 0){
+					temp_result['info'] = '第'+number+'行的开单量不能为空';
+					deal_info.push(temp_result);
+				}
+				if(rows[i].cost_price == ''){
+					temp_result['info'] = '第'+number+'行的成本价不能为空';
+					deal_info.push(temp_result);
+				}
+				if(order_type == 1 && rows[i].stock_num < rows[i].num){
+					temp_result['info'] = '第'+number+'行的出库数量不能大于库存数量';
+					deal_info.push(temp_result);
+				}
+				var index = $('#'+this.datagrid_id).datagrid('getRowIndex',rows[i]);
+                if(!$('#'+this.datagrid_id).datagrid('validateRow',index)) { 
+					messager.alert("请将货品信息填写完整！");
+					return ;  
+				}
+				good_count = parseFloat(rows[i].num)+good_count;
+				goods_type_count = goods_type_count+1;
+				good_amount = good_amount+parseFloat(rows[i].amount);
+			}
+			if(!$.isEmptyObject(deal_info)){
+				$.fn.richDialog("response",deal_info,"goods_spec");
+				return;
+			}
+			this.isDisableformInput(0);
+			this.element_selectors.amount.numberbox({'disabled':false});
+			var data = {};
+			var form_data = $('#'+that.form_id).form('get');
+			if(!!this.order_id){
+                form_data['search[id]'] = this.order_id;
+            }
+			form_data['search[goods_count]'] = good_count;
+			form_data['search[goods_type_count]'] = goods_type_count;
+			form_data['search[goods_fee]'] = good_amount;
+			data = $.extend(data,form_data);
+            data['rows'] = {};
+            data['rows']['update'] = $('#'+this.datagrid_id).datagrid('getChanges','updated');
+            data['rows']['delete'] = $('#'+this.datagrid_id).datagrid('getChanges','deleted');
+            data['rows']['insert'] = $('#'+this.datagrid_id).datagrid('getChanges','inserted');
+			//显示载入状态
+            $('#'+this.datagrid_id).datagrid('loading');
+            $.post(this.params.submit_url,data,function(res){
+                $('#'+that.datagrid_id).datagrid('loaded');
+                if(res.status == 1){
+                    if(!$.isEmptyObject(res.data)){
+                        $.fn.richDialog("response", res.data, "goods_spec");
+                    }else{
+                        messager.alert(res.info);
+                    }
+                } else {
+                    $('.font_Wmsoutside').show();
+					
+                    that.snapshot(that.toolbar_id,true);
+					
+					$('#'+that.datagrid_id).datagrid('options').onClickCell = function(){return;};
+                    if(!!that.params.parent_info){
+                        $('#'+that.params.parent_info.dialog_id).dialog('close');
+                        $('#'+that.params.parent_info.datagrid_id).datagrid('reload');
+                    }
+                }
+            },'json');
+		},
+		toWhOnChange : function(newValue,oldValue,combox_obj){
+			var that = this;		
+			var warehouse_id = this.element_selectors.warehouse_id.combobox('getValue');
+			if(newValue == oldValue){
+				return ;
+			}
+			var wms_order_type = this.element_selectors.order_type.combobox('getValue');
+			if(wms_order_type == 1){
+				 $('#' + that.datagrid_id).datagrid('loadData', {'total': 0, 'rows': []});
+			}
+			var id = newValue;
+			$.post("{:U('Stock/OutsideWmsOrder/getOtherInfo')}",{id:id},function(res){
+				if(res.status == 0){
+					$('#'+that.form_id).form('filterLoad',res.data);
+					var append_rows = $('#'+that.datagrid_id).datagrid('getRows');
+					for(var j in append_rows){
+						append_row = $.extend({},append_rows[j]);
+						var index = $('#'+that.datagrid_id).datagrid('getRowIndex',append_rows[j]);
+						var amount = append_rows[j]['num'] * append_rows[j]['cost_price'];
+						$('#'+that.datagrid_id).datagrid('updateRow',{
+							index: index,
+							row: {
+								'amount': amount,
+						
+							}
+						});
+
+					}
+					that.changeMoney();
+					
+				}else{
+					messager.alert(res.data);
+				}
+			},'json');
+		},
+		loadEditInfo : function (){
+			var that = this;
+			$.post('{:U("Stock/OutsideWmsOrder/getEditinfo")}',{id:that.order_id},function(r){
+				if(r.status == 1){
+					messager.alert(r.info);
+				}else{
+					that.temp = r.form_data;
+                    $('#'+that.form_id).form('filterLoad',r.form_data);
+                    $('#'+that.datagrid_id).datagrid('loadData',r.detail_data);
+					that.changeMoney();
+				}
+			});
+		},
+		order_type_change : function(newValue,oldValue,obj){
+			var get = $('#'+obj.datagrid_id).datagrid('getRows');
+			if(!$.isEmptyObject(get)){
+				if(newValue != oldValue){
+					messager.confirm('单据类型修改会清除货品信息，是否修改？',function(r){
+						if(r){
+							$('#'+obj.datagrid_id).datagrid('loadData',{total:0,rows:[]});
+							obj.changeMoney();
+						}else{
+							obj.element_selectors.order_type.combobox('setValue',oldValue);
+							return false;
+						}	
+					});
+				}
+			}				
+		},
+		
+        loadAlarmInfo : function (){
+			var that = this;
+            var is_all = 0;
+
+
+//            var warehouse_id = that.element_selectors.warehouse_id.combobox('getValue');
+            var sel_rows = $('#'+that.params.parent_info.datagrid_id).datagrid('getSelections');
+            var spec_ids = [];
+            for(var i in sel_rows)
+            {
+                spec_ids.push(sel_rows[i].id);
+            }
+
+			$.post('{:U("Purchase/WmsOutsideOrder/getAlarmInfo")}',{ids:spec_ids,warehouse_id:that.params.parent_info.warehouse_id},function(r){
+				if(r.status == 1){
+					messager.alert(r.info);
+				}else{
+					that.temp = r.form_data;
+                    for(var j in r.detail_data.rows)
+                    {
+                        $('#'+that.datagrid_id).datagrid('appendRow',r.detail_data.rows[j]);
+                    }
+					that.changeMoney();
+                    if(that.params.parent_info.sel_warehouse_id!=0){
+                        that.toWhOnChange(that.params.parent_info.sel_warehouse_id,'',that);
+                        that.element_selectors.warehouse_id.combobox('setValue',that.params.parent_info.sel_warehouse_id);
+                    }else{
+                      var sel_warehouse_id = that.element_selectors.warehouse_id.combobox('getValue');
+                        that.toWhOnChange(sel_warehouse_id,'',that);
+                        that.element_selectors.warehouse_id.combobox('setValue',sel_warehouse_id);
+                    }
+				}
+			});
+		}
+	};
+	 var WmsOutsideOrder = undefined;
+	$(function(){
+		  element_selectors.warehouse_id.combobox({editable:false, required:true,onChange:function(newValue,oldValue){WmsOutsideOrder.toWhOnChange(newValue,oldValue,this);}});
+		
+	 //var WmsOutsideOrder = undefined;
+       setTimeout(function(){
+        WmsOutsideOrder  = new WmsOutsideTool(JSON.parse('{$params}'),element_selectors);
+		WmsOutsideOrder.element_selectors.order_type.combobox({editable:false, required:true,onChange:function(newValue,oldValue){WmsOutsideOrder.order_type_change(newValue,oldValue,WmsOutsideOrder);}});
+		
+		//WmsOutsideOrder.toWhOnChange = function('','',this);
+		//wmsoutside_obj.isDisableformInput(0);
+            if(!$.isEmptyObject(WmsOutsideOrder.params.order_id)){
+                WmsOutsideOrder.disabled_input_map  ={
+					'transport_mode':0,'receiver_zip':0,'logistics_no':0,'order_type':1,'outsidemanage':1,'logistics_fee':0,'other_fee':0,'logistics_id':0,'amount':1,'warehouse_id':1, 'receiver_name':1, 'receiver_telno':1, 'receiver_address':1,'remark':0,'button_submit':0,'button_reset':1,'button_add_goods':0,'button_del_goods':0
+				};
+				WmsOutsideOrder.enable_input_map = {
+					'transport_mode':0,'receiver_zip':0,'logistics_no':0,'order_type':1,'outsidemanage':1,'logistics_fee':0,'other_fee':0,'logistics_id':0,'amount':1,'warehouse_id':1, 'receiver_name':1, 'receiver_telno':1, 'receiver_address':1,'remark':0,'button_submit':0,'button_reset':1,'button_add_goods':0,'button_del_goods':0
+				};
+				
+                WmsOutsideOrder.isDisableformInput(1);
+                WmsOutsideOrder.loadEditInfo();
+				
+
+            }
+        });
+    });
+	
+
+</script>
+</block>
+<block name="tabs">
+</block>
+<block name="dialog">
+    <div id="{$id_list.dialog_wms}"></div>
+	
+</block>

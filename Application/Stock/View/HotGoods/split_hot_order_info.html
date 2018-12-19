@@ -1,0 +1,13 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$tool_bar}" style="padding:5px;height:auto">
+        <a href="javascript:void(0)" id="{$split_hot_order}" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="printHotGoods.splitOrder()">生成新爆款单</a>
+        <a href="javascript:void(0)" id="{$not_split_hot_order}" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="printHotGoods.notSplitOrder()">使用原爆款单</a>
+        <label  style ='color:red;margin-left:50px;'>打印不包括如下订单，是否要生成新的爆款单</label>
+    </div>
+</block>
+<block name="dialog">
+</block>
+<block name="tabs">
+</block>
+

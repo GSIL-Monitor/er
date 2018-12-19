@@ -1,0 +1,60 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div class="form-div">
+<label>采购单号:　</label><input class="easyui-textbox txt" type="text" name="search[purchase_no]" style="width: 130px;"/>
+<label>供应商:　</label><select class="easyui-combobox sel" name="search[provider_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='provider_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+
+<label>收货仓库:　</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+		<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+</div>
+<div class="form-div">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="put_purchaseorder.submitSearchForm();">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="put_purchaseorder.loadFormData();">重置</a>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</div>
+<script>
+//# sourceURL = put_purchase.js
+$(function(){
+	setTimeout(function(){
+		put_purchaseorder = new RichDatagrid(JSON.parse('{$params}'));
+		put_purchaseorder.setFormData();
+		},0);
+	});
+function submitAddDialog(pur_put){
+    var select_row = $('#'+put_purchaseorder.params.datagrid.id).datagrid('getSelected');
+    if($.isEmptyObject(select_row))
+    {
+        messager.alert('请选择采购单');
+        return;
+    }
+    var purchase_id = select_row['id'];
+    $.post("{:U('Purchase/PurchaseOrder/getPutPurchase')}",{id:purchase_id},function(infor){
+
+        pur_put.resetDisplay();
+        $('#'+pur_put.form_id).form('filterLoad',infor.form_data);
+        var rows = infor.detail_data.rows;
+        for(var index in rows)
+        {
+            if(rows[index]['discount']==0){
+                rows[index]['ori_price'] = rows[index]['price'];
+                rows[index]['discount_rate'] = '1.0000';
+            }else{
+                rows[index]['discount_rate'] = rows[index]['discount'];
+                rows[index]['ori_price'] = (rows[index]['price']/rows[index]['discount']).toFixed(4);
+            }
+			if(rows[index]['num'] > 0){
+				$('#'+pur_put.datagrid_id).datagrid('appendRow',rows[index]);
+			}
+        }
+        pur_put.changeMoney();
+		$('#'+pur_put.params.put_purchase.id).dialog('close');
+    },"json");
+}
+	
+</script>
+</block>

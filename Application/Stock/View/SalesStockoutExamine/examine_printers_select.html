@@ -1,0 +1,20 @@
+<div style="margin-top:20px;margin-left:20px">
+    <div><span><label>物流单打印机：&nbsp</label></span>
+        <input id="examine_logistic_printer_list" class="easyui-combobox" data-options="width:161"/>
+    </div>
+</div>
+<script>
+    var printerInfo = {$printerInfo};
+    var sys_default_template = {$sys_default_template};
+    var logistic_printer = printerInfo['logistic_printer'];
+    $(function(){
+        stockoutExamine.selectPrinter('goods');
+        setTimeout(function(){
+            if(logistic_printer != '-1')
+                $('#examine_logistic_printer_list').combobox('setValue',logistic_printer);
+        },0);
+    });
+    function getSysDefTemp(){
+        return {$sys_default_template};
+    }
+</script>

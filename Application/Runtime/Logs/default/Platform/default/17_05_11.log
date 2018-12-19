@@ -1,0 +1,365 @@
+2017-05-11 09:44:43	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 09:44:43	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 09:44:43	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6102a07a4b401a3149344d7175ecd10d9294fc78e875a9c2054718218
+    [user_id] => 2054718218
+)
+
+2017-05-11 09:44:43	app_key:
+2017-05-11 09:44:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() C:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 17
+2017-05-11 09:44:43	["2017-05-11 09:44:43","{\"error_response\":{\"code\":27,\"msg\":\"Invalid session\",\"sub_code\":\"invalid-sessionkey\",\"request_id\":\"3gsmhdi2eiea\"}}"]
+2017-05-11 09:44:43	TOP_ERROR 27 Invalid session #invalid-sessionkey
+2017-05-11 09:44:43	ERROR topErrorTest 27 Invalid session #invalid-sessionkey
+2017-05-11 09:44:43	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 09:44:43	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 09:46:29	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 09:46:29	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 09:46:29	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 09:46:29	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 09:46:41	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 09:46:41	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 09:46:41	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 09:46:41	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 09:46:56	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Undefined index: success C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 38
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Undefined index: success C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Use of undefined constant hasAuthShop - assumed 'hasAuthShop' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 368
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Use of undefined constant getTemplates - assumed 'getTemplates' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 395
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Use of undefined constant saveTemplates - assumed 'saveTemplates' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 429
+2017-05-11 09:46:56	PHP Error Severity: 8 --> Use of undefined constant deleteTemplate - assumed 'deleteTemplate' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 452
+2017-05-11 09:47:07	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 09:47:07	PHP Error Severity: 8 --> Undefined index: status C:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php 204
+2017-05-11 09:47:07	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 09:47:07	PHP Error Severity: 8 --> Undefined index: status C:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php 204
+2017-05-11 09:47:18	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 09:47:18	PHP Error Severity: 8 --> Undefined index: status C:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php 204
+2017-05-11 09:47:18	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 09:47:18	PHP Error Severity: 8 --> Undefined index: status C:\wamp\www\test\trunk\source\Application\Platform\Manager\NewWayBillManager.class.php 204
+2017-05-11 09:55:52	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 09:59:00	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 10:05:07	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 10:23:33	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 10:24:26	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 10:24:45	PHP Error Severity: 2 --> PDOStatement::execute(): MySQL server has gone away C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 169
+2017-05-11 10:24:45	PHP Error Severity: 2 --> PDOStatement::execute(): Error reading result set's header C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 169
+2017-05-11 10:24:49	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 10:45:30	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 10:45:30	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 10:45:30	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 10:45:30	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 10:45:37	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 10:45:37	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 10:45:37	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 10:45:37	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 10:45:49	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 10:45:49	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 10:45:49	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 10:45:49	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 10:51:11	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 10:51:11	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 10:51:11	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 10:51:11	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 11:17:56	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 11:17:56	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 11:17:56	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 11:17:56	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 11:21:55	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 11:22:44	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 11:22:44	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 11:22:44	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 11:22:44	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 11:24:48	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 11:31:23	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 11:32:43	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 11:43:56	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 11:43:56	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 11:43:56	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 11:43:56	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 11:49:13	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 11:51:11	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-11 11:51:11	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 11:51:12	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-11 11:51:12	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-11 11:52:30	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 12:01:42	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 13:54:47	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:01:00	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:18:22	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:18:22	["2017-05-11 14:18:22","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included\",\"request_id\":\"zddtbp827iqq\"}}"]
+2017-05-11 14:18:22	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:18:22	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:19:23	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:19:23	["2017-05-11 14:19:23","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"3j9b9vguu925\"}}"]
+2017-05-11 14:19:23	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:19:23	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:21:06	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:21:06	["2017-05-11 14:21:06","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"3bsqhvnwf7hj\"}}"]
+2017-05-11 14:21:06	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:21:06	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:21:58	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:21:59	["2017-05-11 14:21:59","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included\",\"request_id\":\"zq79sd7x7x4u\"}}"]
+2017-05-11 14:21:59	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:21:59	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 114.241.92.145 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:23:02	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:23:02	["2017-05-11 14:23:02","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"3ez5bc4nbtga\"}}"]
+2017-05-11 14:23:02	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:23:02	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:26:41	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:26:41	["2017-05-11 14:26:41","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"s77jd5tgrzbz\"}}"]
+2017-05-11 14:26:41	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:26:41	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:27:31	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:27:31	["2017-05-11 14:27:31","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"2sens4vy02tr\"}}"]
+2017-05-11 14:27:31	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:27:31	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:31:14	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Undefined index: success C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 38
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Undefined index: success C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Use of undefined constant hasAuthShop - assumed 'hasAuthShop' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 368
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Use of undefined constant getTemplates - assumed 'getTemplates' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 395
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Use of undefined constant saveTemplates - assumed 'saveTemplates' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 429
+2017-05-11 14:31:14	PHP Error Severity: 8 --> Use of undefined constant deleteTemplate - assumed 'deleteTemplate' C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 452
+2017-05-11 14:56:21	app_key:Array
+(
+    [key] => 
+    [secret] => 
+    [session] => 6201429da416154777d37a993032334cee51ace8671360890258759
+    [user_id] => 90258759
+)
+
+2017-05-11 14:56:21	["2017-05-11 14:56:21","{\"error_response\":{\"code\":11,\"msg\":\"Insufficient isv permissions\",\"sub_code\":\"isv.permission-ip-whitelist-limit\",\"sub_msg\":\"The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included\",\"request_id\":\"11ig3nhau4d7f\"}}"]
+2017-05-11 14:56:21	TOP_ERROR 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit
+2017-05-11 14:56:21	ERROR topErrorTest 11 The appkey 23305776 is only allowed to call from its ip white list, but the source ip 123.116.150.71 is not included #isv.permission-ip-whitelist-limit

@@ -1,0 +1,151 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+ <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label style="width: 80px;">　委外单号：</label><input class="easyui-textbox txt" type="text" name="search[order_no]" style="width: 130px;"/>
+				<label style="width: 80px;">　外部单号：</label><input class="easyui-textbox txt" type="text" name="search[wms_outer_no]" style="width: 130px;"/>
+				<label style="width: 80px;">　　经办人：</label><select class="easyui-combobox sel" name="search[operator_id]" data-options="panelHeight:'200px',editable:false " style="width: 130px;">
+						<volist name='employee_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="wmsoutsideManage.submitSearchForm();">搜索</a>
+			    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="wmsoutsideManage.loadFormData();">重置</a>
+            
+			</div>	
+			<div class="form-div">
+				<label style="width: 80px;">委外单状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('wms_order_status')" />
+				<label style="width: 80px;">　　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'200px',editable:false " >
+						<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+				<label style="width: 80px;">　单据类型：</label><input class="easyui-combobox txt" name="search[order_type]" data-options="valueField:'id',textField:'name',data:formatter.get_data('wms_order_type')" />
+			    </div>
+        </form>
+       　 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick = "wmsoutsideManage.edit()";>编辑</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick = "wmsoutsideManage.send()";>推送</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick = "wmsoutsideManage.cancel_wo()";>取消委外单</a>
+    
+	
+	</div>
+	<script>
+	//# sourceURL = wmsoutsidemanage.js
+	$(function(){
+		setTimeout(function(){
+			wmsoutsideManage = new RichDatagrid(JSON.parse('{$params}'));
+			wmsoutsideManage.setFormData();
+			wmsoutsideManage.edit = function(){
+				var data = $('#'+this.params.datagrid.id).datagrid('getSelected');
+				if(data == null){
+					messager.alert('请先选择行！');
+					return ;
+				}
+				var status = data.status;
+				if(status != 40){
+					messager.alert('委外单状态不正确,只能编辑状态是待推送中的订单！');
+					return ;
+				}
+				wmsoutsideManage.showDialog(this.params.edit.id,this.params.edit.title,this.params.edit.url+"?id="+data.id+'&management_info='+'{"dialog_id":"'+this.params.edit.id+'","datagrid_id":"'+wmsoutsideManage.params.datagrid.id+'"}',550,1250,[])
+				
+				
+			}
+			
+			wmsoutsideManage.send = function(){
+				var that = this;
+                var data = $('#'+this.params.datagrid.id).datagrid('getSelections');
+				var selects_info = {};
+				var resultBeforeCheck = [];
+                if($.isEmptyObject(data)){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+				for(var item in data){	
+					 var temp_result = {'result':'推送失败'};
+					if(data[item]['status']!=40 && data[item]['status']!=50){
+						temp_result['message'] = "不是待推送或推送失败的单子";
+						resultBeforeCheck.push(temp_result);
+						continue;
+					}
+					var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',data[item]);
+					selects_info[temp_index] = data[item].id;
+				}
+				if($.isEmptyObject(selects_info)){
+					$.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(wmsoutsideManage){wmsoutsideManage.refresh();}}});
+					return;
+				}
+                messager.confirm('确定推送委外单吗？',function(r){
+                	if(r){
+	                	$.post("{:U('Stock/OutsideWmsManagement/send')}",{ids:JSON.stringify(selects_info)},function(r){
+							r = JSON.parse(r);
+							for(var k in r){
+							if(k == 'updated'){messager.alert('推送成功');}
+							else if(k == 'error'){messager.alert(r[k]);}
+							else{
+							    var resultBeforeCheck =  r[1];
+								$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+								break;
+							}
+							}
+							wmsoutsideManage.refresh();
+	                	});
+	                }
+                });
+			}
+			
+			wmsoutsideManage.cancel_wo = function(){
+				var that = this;
+                var data = $('#'+this.params.datagrid.id).datagrid('getSelections');
+				var resultBeforeCheck = [];
+				var selects_info = {};
+                if($.isEmptyObject(data)){
+                    messager.alert("请选择操作的行!");
+                    return;
+                }
+				for(var item in data){	
+					 var temp_result = {'result':'取消失败'};
+					if(data[item]['status']!=60 && data[item]['status']!=65 && data[item]['status']!=40){
+						temp_result['message'] = "不是已推送或待推送的订单";
+						resultBeforeCheck.push(temp_result);
+						continue;
+					}
+					var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',data[item]);
+					selects_info[temp_index] = data[item].id;
+				}
+				if($.isEmptyObject(selects_info)){
+					$.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(wmsoutsideManage){wmsoutsideManage.refresh();}}});
+					return;
+				}
+                messager.confirm('确定取消委外单吗？',function(r){
+                	if(r){
+	                	$.post("{:U('stock/OutsideWmsManagement/cancel_wo')}",{ids:JSON.stringify(selects_info)},function(r){
+		                    /*switch (r.status){
+		                        case 0:
+		                            messager.alert(r.info);
+		                            break;
+		                        case 1:
+		                            messager.alert(r.info);
+		                            break;
+		                        default :
+		                            messager.alert("系统错误，请与管理员联系！");
+		                    }*/
+							r = JSON.parse(r);
+							for(var k in r){
+							if(k == 'updated'){messager.alert('取消成功');}
+							else if(k == 'error'){messager.alert(r[k]);}
+							else{
+							    var resultBeforeCheck =  r[1];
+								$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+								break;
+							}
+							}
+	                	});
+						wmsoutsideManage.refresh();
+	                }
+                });
+			}
+			
+		},0);
+	});
+	
+	</script>
+	</block>
+<block name="dialog">
+     <div id="{$id_list.edit}">
+     </div>
+</block>

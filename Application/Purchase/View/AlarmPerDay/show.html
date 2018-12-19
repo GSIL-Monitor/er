@@ -1,0 +1,68 @@
+<!-- Any questions please contact gaosong -->
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+				　<label style="display: inline-block;">供应商：</label><select class="easyui-combobox sel" name="search[provider_id]" > <volist name='provider_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+				<label style="display: inline-block;">仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" > <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+                <label style="display: inline-block;">商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" style="width: 130px;"/>
+                <label style="display: inline-block;">货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" style="width: 130px;"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="alarmPerDay.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="alarmPerDay.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-purchase'" onclick="alarmPerDay.generatePurchase();">采购</a>
+			
+			</div>
+			<div class="form-div">
+			   <label style="display: inline-block;">货品编号：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" style="width: 130px;"/>
+                <!--<a href="javascript:void(0)" onclick="alarmPerDay.clickMore(this);">更多</a>-->
+                <label style="display: inline-block;">品牌：</label><select class="easyui-combobox sel" name="search[brand_id]"><volist name='brand_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                　　<label style="display: inline-block;">分类：</label><input id="{$id_list.goods_class}" class="txt" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+             </div>
+            <!--<div id="{$id_list.more_content}">
+                <div class="form-div">
+                    <label style="width: 80px;display: inline-block;">仓库:</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'auto'"> <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+                    <label style="width: 80px;display: inline-block;">销量周期:</label><input class="easyui-textbox txt" type="text" name="search[sales_cycle_days]" style="width: 130px;"/>
+                </div>
+            </div>-->
+        </form>
+        <!--<input type="hidden" id="{$id_list.hidden_flag}" value="1">-->
+    </div>
+    <script>
+        //# sourceURL=alarmstock_per_day.js
+        (function(){
+            var warehouse_elem = $('#{$id_list.form}'+' select[name="search[warehouse_id]"]');
+			var provider = $('#{$id_list.form}'+' select[name="search[provider_id]"]');
+            $(function(){setTimeout(function(){
+                $('#{$id_list.goods_class}').changStyleTreeCombo('{$id_list.goods_class}');
+                alarmPerDay = new RichDatagrid(JSON.parse('{$params}'));
+                alarmPerDay.setFormData();
+                alarmPerDay.generatePurchase = function()
+                {
+                    var sel_rows = $('#'+this.params.datagrid.id).datagrid('getSelections');
+                    if($.isEmptyObject(sel_rows))
+                    {
+                        messager.alert('请选择采购的货品');
+                        return;
+                    }
+					if(parseInt(sel_rows[0]['is_provider']) == 1){
+						var provider_id = '-1';
+					}else{
+						provider_id = parseInt(sel_rows[0]['provider_id']);
+					}	
+                    var warehouse_id =  sel_rows[0]['warehouse_id'];
+                    var sel_warehouse_id =  warehouse_elem.combobox('getValue');
+                    sel_warehouse_id = isNaN(parseInt(sel_warehouse_id))?0:parseInt(sel_warehouse_id);
+                    Dialog.show(this.params.purchase.id,this.params.purchase.title,this.params.purchase.url+'?datagrid_id='+this.params.datagrid.id+'&provider_id='+provider_id+'&dialog_id='+this.params.purchase.id+'&warehouse_id='+warehouse_id+'&sel_warehouse_id='+sel_warehouse_id,this.params.purchase.height,this.params.purchase.width,[]);
+
+                }
+            },0);});
+        })();
+
+
+    </script>
+</block>
+<block name="dialog">
+</block>
+<block name="tabs">
+</block>

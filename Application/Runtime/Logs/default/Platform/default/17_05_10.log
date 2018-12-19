@@ -1,0 +1,79 @@
+2017-05-10 17:28:06	app_key:Array
+(
+    [key] => 
+    [secret] => 6200827ebaf5df47d5aa88ddda5ffc3ccd4ZZc038d8e1dd90258759
+    [user_id] => 90258759
+)
+
+2017-05-10 17:30:44	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:30:44	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:30:44	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:30:44	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:37:33	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:37:33	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:37:33	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:37:33	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:38:48	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:38:48	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:38:48	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:38:48	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:38:54	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:38:54	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:38:54	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:38:54	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:38:59	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:38:59	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:38:59	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:38:59	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:39:03	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:39:04	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:39:04	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:39:04	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:40:30	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:40:30	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:40:30	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:40:30	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15
+2017-05-10 17:59:07	PHP Error Severity: 2 --> Declaration of Setting\Model\PrintTemplateModel::save($data, $update_field) should be compatible with Think\Model::save($data = '', $options = Array) C:\wamp\www\test\trunk\source\Application\Setting\Model\PrintTemplateModel.class.php 95
+2017-05-10 17:59:07	app_key:Array
+(
+    [shop_id] => 4
+    [product_type] => STANDARD_EXPRESS
+)
+
+2017-05-10 17:59:07	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\Application\Stock\Controller\WayBillController.class.php 170
+2017-05-10 17:59:07	PHP Error Severity: 8 --> Undefined variable: result C:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\e12bdc3dabf33c75852ff273c342116f.php 15

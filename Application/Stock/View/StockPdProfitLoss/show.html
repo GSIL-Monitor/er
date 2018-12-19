@@ -1,0 +1,114 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="StockPdProfitLoss-form" class="easyui-form" method="post" style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>盘点单号：</label><input class="easyui-textbox txt" type="text" name="search[pd_no]" />
+                <label>　盘点人：</label>
+                <select id="pd_profit_loss_creator" class="easyui-combobox sel" name="search[creator_id]" >   
+                    <option value="all">全部</option>
+                    <volist name='creator_array' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>　货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" />
+                <label>　品牌：</label>
+                <select id="pd_profit_loss_brand" class="easyui-combobox sel" name="search[brand_id]" >   
+                    <option value="all">全部</option>
+                    <volist name='brand_array' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>　分类：</label>
+                <input class="txt" id="pd_profit_loss_class" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true" />
+                <label>　仓库：</label>
+                <select id="pd_profit_loss_warehouse" class="easyui-combobox sel" name="search[warehouse_id]" >   
+                    <option value="all">全部</option>
+                    <volist name='warehouse_array' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="stockpdprofitloss_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="stockpdprofitloss_obj.loadFormData();">重置</a>
+                <br>
+                <label>&nbsp;&nbsp;盘点日期：</label>
+                <input id="pd_profit_loss_start" class="easyui-datebox txt" type="text" name="search[day_start]" value={$day_start} style="width:100px;" />
+                <label>&nbsp;&nbsp;&nbsp;&nbsp; 到&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="pd_profit_loss_end" class="easyui-datebox txt" type="text" name="search[day_end]" value={$day_end} style="width:100px;" />
+                <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-excel',plain:true,menu:'#stock_pd_profit_export'" >导出功能</a>
+                <div id="stock_pd_profit_export">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stockpdprofitloss_obj.exportToExcel('csv')">导出csv(推荐)</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stockpdprofitloss_obj.exportToExcel('excel')">导出到Excel</a>
+                </div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-table-edit',plain:true" onclick="setDatagridField('Stock/StockPdProfitLoss','pd_profit_loss','{$datagrid.id}')">设置表头</a>
+                 
+            </div>
+        </form> 
+    </div>
+
+    <script type="text/javascript">
+        //# sourceURL=stockpdprofitloss_obj.js
+
+        $(function(){
+            $('#pd_profit_loss_class').changStyleTreeCombo('pd_profit_loss_class');
+            setTimeout(function () {
+               
+                stockpdprofitloss_obj = new RichDatagrid(JSON.parse('{$params}'));
+                stockpdprofitloss_obj.setFormData();
+
+                var datagrid_id = stockpdprofitloss_obj.params.datagrid.id;
+
+                $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+                    var page_size = $(this).datagrid('options').pageSize ;
+
+                    if (row.pd_no == '合计'){
+                        return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                    }
+                }});
+                $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+                    var rows = $(this).datagrid('getRows');
+                    var stat_fields = [
+                        'old_num',
+                        'new_num',
+                        'yk_num',
+                        'total_price'
+                    ];
+                    var append_row = {};
+                    append_row['pd_no'] = '合计';
+                    stockpdprofitlossTotalCompute(rows,stat_fields,append_row);
+                    $(this).datagrid('appendRow',append_row);
+                }});
+            stockpdprofitloss_obj.exportToExcel = function(type){
+                    var url= "{:U('StockPdProfitLoss/exportToExcel')}";
+                    var search=JSON.stringify($('#StockPdProfitLoss-form').form('get'));
+                    var data = $("#{$datagrid.id}").datagrid("getData");
+                    if(data.total==1){
+                        messager.confirm('导出不能为空！');
+                    }                 
+                    else{
+                            messager.confirm('确定导出搜索的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?search='+search+'&type='+type);
+                        })
+                    }
+                }
+            });
+        });
+            
+            function stockpdprofitlossTotalCompute(page_rows,arr_fields,append_row) {
+                var rows = page_rows;
+                for(var index in arr_fields)
+                {
+                    var field = arr_fields[index];
+                    append_row[field] = 0;
+                    for (var i = 0; i < rows.length; i++) {
+                        append_row[field] += parseFloat(rows[i][field]);
+                    }
+                    append_row[field] = append_row[field].toFixed(4);
+                }
+            }
+
+
+    </script>
+</block>

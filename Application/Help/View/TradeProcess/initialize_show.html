@@ -1,0 +1,62 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="初始化流程" data-options="headerCls:'panel-header-title'" style="width:100%;">
+        <div class="initialize_process process-map" style="border:none;" id="initialize_process">
+            <a class="begin" href="javascript:void(0);" >开始<br>初始化</a>
+            <a class="shop_1 font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.shop.text}', '{$initialize.shop.href}')"><div class="png"><i class="fa {$initialize.shop.img}"></i><p>{$initialize.shop.text}</p></div></a>
+            <a class="system font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.system.text}', '{$initialize.system.href}')"><div class="png"><i class="fa {$initialize.system.img}"></i><p>{$initialize.system.text}</p></div></a>
+            <a class="goods font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.goods.text}', '{$initialize.goods.href}')"><div class="png"><i class="fa {$initialize.goods.img}"></i><p>{$initialize.goods.text}</p></div></a>
+            <a class="goods_2 font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.goods.text}', '{$initialize.goods.href}')"><div class="png"><i class="fa {$initialize.goods.img}"></i><p>{$initialize.goods.text}</p></div></a>
+            <a class="goods_archives font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.goods_archives.text}', '{$initialize.goods_archives.href}')"><div class="png"><i class="fa {$initialize.goods_archives.img}"></i><p>{$initialize.goods_archives.text}</p></div></a>
+            <a class="goods_archives_2 font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.goods_archives.text}', '{$initialize.goods_archives.href}')"><div class="png"><i class="fa {$initialize.goods_archives.img}"></i><p>{$initialize.goods_archives.text}</p></div></a>
+            <a class="logistics font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.logistics.text}', '{$initialize.logistics.href}')"><div class="png"><i class="fa {$initialize.logistics.img}"></i><p>{$initialize.logistics.text}</p></div></a>
+            <a class="shop_2 font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.shop.text}', '{$initialize.shop.href}')"><div class="png"><i class="fa {$initialize.shop.img}"></i><p>{$initialize.shop.text}</p></div></a>
+            <a class="warehouse font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.warehouse.text}', '{$initialize.warehouse.href}')"><div class="png"><i class="fa {$initialize.warehouse.img}"></i><p>{$initialize.warehouse.text}</p></div></a>
+            <a class="goods_3 font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.goods.text}', '{$initialize.goods.href}')"><div class="png"><i class="fa {$initialize.goods.img}"></i><p>{$initialize.goods.text}</p></div></a>
+            <a class="inventory_management font-img" href="javascript:void(0);" onClick="open_menu('{$initialize.inventory_management.text}', '{$initialize.inventory_management.href}')"><div class="png"><i class="fa {$initialize.inventory_management.img}"></i><p>{$initialize.inventory_management.text}</p></div></a>
+            <a class="make_1" href="javascript:void(0);" >新建</a>
+            <a class="accredit" href="javascript:void(0);" >授权</a>
+            <a class="down_goods" href="javascript:void(0);" >下载<br>平台货品</a>
+            <a class="automatic_goods" href="javascript:void(0);" >开启自动<br>下载货品</a>
+            <a class="manual_goods" href="javascript:void(0);" >手动<br>下载货品</a>
+            <a class="system_goods" href="javascript:void(0);" onmouseover="show_text('excel')" onmouseout="close_text()">初始化<br>系统货品</a>
+            <a class="logistics_stock" href="javascript:void(0);" >初始化<br>物流库存</a>
+            <a class="system_goods_2" href="javascript:void(0);" >初始化<br>系统货品</a>
+            <a class="make_2" href="javascript:void(0);" >新建</a>
+            <a class="out_to_excel" href="javascript:void(0);" >导出到<br>excel</a>
+            <a class="goods_class" href="javascript:void(0);" >填写相应<br>品牌分类</a>
+            <a class="in_from_excel" href="javascript:void(0);" >从excel导入</a>
+            <a class="down_logistics" href="javascript:void(0);" >下载<br>物流公司</a>
+            <a class="stock_1" href="javascript:void(0);" >初始化<br>库存</a>
+            <a class="stock_2" href="javascript:void(0);" >初始化<br>库存</a>
+            <a class="stock_3" href="javascript:void(0);" >初始化<br>库存</a>
+            <a class="excel_in_stock" href="javascript:void(0);" >excel<br>导入库存</a>
+            <a class="finish" href="javascript:void(0);" >完成<br>初始化</a>
+            <a id="isTaobao" class="isTaobao" href="javascript:void(0);" onClick="isTaobao()" id="advance" >淘宝店铺</a>
+            <div id="showDiv" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function isTaobao(){
+        var ad_text=$('#isTaobao').text();
+        if(ad_text=='非淘宝店铺'){$('#initialize_process').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/initializ.png') no-repeat;");$('#isTaobao').text('淘宝店铺');}
+        if(ad_text=='淘宝店铺'){$('#initialize_process').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/initialit.png') no-repeat;");$('#isTaobao').text('非淘宝店铺');}
+    }
+    function show_text(key){
+        var initialize=document.getElementById('initialize_process');
+        var text=JSON.parse('{$text}');
+        var showDiv = document.getElementById('showDiv');
+        var x=event.clientX;
+        var y=parseInt(event.clientY)+parseInt(10);
+        showDiv.style.left =(x-initialize.getBoundingClientRect().left)+'px';
+        showDiv.style.top = (y-initialize.getBoundingClientRect().top)+'px';
+        showDiv.style.display = 'block';
+        showDiv.innerHTML = text[key];
+    }
+    function close_text() {
+        var showDiv = document.getElementById('showDiv');
+        showDiv.style.display = 'none';
+        showDiv.innerHTML = '';
+    }
+
+</script>

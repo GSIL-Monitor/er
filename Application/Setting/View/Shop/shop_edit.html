@@ -1,0 +1,126 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['form']}" class="form-div">
+        <div style="display: none;"> <input name="shop_id" value="{$shop.shop_id}" hidden="true"/> </div>
+        <div class="form-div">
+            <label class="five-character-width">　店铺平台：</label><input id="shop_edit_platform_id" class="easyui-combobox txt" type="text" name="platform_id" required="true" data-options="valueField:'id',textField:'name',data:formatter.get_data('platform_id','def','{$shop.platform_id}'),onSelect:shop_edit_set_sub_platform_id"/>
+            <label class="six-character-width">　　　子平台：</label><input id="shop_edit_sub_platform_id" class="easyui-combobox txt" type="text" name="sub_platform_id" required="true" value="{$shop.sub_platform_id}" data-options="valueField:'id',textField:'name'"/>
+            <!--<label class="five-character-width">店铺编号：</label><input class="easyui-textbox txt" type="EnglishOrNum" name="shop_no" required="true" data-options="validType:'EnglishOrNum'" value="{$shop.shop_no}"/>-->
+            <label class="five-character-width">　　店铺名：</label><input class="easyui-textbox txt" type="text" name="shop_name" data-options="validType:'specialCharacter'" required="true" value="{$shop.shop_name}"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">　　联系人：</label><input class="easyui-textbox txt" type="text" name="contact" value="{$shop.contact}"/>
+            <label class="six-character-width">　　　　手机：</label><input class="easyui-textbox txt" type="text" name="mobile" data-options="validType:'mobile'" value="{$shop.mobile}"/>
+            <label class="five-character-width">　　　电话：</label><input class="easyui-textbox txt" type="text" name="telno" data-options="validType:'telno'" value="{$shop.telno}"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">　　　省份：</label><input id="shop_edit_province" class="easyui-combobox sel" type="text" name="province"/>
+            <label class="six-character-width">　　　　城市：</label><input id="shop_edit_city" class="easyui-combobox txt" type="text" name="city"/>
+        	<label class="five-character-width">　　　区县：</label><input id="shop_edit_district" class="easyui-combobox txt" type="text" name="district"/>
+            </div>
+        <div class="form-div">
+            <label class="five-character-width">　　    Email：</label><input class="easyui-textbox txt" type="text" name="email" data-options="validType:'email'" value="{$shop.email}"/>
+            <label class="six-character-width">　　　　邮编：</label><input class="easyui-textbox txt" type="text" name="zip" data-options="validType:'ZIP'" value="{$shop.zip}"/>
+            <label class="five-character-width">　　　地址：</label><input class="easyui-textbox txt" type="text" name="address" value="{$shop.address}"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">　　　网址：</label><input class="easyui-textbox txt" type="text" name="website" data-options="validType:'url'" value="{$shop.website}"/>
+            <label class="six-character-width">　　　　备注：</label><input class="easyui-textbox txt" type="text" name="remark" value="{$shop.remark}"/>
+            <label class="five-character-width">　使用物流：</label><select class="easyui-combobox txt" name="logistics_id" data-options="editable:false">
+            <volist name='cfg_logistics' id='vo'>
+                <if condition="$vo['id'] eq $shop['logistics_id']">
+                    <option value="{$vo.id}" selected>{$vo.name}</option>
+                    <else/>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </if>
+            </volist>
+        </select><sup style="color:red;margin-left: 2px;">①</sup>
+        </div>
+        <div class="form-div">
+           <!--   <label class="five-character-width">货品设置：</label><select class="easyui-combobox txt" name="is_setwarebygoods" data-options="panelHeight:'auto',editable:false">
+                <option value="0" <eq name="shop.is_setwarebygoods" value="0">selected</eq>>无</option>
+                <option value="1" <eq name="shop.is_setwarebygoods" value="1">selected</eq>>指定仓库</option>
+            </select> -->
+            <label class="five-character-width">COD物流：</label><select class="easyui-combobox txt" name="cod_logistics_id" data-options="editable:false">
+            <volist name='cod_cfg_logistics' id='vo'>
+                <if condition="$vo['id'] eq $shop['cod_logistics_id']">
+                    <option value="{$vo.id}" selected>{$vo.name}</option>
+                    <else/>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </if>
+            </volist>
+        </select>
+            <label >自动合并分组：</label><input id="shop_group_id" class="easyui-numberbox txt" type="text"  name="group_id" value="{$shop.group_id}" data-options="min:0"/><sup style="color:red;margin-left: 2px;">②</sup>
+            <label class="four-character-width">　　停用：</label><input id="shop_edit_is_disabled" type="checkbox" name="is_disabled" value="{$shop.is_disabled}" onclick="shop.initShopCheckbox('shop_edit_is_disabled',false)"/>
+        </div>
+        <div class="form-div">
+        	<label style="color: blue;" ><span style="color:red">①：</span>店铺选择<span style="color:red">使用物流</span>后，该店铺的订单均使用该物流，不再执行<span style="color:red">物流匹配</span>策略</label><br>
+        	<label style="color: blue;" ><span style="color:red">②：</span>订单递交自动合并选择<span style="color:red">"分组+买家+收件人+地址"</span>后，订单递交时，所在店铺<span style="color:red">分组一致即可自动合并</span>，即<span style="color:red">跨店铺</span>合并订单</label>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script>
+        //# sourceURL=shopEdit.js
+        $(function () {
+            var shop_edit = {$shop_edit};
+            setTimeout(function () {
+                if (shop_edit.auth_state) {
+                    var platform = $("#shop_edit_platform_id");
+                    var sub_platform = $("#shop_edit_sub_platform_id");
+                    platform.combobox({disabled: true});
+                    sub_platform.combobox({disabled: true});
+                }
+                var shopAddress = {
+                    "province": "{$shop.province}",
+                    "city": "{$shop.city}",
+                    "district": "{$shop.district}"
+                };
+                var shopArea = new area("shop_edit_province", "shop_edit_city", "shop_edit_district", shopAddress);
+                shop.initShopCheckbox('shop_edit_is_disabled', true);
+                var platform_id = "{$shop.platform_id}";
+                shop_edit_set_sub_platform_id({"id": platform_id});
+                $("#shop_edit_sub_platform_id").combobox("setValue", "{$shop.sub_platform_id}");
+                $("#shop_group_id").textbox({'prompt':'请输入数字'});
+                if(platform_id == 20){
+                    var sub_id = $("#shop_edit_sub_platform_id").combobox('getValue');
+                    if(sub_id == 0){
+                        $("#shop_edit_sub_platform_id").combobox({disabled: false});
+                        shop_edit_set_sub_platform_id({"id": platform_id});
+                    }
+                }
+            }, 0);
+        });
+        function shop_edit_set_sub_platform_id(record) {
+            var sub_platform = {
+                "1": [{"id": 0, "name": "淘宝集市"}, {"id": 1, "name": "天猫商城"}],
+                "3": [{"id": 0, "name": "SOP"}, {"id": 1, "name": "LBP"}, {"id": 2, "name": "SOPL"},
+                    {"id": 3, "name": "FBP"}, {"id": 4, "name": "海外购"}],
+                "0": [{"id": 0, "name": "默认"}],
+                "32": [{"id":0, "name": "微店"}, {"id": 1, "name": "微中心"}],
+                "20": [{"id": 0, "name": "默认"},{"id": 1, "name": "蘑菇街"}, {"id": 2, "name": "美丽说"}]
+            };
+            var id = record.id;
+            var com = $("#shop_edit_sub_platform_id")
+            if (id == 1) {
+                com.combobox("loadData", sub_platform["1"]);
+                com.combobox("setValue", "0");
+            } else if (id == 3) {
+                com.combobox("loadData", sub_platform["3"]);
+                com.combobox("setValue", "0");
+            } else if (id == 32) {
+                com.combobox("loadData", sub_platform["32"]);
+                com.combobox("setValue", "0");
+            } else if (id == 20) {
+                com.combobox("loadData", sub_platform["20"]);
+                com.combobox("setValue", "0");
+            }else {
+                com.combobox("loadData", sub_platform["0"]);
+                com.combobox("setValue", "0");
+            }
+        }
+    </script>
+</block>

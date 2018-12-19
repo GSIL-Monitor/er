@@ -1,0 +1,53 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="初始化系统货品" data-options="headerCls:'panel-header-title'" style="width:100%;">
+        <div class="goods_process process-map" style="border:none;" id="goods_process">
+            <a class="goods font-img" href="javascript:void(0);" onClick="open_menu('{$goods.goods.text}', '{$goods.goods.href}')"><div class="png"><i class="fa {$goods.goods.img}"></i><p>{$goods.goods.text}</p></div></a>
+            <a class="class font-img" href="javascript:void(0);"onClick="open_menu('{$goods.class.text}', '{$goods.class.href}')"><div class="png"><i class="fa {$goods.class.img}"></i><p>{$goods.class.text}</p></div></a>
+            <a class="brand font-img" href="javascript:void(0);" onClick="open_menu('{$goods.brand.text}', '{$goods.brand.href}')"><div class="png"><i class="fa {$goods.brand.img}"></i><p>{$goods.brand.text}</p></div></a>
+            <a class="goods_archives_excel font-img" href="javascript:void(0);" onClick="open_menu('{$goods.goods_archives.text}', '{$goods.goods_archives.href}')"><div class="png"><i class="fa {$goods.goods_archives.img}"></i><p>{$goods.goods_archives.text}</p></div></a>
+            <a class="goods_archives_make font-img" href="javascript:void(0);" onClick="open_menu('{$goods.goods_archives.text}', '{$goods.goods_archives.href}')"><div class="png"><i class="fa {$goods.goods_archives.img}"></i><p>{$goods.goods_archives.text}</p></div></a>
+            <span class="begin" href="javascript:void(0);" >开始</span>
+            <span class="finish" href="javascript:void(0);" >结束</span>
+            <a class="system_goods" href="javascript:void(0);"  onmouseover="show_goods_text(event,'system_goods')" onmouseout="close_goods_text('show_goods_Div')">初始化<br>货品</a>
+            <span class="make" href="javascript:void(0);" >新建</span>
+            <a class="out_to_excel" href="javascript:void(0);" onmouseover="show_goods_text(event,'out_to_excel')" onmouseout="close_goods_text('show_goods_Div')">导出到<br>excel</a>
+            <a class="in_from_excel" href="javascript:void(0);" onmouseover="show_goods_text(event,'in_from_excel')" onmouseout="close_goods_text('show_goods_Div')">导入货品</a>
+            <div id="show_goods_Div" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+        </div>
+    </div>
+    <div class="easyui-draggable" style="position: absolute;top:80px;left:140px;" data-options="onDrag:onDrag">
+        <div id="title" class="easyui-panel" title="<i class='fa fa-bookmark'></i> 相关任务" collapsible="true" style="width:150px;height:auto;padding:10px;" >
+            <ul>
+                <volist name="work_list" id="work" key="i">
+                    <li style="list-style-type:none;">
+                        <a href="javascript:void(0);"onClick="open_menu('{$work.text}', '{$work.href}')"><span style="margin-left: 15px;">{$work.msg}</span></a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div style="position: absolute;left:500px;top:40px;padding:10px;">
+        <a href="javascript:void(0)" class="easyui-linkbutton before_link" data-options="iconCls:'icon-back',plain:true" onClick="open_menu('下载平台货品', '{:U('Help/TradeProcess/platformProcess')}')">上一步</a>
+    </div>
+    <div style="position: absolute;right:500px;top:40px;padding:10px;">
+        <a href="javascript:void(0)" class="easyui-linkbutton next_link" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('初始化物流和库存', '{:U('Help/TradeProcess/stockProcess')}')">下一步</a>
+    </div>
+</div>
+<script type="text/javascript">
+        function show_goods_text(event,key){
+            var platform=document.getElementById('goods_process');
+            var text=JSON.parse('{$text}');
+            var showDiv = document.getElementById('show_goods_Div');
+            var x=event.clientX;
+            var y=parseInt(event.clientY)+parseInt(10);
+            showDiv.style.left =(x-platform.getBoundingClientRect().left)+'px';
+            showDiv.style.top = (y-platform.getBoundingClientRect().top)+'px';
+            showDiv.style.display = 'block';
+            showDiv.innerHTML = text[key];
+        }
+        function close_goods_text() {
+            var showDiv = document.getElementById('show_goods_Div');
+            showDiv.style.display = 'none';
+            showDiv.innerHTML = '';
+        }
+</script>

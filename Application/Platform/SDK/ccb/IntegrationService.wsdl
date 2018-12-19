@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?><wsdl:definitions name="IntegrationServiceImplService" targetNamespace="http://index.interfaces.ccb.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://index.interfaces.ccb.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema targetNamespace="http://index.interfaces.ccb.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:complexType name="inputData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ccbParam" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="cust_id" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="tran_code" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="tran_sid" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="service">
+    <wsdl:part name="arg0" type="tns:inputData">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="serviceResponse">
+    <wsdl:part name="return" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IntegrationService">
+    <wsdl:operation name="service">
+      <wsdl:input message="tns:service" name="service">
+    </wsdl:input>
+      <wsdl:output message="tns:serviceResponse" name="serviceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IntegrationServiceImplServiceSoapBinding" type="tns:IntegrationService">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="service">
+      <soap:operation soapAction="" style="rpc"></soap:operation>
+      <wsdl:input name="service">
+        <soap:body namespace="http://index.interfaces.ccb.com/" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="serviceResponse">
+        <soap:body namespace="http://index.interfaces.ccb.com/" use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IntegrationServiceImplService">
+    <wsdl:port binding="tns:IntegrationServiceImplServiceSoapBinding" name="IntegrationServiceImplPort">
+      <soap:address location="http://api.buy.ccb.com/integration/IntegrationService?wsdl"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

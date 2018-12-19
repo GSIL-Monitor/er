@@ -1,0 +1,182 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+
+<div class="form-div" style="border-bottom:  1px solid #7CAAB1">
+    <a href="javascript:void(0)" class="easyui-linkbutton" name="button_submit" data-options="iconCls:'icon-save',plain:true">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" name="button_reset" data-options="iconCls:'icon-redo',plain:true">重置</a>
+</div>
+<div class="form-div" style="padding-top: 2px;margin-top: 5px;">
+				<label>供应商：</label><select class="easyui-combobox sel" name="provider" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+						<volist name='provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+						</div>
+<div class="form-div" style="padding-top: 2px;margin-top: 5px;border-top:  1px solid #7CAAB1">
+
+<a href="javascript:void(0)" class="easyui-linkbutton" name="button_add_goods" data-options="iconCls:'icon-add',plain:true">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" name="button_del_goods" data-options="iconCls:'icon-remove',plain:true">删除</a>
+</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=supplier.js
+
+	$(function(){
+
+	var toolbar_id = '{$id_list.toolbar}';
+    var element_selectors ={
+		'button_add_goods'	    :$('#'+toolbar_id+" a[name='button_add_goods']"),
+        'button_del_goods'	    :$('#'+toolbar_id+" a[name='button_del_goods']"),
+		'button_submit'		    :$('#'+toolbar_id+" a[name='button_submit']"),
+        'button_reset'		        :$('#'+toolbar_id+" a[name='button_reset']"),
+		'provider'			:$('#'+toolbar_id+" :input[name='provider']"),
+       
+    };
+	
+	
+	var SupplierTool = function(params,element_selectors){
+		var tool_self = this;
+		this.params = params;
+		this.datagrid_id = this.params.datagrid;
+		this.element_selectors = element_selectors;
+		this.toolbar_id = this.params.id_list.toolbar;
+	
+		this.form_type_map = {
+			'provider':'combobox','button_submit':'linkbutton','button_reset':'linkbutton','button_add_goods':'linkbutton','button_del_goods':'linkbutton'
+		};	
+       
+        this.element_selectors.button_submit.linkbutton({onClick:function(){
+            tool_self.submitPurchaseOrder();
+        }});
+        //重置按钮
+        this.element_selectors.button_reset.linkbutton({onClick:function(){
+            tool_self.resetDisplay();
+        }});
+        //添加货品按钮
+        this.element_selectors.button_add_goods.linkbutton({onClick:function(){
+            tool_self.addGoods();
+        }});
+        //删除货品按钮
+        this.element_selectors.button_del_goods.linkbutton({onClick:function(){
+            tool_self.delGoods();
+        }});
+		 $('#'+this.datagrid_id).datagrid().datagrid('enableCellEditing');
+        this.keepClickCell = $('#'+this.datagrid_id).datagrid('options').onClickCell;
+	}
+	SupplierTool.prototype = {
+		 resetDisplay : function(){
+            this.initShowByTypeAndMode();
+            $('#'+this.datagrid_id).datagrid('options').onClickCell = this.keepClickCell;
+        },
+		initShowByTypeAndMode:function(type,mode){
+            //$('#'+this.datagrid_id).datagrid('options').onClickCell = this.keepClickCell;
+            
+            $('#'+this.datagrid_id).datagrid('loadData',{'total':0,rows:[]});
+            
+        },
+		delGoods : function(){
+            var selected_row 	= $('#' + this.datagrid_id).datagrid("getSelected");
+			if ($.isEmptyObject(selected_row) || selected_row.length == 0) {
+                messager.alert('请选择行');
+                return;
+            }
+            var selected_index 	= $('#' + this.datagrid_id).datagrid("getRowIndex", selected_row);
+            $('#' + this.datagrid_id).datagrid("deleteRow", selected_index);
+        },
+		addGoods : function(){
+			var that =this;			
+			$('#'+that.params.dialog.supplier).richDialog('goodsSpec',that.submitGoodsSpecDialog,{
+				'prefix':that.params.prefix,
+				'type':true,
+				'warehouse_id':"all",
+				'model':''
+			},that);
+			
+			
+		},
+		submitGoodsSpecDialog : function(uid,did,supplier_obj){
+			var rows ;
+            rows = $('#'+did).datagrid('getRows');
+            var now_rows = $('#'+supplier_obj.datagrid_id).datagrid('getRows');
+            var now_formatter_rows = utilTool.array2dict(now_rows,'spec_id','');
+            var append_rows = [];
+            for(var i in rows){
+                if(now_formatter_rows[rows[i].spec_id]){continue;}
+                append_rows.push(rows[i]);
+				
+			}
+            for(var j in append_rows)
+            {
+                var append_row = $.extend({},append_rows[j]);
+                $('#'+supplier_obj.datagrid_id).datagrid('appendRow',append_rows[j]);
+
+            }
+			
+            $('#'+supplier_obj.params.dialog.supplier).dialog('close');
+        },
+		submitPurchaseOrder : function(){
+			var that = this;
+			var row = $('#' + this.datagrid_id).datagrid('getSelected');
+			var index = $('#' + this.datagrid_id).datagrid('getRowIndex',row);
+			$('#'+this.datagrid_id).datagrid('endEdit',index);
+			var data_rows = $("#"+that.datagrid_id).datagrid('getRows');
+			if($.isEmptyObject(data_rows)){
+				messager.alert('请先添加货品!');
+				return ;
+			}
+			var deal_info = []; 
+			for(i in data_rows){
+				var temp_result = {'spec_no':data_rows[i].spec_no,};
+				var number = $('#'+this.datagrid_id).datagrid('getRowIndex',data_rows[i])+1;
+				
+				if(data_rows[i].market_price == '' || data_rows[i].market_price == undefined){
+					temp_result['info'] = '第'+number+'行的采购价不能为空';
+					deal_info.push(temp_result);
+				}
+				var index = $('#'+this.datagrid_id).datagrid('getRowIndex',data_rows[i]);
+                if(!$('#'+this.datagrid_id).datagrid('validateRow',index)) { 
+					messager.alert("请将货品信息填写完整！");
+					return ;  
+				}
+			}
+			if(!$.isEmptyObject(deal_info)){
+				$.fn.richDialog("response",deal_info,"goods_spec");
+				return;
+			}
+			var provider_id = that.element_selectors.provider.combobox('getValue');
+			var info = {};
+           // info['update'] = $('#'+this.datagrid_id).datagrid('getChanges','updated');
+          //  info['delete'] = $('#'+this.datagrid_id).datagrid('getChanges','deleted');
+            info['insert'] = $('#'+this.datagrid_id).datagrid('getChanges','inserted');
+			info['provider_id'] = provider_id;
+			if(provider_id == ''){
+				messager.alert('未获取到供应商，请添加供应商');
+				return false;
+			}
+			$.post("{:U('Purchase/SupplierGoods/saveSupplier')}",{info:JSON.stringify(info)},function(res){
+                $('#'+that.datagrid_id).datagrid('loaded');
+                if(res.status == 1){           
+                        messager.alert(res.info);
+                    
+                } else {							
+					      
+                        $('#'+that.params.parent_dialog).dialog('close');
+                        $('#'+that.params.parent_dg).datagrid('reload');
+                }
+            },'json');
+		},
+	
+	};
+	
+
+	
+       setTimeout(function(){  
+		var  Supplier =  new SupplierTool(JSON.parse('{$params}'),element_selectors);
+       });
+    },0);
+
+</script>
+</block>
+<block name="dialog">
+	<div id="{$id_list.add}"></div>
+</block>
+<block name="tabs">
+</block>

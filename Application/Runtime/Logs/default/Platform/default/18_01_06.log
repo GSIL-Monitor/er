@@ -1,0 +1,14 @@
+2018-01-06 12:42:09	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 140
+2018-01-06 12:42:10	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-06 12:42:11	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-06 16:19:43	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 140
+2018-01-06 16:19:45	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-06 16:19:45	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 245
+2018-01-06 17:40:57	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2018-01-06 17:44:52	PHP Error Severity: 8 --> Undefined index: include E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 794
+2018-01-06 17:45:03	PHP Error Severity: 8 --> Undefined index: include E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 794
+2018-01-06 17:45:17	PHP Error Severity: 8 --> Undefined index: include E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 794
+2018-01-06 19:56:20	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2018-01-06 19:56:44	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2018-01-06 19:56:52	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 387
+2018-01-06 19:58:24	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\6b6171510665978528538d42e5d05edc.php 27

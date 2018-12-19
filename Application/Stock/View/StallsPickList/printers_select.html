@@ -1,0 +1,55 @@
+<div style="margin-top:20px;margin-left:20px">
+    <!--<div><span><label>物流单打印机：&nbsp</label></span>-->
+        <!--<input id="logistic_printer_list" class="easyui-combobox" data-options="width:161"/>-->
+    <!--</div>-->
+    <div style="margin-top:10px"><span><label>吊牌打印机：&nbsp&nbsp&nbsp&nbsp</label></span>
+        <input id="tag_printer_list" class="easyui-combobox" data-options="width:161"/>
+    </div>
+    <div style="margin-top:10px">
+        <label>选择吊牌模板：&nbsp</label>
+        <select id = 'tag_template_list' class='easyui-combobox sel' data-options="width:161">
+            <volist name='tag_template' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+        </select>
+        <div id="goodsGuideTemplateDiv" style="margin-top:7px;margin-left:1px;display:none"><span style="color:red">没有“吊牌”模板，请去</span><a href="javascript:purchasePickList.changeTemplatePage()">打印模板</a><span style="color:red">界面下载"吊牌"模板</span><span style="color:green;font-size: 13px">模板下载成功后，一定要回到这里进行设置</span></div>
+        <div id="sysDefaultTemplate" style="margin-top:7px;margin-left:1px;display:none"><span style="color:red">没有物流单模板，请去</span><a href="javascript:purchasePickList.changeTemplatePage()">打印模板</a><span style="color:red">界面下载"系统默认自定义区"模板</span><span style="color:green;font-size: 13px">模板下载成功后，一定要回到这里进行设置</span></div>
+    </div>
+</div>
+<script>
+    var default_template_id = {$template_id};
+    var sys_default_template = {$sys_default_template};
+    var printerInfo = {$printerInfo};
+    var logistic_printer = printerInfo['logistic_printer'];
+    var tag_printer = printerInfo['tag_printer'];
+
+    $(function(){
+//        stockSalesPrint.goods_contents = {$contents};
+//        stockSalesPrint.goods_print = 'stockSalesPrint_goods_printer_list';
+//        stockSalesPrint.goods_print_template ='stock_sales_print_goods_template';
+        purchasePickList.selectPrinter('goods');
+        setTimeout(function(){
+            /*	templateOnSelect("goods");*/
+            if($('#tag_template_list').combobox('getData').length == 0){
+                $('#goodsGuideTemplateDiv').show();
+            }
+            else if(sys_default_template==-1){
+                $('#sysDefaultTemplate').show();
+            }
+            if(default_template_id != '-1')
+                $('#tag_template_list').combobox('select',{$template_id});
+//            if(logistic_printer != '-1')
+//                $('#logistic_printer_list').combobox('setValue',logistic_printer);
+            if(tag_printer != '-1')
+                $('#tag_printer_list').combobox('setValue',tag_printer);
+        },0);
+    });
+    //    function getGoodsTemplatesContents(){
+    //        var contents = {$contents};
+    //        return contents;
+    //    }
+    function getSysDefTemp(){
+        return {$sys_default_template};
+    }
+    function getDefTagTemp(){
+        return {$template_id};
+    }
+</script>

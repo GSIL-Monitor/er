@@ -1,0 +1,117 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+	<form id="{$id_list.form}">
+    	<div class="form-div">
+    		<label>统计对象：</label><select class="easyui-combobox sel" name="search[stat_type]">
+    			<option value="shop_id">店铺</option><option value="operator_id">业务员</option><option value="reason_id">退换原因</option>
+    			</select>
+            <label>　建单时间：</label><input class="easyui-datetimebox txt" style="width:150px;" type="text" name="search[created_start]" value="{$date['start']}"  data-options="editable:false"/>
+			<label>　至：</label><input class="easyui-datetimebox txt" style="width:150px;" type="text" name="search[created_end]" value="{$date['end']}"  data-options="editable:false"/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="statSellbackAnalysis.checkSearch();">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="statSellbackAnalysis.reload();">重置</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="statSellbackAnalysis.exportToExcel();">导出到Excel</a>
+            <!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/StatSellbackAnalysis','stat_sellback_analysis','{$datagrid.id}')">设置表头</a> -->
+        </div>
+    </form>
+</div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+<script type="text/javascript">
+//# sourceURL=SalesmanPerformanceShow.js
+$(function () {
+	setTimeout(function () {
+    	statSellbackAnalysis = new RichDatagrid(JSON.parse('{$params}'));
+    	statSellbackAnalysis.setFormData();
+    	var datagrid_id=statSellbackAnalysis.params.datagrid.id;
+    	statSellbackAnalysisInit();
+        statSellbackAnalysis.checkSearch=function(){
+        	var form=$('#{$id_list.form}');
+        	var data=form.form('get');
+        	if(data['search[stat_type]']=='shop_id'){
+        		$('#'+datagrid_id).datagrid('showColumn', 'shop_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'operator_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'reason_id');
+        	}else if(data['search[stat_type]']=='operator_id'){
+        		$('#'+datagrid_id).datagrid('showColumn', 'operator_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'shop_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'reason_id');
+        	}else{
+        		$('#'+datagrid_id).datagrid('showColumn', 'reason_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'shop_id');
+        		$('#'+datagrid_id).datagrid('hideColumn', 'operator_id');
+        	}
+        	statSellbackAnalysis.submitSearchForm(this);
+        	statSellbackAnalysisInit();
+        }
+        statSellbackAnalysis.reload=function(){
+        	$('#'+datagrid_id).datagrid('showColumn', 'shop_id');
+    		$('#'+datagrid_id).datagrid('hideColumn', 'operator_id');
+    		$('#'+datagrid_id).datagrid('hideColumn', 'reason_id');
+    		statSellbackAnalysis.loadFormData();
+    		statSellbackAnalysisInit();
+        }
+        statSellbackAnalysis.exportToExcel = function(){
+            //导出请求URL地址
+            var url= "{:U('StatSellbackAnalysis/exportToExcel')}";
+            //搜索条件集合
+            var forms = $('#{$id_list.form}').form('get');
+            var search=JSON.stringify(forms);
+            //查询结果、数据列表
+            var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+            if(rows.length==1){
+                messager.confirm('导出不能为空！');
+            }
+            else{
+                messager.confirm('确定导出搜索的退换统计吗？',function(r){
+                    if(!r){return false;}
+                    window.open(url+'?search='+search);
+                })
+            }
+        }
+   	}, 0);
+	
+});
+function statSellbackAnalysisInit (){
+	var datagrid_id=statSellbackAnalysis.params.datagrid.id;
+    var form=$('#{$id_list.form}');
+	var data=form.form('get');
+	var sum=data['search[stat_type]'];
+    $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+        var page_size = $(this).datagrid('options').pageSize ;
+        if (row[sum] == '合计'){
+            return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+        }
+    }});
+    $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+        var rows = $(this).datagrid('getRows');
+        var stat_fields = [
+            'refund_count',              
+            'refund_num',
+            'refund_amount',
+            'return_cost',
+            'return_amount',
+            'stockin_num',
+        ];
+        var append_row = {};
+        append_row[sum] = '合计';
+        statSellbackAnalysisTotalCompute(rows,stat_fields,append_row);
+        $(this).datagrid('appendRow',append_row);
+    }});
+}
+function statSellbackAnalysisTotalCompute(page_rows,arr_fields,append_row) {
+    var rows = page_rows;
+    for(var index in arr_fields)
+    {
+        var field = arr_fields[index];
+        append_row[field] = 0;
+        for (var i = 0; i < rows.length; i++) {
+            append_row[field] += parseFloat(rows[i][field]);
+        }
+        append_row[field] = append_row[field].toFixed(4);
+    }
+}
+
+</script>
+</block>

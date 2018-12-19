@@ -1,0 +1,32 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['add_form']}" style="padding: 5px 10px;">
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">店铺：</label>
+            <select class="easyui-combobox sel" name="shop_id" data-options="panelHeight:'200px'">
+                <volist name='shop_list' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">触发事件：</label>
+            <input class="easyui-combobox sel" type="text" name="event_type" required="true" data-options="valueField:'id',textField:'name',data:formatter.get_data('sms_event_type','sel')"/>
+        </div>
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">延迟时间：</label>
+            <input class="easyui-numberbox sel" type="text" name="delay_time" required="true"/>
+        </div>
+        <div id="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;margin-left: 5px;">短信模板：</label>
+            <select class="easyui-combobox sel" name="template_id" data-options="panelHeight:'200px'">
+                <volist name='template_list' id='vo'>
+                    <option value="{$vo.template_id}">{$vo.template_name}</option>
+                </volist>
+            </select>
+        </div>
+    </form>
+</block>

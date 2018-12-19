@@ -1,0 +1,64 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar"> 
+    <div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+        <form id="{$id_list.search_form}" class="easyui-form" method="post">
+            <div class="form-div" style="width:100%">
+<table   cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse">
+<tr >            
+<td class="sio-dialog-td-title" >
+    <label>供应商：</label>
+</td>               
+<td class="sio-dialog-td-input">
+<select class="easyui-combobox sel" name="search[shop_id]" data-options="panelHeight:'100px',width:100">
+    <volist name='list_shop' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+</select>
+</td>
+<td class="sio-dialog-td-title" >
+    <label>采购单状态：</label>
+</td>
+<td class="sio-dialog-td-input">
+<select class="easyui-combobox sel" name="search[shop_id]" data-options="panelHeight:'100px',width:100">
+    <volist name='list_status' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+</select>
+</td>
+<td class="sio-dialog-td-title" >
+    <label>采购单：</label>
+</td><td class="sio-dialog-td-input"><input data-options="width:100" class="easyui-textbox txt" type="text" name="search[stockout_no]" />
+</td>
+<td>
+<a id="{$id_list.more_button}" href="javascript:void(0)" onclick="initFormHiddenOrDisplay()">更多</a></td>
+<td class="sio-dialog-td-input"><a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="salesStockOutSubmitSearchForm(this);">搜索</a>
+</td>           
+</tr>
+</table>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<table   cellspacing="0" cellpadding="2" border="0" style="border-collapse:collapse">
+<tr >   
+<td class="sio-dialog-td-title" ><label>标记：</label></td>
+<td class="sio-dialog-td-input"><select class="easyui-combobox sel" name="search[shop_id]" data-options="panelHeight:'100px',width:100">
+    <volist name='list_status' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+</select></td>
+<td class="sio-dialog-td-title" ><label>商家编码：</label></td>
+<td class="sio-dialog-td-input"><input data-options="width:100" class="easyui-textbox txt" type="text" name="search[buyer_nick]" /></td>
+<td class="sio-dialog-td-title" ><label>货品编码：</label></td>
+<td class="sio-dialog-td-input"><input data-options="width:100" class="easyui-textbox txt" type="text" name="search[src_tids]" /></td>
+<td class="sio-dialog-td-title" ><label>货品名称：</label></td>
+<td class="sio-dialog-td-input"><input data-options="width:100" class="easyui-textbox txt" type="text" name="search[spec_no]" /></td>
+</tr>
+</table>
+</div>
+</div>
+</form>
+</div>
+</block>
+<block name="dialog"> </block>
+<block name="script">
+<script>
+//# sourceURL=purchase.js
+$(function(){setTimeout(function(){
+stockInOrder = new RichDatagrid(JSON.parse('{$params}'));
+},0);});
+</script>
+</block>

@@ -1,0 +1,6 @@
+[ 2017-07-27T20:55:18+08:00 ] 127.0.0.1 /index.php/stock/stock_management/exporttoexcel.html?id_list=20374,20373,20372,20371,20370,20365,20364,20362,20361,20360,20359,20358,20312,20311,20309,20308,20307,20306,20302,20301&search={%22search[spec_no]%22:%22%22,%22search[goods_no]%22:%22%22,%22search[class_id]%22:%22-1%22,%22search[brand_id]%22:%22all%22,%22search[warehouse_id]%22:[%22all%22],%22search[goods_name]%22:%22%22,%22search[barcode]%22:%22%22}
+ERR: Call to undefined function Stock\Model\workTimeExportNum()
+
+[ 2017-07-27T20:55:27+08:00 ] 127.0.0.1 /index.php/stock/stock_management/exporttoexcel.html?id_list=20374,20373,20372,20371,20370,20365,20364,20362,20361,20360,20359,20358,20312,20311,20309,20308,20307,20306,20302,20301&search={%22search[spec_no]%22:%22%22,%22search[goods_no]%22:%22%22,%22search[class_id]%22:%22-1%22,%22search[brand_id]%22:%22all%22,%22search[warehouse_id]%22:[%22all%22],%22search[goods_name]%22:%22%22,%22search[barcode]%22:%22%22}
+ERR: Call to undefined function Stock\Model\workTimeExportNum()
+

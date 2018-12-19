@@ -1,0 +1,253 @@
+<div id="employe_right_dialog" class="easyui-tabs" data-options="fit:true" style="width:560px;height:764px;">
+	<div title="菜单" data-options="closable:false,selected:false">
+		<div class="form-div">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.expandAll()">展开</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.collapseAll()">收起</a>
+		</div>
+		<div class="form-div">
+			<ul id="rights-tree"></ul>
+		</div>
+	</div>
+	<div title="店铺" data-options="closable:false,selected:false" >
+		<div class="form-div">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.clickAll()">全选</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.revertAll()">反选</a>
+		</div>
+		<div class="form-div">
+			<form id="rights_shop_tree"></form>
+		</div>
+	</div>
+	<div title="仓库" data-options="closable:false,selected:false" >
+		<div class="form-div">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.clickAll()">全选</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.revertAll()">反选</a>
+		</div>
+		<div class="form-div">
+			<form id="rights_warehouse_tree"></form>
+		</div>
+	</div>
+	<div title ="字段" data-options="closable:false,selected:false">
+		<div class="form-div">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.clickAll()">全选</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.revertAll()">反选</a>
+		</div>
+		<div class="form-div">
+			<form id="rights_field_tree"></form>
+		</div>
+	</div>
+	<div title="供货商" data-options="closable:false,selected:false" >
+		<div class="form-div">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.clickAll()">全选</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.revertAll()">反选</a>
+		</div>
+		<div class="form-div">
+			<form id="rights_provider_tree"></form>
+		</div>
+	</div>
+	<!--<div title="Tab3" data-options="iconCls:'icon-reload',closable:true" style="padding:20px;display:none;">
+		tab3
+	</div>-->
+</div>
+
+<script type="text/javascript">
+	//# sourceURL=test.js
+$(function(){
+	var click_tab = [];
+	setTimeout(function () {
+		function clickTab(title,index){
+			if($.inArray(index,click_tab) != -1)
+			{
+				return;
+			}
+			click_tab.push(index);
+			if(index == 0)
+			{
+				var tab_url_id = $('#employe_right_dialog').tabs('getTab',index).find('ul').attr('id');
+
+				$('#'+tab_url_id).tree({
+					cascadeCheck:true,
+					animate:true,
+					checkbox:true,
+					lines:true,
+					method:'POST',
+					queryParams: {id: '{$id}',type:index},
+					url:"{:U('Setting/Employee/getRightsTree')}"
+				});
+			}else if(index == 1){
+				var tab_form_id = $('#employe_right_dialog').tabs('getTab',index).find('form').attr('id');
+
+				$.post("{:U('Setting/Employee/getRightsList')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0)
+					{
+						$.each(r.data,function(key,node){
+							$('#'+tab_form_id).append("<input type='checkbox' name='shop_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}else if(index == 2){
+				var tab_warehouse_form_id = $('#employe_right_dialog').tabs('getTab',index).find('form').attr('id');
+				
+				$.post("{:U('Setting/Employee/getRightsWarehouseList')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0)
+					{
+						$.each(r.data,function(key,node){
+							$('#'+tab_warehouse_form_id).append("<input type='checkbox' name='warehouse_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_warehouse_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}else if(index == 3){
+				var tab_field_form_id = $('#employe_right_dialog').tabs('getTab',index).find('form').attr('id');
+				$.post("{:U('Setting/Employee/getRightsField')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0){
+						$.each(r.data,function(key,node){
+							$('#'+tab_field_form_id).append("<input type='checkbox' name='field_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_field_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}else if(index == 4){
+				var tab_provider_form_id = $('#employe_right_dialog').tabs('getTab',index).find('form').attr('id');
+
+				$.post("{:U('Setting/Employee/getRightsProviderList')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0)
+					{
+						$.each(r.data,function(key,node){
+							$('#'+tab_provider_form_id).append("<input type='checkbox' name='provider_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_provider_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}
+
+		}
+		function loadTab(tabs){
+
+			var tab = tabs.tabs('getSelected');
+
+			var index = tabs.tabs('getTabIndex',tab);
+			if($.inArray(index,click_tab) != -1)
+			{
+				return;
+			}
+			click_tab.push(index);
+			if(index == 0) {
+				var tab_url_id = tab.find('ul').attr('id');
+				$('#' + tab_url_id).tree({
+					cascadeCheck: true,
+					animate: true,
+					checkbox: true,
+					lines: true,
+					method: 'POST',
+					queryParams: {id: '{$id}',type:index},
+					url: "{:U('Setting/Employee/getRightsTree')}"
+				});
+			}else if(index == 1){
+				var tab_fomr_id = tab.find('form').attr('id');
+
+				$.post("{:U('Setting/Employee/getRightsList')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0)
+					{
+						$.each(r.data,function(key,node){
+							$('#'+tab_form_id).append("<input type='checkbox' name='shop_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}else{
+				var tab_warehouse_form_id = $('#employe_right_dialog').tabs('getTab',index).find('form').attr('id');
+				
+				$.post("{:U('Setting/Employee/getRightsWarehouseList')}",{type:index,id:'{$id}'},function(r){
+					if(r.status == 0)
+					{
+						$.each(r.data,function(key,node){
+							$('#'+tab_form_id).append("<input type='checkbox' name='warehouse_"+node.id+"' value="+node.id+" "+((node.checked)?"checked='checked'":"")+" >"+node.name+"</br>");
+						});
+					}else{
+						$('#'+tab_form_id).html("<div>"+r.info+"</div>");
+					}
+				},'json');
+			}
+		}
+		$('#employe_right_dialog').tabs('options').onSelect=clickTab;
+		$('#employe_right_dialog').tabs('options').onLoad=loadTab;
+		loadTab($('#employe_right_dialog'));
+
+	},0);
+
+
+})
+function getRightsTree(node,ids,map,tree){
+	if(node.parent_id==0){if(!map[node.id]){ ids.push(node.id); map[node.id]=true; } return;}
+	if(!map[node.id]){ ids.push(node.id); map[node.id]=true; getRightsTree(node,ids,map,tree);}
+	else{ var pnode=tree.tree('getParent',node.target); getRightsTree(pnode,ids,map,tree); }
+}
+employee_obj.submitChangeRightsDialog=function(){
+	var tabs = $('#employe_right_dialog');
+	var tab = tabs.tabs('getSelected');
+	var index = tabs.tabs('getTabIndex',tab);
+	if(index == 0)
+	{
+		var tab_tree_id = tab.find('ul').attr('id');
+		var tree=$('#'+tab_tree_id); var tree_checked=tree.tree('getChecked');
+		var map={}; var ids=[]; var nodes=[];
+		$.each(tree_checked,function(key,node){
+			if(!map[node.id]){
+				ids.push(node.id); map[node.id]=true;
+				if(!map[node.parent_id] && node.parent_id!=0){ ids.push(node.parent_id);nodes.push(node); map[node.parent_id]=true; }
+			}
+		});
+		$.each(nodes,function(key,node){ getRightsTree(node,ids,map,tree); });
+		var data={}; data['id']='{$id}';data['type']=index; data['ids']=JSON.stringify(ids);
+	}else{
+		var tab_form_id = tab.find('form').attr('id');
+		var form_data = $('#'+tab_form_id).form('get');
+		var data={}; data['id']='{$id}';data['type']=index;
+		var list_id = [];
+		for(var id in form_data){
+			list_id.push(form_data[id]);
+		}
+		data.ids = JSON.stringify(list_id);
+	}
+	$.post("{:U('Setting/Employee/changeRights')}", data, function (res) {
+		if (res.status==0) { messager.alert(res.info);return; }
+		$('#'+employee_obj.params.add.id).dialog('close');
+	});
+}
+employee_obj.expandAll=function(){
+	var tab_tree_id = $('#employe_right_dialog').tabs('getSelected').find('ul').attr('id');
+	$('#'+tab_tree_id).tree('expandAll');
+	/* var tree=$('#rights-tree'); var selected = tree.tree('getSelected'); if(!selected){tree.tree('expandAll');}else{tree.tree('expandAll',selected.target);} */
+}
+employee_obj.collapseAll=function(){
+	var tab_tree_id = $('#employe_right_dialog').tabs('getSelected').find('ul').attr('id');
+	$('#'+tab_tree_id).tree('collapseAll');
+	/* var tree=$('#rights-tree'); var selected = tree.tree('getSelected'); if(!selected){tree.tree('collapseAll');}else{tree.tree('collapseAll',selected.target);} */
+}
+employee_obj.clickAll=function(){
+	var tab_tree_id = $('#employe_right_dialog').tabs('getSelected').find('form').attr('id');
+	var check_list = $('#'+tab_tree_id).find('input');
+	$.each(check_list,function(key,check_box){
+		$(check_box).prop('checked',true);
+	});
+}
+employee_obj.revertAll=function(){
+	var tab_tree_id = $('#employe_right_dialog').tabs('getSelected').find('form').attr('id');
+	var check_list = $('#'+tab_tree_id).find('input');
+	$.each(check_list,function(key,check_box){
+		if($(check_box).prop('checked'))
+		{
+			$(check_box).prop('checked',false);
+		}else{
+			$(check_box).prop('checked',true);
+		}
+
+	});
+}
+</script>

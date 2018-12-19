@@ -1,0 +1,527 @@
+<extend name="../../Common/View/datagrid_tabs_base_left" />
+<block name="dialog"><!-- <div id="{$id_list.edit}"></div> -->
+	<div id="{$id_list.fileDialog}" class="easyui-panel" >
+		<span style="color: red;margin: 5px;">#每次最多可导入一万条订单#</span><br>
+		<span style="color: red;margin: 5px;">#三个月前订单将自动归档，请在<span style="color: #0a8ebb">帮助>归档>历史订单</span>查看#</span>
+		<form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data" style="margin:10px 50px 10px 50px">
+			<div style="margin-bottom:25px">
+				<input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+			</div>
+			<div align="center">
+				<a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="tradeManage.upload()">上传</a>
+			</div>
+		</form>
+	</div>
+</block>
+<block name="search">
+<div id="trade_manage_search" class="easyui-tabs" border="false" >
+	<div id="{$id_list.fast_div}" title="快捷查询" style="background: #eee;" data-options="tools:[{iconCls:'icon-mini-refresh', handler:function(){tradeManage.loadData(1);}}]">
+	<div class="form-div">
+		<fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>特殊标记</legend>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[freeze_reason]')">　　冻结订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[revert]')">　　驳回订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[bad_reason]')">　　异常订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[merge]')">　　合并订单</a></br>
+        <!-- <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[auto_merge]')">　　自动合并订单</a></br> -->
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[split]')">　　拆分订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[refund]')">　　退款订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[return]')">　　换货销售订单</a></br>
+        </fieldset>
+        <fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>备注</legend>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[cs]')">　　有客服备注</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[no_cs]')">　　无客服备注</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[client]')">　　有客户备注</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[no_client]')">　　无客户备注</a></br>
+        </fieldset>
+        <fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>时间</legend>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[one_day]')">　　一天内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[tow_day]')">　　两天内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[one_week]')">　　一周内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="tradeManage.fastSearch(this,'search[one_month]')">　　一月内</a></br>
+        </fieldset>
+	</div>
+	</div>
+	<div title="筛选条件" style="background: #eee;" >
+	<form id="{$id_list.form}">
+	<div class="form-div" style="background: #eee;margin-bottom: 2px;margin-left: 100px;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tradeManage.searchData(this);">搜索</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="tradeManage.loadData();">重置</a>
+	</div>
+	<hr style="border:none;border-top:2px dotted #95B8E7;width: 220px;background: #eee;">
+	<div  style="position:absolute;height:80%; width: 100%;overflow:auto;background: #eee;">
+		<div class="form-div"><label>&nbsp;退款状态：</label><input class="easyui-combobox txt" name="search[refund_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_status')"/> </div>
+		<div class="form-div"><label>&nbsp;订单状态：</label><input class="easyui-combobox txt" name="search[trade_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('trade_status')"/></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+        <div class="form-div"><label>&nbsp;出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" /></div>
+        <div class="form-div"><label>&nbsp;仓　　库：</label><select class="easyui-combobox sel" name="search[warehouse_id]"><option value="all">全部</option><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+        <div class="form-div"><label>&nbsp;物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+		<div class="form-div"><label>&nbsp;物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" /></div>
+		<div class="form-div"><label>多物流单号：</label><input class="easyui-textbox txt" type="text" name="search[multi_logistics_no]" /></div>
+		<div class="form-div"><label>档口唯一码：</label><input class="easyui-textbox txt" type="text" name="search[unique_code]" /></div>
+        <hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>&nbsp;客服备注：</label><input class="easyui-textbox txt" type="text" name="search[cs_remark]" /></div>
+		<div class="form-div"><label>&nbsp;　　标旗：</label><input class="easyui-combobox txt" name="search[remark_flag]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('remark_flag')"/> </div>
+		<div class="form-div"><label>&nbsp;发票类别：</label><input class="easyui-combobox txt" name="search[invoice_type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('invoice_type')"/> </div>
+		<div class="form-div"><label>&nbsp;　收件人：</label><input class="easyui-textbox txt" type="text" name="search[receiver_name]" /></div>
+		<div class="form-div"><label>&nbsp;电话号码：</label><input class="easyui-textbox txt" type="text" name="search[receiver_mobile]" /></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>&nbsp;商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" /></div>
+		<div class="form-div"><label>&nbsp;货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" /></div>
+		<div class="form-div"><label>&nbsp;货品品牌：</label><select class="easyui-combobox sel" name="search[brand_id]"><option value="all">全部</option><volist name='list.brand' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+		<div class="form-div"><label>&nbsp;货品分类：</label><input class="txt" id="manage_tree_class_show_goods" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>&nbsp;订单来源：</label><input class="easyui-combobox txt" name="search[trade_from]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_from')"/> </div>
+		<div class="form-div"><label>&nbsp;　　类别：</label><input class="easyui-combobox txt" name="search[trade_type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type')"/></div>
+		<div class="form-div"><label>&nbsp;　　标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/></div>
+		<div class="form-div"><label>&nbsp;驳回原因：</label><select class="easyui-combobox sel" name="search[revert_reason]"><option value="all">全部</option><volist name='list.reason' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>　　　省份：</label><input id="tradeManageProvince" class="easyui-combobox txt" type="text" name="search[receiver_province]"  data-options="multiple:true,onChange:function(newValue, oldValue){province_select(newValue, oldValue);}"/></div>
+		<div class="form-div"><label>　　　城市：</label><input id="tradeManageCity" class="easyui-combobox txt" type="text" name="search[receiver_city]"/></div>
+		<div class="form-div"><label>　　　区县：</label><input id="tradeManageDistrict" class="easyui-combobox txt" type="text" name="search[receiver_district]"/></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>&nbsp;下单时间：</label><input class="easyui-datetimebox txt" type="text" name="search[trade_start_time]" data-options="editable:false"/></div>
+		<div class="form-div"><label>&nbsp;　　　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[trade_end_time]" data-options="editable:false"/> </div>
+		<div class="form-div"><label>&nbsp;发货时间：</label><input class="easyui-datetimebox txt" type="text" name="search[trade_consign_start_time]" data-options="editable:false"/></div>
+		<div class="form-div"><label>&nbsp;　　　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[trade_consign_end_time]" data-options="editable:false"/> </div>
+		<div class="form-div"><label>&nbsp;付款时间：</label><input class="easyui-datetimebox txt" type="text" name="search[pay_start_time]" data-options="editable:false"/></div>
+		<div class="form-div"><label>&nbsp;　　　至：</label><input class="easyui-datetimebox txt" type="text" name="search[pay_end_time]" data-options="editable:false"/> </div>
+		<div class="form-div"><label>&nbsp;搜多物流：</label><input type="checkbox" name="search[multi_logistics]"  value="0" onclick="tradeManage.isSearchMultiLogistics($(this))" search="multiLogistics"></div>
+	</div>
+	</form>
+	</div>
+	
+</div>
+</block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form_main}">
+<div class="form-div">
+<label>订单编号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tids]" />
+<label>　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+<label>　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tradeManage.searchData(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="tradeManage.loadData();">重置</a>
+</div>
+</form>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="tradeManage.setFlag()">标记管理</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-sign',plain:true,menu:'#tradeManage-flag'">标记订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="tradeManage.recoverTrade()">恢复订单</a> 
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="tradeManage.recoverRefundTrade()">恢复全额退款订单</a> 
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="tradeManage.checkNumber()">查看号码</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-database-go',plain:true,menu:'#tradeManage_out'" >导出功能</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" title="工作时间（8:00至19:00）禁止导入" onclick="tradeManage.uploadDialog()">导入订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="tradeManage.downloadTemplet()">下载模板</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/Trade','trade_manage','{$datagrid.id}',1)">设置表头</a>
+</div>
+<div id="tradeManage_out">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="tradeManage.exportToExcel('csv')">导出csv(推荐)</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="tradeManage.exportToExcel('excel')">导出到Excel</a>
+</div>
+<div id="manage_menu" class="easyui-menu" style="width:120px;" noline="true">
+	<div data-options="iconCls:'icon-add'" onclick="addManageRefund()">新建退换单</div>
+</div>
+<div id="tradeManage-flag" style="width:100px;height:150px;" noline="true" >
+	<volist name='list.flag' id='vo'>
+		<div onclick="tradeManage.newSelectFlag({$vo.id})"><span style="margin-left: -25px; background-color:{$vo.bg_color}; font-family:{$vo.family}; color: {$vo.color};">{$vo.name}</span></div>
+	</volist>
+</div>
+<div id="add_refund"></div>
+<div id="trade_manage_add"></div>
+<div id="select_refund_goods"></div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () {
+		$('#manage_tree_class_show_goods').changStyleTreeCombo('manage_tree_class_show_goods');
+		tradeManage = new RichDatagrid(JSON.parse('{$params}')); 
+		tradeManage.setFormData();
+		tradeManageArea = new area("tradeManageProvince", "tradeManageCity", "tradeManageDistrict");
+		// 右键事件
+		$('#'+tradeManage.params.datagrid.id).datagrid('options').onRowContextMenu=function(e, rowIndex, rowData){
+	       		   //三个参数：e，rowIndex当前点击时所在行的索引，rowData当前行的数据
+	            e.preventDefault(); //阻止浏览器捕获右键事件
+	            var rows=$('#'+tradeManage.params.datagrid.id).datagrid('getSelections');
+	            var chose=false;
+	            for(var i=0;i<rows.length;i++){
+	            	if($('#'+tradeManage.params.datagrid.id).datagrid('getRowIndex',rows[i])==rowIndex){chose=true;}
+	            }
+	            if(chose==false){
+	            	$(this).datagrid("clearSelections"); //取消所有选中项
+	          		$(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+	       		}
+	            $(this).datagrid('options').that.click(rowIndex,rowData);
+	            $('#manage_menu').menu('show', {
+	                hideOnUnhover: false,
+	                left: e.pageX,//在鼠标点击处显示菜单
+	                top: e.pageY
+	            });
+	            //复制选中方法（该段代码必须放到右键触发事件的最后）
+	            if(tradeManage.selectField!=''){
+	            	var text;
+	            	if(tradeManage.selectField=='buyer_nick'&&tradeManage.selectRows[0]['buyer_nick'].indexOf("http://www.taobao.com/webww")==25){
+	            		text=$(tradeManage.selectRows[0]['buyer_nick']).text();
+	            	}else{
+	            		text=tradeManage.selectRows[0][tradeManage.selectField];
+	            	}
+	        		$('#copy').zclip({ 
+	        	        path: "__ROOT__/Public/Js/ZeroClipboard.swf", 
+	        	        copy:text,
+	        	    });
+	        		}	     
+	    };  
+		//查看号码
+		tradeManage.checkNumber=function(){
+			var rows=tradeManage.selectRows;
+			if(rows==undefined){messager.info('请选择操作的行');return false;}
+			var ids=[];
+			var list=[];
+			for(var i in rows){
+				if(rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+					list.push({trade_no:rows[i]['trade_no'],result_info:'手机和固话均为空！'});
+					continue;
+				}
+				ids.push(rows[i]['id']); 
+			}
+			if(ids.length>0){
+				Post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'sales_trade'},function(res){
+					tradeManage.dealDatagridReasonRows(res,list); 
+				},'JSON');
+			}else{
+                var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+                tradeManage.dealDatagridReasonRows(res,undefined);
+            }
+		}
+		tradeManage.dealDatagridReasonRows=function(result,list){
+			if(result.status==1){ messager.alert(result.message); return;}
+			if(list!=undefined&&list.length>0){
+				var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+				result.info.rows=$.merge(list,fail);
+				result.info.total+=list.length;
+				result.status=2;
+			}
+			if(result.status==2){
+				result.info.title='订单号';
+				$.fn.richDialog("response", result.info, 'checknumber');
+			}
+			if((result.status==0||result.status==2)&&result.data!=undefined){
+				var rows=tradeManage.selectRows;
+				var index;
+				var trade_dg=$('#'+tradeManage.params.datagrid.id);
+				for(var i in rows){
+					for(var x in result.data.rows){
+						if(rows[i].id==result.data.rows[x].id){ 
+							index=trade_dg.datagrid('getRowIndex',rows[i]); 
+							if(result.check_number){rows[i].receiver_mobile=result.data.rows[x].receiver_mobile;rows[i].receiver_telno=result.data.rows[x].receiver_telno;trade_dg.datagrid('refreshRow',index);}
+						}
+					}
+				}
+			}
+		}
+		tradeManage.exportToExcel = function(type){	
+					var dg = $('#'+tradeManage.params.datagrid.id);
+					var queryParams = dg.datagrid('options').queryParams;
+					var search=JSON.stringify(queryParams);
+                    var url= "{:U('TradeManage/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var form=JSON.stringify(tradeManage.params.search.form_data);
+					var search_form=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                     else if(id_list!=''){
+                         messager.confirm('确定导出选中的订单吗？',function(r){
+                             if(!r){return false;}
+                             window.open(url+'?id_list='+id_list+'&type='+type);
+                         })
+                     }else if(search=='{}'||(search_form==form&&search.length==675)){
+                         messager.confirm('确定导出所有的订单吗？',function(r){
+                             if(!r){return false;}
+                             window.open(url+'?id_list='+id_list+'&type='+type);
+                         })
+                     }
+                     else{
+                         messager.confirm('确定导出搜索的订单吗？',function(r){
+                             if(!r){return false;}
+                             window.open(url+'?id_list='+id_list+'&search='+search+'&type='+type);
+                         })
+                     }
+                }
+		tradeManage.searchData=function(){
+			resetFast();
+			tradeManage.submitSearchForm(this);
+		}
+		tradeManage.loadData=function(set_fast){
+			if(set_fast != undefined){
+				$('#{$id_list.fast_div}').find('a').each(function(){
+					$(this).css({'color':'#174B73'});
+				});
+			}
+			resetFast();
+			$('input[name="search[multi_logistics]"]').val('0').prop('checked','');
+			$("#{$id_list.form}").form('reset');
+			tradeManage.loadFormData();
+		}
+		tradeManage.fastSearch=function(that,key){
+			setFastClickColor(that);
+			resetFast();
+			var dg = $('#'+tradeManage.params.datagrid.id);
+			var queryParams ={};
+			queryParams[key]=1;
+			dg.datagrid('options').queryParams = queryParams;
+			dg.datagrid('reload');
+		}
+		function setFastClickColor(that){
+			var a_elems = $(that).parent('fieldset').parent('div').find('a');
+			a_elems.each(function(i){
+				$(this).css({'color':'#174B73'});
+			});
+			$(that).css({'color':'red'});
+		}
+		//清空快捷查询的数据
+		function resetFast(){
+			var dg = $('#'+tradeManage.params.datagrid.id);
+			var queryParams = dg.datagrid('options').queryParams;
+			if(queryParams['search[freeze_reason]']){queryParams['search[freeze_reason]']='';}
+			if(queryParams['search[revert]']){queryParams['search[revert]']='';}
+			if(queryParams['search[bad_reason]']){queryParams['search[bad_reason]']='';}
+			if(queryParams['search[merge]']){queryParams['search[merge]']='';}
+			if(queryParams['search[split]']){queryParams['search[split]']='';}
+			if(queryParams['search[auto_merge]']){queryParams['search[auto_merge]']='';}
+			if(queryParams['search[refund]']){queryParams['search[refund]']='';}
+			if(queryParams['search[return]']){queryParams['search[return]']='';}
+			if(queryParams['search[cs]']){queryParams['search[cs]']='';}
+			if(queryParams['search[no_cs]']){queryParams['search[no_cs]']='';}
+			if(queryParams['search[client]']){queryParams['search[client]']='';}
+			if(queryParams['search[no_client]']){queryParams['search[no_client]']='';}
+			if(queryParams['search[one_day]']){queryParams['search[one_day]']='';}
+			if(queryParams['search[tow_day]']){queryParams['search[tow_day]']='';}
+			if(queryParams['search[one_week]']){queryParams['search[one_week]']='';}
+			if(queryParams['search[one_month]']){queryParams['search[one_month]']='';}
+		}
+		tradeManage.recoverTrade=function(){
+			//ids数组存放的是状态为“无需处理”的记录，而list数组中存放的是“非无需处理”的记录
+			var ids=[];
+			var list=[];
+			var rows=tradeManage.selectRows;
+			if(rows==undefined){messager.alert('请选择恢复的订单');return false;}
+			for(var i in rows){
+				if(rows[i]['id']<1){
+					list.push({trade_id:rows[i]['id'],trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+				}
+				if(rows[i]['trade_status']!=undefined&&rows[i]['trade_status']!=115){
+					list.push({trade_id:rows[i]['id'],trade_no:rows[i]['trade_no'],result_info:'订单状态不正确,仅无需处理的订单可以恢复'});continue;					
+				}
+				ids.push(rows[i]['id']);
+			}
+			if(ids.length>0){
+				Post('{:U('TradeManage/recoverTrade')}',{'ids':JSON.stringify(ids)},function(res){
+					if(res.status==1){ messager.alert(res.message); return;}
+					if(list!=undefined&&list.length>0){
+						var fail= (typeof res.info.rows=='object')?$.makeArray(res.info.rows):res.info.rows;
+						res.info.rows=$.merge(list,fail);
+						res.info.total+=list.length;
+						res.status=2;
+					}
+					if(res.status==2){ $.fn.richDialog("response", res.info, 'tradecheck');}
+					if((res.status==0||res.status==2)&&res.data!=undefined){			
+						var rows=tradeManage.selectRows;
+						var selectrows_length = 0;
+						for(var j=0;j<tradeManage.selectRows.length;j++){
+							if(tradeManage.selectRows[j] != undefined){selectrows_length += 1;}
+						}
+						var index;
+						var trade_dg=$('#'+tradeManage.params.datagrid.id);
+						for(var i in rows){
+							for(var x in res.data.rows){
+								if(rows[i].id==res.data.rows[x].id){
+									index=trade_dg.datagrid('getRowIndex',rows[i]);
+									rows[i].trade_status=30;trade_dg.datagrid('refreshRow',index);				
+								}
+							}
+						}
+						if(list.length==0){
+							messager.alert('恢复成功');
+						}
+					}
+				},'JSON');
+			}
+			if(list.length>0){
+				var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+				$.fn.richDialog("response", res.info, 'tradecheck');				
+			}			
+		}
+    	tradeManage.recoverRefundTrade=function(){
+    		var ids=[];
+			var list=[];
+    		var rows=tradeManage.selectRows;
+			if(rows==undefined){messager.alert('请选择要操作的订单');return false;}
+			for(var i in rows){
+				if(rows[i]['id']<1){
+					list.push({trade_id:rows[i]['id'],trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+				}
+				if(rows[i]['refund_status']!=undefined&&rows[i]['refund_status']!=3){
+					list.push({trade_id:rows[i]['id'],trade_no:rows[i]['trade_no'],result_info:'订单状态不正确,仅全额退款的订单可以恢复'});continue;					
+				}
+				ids.push(rows[i]['id']);
+			}
+			if(ids.length>0){
+				Post('{:U('TradeManage/restoreTrade')}',{'ids':JSON.stringify(ids)},function(res){
+					if(res.status==1){ messager.alert(res.message); return;}
+					if(list!=undefined&&list.length>0){
+						var fail= (typeof res.info.rows=='object')?$.makeArray(res.info.rows):res.info.rows;
+						res.info.rows=$.merge(list,fail);
+						res.info.total+=list.length;
+						res.status=2;
+					}
+					if(res.status==2){ $.fn.richDialog("response", res.info, 'tradecheck');}
+					if((res.status==0||res.status==2)&&res.data!=undefined){			
+						var rows=tradeManage.selectRows;
+						var selectrows_length = 0;
+						for(var j=0;j<tradeManage.selectRows.length;j++){
+							if(tradeManage.selectRows[j] != undefined){selectrows_length += 1;}
+						} 
+						// if(list.length==0){
+						// 	messager.alert('恢复成功');
+						// }
+						 tradeManage.refresh();						
+					}
+
+				},'JSON');
+			}
+			if(list.length>0){
+				var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+				$.fn.richDialog("response", res.info, 'tradecheck');				
+			}		
+    	}		
+		tradeManage.newSelectFlag=function(id){
+    		var flag=[];
+    		flag.id=id;
+    		tradeManage.selectFlag(flag);
+    	}
+    	tradeManage.isSearchMultiLogistics=function(that){
+    		if(that.val()==1){
+    			that.val('0');
+    		}else{
+    			that.val('1');
+    		}
+    	}
+		tradeManage.upload = function () {
+			var form = $("#{$id_list.fileForm}");
+			var url = "{:U('TradeManage/importTrade')}";
+			var dg = $("#{$id_list.id_datagrid}");
+			var dialog = $("#{$id_list.fileDialog}");
+			$.messager.progress({
+				title: "请稍后",
+				msg: "该操作可能需要几分钟，请稍等...",
+				text: "",
+				interval: 100
+			});
+			form.form("submit", {
+				url: url,
+				success: function (res) {
+					$.messager.progress('close');
+					res = JSON.parse(res);
+					if (!res.status) {
+						dialog.dialog("close");
+					} else if (res.status == 1) {
+						messager.alert(res.info);
+					} else if (res.status == 2) {
+						var converter = document.createElement("DIV");
+						converter.innerHTML = res.info[0]['message'];
+						res.info[0]['message'] = converter.innerText;
+						converter = null;
+						$.fn.richDialog("response", res.info, "importSalesTrade");
+					}
+					dg.datagrid("reload");
+					form.form("load", {"file": ""});
+				}
+			})
+		}
+		tradeManage.uploadDialog = function () {
+			var dialog = $("#{$id_list.fileDialog}")
+			dialog.dialog({
+				title: "导入订单",
+				width: "370px",
+				height: "180px",
+				modal: true,
+				closed: false,
+				inline: true,
+				iconCls: 'icon-save',
+			});
+		}
+		//下载模板
+		tradeManage.downloadTemplet = function(){
+			var url= "{:U('TradeManage/downloadTemplet')}";
+			if (!!window.ActiveXObject || "ActiveXObject" in window){
+				messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+					if(!r){return false;}
+					window.open(url);
+				})
+			}else{
+				messager.confirm('确定下载模板吗？',function(r){
+					if(!r){return false;}
+					window.open(url);
+				})
+			}
+		}
+    	//顶部搜索框关联回车键
+    	$('input',$("#{$id_list.form_main}")).bind('keydown',function(e){if(e.keyCode==13){resetFast();tradeManage.submitSearchForm(this);}});
+	}, 0); 
+});
+function editTradeRowStyler(i,row){
+	var refund_bg_color='{$refund_color}';
+	if(row.refund_status>1){return refund_bg_color;}
+	return;
+}
+function addManageRefund(){
+	if(tradeManage.selectRows==undefined) { messager.alert('请选择操作的行!'); return false; }
+	if(tradeManage.selectRows.length > 1){ messager.alert('请选择单行操作!'); return false; }
+	var row=tradeManage.selectRows[0];
+	if (row['trade_status']<95||row['trade_status']>=115) {messager.alert('订单状态不正确,无法创建退换单！'); return false;};
+	// 先选择退换货品
+	var select_refund_goods = $("#select_refund_goods");
+	var url = "{:U('TradeManage/getRefundGoods')}";
+	url += url.indexOf('?') != -1 ? '&id='+row['id'] : '?id='+row['id'];
+	var buttons=[
+                    {text:'确定',handler:function(){
+                    	 if (order_ids=submitSelectRefundGoods()) {
+                    	 	select_refund_goods.dialog('close');
+                    	 	showAddRefundDialog(row['id'],order_ids);
+                    	 }
+                    }},
+                    {text:'取消',handler:function(){select_refund_goods.dialog('close');}}
+                ];
+    select_refund_goods.dialog({ title:'选择退换货品', iconCls:'icon-save', width:800, height:330, closed:false, inline:true, modal:true, href:url, buttons:buttons });
+}
+function showAddRefundDialog(id,order_ids){
+	var sto_ids="(";
+	for (var i = 0; i < order_ids.length; i++) {
+		sto_ids+=parseInt(order_ids[i])+",";
+	}
+	sto_ids=sto_ids.substring(0,sto_ids.length-1)+')';
+	var refund_url = "{:U('RefundManage/editRefund')}";
+	refund_url += refund_url.indexOf('?') != -1 ? '&id='+id : '?id='+id;
+	refund_url +='&is_api='+2+'&sto_ids='+sto_ids;
+	var add_refund = $("#add_refund");
+    var buttons=[
+                    {text:'确定',handler:function(){addEditRefund.submitEditDialog();}},
+                    {text:'取消',handler:function(){add_refund.dialog('close');}},
+                ];
+    add_refund.dialog({ title:'新建退换单', iconCls:'icon-save', width:1000, height:530, closed:false, inline:true, modal:true, href:refund_url, buttons:buttons });
+}
+function province_select(newValue, oldValue){
+	var that = this;
+	var ids = newValue;
+	if(ids.length >2){
+		$('#tradeManageCity').combobox('disable');
+		$('#tradeManageDistrict').combobox('disable');
+	}else{
+		$('#tradeManageCity').combobox('enable');
+		$('#tradeManageDistrict').combobox('enable');
+	}	
+}
+
+</script>
+</block>

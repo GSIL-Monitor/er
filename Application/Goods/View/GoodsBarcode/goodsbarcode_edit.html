@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    //# sourceURL=goodsbarcode_edit.js
+    var gb_edit_dailog_tb = 'goods_editgoodsbarcode_datagrid';
+    $(function () {
+        $('#' + gb_edit_dailog_tb).datagrid({
+            toolbar: '#goods_edit_dialog_toolbar',
+            data: {$goods_barcode_list},
+            border: false,
+            collapsible: true,
+            singleSelect: true,
+            fitColumns: false,
+            fit: true,
+            onDblClickCell: gbEditonClickRow,
+            columns: [[{$datagrid_editGoodsBarcode}]]
+        });
+    });
+    function gbAddCancel() {
+        $('#goodsbarcode_edit').dialog('close');
+    }
+    function gbEditonClickRow(index) {
+        $('#' + gb_edit_dailog_tb).datagrid('selectRow', index).datagrid('beginEdit', index);
+    }
+    function gbEditSave() {
+        $('#' + gb_edit_dailog_tb).datagrid('acceptChanges');
+        if (!$('#' + gb_edit_dailog_tb).datagrid('validateRow', 0)) {
+            messager.alert("请填写正确的数据！");
+            return false;
+        }
+        var data = $("#" + gb_edit_dailog_tb).datagrid("getData");
+        data = {"id": data.rows[0].id, "barcode": data.rows[0].barcode, "is_master": data.rows[0].is_master};
+        $.post('{:U('Goods/GoodsBarcode/updateGoodsBarcode')}', data, function (data) {
+            switch (data.status) {
+                case 0:
+                    messager.alert(data.info);
+                    $('#' + gb_edit_dailog_tb).datagrid('beginEdit', 0);
+                    break;
+                case 1:
+                    gbAddCancel();
+                    goodsbarcode_obj.refresh();
+                    break;
+                default :
+                    messager.alert("系统错误请联系管理员!");
+                    break;
+            }
+        });
+    }
+    goodsbarcode_obj.submitEditDialog = gbEditSave;
+</script>
+<table id="goods_editgoodsbarcode_datagrid"></table>
+<div id="goods_edit_dialog_toolbar">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="gbEditSave()">保存</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="gbAddCancel()">取消</a>
+</div>

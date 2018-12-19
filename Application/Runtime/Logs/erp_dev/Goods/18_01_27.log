@@ -1,0 +1,135 @@
+[ 2018-01-27T18:16:08+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517044484891
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:16:22+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517044484892
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:16:47+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048197223
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:17:10+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048197224
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:18:37+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048197225
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:19:05+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048337624
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 17
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:20:03+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048337626
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 18
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:23:31+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048337628
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 18
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+
+[ 2018-01-27T18:23:52+08:00 ] 127.0.0.1 /index.php/Goods/GoodsBarcodePrint/getGoodsBarcode?_=1517048337629
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Call to undefined function Goods\Controller\propFildConv()
+    [file] => E:\wamp\www\test\trunk\source\Application\Goods\Controller\GoodsBarcodePrintController.class.php
+    [line] => 18
+    [trace] => #0 [internal function]: Goods\Controller\GoodsBarcodePrintController->getGoodsBarcode()
+#1 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Goods\Controller\GoodsBarcodePrintController))
+#2 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#3 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#4 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#5 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#6 {main}
+)
+

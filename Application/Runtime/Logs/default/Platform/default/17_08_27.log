@@ -1,0 +1,35 @@
+2017-08-27 18:27:34	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:34	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:34	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:34	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:34	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 620
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:35	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-27 18:27:36	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 116
+2017-08-27 18:27:36	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 1845
+2017-08-27 18:27:36	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 1872
+2017-08-27 18:27:36	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 2233
+2017-08-27 18:27:36	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 2719
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-27 18:27:38	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-27 18:27:38	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 620
+2017-08-27 18:27:40	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-27 18:27:40	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34

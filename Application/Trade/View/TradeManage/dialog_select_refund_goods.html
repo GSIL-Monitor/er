@@ -1,0 +1,22 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.toolbar}">
+<form id="{$id_list.form}">
+<div class="form-div"  style="margin-bottom:10px;">
+<label style="color:red;align:center;font-size:16px;">#请先选择所要退换的货品#</label>
+</div>
+</form>
+</div>
+<script>
+// 提交数据
+function submitSelectRefundGoods(){
+	var dg=$("#{$id_list.id_datagrid}");
+	var rows = dg.datagrid('getSelections');
+	var rec_ids=[];	
+	if (rows.length==0) {messager.alert('请选择要退换的货品!'); return false; }
+	for(var i=0;i<rows.length;i++){
+		rec_ids.push(rows[i].rec_id);
+	}
+	return rec_ids;
+}
+</script>

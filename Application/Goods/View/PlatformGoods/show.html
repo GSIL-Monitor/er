@@ -1,0 +1,700 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label class="">　　店铺：</label><input id="platform_goods_shop_id" class="easyui-combobox txt" type="text" name="search[shop_id]" value="all" data-options="valueField:'id',textField:'name'"/>
+                <label class="">　　货品名称：</label><input id="platform_goods_goods_name" class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+                <label class="">　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[merchant_no]"/>
+                <label class="">　　货品商家编码：</label><input class="easyui-textbox txt" type="text" name="search[outer_id]"/>
+                <!--<a href="javascript:void(0)" onclick="platform_goods.clickMore(this)">更多</a>-->
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="platform_goods.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="platform_goods.loadFormData()">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-tip'" onclick="platform_goods.openGoodsPage()">打开商品页</a>
+                <!--<label class="form-div">
+                    <a href="{$faq_url_goods_interpretation}" target="_blank" class="easyui-linkbutton" title="点击查看货品名词解释" data-options="iconCls:'icon-help',plain:true">货品名词解释</a>
+                </label>-->
+                <label class="form-div">
+                    <a href="{$faq_url_goods_question}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+                </label>
+            </div>
+            <!--<div id="{$id_list.more_content}">-->
+                <div class="form-div">
+                <label class="">平台状态：</label><input id="platform_goods_status"  class="easyui-combobox txt" type="text" name="search[status]" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_list('api_goods_spec_status')">
+                    <label class="">　　规格名称：</label><input class="easyui-textbox txt" type="text" name="search[spec_name]"/>
+                    <label class="">　　货品标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+                    <label class="">　　规格商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_outer_id]"/>
+                </div>
+                <div class="form-div">
+                <label class="">　货品ID：</label><input id="platform_goods_goods_id" class="easyui-textbox txt" type="text" name="search[goods_id]"/>
+                <label class="">　　　规格ID：</label><input class="easyui-textbox txt" type="text" name="search[spec_id]"/>
+                    <label class="">　　是否匹配： </label><input id="platform_goods_is_match"  class="easyui-combobox txt" type="text" name="search[is_match]" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_data('is_match')">
+                    <label class="">　　货品名称变动： </label><input id="platform_goods_is_name_changed"  class="easyui-combobox txt" type="text" name="search[is_name_changed]" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_data('is_name_changed')">
+                </div>
+            <!--</div>-->
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+
+        <div>
+            <label class="five-character-width">按时间下载</label><input id="platform_goods_start" class="easyui-datetimebox txt" value="{date='y-m-d',###}" type="text" name="start"/>
+            <label class="">到</label><input id="platform_goods_end" class="easyui-datetimebox txt" value="{date='y-m-d',###}" type="text" name="end"/>
+            <a href="javascript:void(0)" class="easyui-menubutton" plain="true" menu="#platform_goods_download_menu" onclick="">货品下载</a>
+            <a href="javascript:void(0)" class="easyui-menubutton" plain="true" menu="#platform_goods_match_menu" onclick="">货品匹配</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" title="将平台货品所对应系统货品的库存量按照相应的同步策略同步到平台上" onclick="platform_goods.stock_sync()">手动库存同步</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true" onclick="platform_goods.updateGoodsName()" title="将系统货品名称更改为当前平台货品名称">更新系统货品名</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="platform_goods.setFlag()">标记管理</a> 
+            <label class="one-character-width">标记货品</label> 
+            <input id="{$id_list.set_flag}" class="easyui-combobox" style="width:100px;"/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="platform_goods.importApiGoods('importApiGoods')">初始化货品</a>
+            <if condition="$stock_num eq 0">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="platform_goods.importStockSpec('importResponse')">初始化库存</a>
+            </if>
+            <a href="javascript:void(0)" class="easyui-menubutton" name="platform_goods_export" data-options="iconCls:'icon-database-go',plain:true,menu:'#platform_export'" >导出功能</a>
+            <div id="platform_export">
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="platform_goods.exportToExcel('csv')">导出Csv(推荐)</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="platform_goods.exportToExcel('excel')">导出Excel</a>
+            </div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="platform_goods.remove('Plat_Form')">删除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-up',plain:true" onclick="platform_goods.onOffSale('on')">上架</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down',plain:true" onclick="platform_goods.onOffSale('off')">下架</a>
+        </div>
+    </div>
+    <div id="platform_goods_download_menu">
+        <div class="menu-sep"></div>
+        <div onclick="platform_goods.download(1)">新增/修改货品下载</div>
+        <div onclick="platform_goods.download(2)">按货品名称下载</div>
+        <div onclick="platform_goods.download(3)">按货品ID下载</div>
+        <div onclick="platform_goods.download(4)">按时间下载</div>
+        <div class="menu-sep"></div>
+    </div>
+    <div id="platform_goods_match_menu">
+        <div class="menu-sep"></div>
+        <div onclick="platform_goods.select_spec()">指定单品</div>
+        <div onclick="platform_goods.select_suite()">指定组合装</div>
+        <div onclick="platform_goods.auto_match()">重新匹配全部货品</div>
+        <div onclick="platform_goods.auto_unmatch()">匹配未匹配货品</div>
+        <div class="menu-sep"></div>
+    </div>
+    <div id="platform_goods_menu" class="easyui-menu" style="width:140px;" noline="true">
+        <div data-options="iconCls:'icon-edit'" onclick="platform_goods.edit()">单品库存同步策略</div>
+        <div data-options="iconCls:'icon-edit'" onclick="platform_goods.changeNameStatus()">清除标记</div>
+    </div>
+</block>
+<block name="dialog">
+    <div id="{$id_list['goods_suite']}"></div>
+    <div id="{$id_list['goods_spec']}"></div>
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.import_stock}" >
+        <label>请选择初始化导入的仓库：</label><select id="warehouse_id" class="easyui-combobox sel" name="warehouse_id" data-options="panelHeight:'auto',panelHeight:120"> <volist name='warehouse_list' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select></br>
+        <table style="color: red">
+            <tr>
+                <td>1.此操作会将所有的系统单品导入一个仓库中</td>
+            </tr>
+            <tr>
+                <td>2.此操作所导入的库存量为该系统商品对应的平台库存，如果没有则库存数默认为0</td>
+            </tr>
+            <tr>
+                <td>3.此操作导入的成本价为平台货品的价格</td>
+            </tr>
+            <tr>
+                <td>4.此操作保存的货位为默认货位</td>
+            </tr>
+            <tr>
+                <td>*******使用此操作前请确保您要导入的数据准确性</td>
+            </tr>
+        </table>
+        <a href="javascript:void(0)" class="easyui-linkbutton" style="font-size: 22px" data-options="plain:false" onclick="platform_goods.init_import_stock()">确定导入</a>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+
+        function shopAuthor(shop){
+    if (shop.platform_id == 17 || shop.platform_id==33 || shop.platform_id==5 || shop.platform_id==8) {
+        var id = "shop_auth_dialog";
+        var buttons = [{
+            text: '确定', handler: function () {
+                submitAuthForm();
+            }
+        },
+            {
+                text: '取消', handler: function () {
+                cancelDialog(id)
+            }
+            }];
+        var url1 = "{:U('Setting/Shop/getAuthInfo')}" + "?shop_id=" + shop.shop_id;
+        //shop.showDialog(id,"店铺授权",url,"200px","350px",buttons)
+        $('#'+id).dialog({
+            title:'店铺授权',
+            iconCls:'icon-save',
+            width:350,
+            height:200,
+            minimizable: false,
+            closed:false,
+            inline:true,
+            modal:true,
+            href:url1,
+            buttons:buttons
+        });
+        return;
+    }
+    var url = "{:U('Setting/Shop/authorize')}";
+    $.post(url, {
+        "shop_id": shop.shop_id,
+        "platform_id": shop.platform_id,
+        "sub_platform_id": shop.sub_platform_id
+    }, function (r) {
+        if (0 == r.status) {
+            window.open(r.info);
+        } else if (1 == r.status) {
+            messager.alert(r.info);
+        }
+    });
+
+
+
+}
+        //# sourceURL=platformgoods.js
+
+        $(function () {
+
+            setTimeout(function () {
+                platform_goods = new RichDatagrid({$params});
+                platform_goods.setFormData();
+
+                $("#platform_goods_shop_id").combobox("loadData", {$shop_list});
+                
+                platform_goods.select_spec = function () {
+                    var index = platform_goods.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    $('#' + '{$id_list[\'goods_spec\']}').richDialog('goodsSpec',
+                            platform_goods_spec_match, {'prefix': 'platform_goods', 'type': false});
+                };
+                platform_goods.select_suite = function () {
+                    var index = platform_goods.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    $('#' + '{$id_list[\'goods_suite\']}').richDialog('goodsSuite',
+                            platform_goods_suite_match, 'platform_goods');
+                };
+                platform_goods.download = function (id) {
+                    var shop_id = $("#platform_goods_shop_id").combobox("getValue");
+                    var goods_name = $("#platform_goods_goods_name").textbox("options").value;
+                    var goods_id = $("#platform_goods_goods_id").textbox("options").value;
+                    var start = $("#platform_goods_start").textbox("options").value;
+                    var end = $("#platform_goods_end").textbox("options").value;
+                    var data = {};
+                    switch (id) {
+                        case 1:
+                            if (shop_id == "all") {
+                                messager.alert("请选择店铺");
+                                return;
+                            }
+                            data.id = 1;
+                            data.form_data = {"shop_id": shop_id};
+                            break;
+                        case 2:
+                            if (shop_id == "all" || goods_name == "") {
+                                messager.alert("请选择店铺并输入货品名称");
+                                return;
+                            }
+                            data.id = 2;
+                            data.form_data = {"shop_id": shop_id, "goods_name": goods_name};
+                            break;
+                        case 3:
+                            if (shop_id == "all" || goods_id == "") {
+                                messager.alert("请选择店铺并输入货品ID");
+                                return;
+                            }
+                            data.id = 3;
+                            data.form_data = {"shop_id": shop_id, "goods_id": goods_id};
+                            break;
+                        case 4:
+                            if (shop_id == "all" || start == "" || end == "") {
+                                messager.alert("请选择店铺并输入日期信息");
+                                return;
+                            }
+                            var reg = /^(1|2\d{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3([0|1]))))( (\d{2}):(\d{2}):(\d{2}))?$/;
+                            if ((!reg.test(start)) || (!reg.test(end))) {
+                                messager.alert("时间格式不正确");
+                                return;
+                            }
+                            var start_temp = new Date(start.replace("-", "/").replace("-", "/"));
+                            var end_temp = new Date(end.replace("-", "/").replace("-", "/"));
+                            if (start_temp > end_temp) {
+                                messager.alert("开始时间不能大于结束时间");
+                                return;
+                            }
+                            if ((end_temp - start_temp) > 86400000 * 30) {
+                                messager.alert("时间跨度不能超过30天");
+                                return;
+                            }//时间差不能大于三十天
+                            var current_time = new Date();
+                            if (end_temp > current_time) {
+                                messager.alert("结束时间不能大于当前时间");
+                                return;
+                            }
+                            data.id = 4;
+                            data.form_data = {"shop_id": shop_id, "start": start, "end": end};
+                            break;
+                        default:
+                            messager.alert("非法输入");
+                            return;
+                    }
+                    $("#{$id_list.datagrid}").datagrid('loading');
+                    $.post("{:U('PlatformGoods/download')}", data, function (res) {
+                        $("#{$id_list.datagrid}").datagrid("reload");
+                        if (!res.status) {
+                            messager.alert(res.info);
+                            return false;
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    }, "JSON");
+                };
+                platform_goods.auto_match = function () {
+                    messager.confirm('此操作将会重新匹配所有货品，确定继续吗？',function(r) {
+                        if (!r) {
+                            return false;
+                        }
+                        $.messager.progress({
+                            title: "请稍后",
+                            msg: "正在处理，请稍等..."
+                        });
+                        var url = '{:U("PlatformGoods/autoMatchPlatformGoods")}';
+                        var show_dg = $("#" + "{$id_list['datagrid']}");
+                        $.post(url, "", function (res) {
+                            if (res.status) {
+                                messager.alert(res.info, "info");
+                                show_dg.datagrid("reload");
+                            } else {
+                                messager.alert(res.info);
+                            }
+                            $.messager.progress('close');
+                        });
+                    });
+                };
+                platform_goods.auto_unmatch = function () {
+                    messager.confirm('此操作将会自动匹配所有未匹配的货品，确定继续吗？',function(r) {
+                        if (!r) {
+                            return false;
+                        }
+                        $.messager.progress({
+                            title: "请稍后",
+                            msg: "正在处理，请稍等..."
+                        });
+                        var url = "{:U('PlatformGoods/autoMatchUnmatchPlatformGoods')}";
+                        var show_dg = $("#" + "{$id_list['datagrid']}");
+                        $.post(url, "", function (res) {
+                            if (res.status) {
+                                messager.alert(res.info, "info");
+                                show_dg.datagrid("reload");
+                            } else {
+                                messager.alert(res.info);
+                            }
+                            $.messager.progress('close');
+                        });
+                    });
+                };
+                platform_goods.stock_sync = function () {
+                    var select_rows = this.selectRows;
+                    if (select_rows == undefined || select_rows.length == 0) {
+                        messager.confirm('现在是操作所有平台货品,确定此操作吗？',function(r) {
+                            if (!r) {
+                                return false;
+                            }
+                            id_list = '';
+                            $.post("{:U('PlatformGoods/stockSync')}", {'recid_str': id_list}, function (res) {
+                                if (res["status"] == 1) {
+                                    messager.alert(res["info"]);
+                                    dg.datagrid("reload");
+                                }
+                                else if (res["status"] == 2) {
+                                    //调用dialog显示处理结果
+                                    $.fn.richDialog("response", res.data, "platformgoods");
+                                    dg.datagrid("reload");
+                                } else if (!res["status"]) {
+                                    messager.alert(res["info"]);
+                                }
+                            }, 'json');
+                        })
+                    }
+                    else {
+                        var id_list = "";
+                        var dg = $("#{$id_list.datagrid}");
+                        for (var row in select_rows) {
+                            var id = select_rows[row].id;
+                            id_list = id_list + id + ",";
+                        }
+                        id_list = id_list.substr(0, id_list.length - 1);
+                        $.post("{:U('PlatformGoods/stockSync')}", {'recid_str': id_list}, function (res) {
+                            if (res["status"] == 1) {
+                                messager.alert(res["info"]);
+                                dg.datagrid("reload");
+                            }
+                            else if (res["status"] == 2) {
+                                //调用dialog显示处理结果
+                                $.fn.richDialog("response", res.data, "platformgoods");
+                                dg.datagrid("reload");
+                            } else if (!res["status"]) {
+                                messager.alert(res["info"]);
+                            }
+                        }, 'json');
+                    }
+
+                };
+                platform_goods.updateGoodsName = function () {
+                    var select_rows = this.selectRows;
+                    var dg = $("#{$id_list.datagrid}");
+                    if (select_rows == undefined || select_rows.length == 0) {
+                        messager.confirm('现在是操作所有平台货品,确定此操作吗？',function(r) {
+                            if (!r) {
+                                return false;
+                            }
+                            dg.datagrid("loading");
+                            id_list = '';
+                            $.post("{:U('PlatformGoods/updateSpecNameGoodsName')}", {'recid_str': id_list}, function (res) {
+                                if (res["status"] == 1) {
+                                    messager.alert(res["info"]);
+                                }
+                                else if (res["status"] == 2) {
+                                    //调用dialog显示处理结果
+                                    $.fn.richDialog("response", res['update_result'], "update_goods_name");
+                                }
+                            }, 'json');
+                            dg.datagrid("reload");
+                        })
+                    }
+                    else {
+                        var id_list = "";
+                        var dg = $("#{$id_list.datagrid}");
+                        for (var row in select_rows) {
+                            var id = select_rows[row].id;
+                            id_list = id_list + id + ",";
+                        }
+                        id_list = id_list.substr(0, id_list.length - 1);
+                        dg.datagrid("loading");
+                        $.post("{:U('PlatformGoods/updateSpecNameGoodsName')}", {'recid_str': id_list}, function (res) {
+                            dg.datagrid("reload");
+                            if (res["status"] == 1) {
+                                messager.alert(res["info"]);
+                            }
+                            else if (res["status"] == 2) {
+                                //调用dialog显示处理结果
+                                $.fn.richDialog("response", res['update_result'], "update_goods_name");
+                            } else if (!res["status"]) {
+                                messager.alert(res["info"]);
+                            }
+                        }, 'json');
+                    }
+
+                };
+                platform_goods.onOffSale = function (type) {
+                    var select_rows = this.selectRows;
+                    var id_list;
+                    if (select_rows == undefined || select_rows.length == 0) {
+                        messager.confirm('现在是操作所有平台货品,确定此操作吗？',function(r) {
+                            if (!r) {
+                                return false;
+                            }
+                            id_list = '';
+                            $.post("{:U('PlatformGoods/onOffSale')}", {'recid_str': id_list,'type':type}, function (res) {
+                                if (res["status"] == 1) {
+                                    messager.alert(res["info"]);
+                                    dg.datagrid("reload");
+                                }
+                                else if (res["status"] == 2) {
+                                    //调用dialog显示处理结果
+                                    $.fn.richDialog("response", res.data, "platformgoods");
+                                    dg.datagrid("reload");
+                                } else if (!res["status"]) {
+                                    messager.alert(res["info"]);
+                                }
+                            }, 'json');
+
+                        })
+                    } else {
+                        var id_list = '';
+                        var dg = $("#{$id_list.datagrid}");
+                        for (var row in select_rows) {
+                            var id = select_rows[row].id;
+                            id_list = id_list + id + ",";
+                        }
+                        id_list = id_list.substr(0, id_list.length - 1);
+                        $.post("{:U('PlatformGoods/onOffSale')}", {'recid_str': id_list,'type':type}, function (res) {
+                            if (res["status"] == 1) {
+                                messager.alert(res["info"]);
+                                dg.datagrid("reload");
+                            }
+                            else if (res["status"] == 2) {
+                                //调用dialog显示处理结果
+                                $.fn.richDialog("response", res.data, "platformgoods");
+                                dg.datagrid("reload");
+                            } else if (!res["status"]) {
+                                messager.alert(res["info"]);
+                            }
+                        }, 'json');
+                    }
+
+                };
+                platform_goods.openGoodsPage = function () {
+                    var select_rows = this.selectRows;
+                    if(select_rows.length > 1){
+                        messager.alert("请选择单个货品进行查看");
+                        return false;
+                    }
+                    var dg = $("#{$id_list.datagrid}");
+                    var row = dg.datagrid("getSelected");
+                    if (typeof(row) == "undefined" || row == null) {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    if (row["platform_id"] == 1) {
+                        var url = "https://item.taobao.com/item.htm?id=" + row["goods_id"];
+                    } else if (row["platform_id"] == 3) {
+                        var url = "http://item.jd.com/" + row["spec_id"] + ".html";
+                    }
+                    window.open(url, "_blank");
+                }
+                platform_goods.importApiGoods = function (type) {
+                    var tb = this.params.datagrid.id;
+                    var tb_jq = $('#' + tb);
+                    var index = tb_jq.datagrid('options').index;
+
+                    var url ="{:U('Goods/PlatformGoods/importApiGoods')}";
+                    //if (index == undefined || this.selectRows == undefined){
+                    var select_rows = this.selectRows;
+
+                    var id_list = '';
+                    var mes;
+                    if (select_rows==undefined){
+                        mes = '该操作会将全部平台货品导入到货品档案下,确定导入吗？';
+
+                        id_list = '';
+                    }else {
+                        mes = '该操作会将选中平台货品导入到货品档案下,确定导入吗？';
+
+                        id_list = '';
+                        var dg = $("#{$id_list.datagrid}");
+                        for (var row in select_rows) {
+                            var id = select_rows[row].id;
+                            id_list = id_list + id + ",";
+                        }
+                        id_list = id_list.substr(0, id_list.length - 1);
+                    }
+
+
+                    messager.confirm(mes,function(r){
+                            if(!r){return false;}
+                            $.messager.progress({
+                                title: "请稍候",
+                                msg: "正在导入，请稍等...",
+                                text: "",
+                                interval: 100
+                            });
+                            $.post(url,{'id_list': id_list},function(res){
+                                $.messager.progress('close');
+                                if(res.status==0){dg.load();}
+                                else if(res.status==1){messager.alert( res.info, 'error');}
+                                else if(res.status==2){$.fn.richDialog("response", res.info, type);dg.load();}
+                            },'json')
+                        })
+                    //}
+                    /*var row=this.selectRows[0];
+                    var id_list=[];
+                    for(i in this.selectRows){ id_list.push(this.selectRows[i].id) }
+                    messager.confirm('该操作会将所选平台货品导入到货品档案下,确定导入吗？',function(r){
+                        if(!r){return false;}
+                        $.post('{:U('Goods/PlatformGoods/importApiGoods')}',{ id_list: id_list },function(res){
+                            if(res.status==0){messager.alert('操作成功');}
+                            else if(res.status==1){messager.alert( res.info, 'error');}
+                            else if(res.status==2){$.fn.richDialog("response", res.info, type);this.refresh();}
+                        },'json')
+                    })*/
+                }
+
+
+                //清除货品名称变动标记
+                platform_goods.changeNameStatus = function (id) {
+                    var ids=[];
+                    if(id!=undefined&&id!=''){
+                        ids.push(parseInt(id));
+                    }else{
+                        var rows=this.selectRows;
+                        if(rows==undefined){messager.alert('请选择清除标记的货品');return false;}
+                        for(var i in rows){
+                            if(rows[i]['id']!=undefined){
+                                ids.push(rows[i]['id']);
+                            }
+                        }
+                    }
+                    messager.confirm('确定要清除标记吗？', function(r) {
+                        if(!r){return false;}
+                        if(ids.length>0){
+                            var url = "{:U('Goods/PlatformGoods/changeNameStatus')}";
+
+                            $.post(url,{'id':ids},function(res){
+
+                                if(res.status==1){messager.alert( res.info, 'error')}
+                                else if(res.status==0){
+                                    messager.alert( res.info);
+                                    var dg = $("#{$id_list.datagrid}");
+                                    dg.datagrid("reload");}
+
+                            },'JSON');
+                        }else{
+                            if(rows==undefined){messager.alert('请选择清除标记的货品');return false;}
+                        }
+                    });
+                };
+                //根据状态值修改货品名称列背景色
+                if("{$flag_goods_name_changed}"==1){
+                    $("#{$id_list.datagrid}").datagrid('getColumnOption','goods_name').styler = function(value,row,index){
+                        if(row.is_name_changed == 1 && typeof(row.is_name_changed)!='undefined'){
+                            return 'background-color:#E37162;color:#000;';
+                        }
+                    };
+                }
+
+                platform_goods.importStockSpec = function(type){
+                    var Dialog = $('#{$id_list.import_stock}');
+                    var url = "{:U('Goods/GoodsGoods/importGoodsStock')}";
+                    var tb = this.params.datagrid.id;
+                    var tb_jq = $('#' + tb);
+                    Dialog.dialog({
+                        title: "初始化库存",
+                        width: "400px",
+                        height: "240px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                    platform_goods.init_import_stock = function(){
+                            messager.confirm('该操作会导入全部单品库存,确定导入吗？',function(r){
+                                if(!r){return false;}
+                                $.messager.progress({
+                                    title: "请稍候",
+                                    msg: "正在导入，请稍等...",
+                                    text: "",
+                                    interval: 100
+                                });
+                                var data = $('#warehouse_id').combobox('getValue');
+                                $.post(url,{warehouse_id: data},function(res){
+                                    $.messager.progress('close');
+                                    if(res.status==0){this.refresh();Dialog.dialog('close');messager.alert('操作成功')}
+                                    else if(res.status==1){messager.alert( res.msg, 'error');}
+                                    else if(res.status==2){$.fn.richDialog("response", res.data, type);this.refresh();}
+                                },'json')
+                            })
+                    }
+
+                }
+
+                platform_goods.exportToExcel = function(type){
+                    var url= "{:U('PlatformGoods/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var form=JSON.stringify(platform_goods.params.search.form_data);
+                    var rows = $("#{$id_list.datagrid}").datagrid("getRows");
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                    else if(id_list!=''){
+                        messager.confirm('确定导出选中的平台货品吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else if(search==form){
+                        messager.confirm('确定导出所有的平台货品吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type);
+                        })
+                    }
+                    else{
+                        messager.confirm('确定导出搜索的平台货品吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&type='+type+'&'+'search='+search);
+                        })
+                    }
+                }
+                $('#'+platform_goods.params.datagrid.id).datagrid({
+                    onRowContextMenu: function (e, rowIndex, rowData) { //右键时触发事件
+                        //三个参数：e，rowIndex当前点击时所在行的索引，rowData当前行的数据
+                        e.preventDefault(); //阻止浏览器捕获右键事件
+                        var rows=$('#'+platform_goods.params.datagrid.id).datagrid('getSelections');
+                        var chose=false;
+                        for(var i=0;i<rows.length;i++){
+                            if($('#'+platform_goods.params.datagrid.id).datagrid('getRowIndex',rows[i])==rowIndex){chose=true;}
+                        }
+                        if(chose==false){
+                            $(this).datagrid("clearSelections"); //取消所有选中项
+                            $(this).datagrid("selectRow", rowIndex); //根据索引选中该行
+                        }
+                        $(this).datagrid('options').that.click(rowIndex,rowData);
+                        $('#platform_goods_menu').menu('show', {
+                            hideOnUnhover: false,
+                            left: e.pageX,//在鼠标点击处显示菜单
+                            top: e.pageY
+                        });
+                    }
+                });
+
+            }, 0);
+
+            function platform_goods_spec_match() {
+                var dg = $("#platform_goods_goods_spec_select_datagrid");
+                var row = dg.datagrid("getSelected");
+                var show_dg = $("#" + "{$id_list['datagrid']}");
+                var show_row = show_dg.datagrid("getSelected");
+                var dialog = $("#" + "{$id_list['goods_spec']}");
+                var url = "{:U('PlatformGoods/matchGoodsSpec')}";
+                if (typeof(row) == "undefined" || row == null) {
+                    messager.alert("请选择货品");
+                    return false;
+                }
+                dialog.dialog("close");
+                $.post(url, {"id": show_row.id, "spec_id": row.id}, function (res) {
+                    if (res.status) {
+                        //show_dg.datagrid();
+                        messager.alert(res.info, "info");
+                        show_dg.datagrid("reload");
+                    } else {
+                        messager.alert(res.info);
+                    }
+                });
+            }
+            ;
+
+            function platform_goods_suite_match() {
+                var dg = $("#platform_goods_goods_suite_list_datagrid");
+                var row = dg.datagrid("getSelected");
+                var show_dg = $("#" + "{$id_list['datagrid']}");
+                var show_row = show_dg.datagrid("getSelected");
+                var url = "{:U('PlatformGoods/matchGoodsSuite')}";
+                var dialog = $("#" + "{$id_list[goods_suite]}");
+                if (typeof(row) == "undefined" || row == null) {
+                    messager.alert("请选择组合装");
+                    return false;
+                }
+                dialog.dialog("close");
+                $.post(url, {"id": show_row.id, "suite_id": row.id}, function (res) {
+                    if (res.status == 1) {
+                        messager.alert(res.info, "info");
+                        show_dg.datagrid("reload");
+                    } else {
+                        messager.alert(res.info);
+                    }
+                });
+            }
+        });
+    </script>
+</block>

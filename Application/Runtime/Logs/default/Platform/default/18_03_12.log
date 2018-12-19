@@ -1,0 +1,35 @@
+2018-03-12 22:35:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:13	["2018-03-12 22:35:13","{\"error_response\":{\"code\":1,\"msg\":\"Platform System error\",\"sub_code\":\"isp.auth-service-error\",\"sub_msg\":\"\u6388\u6743\u670d\u52a1\u4e0d\u53ef\u7528\",\"request_id\":\"8djf97w3kg69\"}}"]
+2018-03-12 22:35:13	TOP_ERROR 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:35:13	ERROR topErrorTest 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:35:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:35:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:36:00	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:36:00	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:36:00	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:36:00	["2018-03-12 22:36:00","{\"error_response\":{\"code\":1,\"msg\":\"Platform System error\",\"sub_code\":\"isp.auth-service-error\",\"sub_msg\":\"\u6388\u6743\u670d\u52a1\u4e0d\u53ef\u7528\",\"request_id\":\"8djf97wvv1ke\"}}"]
+2018-03-12 22:36:00	TOP_ERROR 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:36:00	ERROR topErrorTest 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:37:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:06	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:06	["2018-03-12 22:37:06","{\"error_response\":{\"code\":1,\"msg\":\"Platform System error\",\"sub_code\":\"isp.auth-service-error\",\"sub_msg\":\"\u6388\u6743\u670d\u52a1\u4e0d\u53ef\u7528\",\"request_id\":\"d456s44oiugn\"}}"]
+2018-03-12 22:37:06	TOP_ERROR 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:37:06	ERROR topErrorTest 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:37:28	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Platform\Manager\Manager.class.php 15
+2018-03-12 22:37:28	["2018-03-12 22:37:28","{\"error_response\":{\"code\":1,\"msg\":\"Platform System error\",\"sub_code\":\"isp.auth-service-error\",\"sub_msg\":\"\u6388\u6743\u670d\u52a1\u4e0d\u53ef\u7528\",\"request_id\":\"8djf97yduhi1\"}}"]
+2018-03-12 22:37:28	TOP_ERROR 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:37:28	ERROR topErrorTest 1 授权服务不可用 #isp.auth-service-error
+2018-03-12 22:37:28	PHP Error Severity: 8 --> Undefined index: success E:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 38
+2018-03-12 22:37:28	PHP Error Severity: 8 --> Undefined index: success E:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2018-03-12 22:37:28	PHP Error Severity: 8 --> Trying to get property of non-object E:\wamp\www\test\trunk\source\Application\Setting\Controller\NewPrintTemplateController.class.php 39
+2018-03-12 22:37:29	PHP Error Severity: 8 --> Use of undefined constant hasAuthShop - assumed 'hasAuthShop' E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 367
+2018-03-12 22:37:29	PHP Error Severity: 8 --> Use of undefined constant getTemplates - assumed 'getTemplates' E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 394
+2018-03-12 22:37:29	PHP Error Severity: 8 --> Use of undefined constant saveTemplates - assumed 'saveTemplates' E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 428
+2018-03-12 22:37:29	PHP Error Severity: 8 --> Use of undefined constant deleteTemplate - assumed 'deleteTemplate' E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Setting\efd7e8ee30de1b20d153db4327dc6161.php 451

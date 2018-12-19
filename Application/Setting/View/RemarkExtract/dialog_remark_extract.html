@@ -1,0 +1,13 @@
+<div class="easyui-tabs" data-options="fit:true,border:false" id="{$id_list.tab_container}"></div>
+<script type="text/javascript">
+$(function(){
+	setTimeout(function(){
+		add_tabs(JSON.parse('{$arr_tabs}'));
+		var tab_type = "{$tab_type}";
+		if(tab_type != ''){
+			$("#"+"{$id_list.tab_container}").tabs('select',tab_type);
+		}
+	},0);
+});
+function submitMenuDialog(){return;}
+</script>

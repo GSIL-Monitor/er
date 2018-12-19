@@ -1,0 +1,29 @@
+<div style="margin-top:10px;margin-left:6px">
+	<div>
+		<label>店　　铺：</label>
+		<select class="easyui-combobox sel" name="shop"  data-options="value:{$latest.shop_ids},onSelect:function(ret){getTemplatesList(ret.value,'');}"> 
+			<volist name='shop' id='vo'>
+				<option value="{$vo.id}">{$vo.name}</option>
+			</volist>
+		</select></div><div style="margin-top:8px">
+		<label>模板类型： </label>
+		 <select name="templateType" class="easyui-combobox sel" data-options="value:{$latest.type},onSelect:function(ret){getTemplatesList('',ret.value);}">
+		 	<!-- <option value="100">无</option> -->
+		 	<option value="8">菜鸟模板</option>
+			<option value="9">非菜鸟模板</option>
+			<!-- <option value="6">E快帮非菜鸟模板</option>
+			<option value="7">E快帮菜鸟模板</option>
+			<option value="5">自定义非菜鸟模板</option>
+			<option value="4">自定义菜鸟模板</option> -->
+		</select> 
+		<input type="text" value="{$latest.rec_id}" name="oldRecId" style="display:none">
+		<input type="text" value="{$latest.real_shop_id}" name="oldShopId" style="display:none">
+	</div>
+	<div style="margin-top:10px">
+	<div id="templateList_datagrid" style="margin-top:10px;"></div></div>
+</div>
+<script>
+	setTimeout(function(){
+		getTemplatesList();
+	},0);
+</script>

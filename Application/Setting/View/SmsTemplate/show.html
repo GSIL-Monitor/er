@@ -1,0 +1,96 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div class="form-div">
+                <label>模板名称</label><input class="easyui-textbox txt" type="text" name="search[title]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="smstemplate.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="smstemplate.loadFormData()">重置</a>
+            </div>
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="smstemplate.add()">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="smstemplate.edit()">编辑</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="smstemplate.remove()">删除</a>
+
+            </div>
+        </form>
+    </div>
+    <div id="logistics_wnd">
+        <table id="logistics_dg"></table>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+</block>
+<block name="script">
+    <script>
+        //# sourceURL=SmsTemplateShow.js
+        $(function(){
+            setTimeout(function(){
+                smstemplate = new RichDatagrid(JSON.parse('{$params}'));
+                smstemplate.setFormData();
+                smstemplate.submitAddDialog = function () {
+                    var data = {};
+                    var addForm = $("#" + "{$id_list['add_form']}");
+                    if (!addForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = addForm.serializeArray();
+                    var url = "{:U('SmsTemplate/addSmsTemplate')}";
+                    var dialog = $("#" + "{$id_list.add}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    var preg_re = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+                    if(preg_re.test(data.sign)){
+                        $.post(url, {"data": data}, function (res) {
+                            if (res.status) {
+                                dialog.dialog("close");
+                                smstemplate.refresh();
+                            } else {
+                                messager.alert(res.info);
+                            }
+                        })
+                    }else{
+                        messager.alert('签名必须包含中文字符');
+                    }
+
+                }
+                smstemplate.submitEditDialog = function () {
+                    var data = {};
+                    var editForm = $("#" + "{$id_list['edit_form']}");
+                    if (!editForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = editForm.serializeArray();
+                    var url = "{:U('SmsTemplate/editSmsTemplate')}";
+                    var dialog = $("#" + "{$id_list.edit}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    var preg_re = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+                    if(preg_re.test(data.sign)){
+                        $.post(url, {"data": data}, function (res) {
+                            if (res.status) {
+                                dialog.dialog("close");
+                                smstemplate.refresh();
+                            } else {
+                                messager.alert(res.info);
+                            }
+                        })
+                    }else{
+                        messager.alert('签名必须包含中文字符');
+                    }
+
+                }
+
+            },0)
+        })
+    </script>
+</block>

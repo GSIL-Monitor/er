@@ -1,0 +1,68 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog">
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　　平台：</label><input class="easyui-combobox txt" type="select" name="search[platform_id]"  data-options="editable:false,valueField:'id',textField:'name',data:formatter.get_data('platform_id','all')"/>
+                <label class="">　　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[tid]" />
+                <label class="">　　对账状态：</label>
+                <select class="easyui-combobox sel" name="search[status]">
+                    <volist name='account_status' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+                </select>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="alipayAccountCheck.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="alipayAccountCheck.loadFormData();">重置</a>
+                  <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="alipayAccountCheck.setAccountSuccess();">设置对账成功</a>
+<!--
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Account/AlipayBillAccount','alipay_bill_account','{$datagrid.id}',1)">设置表头</a>
+-->
+            </div>
+            <div class="form-div">
+                <label>订单发货日期：</label><input class="easyui-datetimebox txt" type="text" name="search[consign_start_time]" data-options="editable:false"/>
+                <label>&nbsp;至：</label><input class="easyui-datetimebox txt" type="text"    name="search[consign_end_time]" data-options="editable:false"/>
+                <label>&nbsp;　　确认收货日期：</label><input class="easyui-datetimebox txt" type="text" name="search[confirm_start_time]" data-options="editable:false"/>
+                <label>&nbsp;至：</label><input class="easyui-datetimebox txt" type="text"    name="search[confirm_end_time]" data-options="editable:false"/>
+                <label>&nbsp;　　订单对账日期：</label><input class="easyui-datetimebox txt" type="text" name="search[check_start_time]" data-options="editable:false"/>
+                <label>&nbsp;至：</label><input class="easyui-datetimebox txt" type="text" name="search[check_end_time]" data-options="editable:false"/>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function (){
+                alipayAccountCheck =new RichDatagrid(JSON.parse('{$params}'));
+                alipayAccountCheck.setFormData();
+                var datagrid_id = alipayAccountCheck.params.datagrid.id;
+                alipayAccountCheck.setAccountSuccess = function()
+                {
+                    var index = alipayAccountCheck.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择操作行");
+                        return false;
+                    }
+                    var dg = $("#{$id_list['datagrid']}");
+                    var row = dg.datagrid("getSelected");
+                    var url = "{:U('AlipayAccountCheck/alipayAccountCheckSetSuccess')}";
+                    if (row.status > 3) {
+                        messager.alert("已设为对账成功或未关联原始单");
+                        return;
+                    }
+                    $.post(url, {"id": row.id}, function (res) {
+                        if (res.status) {
+                            messager.alert(res.info);
+                        } else {
+                            var index = dg.datagrid("getRowIndex", row);
+                            dg.datagrid("updateRow", {index: index, row: {status: "4"}});
+                        }
+                    });
+
+                }
+
+
+            },0);
+        })
+    </script>
+</block>
+

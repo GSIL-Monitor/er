@@ -1,0 +1,193 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label class="">店铺：</label>
+                <select class="easyui-combobox sel" name="search[shop_id]">
+                    <volist name='list_shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+                </select>
+                <label class="">　　宝贝名称：</label><input id="goods_match_goods_name" class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+                <label class="">　　宝贝编码：</label><input class="easyui-textbox txt" type="text" name="search[outer_id]"/>
+                <label class="">　　SKU编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_outer_id]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="goods_match.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="goods_match.loadFormData()">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-tip'" onclick="goods_match.openGoodsPage()">宝贝链接</a>
+            </div>
+            <div class="form-div">
+                <label class="">状态： </label><input id="goods_match_status"  class="easyui-combobox txt" type="text" name="search[status]" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_list('api_goods_spec_status')">
+                <label class="">　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[merchant_no]"/>
+                <label class="">　　是否匹配： </label><input id="is_match"  class="easyui-combobox txt" type="text" name="search[is_match]" value="all" data-options="valueField:'id',textField:'name',data:formatter.get_data('is_match')">
+                　&nbsp;<a href="javascript:void(0)" data-options="iconCls:'icon-search'" class="easyui-menubutton" plain="true" menu="#goods_match_menu" onclick="">货品匹配</a>
+            </div>
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+
+
+    </div>
+    <div id="goods_match_menu">
+        <div class="menu-sep"></div>
+        <div onclick="goods_match.select_spec()">指定单品</div>
+        <div onclick="goods_match.select_suite()">指定组合装</div>
+        <div onclick="goods_match.auto_match()">重新匹配全部货品</div>
+        <div onclick="goods_match.auto_unmatch()">匹配未匹配货品</div>
+        <div class="menu-sep"></div>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=goods_match.js
+        $(function(){
+            setTimeout(function () {
+                goods_match = new RichDatagrid(JSON.parse('{$params}'));
+                goods_match.setFormData();
+                var dg = $("#{$id_list.id_datagrid}");
+                dg.datagrid({
+                    rowStyler:function(index,row){
+                        if (row.merchant_no=='未匹配到系统货品'){
+                            return 'background-color:rgb(238,29,36);color:rgb(255,255,255)';
+                        }
+                    }
+                });
+                goods_match.openGoodsPage = function () {
+                    var dg = $("#{$id_list.id_datagrid}");
+                    var row = dg.datagrid("getSelected");
+                    if (typeof(row) == "undefined") {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    if (row["platform_id"] == 1) {
+                        var url = "https://item.taobao.com/item.htm?id=" + row["goods_id"];
+                    } else if (row["platform_id"] == 3) {
+                        var url = "http://item.jd.com/" + row["spec_id"] + ".html";
+                    }
+                    window.open(url, "_blank");
+                }
+                goods_match.select_spec = function () {
+                    var index = goods_match.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    $('#' + '{$id_list[\'goods_spec\']}').richDialog('goodsSpec',
+                            platform_goods_spec_match, {'prefix': 'goods_match', 'type': false});
+                };
+                goods_match.select_suite = function () {
+                    var index = goods_match.selectRows;
+                    if (typeof(index) == "undefined") {
+                        messager.alert("请选择货品");
+                        return false;
+                    }
+                    $('#' + '{$id_list[\'goods_suite\']}').richDialog('goodsSuite',
+                            platform_goods_suite_match, 'goods_match');
+                };
+                goods_match.auto_match = function () {
+                    messager.confirm('此操作将会重新匹配所有货品，确定继续吗？',function(r) {
+                        if (!r) {
+                            return false;
+                        }
+                        $.messager.progress({
+                            title: "请稍后",
+                            msg: "正在处理，请稍等..."
+                        });
+                        var url = '{:U("PlatformGoods/autoMatchPlatformGoods")}';
+                        var show_dg = $("#" + "{$id_list['id_datagrid']}");
+                        $.post(url, "", function (res) {
+                            if (res.status) {
+                                messager.alert(res.info, "info");
+                                show_dg.datagrid("reload");
+                            } else {
+                                messager.alert(res.info);
+                            }
+                            $.messager.progress('close');
+                        });
+                    });
+                };
+                goods_match.auto_unmatch = function () {
+                    messager.confirm('此操作将会自动匹配所有未匹配的货品，确定继续吗？',function(r) {
+                        if (!r) {
+                            return false;
+                        }
+                        $.messager.progress({
+                            title: "请稍后",
+                            msg: "正在处理，请稍等..."
+                        });
+                        var url = "{:U('PlatformGoods/autoMatchUnmatchPlatformGoods')}";
+                        var show_dg = $("#" + "{$id_list['id_datagrid']}");
+                        $.post(url, "", function (res) {
+                            if (res.status) {
+                                messager.alert(res.info, "info");
+                                show_dg.datagrid("reload");
+                            } else {
+                                messager.alert(res.info);
+                            }
+                            $.messager.progress('close');
+                        });
+                    });
+                };
+                goods_match.refreshUnmatch = function(){
+                    var url ='{:U("GoodsMatch/refreshUnmatch")}';
+                    $.post(url,'',function(res){
+                        $('#refreshUnmatch').html('未匹配货品数量：'+res);
+                    });
+
+                }
+            }, 0);
+            function platform_goods_spec_match() {
+                var dg = $("#goods_match_goods_spec_select_datagrid");
+                var row = dg.datagrid("getSelected");
+                var show_dg = $("#" + "{$id_list['id_datagrid']}");
+                var show_row = show_dg.datagrid("getSelected");
+                var dialog = $("#" + "{$id_list['goods_spec']}");
+                var url = "{:U('PlatformGoods/matchGoodsSpec')}";
+                if (typeof(row) == "undefined" || row == null) {
+                    messager.alert("请选择货品");
+                    return false;
+                }
+                dialog.dialog("close");
+                $.post(url, {"id": show_row.id, "spec_id": row.id}, function (res) {
+                    if (res.status) {
+                        //show_dg.datagrid();
+                        messager.alert(res.info, "info");
+                        show_dg.datagrid("reload");
+                    } else {
+                        messager.alert(res.info);
+                    }
+                });
+            }
+
+            function platform_goods_suite_match() {
+                var dg = $("#goods_match_goods_suite_list_datagrid");
+                var row = dg.datagrid("getSelected");
+                var show_dg = $("#" + "{$id_list['id_datagrid']}");
+                var show_row = show_dg.datagrid("getSelected");
+                var url = "{:U('PlatformGoods/matchGoodsSuite')}";
+                var dialog = $("#" + "{$id_list[goods_suite]}");
+                if (typeof(row) == "undefined" || row == null) {
+                    messager.alert("请选择组合装");
+                    return false;
+                }
+                dialog.dialog("close");
+                $.post(url, {"id": show_row.id, "suite_id": row.id}, function (res) {
+                    if (res.status == 1) {
+                        messager.alert(res.info, "info");
+                        show_dg.datagrid("reload");
+                    } else {
+                        messager.alert(res.info);
+                    }
+                });
+            }
+
+
+        })
+
+
+
+    </script>
+
+</block>
+<block name="dialog">
+    <div id="{$id_list['goods_suite']}"></div>
+    <div id="{$id_list['goods_spec']}"></div>
+</block>

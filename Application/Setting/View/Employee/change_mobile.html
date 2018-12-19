@@ -1,0 +1,40 @@
+<form id="change-mobile" method="post">
+<if condition="$mobile eq ''">
+<div class="form-div">
+<label>新号码:&emsp;&emsp;</label>
+<input class="easyui-textbox" id="new_mobile_no"  name="mobile_no" missingMessage="请输入正确的手机号" data-options="required:true,validType:'mobile'">
+</div>
+<else/>
+<div class="form-div">
+<label>手机号:&emsp;&emsp;</label>
+<input class="easyui-textbox"  name="mobile" value="{$mobile}" data-options="required:true,validType:'mobile',disabled:true">
+</div>
+<div class="form-div">
+<label>新号码:&emsp;&emsp;</label>
+<input class="easyui-textbox" id="new_mobile_no" name="mobile_no" missingMessage="请输入正确的手机号" data-options="required:true,validType:'mobile'">
+</div>
+</if>
+<div class="form-div">
+<label>验　证:&emsp;&emsp;</label>
+<input class="easyui-textbox" name="code" style="width:92px;" missingMessage="验证码为六位整数" data-options="required:true,validType:'code'">
+<a href="javascript:void(0);" class="easyui-linkbutton" style="width:76px;" data-options="required:true,validType:'zip'" onclick="employee_obj.getValCode();">获取验证码</a>
+</div>
+</form>
+<script>
+employee_obj.getValCode = function() {
+	if('{$mobile}'!='')sendCode('tel','change-mobile');
+	else {var mobile=$('#new_mobile_no').textbox('getValue'); 
+	if(/^(?:13\d|15\d|18\d|17\d|14\d)-?\d{5}(\d{3}|\*{3})$/.test(mobile)) { sendCode('tel','change-mobile',mobile); }else { messager.info('请填写正确的手机号'); } }
+}
+employee_obj.submitChangeMobileDialog=function(){
+	 if(!$('#change-mobile').form('validate')){ return;}
+     if(setTime.count==60&&!setTime.send){messager.info('请先获取验证码');return;}
+     var data = $('#change-mobile').form('get');
+     data.id='{$id}';
+     $.post("{:U('Setting/Employee/changeMobile')}", {data: JSON.stringify(data)}, function (data) {
+         if (data.status==1) { messager.alert(data.info);return; }
+         $('#'+employee_obj.params.edit.id).dialog('close');
+         employee_obj.refresh();
+     });
+}
+</script>

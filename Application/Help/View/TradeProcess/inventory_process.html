@@ -1,0 +1,27 @@
+<div style="margin: 20px 50px;">
+    <div class="inventory_process">
+        <span class="inventory_start font-blue">开始盘点</span>
+        <span class="inventory_normal font-white">普通盘点</span>
+        <span class="inventory_excel font-white">Excel导入盘点</span>
+        <span class="inventory_quick font-white">快速盘点</span>
+        <div class="inventory_billing font-green" href="javascript:void(0);" onClick="open_menu('盘点开单','index.php/Stock/StockInventory/getStockInventoryList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/inventory_billing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/inventory_billing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/inventory_billing.png'"/>
+            <br/>盘点开单
+        </div>
+        <span class="inventory_addgoods font-green-msg">添加货品</span>
+        <div class="inventory_management font-green" href="javascript:void(0);" onClick="open_menu('盘点单管理','index.php/Stock/StockInventoryManagement/getInventoryManagementList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/inventory_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/inventory_management.png'"/>
+            <br/>盘点单管理
+        </div>
+        <span class="inventory_submit font-green-msg">提交</span>
+        <div class="inventory_stock1 font-green" href="javascript:void(0);" onClick="open_menu('库存管理','index.php/Stock/StockManagement/getStockSpec');">
+            <img src="__ROOT__/Public/Image/Process/Trade/stock_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/stock_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/stock_management.png'"/>
+            <br/>库存管理
+        </div>
+        <div class="inventory_stock2 font-green" href="javascript:void(0);" onClick="open_menu('库存管理','index.php/Stock/StockManagement/getStockSpec');">
+            <img src="__ROOT__/Public/Image/Process/Trade/stock_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/stock_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/stock_management.png'"/>
+            <br/>库存管理
+        </div>
+        <span class="inventory_finish font-orange">完成</span>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div></block>
+<block name='toolbar'>
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <div class="form-div">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="smsSendRule.add()">新建</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="smsSendRule.edit()">编辑</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="smsSendRule.disabled()">停用</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //# sourceURL=smsSendRule.js
+
+        $(function(){
+            setTimeout(function () {
+                smsSendRule=new RichDatagrid(JSON.parse('{$params}'));
+                smsSendRule.initSmsSendRuleCheckbox = function (id, bool) {
+                    bool = bool == undefined ? false : bool;
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if (bool == true) {
+                        if (value != 1) {
+                            check.value = 0;
+                            check.checked = false;
+                        } else {
+                            check.checked = true;
+                        }
+                    } else {
+                        if (value == 0) {
+                            check.value = 1;
+                            check.checked = true;
+                        } else {
+                            check.value = 0;
+                            check.checked = false;
+                        }
+                    }
+                }
+                smsSendRule.submitAddDialog = function () {
+                    var data = {};
+                    var addForm = $("#" + "{$id_list['add_form']}");
+
+                    if (!addForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = addForm.serializeArray();
+                    var url = "{:U('SmsSendRule/addSmsSendRule')}";
+                    var dialog = $("#" + "{$id_list.add}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            dialog.dialog("close");
+                            smsSendRule.refresh();
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    })
+                }
+
+                smsSendRule.submitEditDialog = function () {
+                    var data = {};
+                    var editForm = $("#" + "{$id_list['edit_form']}");
+                    if (!editForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = editForm.serializeArray();
+                    var url = "{:U('SmsSendRule/editSmsSendRule')}";
+                    var dialog = $("#" + "{$id_list.edit}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            dialog.dialog("close");
+                            smsSendRule.refresh();
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    })
+
+
+                }
+                smsSendRule.disabled = function () {
+                    var url = this.params.delete.url;//delete js本身就有该操作符 ->remove
+                    var tb = this.params.datagrid.id;
+                    var tb_jq = $('#' + tb);
+                    var index = tb_jq.datagrid('options').index;
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null) { messager.alert('请选择操作的行!'); return false; }
+                    var row=this.selectRows[0];
+                    var id;
+                    id=this.selectRows[0].id;
+                    var that=this;
+                    messager.confirm('确定要停用吗？', function(r) {
+                        if (!r) { tb_jq.datagrid('loaded'); return false; }
+                        $.post(url, { id: id }, function(res) {
+                            if (!res.status) { messager.alert( res.info, 'error'); }
+                            else{messager.alert(res.info)}
+                            tb_jq.datagrid("updateRow", {index: index, row: {is_disabled: "1"}});
+                        }, 'json')
+                    });
+                    tb_jq.datagrid('options').index = undefined;
+                    this.selectRows=undefined;
+                }
+
+
+            }, 0);
+        });
+
+    </script>
+</block>
+<block name="tabs"></block>

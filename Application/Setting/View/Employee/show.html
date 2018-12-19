@@ -1,0 +1,177 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+	<div id="{$id_list.add}"></div>
+	<div id="{$id_list.edit}"></div>
+	<div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+		<form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+			<div style="margin-bottom:25px">
+				<input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+			</div>
+			<div align="center">
+				<a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="employee_obj.upload()">上传</a>
+			</div>
+		</form>
+	</div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>账号：</label><input class="easyui-textbox txt" type="text" name="search[account]"/>
+                <label>姓名：</label><input class="easyui-textbox txt" type="text" name="search[fullname]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="employee_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="employee_obj.loadFormData();">重置</a>
+            </div>
+        </form>
+        <if condition="($role gt 0)">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="employee_obj.add()" >添加员工</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="employee_obj.edit()">编辑员工</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="check_admin()">删除员工</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changePassword()">修改密码</a>
+        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeMobile()">修改手机号</a>
+		<else/>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="employee_obj.edit()">编辑员工</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changePassword()">修改密码</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeMobile()">修改手机号</a>
+	    </if>
+	    <if condition="($permission gt 0)">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="changeRights()">设置权限</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.uploadDialog()">导入员工</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="employee_obj.downloadTemplet('{$templet_url}')">下载模板</a>
+		</if>
+    </div>
+	<input type="hidden" id="now_employee" name="now_employee" value="{$now_employee_id}"/>
+	<if condition="($role gt 0)">
+		<script type="text/javascript">
+	        //# sourceURL=employee_obj.js
+	        $(function () {
+	            setTimeout(function () {
+	                employee_obj = new RichDatagrid(JSON.parse('{$params}'));
+	                employee_obj.setFormData();
+	                employee_obj.checkEdit = function(){
+	                	var role ='{$role}';
+	                	var now_employee=$("#now_employee").val();
+	                	var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+	                	if(now_employee!=row.id && role==row.roles_mask){messager.alert('不能编辑其他管理员用户');return false; }
+	                	if(row.id==1){messager.alert('不能编辑管理员');return false; }
+	                	return true;
+	            	}
+					employee_obj.upload = function () {
+						var form = $("#{$id_list.fileForm}");
+						var url = "{:U('Employee/uploadExcel')}";
+						var dg = $("#{$id_list.datagrid}");
+						var dialog = $("#{$id_list.fileDialog}");
+						$.messager.progress({
+							title: "请稍后",
+							msg: "该操作可能需要几分钟，请稍等...",
+							text: "",
+							interval: 100
+						});
+						form.form("submit", {
+							url: url,
+							success: function (res) {
+								$.messager.progress('close');
+								res = JSON.parse(res);
+								if ( res.status==0) {
+									dialog.dialog("close");
+									dg.datagrid("reload");
+								} else if (res.status == 1) {
+									messager.alert(res.info);
+								} else if (res.status == 2) {
+									$.fn.richDialog("response", res.info, "importResponse");
+									dialog.dialog("close");
+									dg.datagrid("reload");
+								}
+								form.form("load", {"file": ""});
+							}
+						})
+					}
+					employee_obj.uploadDialog = function () {
+						var dialog = $("#{$id_list.fileDialog}");
+						dialog.dialog({
+							title: "导入员工",
+							width: "350px",
+							height: "160px",
+							modal: true,
+							closed: false,
+							inline: true,
+							iconCls: 'icon-save',
+						});
+					}
+	            }, 0);
+	        });
+	    </script>
+     <else/>
+	    <script type="text/javascript">
+	      //# sourceURL=employee_obj.js
+	      $(function () {
+	          setTimeout(function () {
+	              employee_obj = new RichDatagrid(JSON.parse('{$params}'));
+	              employee_obj.setFormData();
+	 	       	  employee_obj.checkEdit = function(){
+		              var now_employee=$("#now_employee").val();
+		              var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+		              if(now_employee==row.id){return true; }else{ messager.alert('只能编辑当前用户信息');return false;}
+	           	  }
+	          }, 0);
+	        });
+        </script>
+	  </if>
+	  <if condition="($permission gt 0)">
+		  <script type="text/javascript">
+		  	function changeRights(){
+		  		var url="{:U('Setting/Employee/changeRights')}";
+	        	var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+	            if (!row) { messager.info("请选择操作的行！"); return; }
+	            if(row.roles_mask>=2){messager.info("超级管理员拥有所有权限，无需设置！"); return;}
+	            url += url.indexOf('?') != -1 ? '&id='+row.id : '?id='+row.id;
+	        	var buttons=[ {text:'确定',handler:function(){employee_obj.submitChangeRightsDialog();}}, {text:'取消',handler:function(){employee_obj.cancelDialog(employee_obj.params.add.id);}} ];
+//	        	var toolbar=[{ text:'展开', iconCls:'icon-save', handler:function(){employee_obj.expandAll(); }},{ text:'收起', iconCls:'icon-save', handler:function(){employee_obj.collapseAll();} }];
+	        	employee_obj.showDialog(employee_obj.params.add.id,'权限设置',url,560,764,buttons,null,false);
+		  	}
+		  </script>
+	  </if>
+	      <script type="text/javascript">
+	        function sendCode(type,form,mobile){
+	        	var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+	        	if (!row) { messager.alert("请选择操作的行！"); return; }
+	        	var data={id:row.id,type:type};if(!!mobile){data['mobile']=mobile;}
+	        	$.post("{:U('Setting/Employee/sendCode')}",data,function(res){
+	        		if(res.status==1){messager.alert(res.info);return;}
+	        		setTime.send=true;
+	        	});
+	        	setTime.init($('#'+form+' a'),$('#'+form+' .l-btn-text'));
+	        }
+	        function changePassword() {
+	        	var url="{:U('Setting/Employee/changePassword')}";
+	        	var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+	            if (!row) { messager.info("请选择操作的行！"); return; }
+	        	var now_employee=$("#now_employee").val();
+	        	var role ='{$role}';
+	        	if(now_employee!=row.id&&parseInt(role)<=row.roles_mask){ if(parseInt(role)>0){messager.info('不能修改其他管理员密码')}else{messager.info('不能修改他人密码')};return; }
+	        	url += url.indexOf('?') != -1 ? '&id='+row.id : '?id='+row.id;
+	        	var buttons=[ {text:'确定',handler:function(){employee_obj.submitChangePasswordDialog();}}, {text:'取消',handler:function(){employee_obj.cancelDialog();}} ];
+	        	employee_obj.showDialog(0,'请输入新密码',url,180,280,buttons,null,false);
+	        }
+	        function changeMobile(){
+	        	var url="{:U('Setting/Employee/changeMobile')}";
+	        	var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+	            if (!row) { messager.info("请选择操作的行！"); return; }
+	        	var now_employee=$("#now_employee").val();
+	        	var role ='{$role}';
+	        	if(now_employee!=row.id&&parseInt(role)<=row.roles_mask){if(parseInt(role)>0){messager.info('不能修改其他管理员手机号码')}else{messager.info('不能修改他人手机号码')};return; }
+	        	url += url.indexOf('?') != -1 ? '&id='+row.id : '?id='+row.id;
+	        	var buttons=[ {text:'确定',handler:function(){employee_obj.submitChangeMobileDialog();}}, {text:'取消',handler:function(){employee_obj.cancelDialog();}} ];
+	        	employee_obj.showDialog(0,'修改手机号码',url,180,280,buttons,null,false);
+				$('#'+employee_obj.params.edit.id).dialog({onClose:function(){setTime.count=0; setTime.send=false;}});
+	        }
+			function check_admin(){
+				var row = $("#{$id_list.datagrid}").datagrid('getSelected');
+				if(row.id==1){
+					messager.alert('不能删除管理员');return false;
+				}
+				employee_obj.remove();
+			}
+	     </script>
+</block>

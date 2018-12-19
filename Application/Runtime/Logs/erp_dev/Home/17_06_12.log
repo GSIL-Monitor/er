@@ -1,0 +1,342 @@
+[ 2017-06-12T17:25:21+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:25:24+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:25:39+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:26:07+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:33:10+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:35:22+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:35:32+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:46:59+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:48:32+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:49:17+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:52:41+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:53:28+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:53:31+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:56:36+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:56:42+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:57:02+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:57:12+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T17:58:03+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+
+[ 2017-06-12T18:00:51+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => syntax error, unexpected '<<' (T_SL)
+    [file] => C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 275
+    [trace] => #0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(168): include()
+#1 [internal function]: Think\Think::autoload('Platform\\Common...')
+#2 C:\wamp\www\test\trunk\source\Application\Home\Controller\LoginController.class.php(315): spl_autoload_call('Platform\\Common...')
+#3 [internal function]: Home\Controller\LoginController->access(Object(stdClass))
+#4 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(162): ReflectionMethod->invokeArgs(Object(Home\Controller\LoginController), Array)
+#5 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\App.class.php(202): Think\App::exec()
+#6 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#7 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#8 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#9 {main}
+)
+

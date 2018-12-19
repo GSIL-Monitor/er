@@ -1,0 +1,49 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$cs_id_list.add}"></div><div id="{$cs_id_list.edit}"></div></block>
+<block name='toolbar'>
+<div id="{$cs_id_list.toolbar}" style="padding:5px;height:auto">
+<form id="cs_remark_macro">
+<div class="form-div">
+<div style="color:#0E2D5F;">业务员提取</div>
+<label>前缀：</label><input class="easyui-combobox txt" name="macro_begin" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('macro_begin','def','{$salesman_macro.salesman_macro_begin}')"/>
+<label>后缀：</label><input class="easyui-combobox txt" name="macro_end" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('macro_end','def','{$salesman_macro.salesman_macro_end}')"/>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="saveSalesmanMacro();">保存</a>
+<div style="color:red">如前缀“{”，后缀“}”，则备注包含{李四}将提取业务员“李四”。</div>
+</div>
+</form>
+<hr style="margin-top: 10px;border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div">
+<label style="color:#0E2D5F;">其他提取</label>
+<label style="color: blue;margin-left: 30px;" >#提取<span style="color:red">客服备注</span>中的<span style="color:red">关键字</span>，根据关键字对订单自动进行<span style="color:red">相应操作</span>#</label>
+<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</div>
+<div class="form-div">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="csRemark.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="csRemark.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="csRemark.remove()">删除</a>
+</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	setTimeout(function () { 
+		csRemark=new RichDatagrid(JSON.parse('{$cs_params}')); 
+	}, 0); 
+});
+
+function saveSalesmanMacro(){
+	var form=$('#cs_remark_macro');
+	if(!form.form('validate')){return false;}
+	var data={};
+	data['info']=form.form('get');
+	if(data==false){return;}
+	$.post("{:U('RemarkExtract/saveSalesmanMacro')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			messager.info('保存成功');
+		}
+	},"JSON");
+}
+</script>
+</block>
+<block name="tabs"></block>

@@ -1,0 +1,39 @@
+<form id="{$id_list.auth_form}" method="post">
+    <div class="form-div">
+        <div style="display: none;">
+            <input name="shop_id" value="{$auth.shop_id}" hidden="true" type="txt"/>
+        </div>
+        <switch name="show.account_nick">
+            <case value="true">
+                <div class="form-div">
+                    <label class="four-character-width">平台账号</label><input name="account_nick" value="{$auth.account_nick}" data-options="prompt:'{$def.account_nick}'" class="easyui-textbox txt" type="txt" style="width:200px"/>
+                </div>
+            </case>
+            <default/>
+        </switch>
+        <switch name="show.key">
+            <case value="true">
+                <div class="form-div">
+                    <label class="four-character-width">AppKey</label><input name="key" value="{$auth.key}" data-options="prompt:'{$def.key}'" class="easyui-textbox txt" type="txt" style="width:200px"/>
+                </div>
+            </case>
+            <default/>
+        </switch>
+        <switch name="show.secret">
+            <case value="true">
+                <div class="form-div">
+                    <label class="four-character-width">AppSecret</label><input name="secret" value="{$auth.secret}" data-options="prompt:'{$def.secret}'" class="easyui-textbox txt" type="password" style="width:200px"/>
+                </div>
+            </case>
+            <default/>
+        </switch>
+        <switch name="show.session">
+            <case value="true">
+                <div class="form-div">
+                    <label class="four-character-width">SessionKey</label><input name="session" value="{$auth.session}" data-options="prompt:'{$def.session}'" class="easyui-textbox txt" type="txt" style="width:200px"/>
+                </div>
+            </case>
+            <default/>
+        </switch>
+    </div>
+</form>

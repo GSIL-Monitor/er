@@ -1,0 +1,42 @@
+<style type="text/css"> 
+.merge{margin:0 auto;width:260px;padding: 10px;} 
+</style>
+<div style="overflow:hidden;">
+<form id="merge-trade-form">
+<div class="merge"><label>店　　铺：</label><input class="easyui-combobox sel" name="shop" data-options='required:true,editable:false,valueField:"id", textField:"name", panelHeight:"auto",data:{$params_merge_trade.shop}'/></div>
+<div class="merge"><label>业务员　：</label><input class="easyui-combobox sel" name="salesman" data-options='required:true,editable:false,valueField:"id", textField:"name", panelHeight:"auto",data:{$params_merge_trade.salesman}'/></div>
+<div class="merge"><label>收件人　：</label><input class="easyui-combobox sel" name="receiver" data-options='required:true,editable:false,valueField:"id", textField:"name", panelHeight:"auto",data:{$params_merge_trade.receiver}'/></div>
+<div class="merge"><label>手　　机：</label><input class="easyui-combobox sel" name="mobile" data-options='editable:false,valueField:"name", textField:"name", panelHeight:"auto",data:{$params_merge_trade.mobile}'/></div>
+<div class="merge"><label>固　　话：</label><input class="easyui-combobox sel" name="telno" data-options='editable:false,valueField:"name", textField:"name", panelHeight:"auto",data:{$params_merge_trade.telno}'/></div>
+<div class="merge"><label>物流方式：</label><input class="easyui-combobox sel" name="logistics" data-options='required:true,editable:false,valueField:"id", textField:"name", panelHeight:"auto",data:{$params_merge_trade.logistics}'/></div>
+<div class="merge"><label>打印备注：</label><input class="easyui-textbox sel" style="height: 50px;" data-options="multiline:true" name="print_remark"/></div>
+</form>
+</div>
+<script>
+function checkBuyer(){
+var flag_buyer='{$params_merge_trade.flag_buyer}';
+if(flag_buyer!=''){ messager.confirm('客户网名不同，是否继续合并',function(r){ if(!r){ $('#'+tradeCheck.params.edit.id).dialog('close');} else {checkReceiver();return true;}});}
+return false;
+}
+function checkReceiver()
+{
+var flag_receiver='{$params_merge_trade.flag_receiver}';
+if(flag_receiver!=''){messager.confirm('收货人不同，是否继续合并',function(r){ if(!r){ $('#'+tradeCheck.params.edit.id).dialog('close');} else {return;}});}
+}
+$(function(){
+	if(checkBuyer()){checkReceiver();}
+});
+tradeCheck.submitTradeCheckDialog=function(){ 
+var info=JSON.stringify($("#merge-trade-form").form('get'));
+Post('{:U('TradeCheck/mergeTrade')}?ids='+tradeCheck.merge_trade_ids,{info:info}, function(res){
+	if(!res.status){
+		messager.alert(res.info);
+		return false;
+	}else{
+		messager.alert(res.info);
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+		tradeCheck.refresh();
+	}
+},"JSON");
+}
+</script>

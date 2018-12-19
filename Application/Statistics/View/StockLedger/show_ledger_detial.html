@@ -1,0 +1,41 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.tool_bar}">
+    <form  id="{$id_list.form_id}" class="easyui-form" method="post">
+        <div class="form-div">
+            <label>商家编码： </label><input class="easyui-textbox txt" type="text" name="sepc_no" value="{$goods_data.spec_no}" data-options="disabled:true"/>
+            <label>货品名称： </label><input class="easyui-textbox txt" type="text" name="goods_name" value="{$goods_data.goods_name}" data-options="disabled:true,required:true"/>
+            <label>货品编码： </label><input class="easyui-textbox txt" type="text" name="goods_no" value="{$goods_data.goods_no}" data-options="disabled:true,required:true"/>
+            <label>规格名称： </label><input class="easyui-textbox txt" type="text" name="trade_no" value="{$goods_data.spec_name}" data-options="disabled:true"/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="ledgerDetial.submitSearchForm(this);">搜索</a>
+        </div>
+        <div class="form-div">
+            <label>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型：</label>
+            <select class="easyui-combobox sel"	name="search[type]" data-options="editable:false,">
+                <option value="0">全部</option>
+                <option value="1">入库</option>
+                <option value="2">出库</option>
+            </select>
+            <label>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仓库：</label>
+            <select class="easyui-combobox sel"	name="search[warehouse_id]" data-options="panelHeight:'200px',editable:false,">
+                <option value="0">全部</option>
+                <volist name='list.warehouse' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+            <label>起始时间： </label><input id="ledgerstat_start" class="easyui-datebox txt" type="text" name="search[day_start]" value={$current_date} />
+            <label>结束时间： </label><input id="ledgerstat_end" class="easyui-datebox txt" type="text" name="search[day_end]" value={$current_date} />
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="ledgerDetial.loadFormData();">重置</a>
+        </div>
+        <input type="hidden" name="search[spec_id]" value="{$goods_data.spec_id}">
+    </form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            ledgerDetial = new RichDatagrid(JSON.parse('{$params}'));
+            ledgerDetial.setFormData();
+            ledgerDetial.submitSearchForm(this);
+        },0);
+    })
+</script>

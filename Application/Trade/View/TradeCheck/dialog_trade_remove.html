@@ -1,0 +1,60 @@
+<taglib name="TagLib\EasyUI" />
+<div style="height: 80%;">
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+</div>
+<div class='form-div' style="color:red;margin:8px">#无需处理的订单请判断好原始订单的状态，未发货的原始订单不建议做此操作。#</br>#无需系统处理的订单不会占用相应货品的库存。#</div>
+<script type="text/javascript">
+var remove_id='{$datagrid.id}';
+$(function(){
+	$('#'+remove_id).datagrid({    
+	        columns: [  
+	        [{"title":"订单信息","colspan":3},  
+	         {"title":"原始订单信息","colspan":2}],  
+	        [{"field":"trade_no","title":"订单编号","width":100},  
+	         {"field":"buyer_nick","title":"客户网名","width":100},  
+	         {"field":"shop_name","title":"店铺","width":100},
+	         {"field":"tid","title":"原始单号","width":100},  
+	         {"field":"trade_status","title":"平台状态","width":100,'formatter':formatter.api_trade_status}  
+			]],    
+	}); 
+	setTimeout(loadRemoveTrade,0);
+});
+function loadRemoveTrade(){	
+	var json_orders={$remove_trade};
+	$('#'+remove_id).datagrid('loadData',json_orders);
+}
+tradeCheck.submitTradeCheckDialog=function(){
+	var api_id='';
+	var rows=$('#'+remove_id).datagrid('getRows');
+	for (var i in rows){
+		if(rows[i]['trade_status']<=30){
+			if(api_id.indexOf(rows[i]['trade_no'])==-1){
+				api_id+=rows[i]['trade_no']+' ';
+			}
+		}
+	}
+	var ids={$ids};
+	if(api_id.length>0){
+		messager.confirm('订单“'+api_id+'”包含未发货的原始单，确定要清除掉该系统订单吗？',function (r){
+			if(!r){return false;}
+			else{
+				Post('{:U('TradeCheck/removeTrade')}?ids='+JSON.stringify(ids),'', function(res){
+					if(res.info.total>0){
+						$.fn.richDialog("response", res.info, 'tradecheck');
+					}
+					$('#'+tradeCheck.params.edit.id).dialog('close');
+					tradeCheck.refresh();
+				});
+			}
+		});
+	}else{
+		Post('{:U('TradeCheck/removeTrade')}?ids='+JSON.stringify(ids), '', function(res){
+			if(res.info.total>0){
+				$.fn.richDialog("response", res.info, 'tradecheck');
+			}
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			tradeCheck.refresh();
+		});
+	}
+}
+</script>

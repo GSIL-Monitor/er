@@ -1,0 +1,55 @@
+<div style="margin-top:10px;margin-left:10px;font-size: 15px;">
+    <div style="">
+        <input type="checkbox" id="stalls_mode" /><label class="seven-character-width">开启档口模式</label>
+    </div>
+    <div style="margin-top: 10px;">
+        <input type="checkbox" id="voice_alert" /><label class="seven-character-width">开启声音提示</label>
+    </div>
+	<div>
+	  <input type="checkbox" id="stockout_sort_auto_consign" onclick="purchasePickList.showStallsConsign(this)" /><label>分拣后自动发货</label>
+		 <div style="margin-left:20px;" id = "auto_consign_select">
+            <input type="checkbox" id="stalls_goods_auto_consign" /><label>档口货品分拣完自动发货</label>
+        </div>
+	  </div>
+	   <div> 
+	   <input type="checkbox" id="instant_split_sorted_goods" onclick="systemCheckboxOnclick(this)"/><label>“一键拆分未分拣货品”后生成的新订单保留已审核状态</label></div>
+    <div style="margin-top: 10px">
+        <input type="checkbox" id="print_logistics" onclick="purchasePickList.showStallsPrintLogistics(this)" /><label>自动打印物流单</label>
+        <a href="javascript:void(0)"  class="easyui-linkbutton" data-options="" onclick="purchasePickList.setLogisticsPrintersDialog()";>设置物流单打印机和模板</a>
+        <div style="margin-left:20px;" id = "print_logistics_select">
+            <input type="checkbox" id="stalls_print_logistics" /><label>档口货品分拣完自动打印物流单</label>
+        </div>
+    </div>
+    <div style="margin-top: 10px">
+        <input type="checkbox" id="print_tag" /><label>自动打印吊牌</label>
+        <a href="javascript:void(0)"  class="easyui-linkbutton" data-options="" onclick="purchasePickList.setPrintersDialog()";>设置吊牌打印机和模板</a>
+     </div>
+	  
+	  <!--<div>
+	   <input type="checkbox" id="pick_notstalls_goods"/><label>"强制分拣"能够分拣非档口货品</label></div>-->
+	 
+</div>
+<script>
+    $(function () {
+        var base_set = {$base_set};
+        $("#voice_alert").prop('checked',base_set.voice_alert =='1'?true:false);
+		$("#stockout_sort_auto_consign").prop('checked',base_set.stockout_sort_auto_consign =='1'?true:false);
+		$("#stalls_goods_auto_consign").prop('checked',base_set.stalls_goods_auto_consign =='1'?true:false);
+		$("#instant_split_sorted_goods").prop('checked',base_set.instant_split_sorted_goods =='1'?true:false);
+		//$("#pick_notstalls_goods").prop('checked',base_set.pick_notstalls_goods =='1'?true:false);
+        $("#stalls_mode").prop('checked',base_set.stalls_mode =='1'?true:false);
+        $("#print_logistics").prop('checked',base_set.print_logistics =='1'?true:false);
+        $("#print_tag").prop('checked',base_set.print_tag =='1'?true:false);
+        $("#stalls_print_logistics").prop('checked',base_set.stalls_print_logistics =='1'?true:false);
+        if(base_set.print_logistics =='1'){
+            $('#print_logistics_select').show();
+        }else{
+            $('#print_logistics_select').hide();
+        }
+		if(base_set.stockout_sort_auto_consign =='1'){
+            $('#auto_consign_select').show();
+        }else{
+            $('#auto_consign_select').hide();
+        }
+    });
+</script>

@@ -1,0 +1,29 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label>入库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockin_no]"/>
+                <label>商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                <label>货品编号：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="{$id_list.prefix}stock_in_order_list.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="{$id_list.prefix}stock_in_order_list.loadFormData()">重置</a>
+            </div>
+            <div class="form-div">
+                <label>&nbsp;条形码：&nbsp;&nbsp;</label><input class="easyui-textbox txt" type="text" name="search[barcode]"/>
+                <label>来源单号：</label><input class="easyui-textbox txt" type="text" name="search[src_order_no]"/>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="dialog"></block>
+<block name="script">
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                {$id_list.prefix}stock_in_order_list = new RichDatagrid(JSON.parse('{$params}'));
+                {$id_list.prefix}stock_in_order_list.setFormData();
+            }, 0);
+        });
+    </script>
+</block>

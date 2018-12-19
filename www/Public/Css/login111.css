@@ -1,0 +1,147 @@
+*{ margin:0; padding:0; }
+body{margin:0;font:12px/1.8 Tahoma,Geneva,'\5B8B\4F53';background: #ffffff;}
+html:root button{font-family:Tahoma,Geneva,'\5fae\8f6f\96c5\9ed1','\5B8B\4F53';cursor:pointer;}
+input.err{border-color:#E06341;box-shadow:0 0 5px #E06341;background:#FFEFEC;}/*,input.err:focus{color:#900;}*/
+a{text-decoration:none;color:#224892;outline:none;border: none;}
+a:hover{color: white;}
+.button{display:inline-block;height:32px;padding:0 2px;line-height:32px;width:270px;text-align:center;font-size:16px;color:white;border:0 none;background-color:#6ea8e7;background-repeat:repeat-x;background-position:0 0;cursor:pointer;}
+.button:hover{text-decoration:none;background-color:#639ee4;}
+.button:active{background-color:#5296e3;}
+.msg-err{margin-top:3px;padding:0 2px;font-size: 12px; line-height: 28px; height: 28px;color:#e4393c;}
+
+.w{width: 1024px;margin: 0 auto;}/*wrap*/
+.text{width:170px;height:24px;padding:3px 5px;line-height:24px;font-size:14px;font-weight:bold;color:#333;border:1px solid;border-color:#CECECF;border-radius:0;background:white;box-shadow:inset 1px 1px 2px rgba(0, 0, 0, 0.1);-webkit-appearance:none;}
+.text:focus{outline:none;border-color:#92AFED;box-shadow:0 0 5px #92AFEC,inset 1px 1px 2px rgba(0, 0, 0, 0.1);}
+#logo{height: 46px;width: 253px;padding: 7px 0 7px 0;}
+#content{margin: 0 0 10px 0;height: 420px;background-color: #5296e3;background: url('../Image/Login/background.jpg') 0px 0px no-repeat;}
+.login-body{height: 420px;}
+.login-img{float:left; position: relative;top: 58px;left: 80px;z-index: 3;width:499px;height:304px;overflow: hidden;}
+.login-wrap{float:right; position: relative;top: 70px;right: 75px;z-index: 3;width:290px;height:293px;overflow: hidden;}
+.login-tab{height:280px;background: #ffffff;}
+.login-form{width:274px;margin: 0 auto;font-size:16px;color:#999;font-weight:bold;}
+.login-form .top{text-align:center;}
+.login-form .cell{position:relative;height:32px;margin-bottom:12px;zoom:1;}
+.login-form .cell1{position:relative;height:32px;text-align: right;zoom:1; }
+.login-form .cell1>a{font-size:13px;color:#babec2;}
+.login-form .cell1>a:focus,.login-form .cell1>a:hover{color:blue;text-decoration: underline;}
+.login-form .cell2{position:relative;height:32px;zoom:1;}
+.login-form .cell2 .checkbox{vertical-align: middle;margin-left:2px; height: 13px;width: 13px;}
+.login-form .cell label{position:absolute;top:0;left:0;z-index:1;padding:0 8px;line-height:32px;cursor:text;}
+.login-form .val label{left:-9999px;opacity:0!important;filter:alpha(opacity="0")!important;}
+.login-form .cell input{position:absolute;top:0;left:0;width:260px;padding:2 5px;font-size:16px;background:none;}
+.login-bottom{height:13px;background: url('../Image/Login/login-bottom.png') 0px 0px no-repeat;}
+#footer{height: 60px;}
+.link{height: 40px;line-height: 50px; text-align: center;}
+.link a:hover{color: orange;cursor: pointer;}
+.link ul{list-style-type:none;margin: 8px auto;display: inline-block;}
+.link li{float: left; margin: 5px 0; padding: 0 16px; line-height: 14px; border-right: 1px solid #666;}
+.link .last{border-right:none;}
+.copyright{height: 20px;line-height: 20px; text-align: center;}
+
+
+
+#reset-content {
+    height: 500px;
+    width: 60%;
+    margin: 0 auto;
+	overflow: hidden;
+}
+#reset-content .reset-body {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    //background: #eee;
+}
+.reset-body .reset-title {
+    height: 36px;
+    line-height: 36px;
+    font-size: 24px;
+    color: #5296e3;
+    border-bottom: 2px solid;
+    border-color: #CECECF;
+}
+.reset-body p {
+    margin: 5px 0;
+}
+#resetform {
+    width: 600px;
+    margin: 10px auto;
+}
+.reset-form{
+    height: 38px;
+    line-height: 38px;
+    font-size: 16px;
+}
+.reset-form .ret-form-cell {
+    text-align: left;
+    margin-bottom: 10px;
+}
+.reset-form .ret-form-cell .ret-cell1 {
+	display: block;
+    width: 200px;
+    float: left;
+    text-align: right;
+}
+.ret-form-cell .sendCode {
+    float: right;
+    position: relative;
+    right: 100px;
+    top: 0;
+}
+/*提示框样式*/
+#mb_box {
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    position: fixed;
+    filter: Alpha(opacity=60);
+    background: black;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+
+#mb_con {
+    z-index: 999999;
+    width: 450px;
+    position: fixed;
+    background: White;
+    border-radius: 15px;
+}
+
+#mb_tit {
+    display: block;
+    font-size: 14px;
+    color: #444;
+    padding: 10px 15px;
+    background: #DDD;
+    border-radius: 15px 15px 0 0;
+    border-bottom: 3px solid #009BFE;
+    font-weight: bold;
+}
+
+#mb_msg {
+    padding: 20px;
+    line-height: 20px;
+    border-bottom: 1px dashed #DDD;
+    font-size: 14px;
+    text-align: center;
+}
+
+#mb_btnbox {
+    margin: 15px 0 10px 0;
+    text-align: center;
+}
+
+#mb_btn_ok {
+    width: 85px;
+    height: 30px;
+    color: white;
+    border: none;
+    background-color: #168bbb;
+    font-size: 14px;
+}
+
+
+
+

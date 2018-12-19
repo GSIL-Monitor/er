@@ -1,0 +1,17 @@
+<div style="margin-top:10px;margin-left:10px;font-size: 15px;">
+
+    <div style="margin-top: 20px;margin-left: 10px">
+        <input type="checkbox" id="hot_auto_print_logistics"/><label>扫码后自动打印物流单</label>
+        <a href="javascript:void(0)"  class="easyui-linkbutton" data-options="" onclick="printHotGoods.setLogisticsPrintersDialog()";>设置物流单打印机和模板</a>
+        <div id = "print_logistics_select">
+            <input type="checkbox" id="hot_auto_consign"/><label>打印后自动发货</label>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var base_set = {$base_set};
+        $("#hot_auto_print_logistics").prop('checked',base_set.hot_auto_print_logistics =='1'?true:false);
+        $("#hot_auto_consign").prop('checked',base_set.hot_auto_consign =='1'?true:false);
+    });
+</script>

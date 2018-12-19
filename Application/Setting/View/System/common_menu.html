@@ -1,0 +1,73 @@
+<div data-options="fit:true">
+    <div>最多可设置4个常用操作</div>
+    <div title="常用菜单设置" id="tree_menu"  style="padding-bottom: 20px" >
+        <form class="form-div">
+            <ul id="rights-tree-system"></ul>
+        </form>
+    </div>
+</div>
+<script>
+    //# sourceURL=SystemSetting.js
+    $(function () {
+        //创建菜单树
+        $('#tree_menu').tree({
+            cascadeCheck:true,
+            animate:true,
+            checkbox:true,
+            lines:true,
+            method:'POST',
+            queryParams: {id: '{$id}'},
+            url:"{:U('Setting/System/getMenuTree')}"
+        });
+    });
+
+    //提交表单
+    function submitMenuDialog() {
+        var data = {};
+        //获取菜单树数据
+        var tree=$('#tree_menu');
+        var tree_checked=tree.tree('getChecked');
+        var map={}; var ids=[]; var nodes=[];
+        $.each(tree_checked,function(key,node){
+            if(!node.hasOwnProperty('children')){
+                ids.push(node.id);
+            }
+        });
+        if(ids.length > 4){
+            messager.alert('最多可设置4个常用操作');
+            return false;
+        }
+        data['menu']=ids.join(',');
+
+        //发送数据
+        var url = "{:U('System/updateSystemSetting')}";
+        $.post(url, {"data": data}, function (res) {
+            if (res.status) {
+                make_menu(res.data);
+            } else {
+                messager.alert(res.info);
+            }
+        });
+    }
+
+    //设置常用菜单是同步显示的数据
+    function make_menu(data){
+        var border_color = ['#57c157','#29b6f6','#ffa550','#ff745a'];
+        var img_div = '<div class="common-operation" style="border:0;"><img src="__ROOT__/Public/Image/menu_add.png" class="module_add_menu" onclick="setCommonUse()" title="点击添加常用菜单"/></div>';
+        if(data.length == 0){
+            $('#common_menu_div').remove();
+            $('#index-sub-title').after('<div id="common_menu_div">'+img_div+img_div+img_div+img_div+'</div>');
+        }else{
+            $('#common_menu_div').remove();
+            var url = '<div id="common_menu_div">';
+            for(var i=0;i<4;i++){
+                if($.isEmptyObject(data[i])){
+                    url = url + img_div;
+                }else{
+                    url = url + '<div class="common-operation" name=\'index.php/'+data[i].module+'/'+data[i].controller+'/'+data[i].action+'-'+data[i].type+'-'+data[i].text+'\' style="border-color:'+border_color[i]+';" onclick="open_this_menu($(this))"><div class="menu_text">'+ data[i].text+'</div></div>';
+                }
+            }
+            $('#index-sub-title').after(url);
+        }
+    }
+</script>

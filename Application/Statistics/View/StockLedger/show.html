@@ -1,0 +1,141 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="dialog">
+    <div id="{$id_list.help_id}"></div>
+    <div id="{$id_list.edit}"></div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.tool_bar}" style="padding:5px 0;margin-top: 0;height:auto">
+        <form id="statistics-form" class="easyui-form" method="post"
+              style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>　商家编码： </label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                <label>　货品编码： </label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+                <label>　货品名称： </label><input class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+                <label>&emsp;时间区间：</label><input id="{$id_list.dailystat_start}" class="easyui-datebox txt" type="text" name="search[day_start]" value={$current_date} />
+                <label>　　   &nbsp;&emsp; 到：</label><input id="{$id_list.dailystat_end}" class="easyui-datebox txt" type="text" name="search[day_end]" value={$current_date} />
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'"
+                   onclick="stock_ledger_grid.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'"
+                   onclick="stock_ledger_grid.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/StockLedger','stockledger','{$datagrid.id}',1)">设置表头</a>
+            </div>
+            <div class="form-div">
+                <label>　 货品简称： </label><input class="easyui-textbox txt" type="text" name="search[short_name]"/>
+                <label>　　    &nbsp;&nbsp;仓库： </label>
+                <select class="easyui-combobox sel"	name="search[warehouse_id]" data-options="panelHeight:'200px',editable:false,">
+                    <option value="0">全部</option>
+                    <volist name='list.warehouse' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                <label>　货品分类：</label><input class="txt" id="stock_ledger_goods_class" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label>　货品品牌：</label><select class="easyui-combobox sel" name="search[brand_id]"><option value="all">全部</option><volist name='list.brand' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <span style="color: red;font-size: 16px;margin-left: 10px;">#该功能耗费较大资源，请不要在工作时间(8:00~19:00)执行#</span>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        var stock_ledger = JSON.parse('{$params}');
+        $('#stock_ledger_goods_class').changStyleTreeCombo('stock_ledger_goods_class');
+        $(function(){
+            setTimeout(function () {
+                stock_ledger_grid = new RichDatagrid(stock_ledger);
+                stock_ledger_grid.setFormData();
+                $('#stockledger_datagrid').datagrid( {
+                    onDblClickRow :function(rowIndex,rowData){
+                        var data=[];
+                        data['spec_id']=rowData.spec_id;
+                        var url='{:U('StockLedger/showLedgerDetial')}?id='+data['spec_id'];
+                        var buttons=[ {text:'关闭',handler:function(){stock_ledger_grid.cancelDialog();}} ];
+                        stock_ledger_grid.showDialog(0,'出入库明细',url,500,900,buttons,null,false);
+                    }
+                });
+//                $('#{$id_list.dailystat_start}').datebox('calendar').calendar({
+//                    validator: function(date){
+//                        var now = new Date();
+//                        var data_start = new Date(now.getFullYear(), now.getMonth()-3, now.getDate());
+//                        var data_end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+//                        return data_start<=date && date<=data_end;
+//                    }
+//                });
+//                $('#{$id_list.dailystat_end}').datebox('calendar').calendar({
+//                    validator: function(date){
+//                        var now = new Date();
+//                        var data_start = new Date(now.getFullYear(), now.getMonth()-3, now.getDate());
+//                        var data_end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+//                        return data_start<=date && date<=data_end;
+//                    }
+//                });
+                stock_ledger_grid.date_start = function(start,end,type){
+                    var start_date,end_date,month_range = 3;//时间范围
+                    var start_arr = start.split('-');
+                    var end_arr = end.split('-');
+                    switch (type){
+                        case 'change_end' :
+                            start_date = new Date(start_arr[0],parseInt(start_arr[1])+month_range,start_arr[2]);
+                            end_date = new Date(end_arr[0],end_arr[1],end_arr[2]);
+                            if(start_date.getTime()<end_date.getTime()){
+                                var new_date = start_date.getFullYear()+'-'+start_date.getMonth()+'-'+start_date.getDate();
+                                $('#{$id_list.dailystat_end}').datebox('setValue',new_date);
+                            }
+                            break;
+                        case 'change_start' :
+                            start_date = new Date(start_arr[0],start_arr[1],start_arr[2]);
+                            end_date = new Date(end_arr[0],parseInt(end_arr[1])-month_range,end_arr[2]);
+                            if(start_date.getTime()<end_date.getTime()){
+                                var new_date = end_date.getFullYear()+'-'+end_date.getMonth()+'-'+end_date.getDate();
+                                $('#{$id_list.dailystat_start}').datebox('setValue',new_date);
+                            }
+                            break;
+                    }
+                };
+                $('#{$id_list.dailystat_start}').datebox({
+                    onSelect : function(){
+                        var start = $('#{$id_list.dailystat_start}').datebox('getValue');
+                        var end = $('#{$id_list.dailystat_end}').datebox('getValue');
+                        stock_ledger_grid.date_start(start,end,'change_end');
+                    }
+                });
+                $('#{$id_list.dailystat_end}').datebox({
+                    onSelect : function(){
+                        var start = $('#{$id_list.dailystat_start}').datebox('getValue');
+                        var end = $('#{$id_list.dailystat_end}').datebox('getValue');
+                        stock_ledger_grid.date_start(start,end,'change_start');
+                    }
+                });
+               /* var datagrid_id = stock_ledger_grid.params.datagrid.id;
+                $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+                    var page_size = $(this).datagrid('options').pageSize ;
+                    if (row.spec_no == '合计'){
+                        return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                    }
+                }});
+                $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+                    var rows = $(this).datagrid('getRows');
+                    var stat_fields = [
+                        'num',
+                        'total_cost',
+                        'price'
+                    ];
+                    var append_row = {};
+                    append_row['spec_no'] = '合计';
+                    StockinCollectTotalCompute(rows,stat_fields,append_row);
+                    $(this).datagrid('appendRow',append_row);
+                }});*/
+            });
+        });
+        /*function StockinCollectTotalCompute(page_rows,arr_fields,append_row){
+            var rows = page_rows;
+            for(var index in arr_fields){
+                var field = arr_fields[index];
+                append_row[field] = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    append_row[field] += parseFloat(rows[i][field]);
+                }
+                append_row[field] = append_row[field].toFixed(4);
+            }
+        }*/
+    </script>
+</block>
+<block name="tabs">
+</block>

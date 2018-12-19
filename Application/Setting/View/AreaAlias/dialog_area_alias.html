@@ -1,0 +1,64 @@
+<style> .five-width {display: inline-block; width: 74px;text-align: right;} </style>
+<form  id="{$id_list.form_id}" style="padding-top: 10px">
+<div class="form-div">
+<label class="five-width">物流公司：</label><select class="easyui-combobox sel" name="logistics_id"><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+</div>
+<div class="form-div">
+<label class="five-width">　　　省：</label><input id="alias-province" class="easyui-combobox txt" name="province_id" data-options="required:true"/>
+<label>　　　市：</label><input id="alias-city" class="easyui-combobox txt" name="city_id" data-options="required:true"/>
+</div>
+<div class="form-div">
+<label class="five-width">　　　区：</label><input id="alias-district" class="easyui-combobox txt" name="district_id" data-options="required:true"/>
+<label>地区别名：</label><input class="easyui-textbox txt" name="alias_name" data-options="required:true"/>
+</div>
+<div class="from-div">
+<label style="color: blue; margin-left: 20px;" >#设置成功后，订单如果使用以上<span style="color:red">物流公司</span>，并且<span style="color:red">收件地址</span>符合以上设置地址#<br></label>
+<label style="color: blue; margin-left: 20px;" >#则该订单的<span style="color:red">大头笔</span>使用以上设置的地区别名#</label>
+</div>
+<script type="text/javascript">
+//# sourceURL=edit.logistics_area_alias.js
+$(function () { 
+	setTimeout(function () { 
+		initAlias();
+	}, 0); 
+});
+function getLogisticsAreaAlias(){
+	var form=$('#{$id_list.form_id}');
+	if(!form.form('validate')){ return false;}
+	var data={};
+	data['info']=form.form('get');
+	return data;
+}
+function initAlias(){
+	var alias=JSON.parse('{$alias}');
+	$('#{$id_list.form_id}').form('filterLoad',alias);
+	var postageArea = new area("alias-province", "alias-city", "alias-district",{province:alias.province_id,city:alias.city_id,district:alias.district_id}); 
+	var prov_data=postageArea.selfP.combobox("getData"); prov_data[0]={"id": "0", "name": "全国"}; postageArea.selfP.combobox("loadData", prov_data);
+}
+//submit-提交数据
+areaAlias.submitEditDialog=function(){
+	var data=getLogisticsAreaAlias();
+	if(data==false){return;}
+	data.id='{$id}';
+	$.post("{:U('AreaAlias/editAreaAlias')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+areaAlias.params.edit.id).dialog('close');
+			areaAlias.refresh();
+		}
+	},"JSON");
+}
+areaAlias.submitAddDialog=function(){
+	var data=getLogisticsAreaAlias();
+	if(data==false){return;}
+	$.post("{:U('AreaAlias/addAreaAlias')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+areaAlias.params.add.id).dialog('close');
+			areaAlias.refresh();
+		}
+	},"JSON");
+}
+</script>

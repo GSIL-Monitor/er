@@ -1,0 +1,594 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label style="width: 80px;">退货单号：</label><input class="easyui-textbox txt" type="text" name="search[return_no]" style="width: 130px;"/>
+                <label style="width: 80px;">　供应商：</label><select class="easyui-combobox sel" name="search[provider_id]" data-options="editable:false " style="width: 130px;">
+                <volist name='provider_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label style="width: 80px;">退货单状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('purchase_return_status')" />
+                <label style="width: 80px;">　出货仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false " >
+                <volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="purchaseReturnManagement.submitSearchForm();">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="purchaseReturnManagement.loadFormData();">重置</a>
+            </div>
+            <!--<div class="form-div">-->
+                <!---->
+            <!--</div>-->
+        </form>
+        <input type="hidden" id="{$id_list.hidden_flag}" value="1">
+        　 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick = "purchaseReturnManagement.edit()";>编辑</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick = "purchaseReturnManagement.submitPurchaseReturn()";>审核</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="purchaseReturnManagement.revertCheck()">驳回审核</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick = "purchaseReturnManagement.cancelPurchaseReturn()";>取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" name="purchase_return_print" data-options="iconCls:'icon-print',plain:true" >打印</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick = "purchaseReturnManagement.send()";>推送</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick = "purchaseReturnManagement.cancel_po()";>取消委外单</a>
+        <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="purchaseReturnManagement.uploadDialog()">采购导入</a>-->
+        <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="purchaseReturnManagement.downloadTemplet()">下载模板</a>-->
+
+
+    </div>
+    <script>
+        //# sourceURL = purchaseReturnManagement.js
+        var purchasereturnWs;
+        $(function(){
+            setTimeout(function(){
+                var toolbar_id = '{$id_list.toolbar}';
+                var element_selectors ={
+                    'purchase_return_print'           : $('#'+toolbar_id+" a[name='purchase_return_print']"),
+                };
+                purchaseReturnManagement = new RichDatagrid(JSON.parse('{$params}'));
+                purchaseReturnManagement.setFormData();
+                purchaseReturnManagement.element_selectors = element_selectors;
+                purchaseReturnManagement.edit = function(){
+                    var data = $('#'+this.params.datagrid.id).datagrid('getSelected');
+                    if(data == null){
+                        messager.alert('请先选择行！');
+                        return ;
+                    }
+                    var status = data.status;
+                    if(status != 20 && status != 43){
+                        messager.alert('采购退货单状态不正确,只能编辑退货单状态是编辑中的订单！');
+                        return ;
+                    }
+                    purchaseReturnManagement.showDialog(this.params.edit.id,this.params.edit.title,this.params.edit.url+"?id="+data.id+'&management_info='+'{"dialog_id":"'+this.params.edit.id+'","datagrid_id":"'+purchaseReturnManagement.params.datagrid.id+'"}',550,1250,[])
+
+
+                }
+                purchaseReturnManagement.submitPurchaseReturn = function(){
+                    var that = this;
+                    var rows = $('#'+that.params.datagrid.id).datagrid('getSelected');
+                    if(rows == null){
+                        messager.alert('请先选择行！');
+                        return;
+                    }
+                    var status = rows.status;
+                    if(status != 20){
+                        messager.alert('采购退货单状态不正确,只能审核采购退货单状态是编辑中的订单！');
+                        return;
+                    }
+                    messager.confirm('确定审核采购退货单?',function(r){
+                        if(r){
+                            $.post('{:U("Purchase/PurchaseReturnManagement/submitPurchaseReturn")}',{'id':rows.id},function(data){
+                                switch(data.status){
+                                    case 1:
+                                        messager.alert(data.info);
+                                        break;
+                                    case 0:
+                                        var index = $('#'+that.params.datagrid.id).datagrid('getRowIndex',rows);
+                                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:index,row:{status:40,}});
+                                        break;
+                                    default :
+                                        messager.alert('系统错误,请联系管理员');
+                                }
+                            });
+                        }
+                    });
+                }
+                purchaseReturnManagement.cancelPurchaseReturn = function(){
+                    var that = this;
+                    var data = $('#'+this.params.datagrid.id).datagrid('getSelected');
+                    if(data == null){
+                        messager.alert('请先选择行！');
+                        return ;
+                    }
+                    if(data.status!=20){
+                        messager.alert('只能取消编辑中的采购退货单！');
+                        return ;
+                    }
+                    var id = data.id;
+                    messager.confirm('确定取消采购退货单',function(r){
+                        if(r){
+                            $.post("{:U('Purchase/PurchaseReturnManagement/cancelPurchaseReturn')}",{'id':id},function(r){
+                                switch(r.status){
+                                    case 1:
+                                        messager.alert(r.info);
+                                        break;
+                                    case 0:
+                                        var index = $('#'+that.params.datagrid.id).datagrid('getRowIndex',data);
+                                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:index,row:{status:10,}});
+                                        break;
+                                    default :
+                                        messager.alert('系统错误,请联系管理员');
+                                }
+                            });
+                        }
+                    });
+                }
+                purchaseReturnManagement.send = function(){
+                    var that = this;
+                    var data = $('#'+this.params.datagrid.id).datagrid('getSelections');
+                    var selects_info = {};
+                    var resultBeforeCheck = [];
+                    if($.isEmptyObject(data)){
+                        messager.alert("请选择操作的行!");
+                        return;
+                    }
+                    for(var item in data){
+                        var temp_result = {'result':'推送失败'};
+                        if(data[item]['status']!=42 && data[item]['status']!=44){
+                            temp_result['message'] = "不是待推送或推送失败的单子";
+                            resultBeforeCheck.push(temp_result);
+                            continue;
+                        }
+                        var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',data[item]);
+                        selects_info[temp_index] = data[item].id;
+                    }
+                    if($.isEmptyObject(selects_info)){
+                        $.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(purchaseReturnManagement){purchaseReturnManagement.refresh();}}});
+                        return;
+                    }
+                    messager.confirm('确定推送采购退货单吗？',function(r){
+                        if(r){
+                            $.post("{:U('Purchase/PurchaseReturnManagement/send')}",{ids:JSON.stringify(selects_info)},function(r){
+                                r = JSON.parse(r);
+                                for(var k in r){
+                                    if(k == 'updated'){messager.alert('推送成功');}
+                                    else if(k == 'error'){messager.alert(r[k]);}
+                                    else{
+                                        var resultBeforeCheck =  r[1];
+                                        $.fn.richDialog("response", resultBeforeCheck, "wms",'');
+                                        break;
+                                    }
+                                }
+                                purchaseReturnManagement.refresh();
+                            });
+                        }
+                    });
+                }
+				
+				purchaseReturnManagement.cancel_po = function(){
+					var that = this;
+					var data = $('#'+this.params.datagrid.id).datagrid('getSelections');
+					var resultBeforeCheck = [];
+					var selects_info = {};
+					if($.isEmptyObject(data)){
+						messager.alert("请选择操作的行!");
+						return;
+					}
+					for(var item in data){	
+						 var temp_result = {'result':'取消失败'};
+						if(data[item]['status']!=46 && data[item]['status']!=42){
+							temp_result['message'] = "不是已推送或待推送的订单";
+							resultBeforeCheck.push(temp_result);
+							continue;
+						}
+						var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',data[item]);
+						selects_info[temp_index] = data[item].id;
+					}
+					if($.isEmptyObject(selects_info)){
+						$.fn.richDialog("response", resultBeforeCheck, "importResponse_suite",{close:function(){if(purchaseReturnManagement){purchaseReturnManagement.refresh();}}});
+						return;
+					}
+					messager.confirm('确定取消采购退货委外单吗？',function(r){
+						if(r){
+							$.post("{:U('Purchase/PurchaseReturnManagement/cancel_po')}",{ids:JSON.stringify(selects_info)},function(r){
+								/*switch (r.status){
+									case 0:
+										messager.alert(r.info);
+										break;
+									case 1:
+										messager.alert(r.info);
+										break;
+									default :
+										messager.alert("系统错误，请与管理员联系！");
+								}*/
+								r = JSON.parse(r);
+								for(var k in r){
+								if(k == 'updated'){messager.alert('取消成功');}
+								else if(k == 'error'){messager.alert(r[k]);}
+								else{
+									var resultBeforeCheck =  r[1];
+									$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+									break;
+								}
+								}
+							});
+							purchaseReturnManagement.refresh();
+						}
+					});
+				}
+                purchaseReturnManagement.uploadDialog = function(){
+                    var dialog = $("#{$id_list.file_dialog}");
+                    dialog.dialog({
+                        title : '采购退货导入',
+                        width :'350px',
+                        height : '160px',
+                        modal : true,
+                        closed : false,
+                        inline : true,
+                        iconCls: 'icon-save',
+                    });
+                }
+
+                purchaseReturnManagement.upload = function(){
+                    var form = $("#{$id_list.file_form}");
+                    var dg = $("#{$id_list.datagrid}");
+                    var dialog = $("#{$id_list.file_dialog}");
+                    var url = "{:U('Purchase/PurchaseReturnManagement/upload')}";
+                    $.messager.progress({
+                        title : "请稍等",
+                        msg : '该操作可能需要几分钟，请稍等',
+                        text :'',
+                        interval:100
+                    });
+                    form.form("submit",{
+                        url:url,
+                        success:function(r){
+                            $.messager.progress('close');
+                            r = JSON.parse(r);
+                            if(r.status == 1){
+                                messager.alert(r.msg);
+                            }else if(r.status == 0){
+                                dg.datagrid('reload');
+                                dialog.dialog('close');
+                            }else{
+                                $.fn.richDialog('response',r.data,"importResponse");
+                            }
+                            form.form("load", {"file": ""});
+                        },
+
+                    });
+                }
+
+                purchaseReturnManagement.downloadTemplet = function(){
+                    var url= "{:U('Purchase/PurchaseReturnManagement/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                };
+                purchaseReturnManagement.revertCheck = function(){
+                    var that = this;
+                    var rows = $('#'+that.params.datagrid.id).datagrid('getSelected');
+                    if(rows == null){
+                        messager.alert('请先选择行！');
+                        return;
+                    }
+                    var status = rows.status;
+                    if(status != 40){
+                        messager.alert('采购退货单状态不正确,只能驳回退货单状态是已审核的订单！');
+                        return;
+                    }
+                    messager.confirm('确定驳回采购退货单?',function(r){
+                        if(r){
+                            $.post('{:U("Purchase/PurchaseReturnManagement/revertCheck")}',{'id':rows.id},function(data){
+                                switch(data.status){
+                                    case 1:
+                                        messager.alert(data.info);
+                                        break;
+                                    case 0:
+                                        var index = $('#'+that.params.datagrid.id).datagrid('getRowIndex',rows);
+                                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:index,row:{status:20,}});
+                                        break;
+                                    default :
+                                        messager.alert('系统错误,请联系管理员');
+                                }
+                            });
+                        }
+                    });
+                }
+
+                purchaseReturnManagement.printPurchaseReturnDialog = function(){
+                    var that = this;
+                    var rows = $('#'+that.params.datagrid.id).datagrid('getSelections');
+                    if($.isEmptyObject(rows)){
+                        messager.alert('请先选择需要打印的行!');
+                        return false;
+                    }
+                    var ids = "";
+                    for(var i in rows){
+                        ids += rows[i].id + ",";
+                    }
+                    ids = ids.substr(0,ids.length-1);
+                    var print_dialog = '{$id_list.print_dialog}';
+                    Dialog.show('{$id_list.print_dialog}','打印采购退货单',"{:U('Purchase/purchaseReturnManagement/printPurchase')}?ids="+ids,190,350,[{text:"取消",handler:function(){$('#'+print_dialog).dialog('close');}}]);
+
+                }
+                purchaseReturnManagement.newSelectPrinter = function(){
+//                    this.connectStockWS();
+                    var request = {
+                        "cmd":"getPrinters",
+                        "requestID":"123458976"+"99",
+                        "version":"1.0",
+                    }
+                    purchasereturnWs.send(JSON.stringify(request));
+                }
+                purchaseReturnManagement.printerSetting = function(){
+                    this.connectStockWS();
+                    var request = {
+                        "cmd":"printerConfig",
+                        "requestID":"123458976",
+                        "version":"1.0",}
+                    purchasereturnWs.send(JSON.stringify(request));
+                }
+                purchaseReturnManagement.connectStockWS = function(){
+                    if(purchasereturnWs == undefined){
+                        purchasereturnWs = new WebSocket("ws://127.0.0.1:13528");
+                        purchasereturnWs.onmessage = function(event){purchaseReturnManagement.onStockMessage(event);};//this.onStockMessage;
+                        purchasereturnWs.onerror = function(){purchaseReturnManagement.onStockError();};//this.onStockError;
+                    }
+                    return ;
+                }
+                purchaseReturnManagement.onStockMessage = function(event){
+                    var response_result =JSON.parse(event.data);
+                    if(!$.isEmptyObject(response_result.status) && response_result.status != 'success'){
+                        messager.alert(response_result.msg);
+                        return;
+                    }
+                    if(!$.isEmptyObject(response_result))
+                    {
+                        switch(response_result.cmd){
+                            case 'getPrinters':/*打印机列表命令*/
+                            {
+                                var type = response_result.requestID;
+                                type = type.substr(type.length-2,type.length);
+                                if(type == 99){
+                                    purchaseReturnManagement.element_selectors.printer_list.combobox({
+                                        valueField: 'name',
+                                        textField: 'name',
+                                        data: response_result.printers,
+                                        value: response_result.defaultPrinter
+                                    });
+                                    purchaseReturnManagement.element_selectors.printer_list.combobox('reload');
+                                }
+                                break;
+                            }
+                            case 'print':
+                            {
+                                var taskID = response_result.taskID+"";
+                                taskID = taskID.substr(taskID.length-3,taskID.length);
+                                if(taskID==231)
+                                {
+                                    var preview;
+                                    preview = response_result.previewURL;
+                                    if(!$.isEmptyObject(preview))
+                                        window.open(response_result.previewURL);
+                                    preview = response_result.previewImage;
+                                    if(!$.isEmptyObject(preview)&&(preview.length != 0))
+                                        window.open(response_result.previewImage[0]);
+                                }
+                                break;
+                            }
+                            case 'notifyPrintResult':
+                            {
+                                if(response_result.taskStatus == "printed"){
+                                    var type = response_result.taskID;
+                                    type = type.substr(type.length-2,type.length);
+                                    if(type==13){
+                                        messager.alert("采购单打印完成");
+                                        $('#print_purchase_return').linkbutton({text:'打印',disabled:false});
+                                    }
+                                    $("#{$id_list.print_dialog}").dialog('close');
+                                }else if(response_result.taskStatus == "failed"){
+                                    messager.alert("打印失败");
+                                    $('#print_purchase_return').linkbutton({text:'打印',disabled:false});
+                                }
+                                //$.messager.progress('close');
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                purchaseReturnManagement.onStockError = function(){
+                    $('#print_purchase_return').linkbutton({text:'打印',disabled:false});
+                    purchasereturnWs = null;
+                    var print_dialog = '{$id_list.print_dialog}';
+                    $('#'+print_dialog).dialog({
+                        title: '打印组件错误',
+                        width: 400,
+                        height: 200,
+                        closed: false,
+                        cache: false,
+                        href:  "{:U('Stock/StockSalesPrint/onWSError')}",
+                        modal: true
+                    });
+                }
+                purchaseReturnManagement.onPrinterSelect = function(printer_name){
+                    var templateId = purchaseReturnManagement.element_selectors.template_list.combobox('getValue');
+                    var contents = purchaseReturnManagement.template_contents;
+                    var content = contents[templateId];
+                    if(content.defaultPrinter != undefined && content.default_printer == printer_name)
+                        return;
+                    else
+                        messager.confirm("您确定把\""+printer_name+"\"设置为此模板的打印机么？",function(r){
+                            if(r){
+                                purchaseReturnManagement.setDefaultPrinter(content,printer_name,templateId);
+                            }
+                        });
+                }
+                purchaseReturnManagement.setDefaultPrinter = function(content,printor,templateId){
+                    content = JSON.parse(content);
+                    content.default_printer = printor;
+                    $.post("{:U('Goods/GoodsBarcodePrint/setDefaultPrinter')}",{content:JSON.stringify(content),templateId:templateId},function(ret){
+                        if(1 == ret.status){
+                            messager.alert(ret.msg);
+                        }else {
+                            purchaseReturnManagement.template_contents[templateId] = JSON.stringify(content);
+                        }
+                    });
+                }
+                purchaseReturnManagement.changeTemplatePage = function(){
+                    open_menu('打印模板','{:U("Setting/NewPrintTemplate/getNewPrintTemplate")}');
+                    $('#{$id_list.print_dialog}').dialog('close');
+                }
+                purchaseReturnManagement.previewPurchaseOrder = function(){
+                    //var that = this;
+                    var templateId = purchaseReturnManagement.element_selectors.template_list.combobox('getValue');
+                    if(templateId == ""){
+                        messager.alert("预览错误：没有选择模板，请到模板列表页面下载模板");
+                        $("#{$id_list.print_dialog}").dialog('close');
+                        return ;
+                    }
+                    var contents = purchaseReturnManagement.template_contents;
+                    var datas = this.getPurchaseOrderData(contents,templateId);
+                    if(datas === false){
+                        return;
+                    }
+                    this.connectStockWS();
+                    //var requestID =  parseInt(1000*Math.random());
+                    var requestID =  (new Date()).valueOf();
+                    var request = {
+                        'cmd' : 'print',
+                        'version' : '1.0',
+                        'requestID' : requestID,
+                        'task' : {
+                            'taskID' : requestID+''+'231',
+                            'printer' : "",
+                            'preview' : true,
+                            'previewType' : 'pdf',
+                            'documents' : datas
+                        }
+                    };
+                    purchasereturnWs.send(JSON.stringify(request));
+                }
+                purchaseReturnManagement.printPurchaseReturn = function(){
+                    var rows = $('#'+purchaseReturnManagement.params.datagrid.id).datagrid('getSelections');
+                    if($.isEmptyObject(rows)){
+                        messager.alert('请先选择需要打印的行!');
+                        return false;
+                    }
+                    var printer = purchaseReturnManagement.element_selectors.printer_list.combobox('getValue');
+                    var templateId = purchaseReturnManagement.element_selectors.template_list.combobox('getValue');
+                    if(templateId == ""){
+                        messager.alert("没有选择模板，请到模板列表页面下载模板");
+                        $("#{$id_list.print_dialog}").dialog('close');
+                        return ;
+                    }
+                    var contents = purchaseReturnManagement.template_contents;
+                    var datas = this.getPurchaseOrderData(contents,templateId);
+                    if(datas === false){
+                        return;
+                    }
+                    var id_list = '';
+                    for(var i=0; i<rows.length;i++){
+                        id_list += rows[i].id + ',';
+                    }
+                    id_list = id_list.substr(0,id_list.length-1);
+                    $('#print_purchase_return').linkbutton({text:'打印中...',disabled:true});
+                    $.post('{:U("Purchase/purchaseReturnManagement/printPurchaseReturnLog")}',{'ids':id_list});
+                    this.connectStockWS();
+                    //var requestID =  parseInt(1000*Math.random());
+                    var requestID =  (new Date()).valueOf();
+                    var request = {
+                        'cmd' : 'print',
+                        'version' : '1.0',
+                        'requestID' : requestID,
+                        'task' : {
+                            'taskID' : requestID +''+'13',
+                            'printer' : printer,//'',
+                            'preview' : false,
+                            'notifyMode':'allInOne',
+                            'documents' : datas
+                        }
+                    };
+                    purchasereturnWs.send(JSON.stringify(request));
+                }
+                purchaseReturnManagement.getPurchaseOrderData = function(contents,templateId){
+                    contents = JSON.parse(contents[templateId]);
+                    var templateURL = contents.custom_area_url;
+                    var rows = $('#'+purchaseReturnManagement.params.datagrid.id).datagrid('getSelections');
+                    var purchase_derail =  getPurchaseGoodsDetail();
+                    if($.isEmptyObject(rows)){
+                        messager.alert('请先选择需要打印的行!');
+                        return false;
+                    }
+                    var datas = [],row;
+                    var now_date = new Date();
+                    var now_millisecond = now_date.getTime();
+                    var ID = 0;
+                    for (var j = 0; j < rows.length; ++j){
+                        row = rows[j];
+                        ID++;
+                        datas.push({
+                            'documentID' : now_millisecond.toString().concat(ID.toString()),
+                            'contents' : [
+                                {
+                                    'templateURL' : templateURL,
+                                    'data' : {
+                                        purchaseorder :{
+                                            purchase_no : $.isEmptyObject(row.return_no)?'无':row.return_no,
+                                            creator_name   : $.isEmptyObject(row.creator_name)?'无':row.creator_name,
+                                            purchaser_name : $.isEmptyObject(row.purchaser_name)?'无':row.purchaser_name,
+                                            provider_name : $.isEmptyObject(row.provider_name)?'无':row.provider_name,
+                                            provider_mobile : $.isEmptyObject(row.provider_mobile)?'无':row.provider_mobile,
+                                            provider_address : $.isEmptyObject(row.provider_address)?'无':row.provider_address,
+                                            warehouse_name : $.isEmptyObject(row.warehouse_name)?'无':row.warehouse_name,
+                                            warehouse_contact : $.isEmptyObject(row.warehouse_contact)?'无':row.warehouse_contact,
+                                            warehouse_telno : $.isEmptyObject(row.warehouse_telno)?'无':row.warehouse_telno,
+                                            warehouse_address : $.isEmptyObject(row.warehouse_address)?'无':row.warehouse_address,
+                                            goods_count : $.isEmptyObject(row.goods_count)?'无':row.goods_count,
+                                            goods_fee : $.isEmptyObject(row.goods_fee)?'无':row.goods_fee,
+                                            goods_type_count : $.isEmptyObject(row.goods_type_count)?'无':row.goods_type_count,
+                                            logistics_type : $.isEmptyObject(row.logistics_type)?'无':row.logistics_type,
+                                            post_fee : $.isEmptyObject(row.post_fee)?'无':row.post_fee,
+                                            other_fee : $.isEmptyObject(row.other_fee)?'无':row.other_fee,
+                                            remark : $.isEmptyObject(row.remark)?'无':row.remark,
+                                            //tax_fee : $.isEmptyObject(row.tax_fee)?'无':row.tax_fee,
+                                            check_name : $.isEmptyObject(row.check_name)?'无':row.check_name,
+                                            check_time : $.isEmptyObject(row.check_time)?'无':row.check_time,
+                                            created : $.isEmptyObject(row.created)?'无':row.created,
+                                            modified : $.isEmptyObject(row.modified)?'无':row.modified,
+                                            print_date : now_date.getFullYear()+"-"+(now_date.getMonth()+1)+"-"+now_date.getDate()+" "+now_date.getHours()+":"+now_date.getMinutes()+":"+now_date.getSeconds(),
+                                        },
+                                        purchasedetail:purchase_derail[row.id]
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                    return datas;
+                }
+
+                element_selectors.purchase_return_print.linkbutton({onClick:function(){
+                    purchaseReturnManagement.printPurchaseReturnDialog();
+                }});
+            },0);
+        });
+
+    </script>
+</block>
+<block name="dialog">
+    <div id="{$id_list.edit}">
+    </div>
+    <div id="{$id_list.print_dialog}"></div>
+    <div id="{$id_list.file_dialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.file_form}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="purchaseReturnManagement.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>

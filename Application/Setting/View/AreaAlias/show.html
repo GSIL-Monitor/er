@@ -1,0 +1,57 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label>物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>省：</label><input id="logistics-alias-province" class="easyui-combobox txt" name="search[province_id]"/>
+<label>市：</label><input id="logistics-alias-city" class="easyui-combobox txt" name="search[city_id]"/>
+<label>区：</label><input id="logistics-alias-district" class="easyui-combobox txt" name="search[district_id]"/>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="areaAlias.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="areaAlias.resetForm();">重置</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</label>
+</div>
+</form>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="areaAlias.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="areaAlias.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="areaAlias.remove()">删除</a>
+<label style="color: blue;margin-left: 30px;" >#地区别名即<span style="color:red">大头笔</span>，用户可以自定义设置某个<span style="color:red">物流公司</span>的某一地址使用的<span style="color:red">大头笔</span>#</label>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		var logisticsArea=getLogisticsArea();
+		areaAlias=new RichDatagrid(JSON.parse('{$params}')); 
+		areaAlias.setFormData();
+		areaAlias.resetForm=function(){
+			areaAlias.loadFormData();
+			logisticsArea.selfP.combobox("setValue", 0);
+			logisticsArea.selfC.combobox("loadData", logisticsArea.getArea("city", 0, 1));
+			logisticsArea.selfC.combobox("setValue", 0);
+			logisticsArea.selfD.combobox("loadData", logisticsArea.getArea("district", 0, 1));
+			logisticsArea.selfD.combobox("setValue", 0);
+		}
+	}, 0); 
+});
+function formatterLogisticsArea(value, row, index){
+	var path='';
+	if(!!value){
+		var map=value.split('#')[1].split(',');
+		if(!map[1]){map[1]=0;};
+		if(!map[2]){map[2]=0;}
+		if(!map[3]){map[3]=0;}
+		path+=(map[1]==0?'全国':area.province(map[1]))+' '+area.city(map[2])+' '+area.district(map[3]);
+	}
+	return path;
+}
+function getLogisticsArea(){
+	var logisticsArea = new area("logistics-alias-province", "logistics-alias-city", "logistics-alias-district"); 
+	var prov_data=logisticsArea.selfP.combobox("getData"); prov_data[0]={"id": "0", "name": "全国"}; logisticsArea.selfP.combobox("loadData", prov_data);
+	return logisticsArea;
+}
+</script>
+</block>
+<block name="tabs"></block>

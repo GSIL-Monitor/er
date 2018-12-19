@@ -1,0 +1,132 @@
+[ 2017-08-27T18:31:12+08:00 ] 127.0.0.1 /index.php/stock/stock_trans_management/upload.html
+DEBUG: 导入数据提示:Array
+(
+    [0] => Array
+        (
+            [spec_no] => sstest3
+            [warehouse_name] => 默默爱北京仓库
+            [to_position_no] => ZANCUN
+            [line] => 2
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+    [1] => Array
+        (
+            [spec_no] => SWC-hppc-8
+            [warehouse_name] => 默默爱北京仓库
+            [to_position_no] => ZANCUN
+            [line] => 3
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+    [2] => Array
+        (
+            [spec_no] => green
+            [warehouse_name] => 0417测试库
+            [to_position_no] => 货位2
+            [line] => 4
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+)
+
+[ 2017-08-27T18:31:12+08:00 ] 127.0.0.1 /index.php/stock/stock_trans_management/upload.html
+DEBUG: 导入数据验证:Array
+(
+    [0] => Array
+        (
+            [spec_no] => sstest3
+            [warehouse_name] => 默默爱北京仓库
+            [to_position_no] => ZANCUN
+            [line] => 2
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+    [1] => Array
+        (
+            [spec_no] => SWC-hppc-8
+            [warehouse_name] => 默默爱北京仓库
+            [to_position_no] => ZANCUN
+            [line] => 3
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+    [2] => Array
+        (
+            [spec_no] => green
+            [warehouse_name] => 0417测试库
+            [to_position_no] => 货位2
+            [line] => 4
+            [status] => 0
+            [message] => 
+            [result] => 成功
+        )
+
+)
+
+[ 2017-08-27T18:31:12+08:00 ] 127.0.0.1 /index.php/stock/stock_trans_management/upload.html
+DEBUG: 导入临时表的数据:Array
+(
+    [0] => Array
+        (
+            [rec_id] => 1
+            [spec_no] => sstest3
+            [from_position_id] => 
+            [to_position_no] => ZANCUN
+            [to_position_id] => 
+            [warehouse_name] => 默默爱北京仓库
+            [stock_num] => 
+            [warehouse_id] => 
+            [spec_id] => 
+            [status] => 0
+            [line] => 2
+            [message] => 
+            [result] => 成功
+        )
+
+    [1] => Array
+        (
+            [rec_id] => 2
+            [spec_no] => SWC-hppc-8
+            [from_position_id] => 
+            [to_position_no] => ZANCUN
+            [to_position_id] => 
+            [warehouse_name] => 默默爱北京仓库
+            [stock_num] => 
+            [warehouse_id] => 
+            [spec_id] => 
+            [status] => 0
+            [line] => 3
+            [message] => 
+            [result] => 成功
+        )
+
+    [2] => Array
+        (
+            [rec_id] => 3
+            [spec_no] => green
+            [from_position_id] => 
+            [to_position_no] => 货位2
+            [to_position_id] => 
+            [warehouse_name] => 0417测试库
+            [stock_num] => 
+            [warehouse_id] => 
+            [spec_id] => 
+            [status] => 0
+            [line] => 4
+            [message] => 
+            [result] => 成功
+        )
+
+)
+

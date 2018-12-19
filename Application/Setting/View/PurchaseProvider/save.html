@@ -1,0 +1,118 @@
+<table id="{$mark}_purchaseprovider_datagrid"></table>
+<div id="purchaseprovider_{$mark}_dialog_toolbar">
+    <form id="purchaseprovider_{$mark}_dialog_form" method="post">
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">名&nbsp;&nbsp;&nbsp;称</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="provider_name"
+                   value="{$form.provider_name}"
+                   style="width:150px;"
+                   data-options="required:true,validType:'chineseOrEngOrNum'"
+                   missingMessage="不能为空"/>
+            <label style="width: 60px;display: inline-block;">手机号</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="mobile"
+                   value="{$form.mobile}"
+                   style="width:150px;"
+                   data-options="validType:'mobile'"/>
+
+        </div>
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">联系人</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="contact"
+                   value="{$form.contact}"
+                   style="width:150px;"
+                   data-options="validType:'chineseOrEngOrNum'"
+            />
+            <label style="width: 60px;display: inline-block;">座&nbsp;&nbsp;&nbsp;机</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   value="{$form.telno}"
+                   name="telno"
+                   style="width:150px;"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">旺&nbsp;&nbsp;&nbsp;旺</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="wangwang"
+                   value="{$form.wangwang}"
+                   style="width:150px;"
+                   data-options="validType:'englishOrNum'"
+                   invalidMessage="请输入英文或数字"
+                   missingMessage="不能为空"/>
+                    <label style="width: 60px;display: inline-block;">地&nbsp;&nbsp;&nbsp;址</label>
+                    <input class="easyui-textbox"
+                           type="text"
+                           name="address"
+                           value="{$form.address}"
+                           style="width:150px;"
+                           data-options="validType:'chineseOrEngOrNum'"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 63px;display: inline-block;">省&nbsp;&nbsp;&nbsp;份</label><select class="easyui-combobox sel" style="width:150px;" name="province"  id="{$dialog_list.province}" data-options="panelHeight:'200', editable:false,required:true,validType:'cfg_warehouse_address'" > </select>
+            <label style="width: 63px;display: inline-block;">城&nbsp;&nbsp;&nbsp;市</label><select class="easyui-combobox sel" style="width:150px;" name="city"      id="{$dialog_list.city}"     data-options="panelHeight:'200',   editable:false,required:true,validType:'cfg_warehouse_address'" > </select>
+        </div>
+        <div class="form-div">
+            <label style="width: 63px;display: inline-block;">区&nbsp;&nbsp;&nbsp;县</label><select class="easyui-combobox sel" style="width:150px;" name="district"  id="{$dialog_list.district}" data-options="editable:false" > </select>
+            <label   style="width:60px;display: inline-block;">备&nbsp;&nbsp;&nbsp;注</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   value="{$form.remark}"
+                   name="remark"
+                   style="width:150px;"/>
+        </div>
+        <div class="form-div">
+			<label style="width: 63px;display: inline-block;">供应商分组</label><select class="easyui-combobox sel"  value='{$form.provider_group_id}' id = '{$mark}_provider_group_id' style="width:150px;" name="provider_group_id" data-options="editable:false" ><volist name='group' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist>  </select>
+            <label style="width: 60px;display: inline-block;">是否停用</label>
+            <input id="purchase_provider_{$mark}_is_disabled" value='{$form[is_disabled]}' type="checkbox" name="is_disabled" />
+        </div>
+    </form>
+</div>
+<script>
+	//# sourceURL=purchase_save.js
+    var dialog_list     = JSON.parse('{$dialog_list_json}');
+    var provider_info = {$provider_info};
+    var operator_object ={};
+    setTimeout(function () {
+
+        if($.isEmptyObject(provider_info)){
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district);
+        }else {
+			$("#{$mark}_provider_group_id").combobox('setValue',{$form.provider_group_id});
+            var area_code = area.area_id(provider_info);
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district,area_code);
+        }
+        purchaseprovider.initPurchaseProviderCheckbox("purchase_provider_{$mark}_is_disabled");
+        purchaseprovider.submitEditDialog = purchaseprovider.submitAddDialog = function() {
+            var form=$("#purchaseprovider_{$mark}_dialog_form");
+            if(!form.form('validate')){return;}
+            var data = form.form('get'); data.type = "{$mark}"; data.id=0;
+            if(data.type=='edit'){
+                var row=$("#purchaseprovider_datagrid").datagrid('getSelected');
+                if(!row){messager.info('请选择操作的行！');return;}
+                data.id=row.id;
+            }
+            var post_url='';
+            var address_name_json = operator_object.address_object.getText();
+            data.province = address_name_json.province;
+            data.city = address_name_json.city;
+            data.district = address_name_json.district;
+            if('edit'=='{$mark}'){
+                post_url="{:U('Setting/PurchaseProvider/editPurchaseProvider')}";
+            }else{
+                post_url="{:U('Setting/PurchaseProvider/addPurchaseProvider')}";
+            }
+            $.post(post_url,data,function(res){
+                res=JSON.parse(res);
+                if(res.status==1){messager.alert(res.info);return;}
+                purchaseprovider.refresh();
+                $("#purchaseprovider_{$mark}").dialog('close');
+            });
+        }
+    }, 0);
+</script>

@@ -1,0 +1,37 @@
+<div style="margin-top:15px; margin-left:2px;">
+<div><span><label for="printer_list" style="margin-left:15px;margin-right:2px;">打&nbsp印&nbsp机：&nbsp</label></span>
+    <input id="printer_list" class="easyui-combobox" data-options="width:161,onSelect:function(res){onPrinterSelect(res.name,'logistics');}"/>
+</div>
+<div style="margin-top:10px;margin-left:10px">
+    <label style="margin-left:5px;margin-right:5px;">纸张宽度：</label><input id="paper_width" class="easyui-textbox txt" text="txt" name="paper_width"><label style="margin-left:2px;margin-right:5px;">mm</label>
+</div>
+<div style="margin-top:10px;margin-left:10px">
+    <label style="margin-left:5px;margin-right:5px;">纸张高度：</label><input id="paper_height" class="easyui-textbox txt" text="txt" name="paper_height"><label style="margin-left:2px;margin-right:5px;">mm</label>
+</div>
+    <div style="margin-top:10px;margin-left:10px">
+        <label style="margin-left:5px;margin-right:5px;">设置成功后，请设置"纸张规格"为:letter</label>
+    </div>
+<script>
+
+    var printerListId = '';
+    if($("#stockSalesPrint_logistics_printer_list").length == 1){
+        printerListId = 'stockSalesPrint_logistics_printer_list';
+    }else if($("#stockSalesPrint_logistics_printer_lists").length == 1){
+        printerListId = 'stockSalesPrint_logistics_printer_lists';
+    }else if($("#stockSalesPrint_goods_printer_list").length ==1){
+        printerListId = 'stockSalesPrint_goods_printer_list';
+    }
+    var printers = $("#"+printerListId).combobox('getData');
+    var defaultPrinter = $("#"+printerListId).combobox('getValue');
+    $('#printer_list').combobox({
+        valueField: 'name',
+        textField: 'name',
+        data: printers,
+        value: defaultPrinter
+    });
+    $('#printer_list').combobox('reload');
+
+    getPrinterConfig();
+
+</script>
+</div>

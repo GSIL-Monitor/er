@@ -1,0 +1,1 @@
+a:7:{i:0;s:14:"logistics_type";i:1;s:14:"logistics_name";i:2;s:15:"logistics_regex";i:3;s:8:"modified";i:4;s:7:"created";s:3:"_pk";s:14:"logistics_type";s:5:"_type";a:5:{s:14:"logistics_type";s:11:"smallint(6)";s:14:"logistics_name";s:11:"varchar(64)";s:15:"logistics_regex";s:12:"varchar(255)";s:8:"modified";s:8:"datetime";s:7:"created";s:8:"datetime";}}

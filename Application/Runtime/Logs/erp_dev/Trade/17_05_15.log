@@ -1,0 +1,4 @@
+[ 2017-05-15T17:21:32+08:00 ] 127.0.0.1 /index.php/trade/trade_manual/addtrade.html
+ERR: SalesTrade-addTrade-map_trade_goods:SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'api_spec_name' at row 1
+[ 2017-05-15T17:22:02+08:00 ] 127.0.0.1 /index.php/trade/trade_manual/addtrade.html
+ERR: SalesTrade-addTrade-map_trade_goods:SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'api_spec_name' at row 1

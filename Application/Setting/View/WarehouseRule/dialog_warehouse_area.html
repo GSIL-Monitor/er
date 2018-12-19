@@ -1,0 +1,143 @@
+<taglib name="TagLib\EasyUI" />
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:540px;width:740px;">
+	<div data-options="region:'west',split:true" style="width:360px;overflow:hidden;">
+		<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+	</div>
+	<div data-options="region:'center',title:'覆盖范围'" style="height:520px;overflow:auto"> 
+		<ul id="area-tree"></ul>
+	</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=warehouse_area.js
+$(function(){
+	initAreaTree();
+	setTimeout(function(){
+		$("#{$datagrid.id}").datagrid('options').onClickRow=function(index,row){initWarehouseArea(row.id); }
+		$("#{$datagrid.id}").datagrid('options').onLoadSuccess=function(data){
+			if (data.total>0) {
+				$("#{$datagrid.id}").datagrid('selectRow',0);
+				// $('#area-tree').tree('options').onLoadSuccess=function(){
+				var row=$("#{$datagrid.id}").datagrid('getSelected');
+				initWarehouseArea(row.id);
+				// }
+			}
+		}
+	},0);
+});
+function initAreaTree(){
+	$('#area-tree').tree({cascadeCheck:true, checkbox:true, lines:true, });
+	var tree=$('#area-tree');
+	$.post("{:U('Setting/WarehouseRule/getAreaTree')}", {}, function(data){
+		tree.tree('loadData',data);
+		tree.tree('collapseAll');
+		tree.tree('expand',$('#area-tree>li>div'));
+	});
+}
+function initWarehouseArea(warehouse_id){
+	var tree=$('#area-tree');
+	$.post("{:U('Setting/WarehouseRule/getWarehouseAreaList')}", {warehouse_id:warehouse_id}, function(data){
+		tree.tree('uncheck',$('#area-tree>li>div'))
+		var area=tree.tree('getData',$('#area-tree>li>div'));
+		var areas=[];areas.push(area);
+		// setCheckTree(data,areas,0);
+		setCheckedTree(data,areas,tree);
+		// tree.tree('loadData',areas);
+		tree.tree('collapseAll');
+		tree.tree('expand',$('#area-tree>li>div'));
+	});
+}
+/*function setCheckTree(warehouses,areas,level){
+	for (var i=0; i<warehouses.length; i++) {
+		for (var j=0; j<areas.length; j++) {
+			if (warehouses[i].level==level&&(warehouses[i].province_id==areas[j].id||warehouses[i].city_id==areas[j].id||warehouses[i].district_id==areas[j].id)) {
+				areas[j].checked=true;break;
+			}else if((!!areas[j].children)&&areas[j].children.length>0) {
+				setCheckTree(warehouses,areas[j].children,level+1);
+			}
+		}
+	}
+}*/
+function setCheckedTree(warehouses,areas,tree){
+	for (var i=0; i<warehouses.length; i++) {
+		switch(parseInt(warehouses[i].level)){
+			case 0://全国
+				tree.tree('check',areas[0].target);return;
+				// areas[0].checked=true;return;
+			case 1://省
+				var p=getTreeIndexById(areas[0].children,warehouses[i].province_id);
+				tree.tree('check',areas[0].children[p].target);break;
+				// areas[0].children[p].checked=true;break;
+			case 2://市
+				var p=getTreeIndexById(areas[0].children,warehouses[i].province_id);
+				var c=getTreeIndexById(areas[0].children[p].children,warehouses[i].city_id);
+				tree.tree('check',areas[0].children[p].children[c].target);break;
+				// areas[0].children[p].children[c].checked=true;break;
+			case 3://区
+				var p=getTreeIndexById(areas[0].children,warehouses[i].province_id);
+				var c=getTreeIndexById(areas[0].children[p].children,warehouses[i].city_id);
+				var d=getTreeIndexById(areas[0].children[p].children[c].children,warehouses[i].district_id);
+				tree.tree('check',areas[0].children[p].children[c].children[d].target);break;
+				// areas[0].children[p].children[c].children[d].checked=true;break;
+		}
+	}
+}
+function getTreeIndexById(areas,id){
+	var index=0;
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].id==id) {index=i; break;}
+	}
+	return index;
+}
+function getCheckTree(warehouses,areas,warehouse_id,level){
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].checked) {
+			var warehouse={warehouse_id:warehouse_id,level:level};
+			switch(level){
+				case 0:
+				case 1:
+					warehouse.province_id=parseInt(areas[i].id);
+					warehouse.city_id=0;
+					warehouse.district_id=0;
+					break;
+				case 2:
+					warehouse.province_id=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					warehouse.city_id=parseInt(areas[i].id);
+					warehouse.district_id=0;
+					break;
+				case 3:
+					warehouse.province_id=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					warehouse.city_id=parseInt((areas[i].id+'').substring(0,4)+'00');
+					switch(address.city){
+						case 110200:
+							address.city=110100;break;
+						case 120200:
+							address.city=120100;break;
+						case 310200:
+							address.city=310100;break;
+						case 500200:
+						case 500300:
+							address.city=500100;break;
+					}
+					warehouse.district_id=parseInt(areas[i].id);
+					break;
+			}
+			warehouses.push(warehouse);
+		}else if ((!!areas[i].children)&&areas[i].children.length>0) {
+			getCheckTree(warehouses,areas[i].children,warehouse_id,level+1);
+		}
+	}
+}
+function submitWarehouseAreaDialog(){
+	var tree=$('#area-tree');
+	var target=$('#area-tree>li>div');
+	var area=tree.tree('getData',target);
+	var row=$("#{$datagrid.id}").datagrid('getSelected');
+	if (!row) {messager.info('请选择仓库！');return;}
+	var warehouses=[];
+	getCheckTree(warehouses,[area],row.id,0);
+	$.post("{:U('Setting/WarehouseRule/editWarehouseArea')}",{warehouse_id:row.id,warehouse_area:JSON.stringify(warehouses)}, function(res){
+		if (res.status==0) {messager.info(res.info);return;}
+		messager.info('仓库覆盖范围，保存成功！');
+	});
+}
+</script>

@@ -1,0 +1,121 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+	<form id="{$id_list.form}">
+    	<div class="form-div">
+    		<label>　　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+    		<label>　　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]"><option value="all">全部</option><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+            <label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+            <label>　建单时间：</label><input class="easyui-datebox txt" type="text" name="search[created_start]" value="{$date['start']}"  data-options="editable:false"/>
+			<label>　　　　至：</label><input class="easyui-datebox txt" type="text" name="search[created_end]" value="{$date['end']}"  data-options="editable:false"/>
+            
+            <a href="javascript:void(0)" onclick="statSellbackCollect.clickMore(this);">更多</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="statSellbackCollect.checkSearch();">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="statSellbackCollect.loadFormData();">重置</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="statSellbackCollect.exportToExcel();">导出到Excel</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Statistics/StatSellbackCollect','stat_sellback_collect','{$datagrid.id}');">设置表头</a>
+        </div>
+        <div id="{$id_list.more_content}">
+        <div class="form-div">
+        	<label>处理状态：</label><input class="easyui-combobox txt" name="search[process_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_process_status')"/>
+        	<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+            <label>　货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+        	<label>　货品分类：</label><input class="txt" id="stat_sellback_collect_goods_class" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+        	<label>　货品品牌：</label><select class="easyui-combobox sel" name="search[brand_id]"><option value="all">全部</option><volist name='list.brand' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+        </div>
+        <div class="form-div">
+        	<label>退换备注：</label><input class="easyui-textbox txt" type="text" name="search[remark]"/>
+        	<label>　同意时间：</label><input class="easyui-datebox txt" type="text" name="search[agree_start]"  data-options="editable:false"/>
+			<label>　　　　至：</label><input class="easyui-datebox txt" type="text" name="search[agree_end]" data-options="editable:false"/>
+        </div>
+        </div>
+    </form>
+    <div style="display: none;"><input hidden="true" id="{$id_list.hidden_flag}" value="1"/> </div>
+</div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+<script type="text/javascript">
+//# sourceURL=SalesmanPerformanceShow.js
+$(function () {
+	setTimeout(function () {
+		$('#stat_sellback_collect_goods_class').changStyleTreeCombo('stat_sellback_collect_goods_class');
+    	statSellbackCollect = new RichDatagrid(JSON.parse('{$params}'));
+        statSellbackCollect.setFormData();
+        var datagrid_id=statSellbackCollect.params.datagrid.id;
+        $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+            var page_size = $(this).datagrid('options').pageSize ;
+            if (row.spec_no == '合计'){
+                return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+            }
+        }});
+        $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+            var rows = $(this).datagrid('getRows');
+            var stat_fields = [
+                'refund_num',
+                'refund_amount',
+                'return_num',
+                'return_cost',
+                'return_amount',
+                'stockin_num',
+                'stockin_amount',
+                'refund_no_goods_num',
+                'refund_no_goods_amount',
+            ];
+            var append_row = {};
+            append_row['spec_no'] = '合计';
+            statSellbackColleckTotalCompute(rows,stat_fields,append_row);
+            $(this).datagrid('appendRow',append_row);
+        }});
+        function statSellbackColleckTotalCompute(page_rows,arr_fields,append_row) {
+            var rows = page_rows;
+            for(var index in arr_fields)
+            {
+                var field = arr_fields[index];
+                append_row[field] = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    append_row[field] += parseFloat(rows[i][field]);
+                }
+                append_row[field] = append_row[field].toFixed(4);
+            }
+        }
+        statSellbackCollect.checkSearch=function(){
+        	var form=$('#{$id_list.form}');
+        	var data=form.form('get');
+        	var start=new Date(data['search[created_start]']);
+        	var end=new Date(data['search[created_end]']);
+        	var num=end-start;
+        	created_days = parseInt(num/1000/3600/24);
+        	start=new Date(data['search[agree_start]']);
+        	end=new Date(data['search[agree_end]']);
+        	num=end-start;
+        	agree_days = parseInt(num/1000/3600/24);
+        	if(created_days>60||agree_days>60){messager.alert("查询时间不能超过60天,请修改建单时间或者同意时间")}
+        	else{
+        		statSellbackCollect.submitSearchForm(this);
+        	}
+        }
+        statSellbackCollect.exportToExcel=function(){
+            //导出请求URL地址
+            var url= "{:U('StatSellbackCollect/exportToExcel')}";
+            //搜索条件集合
+            var forms = $('#{$id_list.form}').form('get');
+            var search=JSON.stringify(forms);
+            //查询结果、数据列表
+            var rows = $("#{$id_list.id_datagrid}").datagrid("getRows");
+            if(rows.length==1){
+                messager.confirm('导出不能为空！');
+            }
+            else{
+                messager.confirm('确定导出搜索的退货汇总吗？',function(r){
+                    if(!r){return false;}
+                    window.open(url+'?search='+search);
+                })
+            }
+
+        }
+   	}, 0);
+});
+
+</script>
+</block>

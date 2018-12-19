@@ -1,0 +1,108 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="datagrid">
+    <div style="height:220px;">
+        <easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields"/>
+    </div>
+    <div style="height:300px;">
+        <div style="display: none;"><input hidden="true" type="text" id="hidden_id"/> </div>
+        <label style="vertical-align:middle">收信人：</label><textarea id="{$id_list['list']}" class="easyui-textarea" style="height: 160px;width: 300px;" readonly="readonly"/>
+        <label style="vertical-align:middle">短信内容：</label><textarea id="{$id_list['message']}" class="easyui-textarea" style="height: 160px;width: 300px;"/>
+        <label class="five-character-width">模板名称：</label>
+        <select class="easyui-combobox txt" id="template_id_cus" name="template_id" data-options="editable:false">
+            <volist name='template' id='vo'>
+                <if condition="$vo['id'] eq 0"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if>
+            </volist>
+        </select>
+        &nbsp;&nbsp;<span style="display: block;float: right;margin-right: 328px;">短信字数:<b id="insert_num" style="color: red;"> 0</b></span>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="script">
+    <script>
+        //# sourceURL=dialog_SMS.js
+        $(function () {
+            setTimeout(function () {
+                var show_dg = $("#" + "{$id_list['show']}");
+                var dg = $("#" + "{$id_list['datagrid']}");
+                var input = $("#" + "{$id_list['list']}");
+                var rows = show_dg.datagrid("getSelections");
+                var SMS_customer = [];
+                var mobiles = "";
+                var ids = "";
+                for (var x in rows) {
+                    var temp = {};
+                    temp["name"] = rows[x]["name"];
+                    temp["nickname"] = rows[x]["nickname"];
+                    temp["mobile"] = rows[x]["mobile"];
+                    temp["id"] = rows[x]["id"];
+                    SMS_customer = SMS_customer.concat(temp);
+                    if(x ==0){
+                        mobiles = mobiles + temp["mobile"];
+                        ids = ids + temp["id"];
+                    }else{
+                        mobiles = mobiles + "," + temp["mobile"];
+                        ids = ids + "," + temp["id"];
+                    }
+
+                }
+                //mobiles = mobiles.substr(0, mobiles.length - 1);
+                dg.datagrid("loadData", SMS_customer);
+                input.val(mobiles);
+                $('#hidden_id').val(ids);
+                function addTemplateToContent(newValue,oldValue){
+                    var sms_id = $('#template_id_cus').combobox('getValue');
+                    if(sms_id=='无'){
+                        $('#'+"{$id_list['message']}").val('');
+                        $('#insert_num').text(0);
+                    }else{
+                        var content_url ="{:U('Stock/SalesStockOut/templateToContent')}";
+                        $.post(content_url,{"id":sms_id}, function (res) {
+                            if(res.status == 1){
+                                messager.alert(res.info);
+                            }else {
+                                $('#'+"{$id_list['message']}").val(res);
+                                $('#insert_num').text(res.length);
+                            }
+                        })
+                    }
+
+                }
+                $('#template_id_cus').combobox({onChange:function(newValue, oldValue){ addTemplateToContent(newValue, oldValue);}});
+                $('#'+"{$id_list['message']}").bind('blur',function(){
+                    $('#insert_num').text($('#'+"{$id_list['message']}").val().length);
+                })
+            }, 0);
+        });
+        CRM.submitSMSDialog = function () {
+            var sms = {};
+            sms["message"] = $("#" + "{$id_list['message']}").val();
+            sms["ids"] = $("#hidden_id").val();
+            var url = "{:U('CustomerFile/SMS')}";
+            var dialog = $("#" + "{$id_list['dialog']}");
+            rege =new RegExp("\\【.+\\】", "i");
+            regexp =new RegExp("\\{.+\\}", "i");
+            var re = regexp.test(sms["message"]);
+            if(re){
+                messager.alert('短信内容中不能包含模板变量');
+                return false;
+            }
+            var reg=rege.test(sms["message"]);
+            if(!reg){
+                messager.alert('短信内容中必须含有【】签名');
+                return false;
+            }
+            $.post(url, {"sms": sms}, function (res) {
+                if (!res.status) {
+                    messager.alert(res.info, "info");
+                    dialog.dialog("close");
+                } else {
+                    messager.alert(res.info);
+                }
+            });
+
+
+        }
+    </script>
+</block>

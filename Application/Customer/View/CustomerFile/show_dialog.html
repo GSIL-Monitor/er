@@ -1,0 +1,106 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div class="form-div">
+                <label class="four-character-width">客户网名</label><input class="easyui-textbox txt" type="text" name="search[nickname]"/>
+                <label class="four-character-width">电话</label><input class="easyui-textbox txt" type="text" name="search[telno]"/>
+                <label class="four-character-width">客户编号</label><input class="easyui-textbox txt" type="text" name="search[customer_no]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="CRM_dialog.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="CRM_dialog.loadFormData()">重置</a>
+            </div>
+            <div class="form-div">
+                <label class="four-character-width">姓名</label><input class="easyui-textbox txt" type="text" name="search[name]"/>
+                <label class="four-character-width">旺旺</label><input class="easyui-textbox txt" type="text" name="search[wangwang]"/>
+                <label class="four-character-width">邮箱</label><input class="easyui-textbox txt" type="text" name="search[email]"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false" onclick="CRM_dialog.checkNumber()">查看号码</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="dialog"></block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=customer_dialog.js
+        setTimeout(function () {
+            CRM_dialog = new RichDatagrid(JSON.parse('{$params}'));
+            CRM_dialog.setFormData();
+            //查看号码
+            CRM_dialog.checkNumber = function () {
+                var rows = CRM_dialog.selectRows;
+                if (rows == undefined) {
+                    messager.info('请选择操作的行');
+                    return false;
+                }
+                var ids = [];
+                for (var i in rows) {
+                    if (rows[i]['mobile'] == '' && rows[i]['telno'] == '') {
+                        continue;
+                    }
+                    ids.push(rows[i]['id']);
+                }
+                if (ids.length > 0) {
+                    $.post("{:U('Trade/TradeCommon/checkNumber')}", {
+                        ids: JSON.stringify(ids),
+                        key: 'crm_customer'
+                    }, function (res) {
+                        CRM_dialog.dealDatagridReasonRows(res);
+                    }, 'JSON');
+                }
+            }
+            CRM_dialog.dealDatagridReasonRows = function (result) {
+                if (result.status == 1) {
+                    messager.alert(result.message);
+                    return;
+                }
+                if ((result.status == 0 || result.status == 2) && result.data != undefined) {
+                    var rows = CRM_dialog.selectRows;
+                    var index;
+                    var crm_dg = $('#' + CRM_dialog.params.datagrid.id);
+                    for (var i in rows) {
+                        for (var x in result.data.rows) {
+                            if (rows[i].id == result.data.rows[x].id) {
+                                index = crm_dg.datagrid('getRowIndex', rows[i]);
+                                if (result.check_number) {
+                                    rows[i].mobile = result.data.rows[x].mobile;
+                                    rows[i].telno = result.data.rows[x].telno;
+                                    crm_dg.datagrid('refreshRow', index);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //获取完整的用户选择信息，并调用回调函数
+            //需要注意用户如果没有打开电话号码tabs，直接去电话号码的datagrid是取不到的。所以要做判断
+            CRM_dialog.getCustomerInfo = function (cb) {
+                var customer_dg = $("#{$id_list.datagrid}");
+                var customer_address_dg = $("#dialog_tabs_customer_address_datagrid");
+                var customer_telno_dg = $("#dialog_tabs_customer_telno_datagrid");
+                var customer = customer_dg.datagrid("getSelected");
+                var address = customer_address_dg.datagrid("getSelected");
+                if (customer_telno_dg.length != 0) {
+                    var telno = customer_telno_dg.datagrid("getSelected");
+                }
+                var customer_id = "";
+                var address_id = "";
+                var telno_id = "";
+                if (!customer) {
+                    messager.alert("请选择用户");
+                    return false;
+                }
+                if (customer) customer_id = customer["id"];
+                if (address) address_id = address["id"];
+                if (typeof(telno) != "undefined") telno_id = telno["id"];
+                $.post('{:U('CustomerFile/getCustomerFull')}',{customer_id: customer_id, address_id: address_id, telno_id: telno_id},function(res){
+                    if (res.status) {
+                        cb(res.info);
+                    } else {
+                        messager.alert(res.info);
+                        return false;
+                    }
+                });
+            }
+        }, 0);
+    </script>
+</block>

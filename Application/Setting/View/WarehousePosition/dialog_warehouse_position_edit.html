@@ -1,0 +1,67 @@
+<style>
+.wh-div label{vertical-align:middle;width: 50px;display:inline-block; font-size: 12px;text-align: left;}
+</style>
+<div>
+	<form id="{$dialog_list.form}" method="post">
+
+		<div class="form-div wh-div" style="margin-top:10px;">
+			<label>仓库：</label><select class="easyui-combobox sel" name="warehouse_id"   data-options="width:'150px',panelHeight:'150px',editable:false " disabled="true">
+						<volist name='warehouse_array' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+		</div>
+		<div class="form-div wh-div" style="margin-top:10px;">
+			<label>编号：</label><input class="easyui-textbox txt" type="text" name="position_no"  style="width:150px;" data-options="required:true"  missingMessage="不能为空"/>
+		</div>
+		<div class="form-div wh-div" style="margin-top:10px;">
+			<label>停用：</label><select class="easyui-combobox sel" name="is_disabled" data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+				<option value="0">否</option>
+				<option value="1">是</option>
+			</select>
+		</div>
+	</form>
+</div>
+<script>
+	 //# sourceURL=position_edit.js
+	 (function(){
+		 var form_id = '{$dialog_list.form}';
+		 var element_selectors ={
+			 'warehouse_id'	:$('#'+form_id+" select[name='warehouse_id']"),
+			 'position_no'		:$('#'+form_id+" :input[name='position_no']")
+		 };
+		 $(function(){
+
+			 var position_info=JSON.parse('{$position_info}');
+			 var dialog_list=JSON.parse('{$dialog_list_json}');
+			 position.submitEditDialog=position.submitAddDialog=function(){
+				 if (!$("#"+dialog_list.form).form('validate')) { return false; }
+				 var data=$("#"+dialog_list.form).form('get');
+				 var warehouse_id=element_selectors.warehouse_id.combobox('getValue');
+				 data.id=position_info.id;
+				 data.warehouse_id=warehouse_id;
+				 $.post("{:U('Setting/WarehousePosition/savePosition')}",data,function(r){
+					 if(r.status==1){
+						 messager.alert(r.info);
+						 return;
+					 }
+					 if(r.status==0){
+						 if(data.id==0){
+							 $("#"+position.params.add.id).dialog('close');
+						 }else{
+							 $("#"+position.params.edit.id).dialog('close');
+						 }
+						 position.refresh();
+						 return;
+					 }
+				 },'json');
+			 }
+			 setTimeout(function(){
+				 if(position_info.id==0){
+					 element_selectors.warehouse_id.combobox('enable');
+				 }else{
+					 $("#"+dialog_list.form).form('filterLoad',position_info);
+				 }
+			 },0);
+
+		 });
+	 })();
+
+</script>

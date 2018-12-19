@@ -1,0 +1,35 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div" style="width:100%">
+                <label>货　　位：</label><input class="easyui-textbox txt" type="text" name="search[position_no]" />
+                <input  type="hidden" name="search[warehouse_id]" value="{$warehouse_id}"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="dialogWareshousePosition.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="dialogWareshousePosition.loadFormData();">重置</a>
+                <input  name="has_other" value="1" type="checkbox" /><label >当该货位存在其他货品时提醒:</label>
+            </div>
+        </form>
+    </div>
+
+</block>
+<block name="dialog"><div id= "{$id_list.is_other_dialog}" style="overflow: hidden;"></div></block>
+<block name="tabs">
+    <div data-options="region:'south',split:true" style="height:30%;overflow:hidden;">
+        <div class="easyui-tabs" data-options="fit:true,border:false,plain:true,showHeader:false" id="{$id_list.tab_container}">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //# sourceURL=select_warehouse_position.js
+        $(function(){
+            setTimeout('add_tabs(JSON.parse(\'{$arr_tabs}\'))',0);
+        });
+        $(function(){
+            setTimeout(function(){
+                dialogWareshousePosition = new RichDatagrid(JSON.parse('{$params}'));
+                dialogWareshousePosition.setFormData();
+            });
+        });
+    </script>
+</block>

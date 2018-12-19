@@ -1,0 +1,164 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="新手引导" data-options="headerCls:'panel-header-title'" style="width:100%;style="margin-top: 20px;"">
+        <div class="process">
+            <div class="title">基本设置</div>
+            <div class="content">
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$setting.logistics.text}', '{$setting.logistics.href}')">{$setting.logistics.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$setting.setting.text}', '{$setting.setting.href}')">{$setting.setting.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$setting.shop.text}', '{$setting.shop.href}')">{$setting.shop.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$setting.warehouse.text}', '{$setting.warehouse.href}')">{$setting.warehouse.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_4.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$setting.g_template.text}', '{$setting.g_template.href}')">{$setting.g_template.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$setting.l_template.text}', '{$setting.l_template.href}')">{$setting.l_template.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$setting.employee.text}', '{$setting.employee.href}')">{$setting.employee.text}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="process">
+            <div class="title">货品关系</div>
+            <div class="content">
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$goods.class.text}', '{$goods.class.href}')">{$goods.class.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$goods.brand.text}', '{$goods.brand.href}')">{$goods.brand.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$goods.goods.text}', '{$goods.goods.href}')">{$goods.goods.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_4.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li title="匹配平台货品"><a href="javascript:void(0);" onClick="open_menu('{$goods.spec.text}', '{$goods.spec.href}')">{$goods.spec.text}</a></li>
+                        <li title="匹配平台货品"><a href="javascript:void(0);" onClick="open_menu('{$goods.suite.text}', '{$goods.suite.href}')">{$goods.suite.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$goods.platform.text}', '{$goods.platform.href}')">{$goods.platform.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_6.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2" title="递交产生平台货品"><a href="javascript:void(0);" onClick="open_menu('{$trade.original.text}', '{$trade.original.href}')">{$trade.original.text}</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="process">
+            <div class="title">库存关系</div>
+            <div class="content">
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$stock.in.text}', '{$stock.in.href}')">{$stock.in.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);" onClick="open_menu('{$stock.in_m.text}', '{$stock.in_m.href}')">{$stock.in_m.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2" title="可以直接导入库存"><a href="javascript:void(0);" onClick="open_menu('{$stock.manage.text}', '{$stock.manage.href}')">{$stock.manage.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_4.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$stock.transfer.text}', '{$stock.transfer.href}')">{$stock.transfer.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$stock.out.text}', '{$stock.out.href}')">{$stock.out.text}</a></li>
+                    </ul>
+                </div>
+                <div class="pmenu">
+                    <ul>
+                        <li><img src="__ROOT__/Public/Image/arrow_1.png"></li>
+                        <li><img src="__ROOT__/Public/Image/arrow_1.png"></li>
+                    </ul>
+                </div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$stock.transfer_m.text}', '{$stock.transfer_m.href}')">{$stock.transfer_m.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$stock.out_m.text}', '{$stock.out_m.href}')">{$stock.out_m.text}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="process">
+            <div class="title">订单处理</div>
+            <div class="content">
+                <div class="pmenu">
+                    <ul>
+                        <li title="系统设置中可以开启自动下载"><a href="javascript:void(0);" onClick="open_menu('{$trade.down.text}', '{$trade.down.href}')">{$trade.down.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.original.text}', '{$trade.original.href}')">{$trade.original.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.manual.text}', '{$trade.manual.href}')">{$trade.manual.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_4.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.check.text}', '{$trade.check.href}')">{$trade.check.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.manage.text}', '{$trade.manage.href}')">{$trade.manage.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_4.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.print.text}', '{$trade.print.href}')">{$trade.print.text}</a></li>
+                        <li><a href="javascript:void(0);" onClick="open_menu('{$trade.stock_out.text}', '{$trade.stock_out.href}')">{$trade.stock_out.text}</a></li>
+                    </ul>
+                </div>
+                <div class="arrow-img1"><img src="__ROOT__/Public/Image/arrow_2.png"></div>
+                <div class="arrow-img2"><img src="__ROOT__/Public/Image/arrow_1.png"></div>
+                <div class="pmenu">
+                    <ul>
+                        <li class="p2"><a href="javascript:void(0);"  onClick="open_menu('{$trade.refund.text}', '{$trade.refund.href}')">{$trade.refund.text}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

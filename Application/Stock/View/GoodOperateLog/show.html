@@ -1,0 +1,30 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><!-- <div id="{$id_list.edit}"></div> --></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+                <label>商品编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+                <label>操作记录：</label><input class="easyui-textbox txt" type="text" name="search[message]" />
+                <label>操作人：　</label><select class="easyui-combobox sel" name="search[operator_id]"><option value="all">全部</option><volist name='list.employee' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>操作类型：</label><input class="easyui-combobox txt" name="search[operate_type]" data-options="valueField:'id',textField:'name',width:'160px',data:formatter.get_data('operator_type')"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="GoodOperateLog.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="GoodOperateLog.loadFormData();">重置</a>
+            </div>
+            <div class="form-div">
+                <label>操作时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" value={$start_time} data-options="editable:false"/>
+                <label>　　　至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]" value={$end_time} data-options="editable:false"/>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                GoodOperateLog = new RichDatagrid(JSON.parse('{$params}'));
+                GoodOperateLog.setFormData();
+            }, 0);
+        });
+    </script>
+</block>
+<block name="tabs"></block>

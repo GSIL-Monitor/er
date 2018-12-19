@@ -1,0 +1,810 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div class="form-div">
+                <!--<label>店铺编号</label><input class="easyui-textbox txt" type="text" name="search[shop_no]"/>-->
+                <label>店铺名称</label><input class="easyui-textbox txt" type="text" name="search[shop_name]"/>
+                <label>平台账号</label><input class="easyui-textbox txt" type="text" name="search[account_nick]"/>
+                <label>平台名称</label><input class="easyui-combobox txt" type="select" name="search[platform_id]"  data-options="editable:false,valueField:'id',textField:'name',data:formatter.get_data('platform_id','all')"/>
+                <label style="display:none;"><input id="shop_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="shop.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="shop.loadFormData()">重置</a>
+                <label class="form-div">
+                    <a href="{$faq_url_shop_question}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+                </label>
+            </div>
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="shop.add()">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="shop.edit()">编辑</a>
+                <a href="javascript:void(0)" class="easyui-menubutton" name="shop_authorize" data-options="iconCls:'icon-man',plain:true,menu:'#setting_shop_authorize'" >授权</a>
+                <div id="setting_shop_authorize">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="shopAuthorize()">店铺授权</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="subShopAuthorize()">子账号授权</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="alipayAuthorize()">支付宝授权</a>
+                </div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="downloadLogistics()">下载物流公司</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="downloadHomeService()">下载家装服务</a>
+                <a id="shop_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="shop.showDisabled()">显示停用</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="shop.uploadDialog()">导入店铺</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="shop.downloadTemplet('{:U('Shop/downloadTemplet')}')">下载模板</a>
+
+            </div>
+        </form>
+    </div>
+    <div id="logistics_wnd">
+    <input id="logis_shop_id" type="hidden"/>
+    <table id="logistics_dg">
+        <div id='shop_logistics_toolbar'>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="shop_logistics_save()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true" onclick="shop_logistics_reject()">取消</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="shop_logistics_download()">下载</a>
+            <label>　　　　物流公司名称：</label><input id="search_logis_shop" class="easyui-textbox txt" type="text"/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="logistics_shop_search()">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="logistics_shop_reset()">重置</a>
+        </div>
+    </table>
+</div>
+    <div id="home_service_wnd">
+        <input id="home_service_shop_id" type="hidden"/>
+        <table id="home_service_dg">
+            <div id='home_service_toolbar'>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="shop_home_service_download()">下载</a>
+                <label>　　　　家装服务商类型：</label>
+                <select class="easyui-combobox" id="home_service_target_type" style="width: 200px;" editable="false">
+                    <option value="0" selected>无</option>
+                    <option value="11">家装干线服务</option>
+                    <option value="12">家装干支服务</option>
+                    <option value="13">家装干支装服务</option>
+                    <option value="14">卫浴大件干线</option>
+                    <option value="15">卫浴大件干支</option>
+                    <option value="16">卫浴大件安装</option>
+                    <option value="17">地板干线</option>
+                    <option value="18">地板干支</option>
+                    <option value="19">地板安装</option>
+                    <option value="20">灯具安装</option>
+                    <option value="21">卫浴小件安装</option>
+                </select>
+                <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="home_service_shop_search()">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="home_service_shop_reset()">重置</a>-->
+            </div>
+        </table>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.auth}"></div>
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="shop.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script>
+        //# sourceURL=shopShow.js
+        $(function () {
+            setTimeout(function () {
+                $('#search_logis_shop').textbox('textbox').bind('keydown',function(e){if(e.keyCode==13){logistics_shop_search()}});
+                shop = new RichDatagrid(JSON.parse('{$params}'));
+                shop.setFormData();
+                shop.initShopCheckbox = function (id, bool) {
+                    bool = bool == undefined ? false : bool;
+                    var check = document.getElementById(id);
+                    var value = check.value;
+                    if (bool == true) {
+                        if (value != 1) {
+                            check.value = 0;
+                            check.checked = false;
+                        } else {
+                            check.checked = true;
+                        }
+                    } else {
+                        if (value == 0) {
+                            check.value = 1;
+                            check.checked = true;
+                        } else {
+                            check.value = 0;
+                            check.checked = false;
+                        }
+                    }
+                }
+                shop.uploadDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}");
+                    dialog.dialog({
+                        title: "导入店铺",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+                shop.upload = function () {
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('Shop/uploadExcel')}";
+                    var dg = $("#{$id_list.id_datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (!res.status) {
+                                //dg.datagrid("reload");
+                                shop.refresh();
+                                messager.alert(res.info);
+                                dialog.dialog("close");
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                                dialog.dialog("close");
+                            } else if (res.status == 2) {
+                                $.fn.richDialog("response", res.info, "importResponse");
+                                shop.refresh();
+                                dialog.dialog("close");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                shop.showDisabled =function(){
+                    if($("#shop_show_disabled").val()==0){
+                        $("#shop_show_disabled").val('1');
+                        shop.submitSearchForm(this);
+                        $("#shop_but_disabled").linkbutton({text:'隐藏停用'});
+                    }else{
+                        $("#shop_show_disabled").val('0');
+                        shop.submitSearchForm(this);
+                        $("#shop_but_disabled").linkbutton({text:'显示停用'});
+                    }
+                }
+
+                shop.submitAddDialog = function () {
+                    var data = {};
+                    var addForm = $("#" + "{$id_list['add_form']}");
+                    if (!addForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = addForm.serializeArray();
+                    var url = "{:U('Shop/addShop')}";
+                    var dialog = $("#" + "{$id_list.add}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    /*if (typeof(data["platform_id"]) == "undefined" || data["platform_id"] == "sel" || data["platform_id"] == 0) {
+                     messager.alert("平台不能为空");
+                     return false;
+                     }
+                     if (data["shop_no"] == "" || data["shop_name"] == "") {
+                     messager.alert("店铺编号和店铺名称不能为空");
+                     return;
+                     }*/
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            dialog.dialog("close");
+                            shop.refresh();
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    })
+                }
+                shop.submitEditDialog = function () {
+                    var data = {};
+                    var editForm = $("#" + "{$id_list['edit_form']}");
+                    if (!editForm.form("validate")) {
+                        return false;
+                    }
+                    var formData = editForm.serializeArray();
+                    var url = "{:U('Shop/editShop')}";
+                    var dialog = $("#" + "{$id_list.edit}");
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    if (data["shop_name"] == "") {
+                        messager.alert("店铺名称不能为空");
+                        return;
+                    }
+                    $.post(url, {"data": data}, function (res) {
+                        if (res.status) {
+                            dialog.dialog("close");
+                            shop.refresh();
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    })
+                }
+                shop.submitAuthForm = function () {
+                    var form = $("#{$id_list.auth_form}");
+                    if (!form.form("validate")) {
+                        return false;
+                    }
+                    var formData = form.serializeArray();
+                    var url = "{:U('Shop/saveAuthInfo')}";
+                    var dialog = $("#{$id_list.auth}");
+                    var data = {};
+                    for (var x in formData) {
+                        if (typeof(formData[x]) != "undefined") {
+                            data[formData[x]["name"]] = formData[x]["value"];
+                        }
+                    }
+                    $.post(url, {"data": data}, function (res) {
+                        if (!res.status) {
+                            dialog.dialog("close");
+                            shop.refresh();
+                        } else {
+                            messager.alert(res.info);
+                        }
+                    })
+                }
+            }, 0);
+        });
+        function formatterShopSubPlatform(value, row, index) {
+            var sub_platform = {
+                "1": [{"id": 0, "name": "淘宝集市"}, {"id": 1, "name": "天猫商城"}],
+                "3": [{"id": 0, "name": "SOP"}, {"id": 1, "name": "LBP"}, {"id": 2, "name": "SOPL"},
+                    {"id": 3, "name": "FBP"}, {"id": 4, "name": "海外购"}],
+                "0": [{"id": 0, "name": "默认"}],
+                "32": [{"id": 0, "name": "微店"}, {"id": 1, "name": "微中心"}],
+                "20": [{"id": 0, "name": "默认"},{"id": 1, "name": "蘑菇街"}, {"id": 2, "name": "美丽说"}]
+            };
+            var platform_id = row["platform_id"];
+            if (platform_id == 1) {
+                switch (value) {
+                    case "0":
+                        return "淘宝集市";
+                    case "1":
+                        return "天猫商城";
+                    default :
+                        return "默认";
+                }
+            } else if (platform_id == "3") {
+                switch (value) {
+                    case "0":
+                        return "SOP";
+                    case "1":
+                        return "LBP";
+                    case "2":
+                        return "SOPL";
+                    case "3":
+                        return "FBP";
+                    case "4":
+                        return "海外购";
+                    default :
+                        return "默认";
+                }
+            } else if (platform_id == "32") {
+                switch (value) {
+                    case "0":
+                        return "微店";
+                    case "1":
+                        return "微中心";
+                    default :
+                        return "默认";
+                }
+            }else if (platform_id == "20") {
+                switch (value) {
+                    case "1":
+                        return "蘑菇街";
+                    case "2":
+                        return "美丽说";
+                    default:
+                        return "默认";
+                }
+            }else {
+                    return "默认";
+                }
+            }
+        function shopAuthorize() {
+            var rows = $("#" + "{$id_list['datagrid']}").datagrid('getSelections');
+            if ($.isEmptyObject(rows)) {
+                messager.alert('请选择店铺');
+                return;
+            }
+            if (rows.length > 1) {
+                messager.alert('多个店铺不能同时授权');
+                return;
+            }
+            if (rows[0].is_disabled != 0) {
+                messager.alert('店铺已经停用');
+                return;
+            }
+            if (0 == rows[0].platform_id) {
+                messager.alert('线下店铺不需要授权');
+                return;
+            }
+            if ( rows[0].platform_id==60 || rows[0].platform_id==5 || rows[0].platform_id==8 || rows[0].platform_id==25 || rows[0].platform_id==27 || rows[0].platform_id==29 || rows[0].platform_id == 34 || rows[0].platform_id==53 || rows[0].platform_id==36 || rows[0].platform_id==56) {
+                var id = "{$id_list.auth}";
+                var buttons = [{
+                    text: '确定', handler: function () {
+                        shop.submitAuthForm();
+                    }
+                },
+                    {
+                        text: '取消', handler: function () {
+                        shop.cancelDialog(id)
+                    }
+                    }];
+                var url = "{:U('Shop/getAuthInfo')}" + "?shop_id=" + rows[0].id;
+                shop.showDialog(id,"店铺授权",url,"200px","350px",buttons)
+                return;
+            }
+            $.post("{:U('Shop/authorize')}", {
+                "shop_id": rows[0].id,
+                "platform_id": rows[0].platform_id,
+                "sub_platform_id": rows[0].sub_platform_id,
+            }, function (r) {
+                if (0 == r.status) {
+                    $('#shop_authorize_div').show();
+                    show_msg_canvas();
+                    window.open(r.info);
+                } else if (1 == r.status) {
+                    messager.alert(r.info);
+                }
+            });
+        }
+        function close_authorize_div(){
+            $('#shop_authorize_div').hide();
+            var dg = $("#" + "{$id_list['datagrid']}");
+            dg.datagrid('reload');
+        }
+        function show_msg_canvas(){
+            var wid = document.documentElement.offsetWidth || document.body.offsetWidth;
+            var hei = document.documentElement.offsetHeight || document.body.offsetHeight;
+            var can=document.getElementById("authorize_msg_canvas");
+            can.width=wid;
+            can.height=hei;
+            var ctx=can.getContext("2d");
+            ctx.translate(wid/2,hei/2);
+            ctx.beginPath();
+            ctx.strokeStyle='#fff';
+            ctx.fillStyle='#fff';
+            ctx.setLineDash([15, 5]);
+            ctx.moveTo(100,-50);
+            ctx.arcTo(wid/3,-(hei/12),wid/2.5,-(hei/2),wid/3);   // 上半弧
+            ctx.lineTo(wid/2.5,-hei/2);
+            ctx.stroke();
+            ctx.moveTo(100,-50);
+            ctx.arcTo(wid/5,hei/15,wid/4.5,hei/3,wid/5);   // 下半弧
+            ctx.lineTo(wid/4.5,hei/3);
+            ctx.stroke();
+            ctx.beginPath();                    //上箭头
+            ctx.moveTo(wid/2.5-22,-(hei/2-12));
+            ctx.lineTo(wid/2.5+7,-(hei/2-17));
+            ctx.lineTo(wid/2.5,-(hei/2));
+            ctx.lineTo(wid/2.5-22,-(hei/2-12));
+            ctx.fill();
+            ctx.beginPath();                    //下箭头
+            ctx.moveTo(wid/4.5-17,hei/3-12);
+            ctx.lineTo(wid/4.5+12,hei/3-12);
+            ctx.lineTo(wid/4.5,hei/3);
+            ctx.lineTo(wid/4.5-17,hei/3-12);
+            ctx.fill();
+            ctx.font="18px Arial";
+            ctx.fillText("如未跳转请检查弹出窗口是否被拦截", -200, -50);
+            ctx.fillText("解除拦截后可进入授权页面", -164, -27);
+        }
+        function subShopAuthorize()
+        {
+            var rows = $("#" + "{$id_list['datagrid']}").datagrid('getSelections');
+            if ($.isEmptyObject(rows)) {
+                messager.alert('请选择店铺');
+                return;
+            }
+            if (rows.length > 1) {
+                messager.alert('多个店铺不能同时授权');
+                return;
+            }
+            if (rows[0].is_disabled != 0) {
+                messager.alert('店铺已经停用');
+                return;
+            }
+            if (1 != rows[0].platform_id) {
+                messager.alert('子账号授权只支持淘宝平台');
+                return;
+            }
+            $.post("{:U('Shop/authorize')}", {
+                "shop_id": rows[0].id,
+                "platform_id": rows[0].platform_id,
+                "sub_platform_id": rows[0].sub_platform_id,
+                'authorize_type' :'sub_account'
+            }, function (r) {
+                if (0 == r.status) {
+                    window.open(r.info);
+                } else if (1 == r.status) {
+                    messager.alert(r.info);
+                }
+            });
+        }
+
+        function alipayAuthorize() {
+            var rows = $("#" + "{$id_list['datagrid']}").datagrid('getSelections');
+            if ($.isEmptyObject(rows)) {
+                messager.alert('请选择店铺');
+                return;
+            }
+            if (rows.length > 1) {
+                messager.alert('多个店铺不能同时授权');
+                return;
+            }
+            if (rows[0].is_disabled != 0) {
+                messager.alert('店铺已经停用');
+                return;
+            }
+            if(rows[0].auth_state !=1){
+                messager.alert('请先授权店铺');
+                return;
+            }
+
+            if (1 == rows[0].platform_id) {
+                $.post("{:U('Shop/alipayAuthorize')}", {
+                    "shop_id": rows[0].id,
+                    "platform_id": rows[0].platform_id,
+                }, function (r) {
+                    if (0 == r.status) {
+                        window.open(r.info);
+                    } else if (1 == r.status) {
+                        messager.alert(r.info);
+                    }
+                });
+            }else{
+                messager.alert('该平台不支持支付宝授权');
+                return;
+            }
+
+
+        }
+    </script>
+    <script type="text/javascript">
+        //# sourceURL=logistics_util.js
+        var editIndex = undefined;
+        function shop_logistics_endEditing(checkSubmmit) {
+            if (editIndex == undefined) {
+                return true;
+            }
+            if ($('#logistics_dg').datagrid('validateRow', editIndex)) {
+                $('#logistics_dg').datagrid('endEdit', editIndex);
+                /* if (checkSubmmit && !$.isEmptyObject($('#logistics_dg').datagrid('getChanges'))) {
+                    messager.alert('请将已经填写的信息保存或者撤销!');
+                    $('#logistics_dg').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+                    return false;
+                } else {
+                    return editIndex;
+                } */
+                return true;
+            } else {
+                messager.alert('请将数据填写完整，且物流公司不能重复!');
+                return false;
+            }
+        }
+        function shop_logistics_onClickRow(index) {
+            if (editIndex != index && false !== shop_logistics_endEditing(true)) {
+               // odata = $('#logistics_dg').datagrid('getData');
+                editIndex = index;
+                $('#logistics_dg').datagrid('selectRow', index).datagrid('beginEdit', index);
+            }
+        }
+        /* function logistics_append() {
+            if (false != shop_logistics_endEditing(true)) {
+                $('#logistics_dg').datagrid('appendRow', {is_disabled: 0});
+                editIndex = $('#logistics_dg').datagrid('getRows').length - 1;
+                $('#logistics_dg').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+            }
+        } */
+        function shop_logistics_save() {
+            if (editIndex == undefined) {
+                messager.alert("没有新增数据");
+                return false;
+            }
+            var data={};
+            if (false === shop_logistics_endEditing(false)) {
+                return false;
+            }
+            $('#logistics_dg').datagrid('acceptChanges');
+            data = $('#logistics_dg').datagrid('getData');
+
+            $.post("{:U('Setting/shop/UpdateLogisticsList')}", {data: JSON.stringify(data)}, function (status) {
+                switch (status) {
+                    case '0':
+                        messager.alert("保存成功！");
+                        editIndex = undefined;
+                        break;
+                    case '1':
+                        messager.alert("系统错误！请联系管理员！");
+                        break;
+                    case '2':
+                        messager.alert("物流公司重复，请重新选择!");
+                        $('#logistics_dg').datagrid('beginEdit', editIndex);
+                        break;
+                    default :
+                        messager.alert("系统错误！请联系管理员！");
+                        break;
+                }
+            });
+        }
+        function shop_logistics_download() {
+            if (editIndex != undefined) {
+                messager.alert("请保存后下载");
+            } else {
+                var row = $('#shop_datagrid').datagrid('getSelected');
+                var shop_id = row.id;
+                $.messager.progress({title: 'ERP', msg: '正在处理，请稍待。。。'});
+                $.post("{:U('Shop/downloadShopLogistics')}", {'shopID': shop_id}, function (res) {
+                    $.messager.progress("close");
+                    switch (res.status) {
+                        case 1:
+                            messager.alert("下载物流公司成功！");
+                            logistics_shop_reset();
+                            $('#logistics_dg').datagrid('reload');
+                            break;
+                        case 0:
+                            messager.alert(res.info);
+                            break;
+                        default :
+                            messager.alert("未知错误，请联系管理员！");
+                            break;
+                    }
+                });
+            }
+
+        }
+        function shop_home_service_download()
+        {
+                var row = $('#shop_datagrid').datagrid('getSelected');
+                var home_service_type = $('#home_service_target_type').combobox('getValue');
+                if(home_service_type==0)
+                {
+                    messager.alert("请选择家装服务商类型");
+                    return;
+                }
+                var shop_id = row.id;
+                $.messager.progress({title: 'ERP', msg: '正在处理，请稍待。。。'});
+                $.post("{:U('Shop/download_top_logistics_install')}", {'shopID': shop_id,'service_type':home_service_type}, function (res) {
+                    $.messager.progress("close");
+                    switch (res.status) {
+                        case 0:
+                            messager.alert("下载家装服务成功！");
+                            logistics_shop_reset();
+                            $('#home_service_dg').datagrid('reload');
+                            break;
+                        case 1:
+                            messager.alert(res.info);
+                            break;
+                        default :
+                            messager.alert("未知错误，请联系管理员！");
+                            break;
+                    }
+                });
+
+
+        }
+        function shopEndEdit(index,row){
+            if(!(!row.logistics_name)){
+        		var names=row.logistics_name.split(',');
+        		for(i in names){dict_map_logistics[names[i]]=true;}
+        	}
+        }
+        function shopBeginEdit(index,row,changes){
+        	if(editIndex!=index){editIndex=index;}
+        	if(!(!row.logistics_name)){
+        		var names=row.logistics_name.split(',');
+        		for(i in names){dict_map_logistics[names[i]]=false;}
+        	}
+        }
+        function shop_logistics_reject() {
+            if (editIndex == undefined) {
+                messager.alert("无取消项！");
+                return false;
+            }
+            $('#logistics_dg').datagrid('rejectChanges');
+            editIndex = undefined;
+        }
+        function logistics_shop_search(){
+            var search = $('#search_logis_shop').textbox('getValue');
+            if(search == undefined || search.replace(/ /g,'') == ''){
+                messager.alert('请输入搜索的内容');
+                return false;
+            }
+            var str = search.replace(/ /g,'');
+            var logisticsIndex = -1;
+            var data = $('#logistics_dg').datagrid('getRows');
+            $.each(data,function(key,value){
+                if(value.name.indexOf(str) != -1){
+                    logisticsIndex = key;
+                    return false;
+                }
+            });
+            if(logisticsIndex == -1){
+                messager.alert('未找到相应物流公司，请确认搜索的内容');
+                return false;
+            }
+            $('#logistics_dg').datagrid('selectRow',logisticsIndex);
+        }
+        function logistics_shop_reset(){
+            $('#search_logis_shop').textbox('setValue');
+        }
+    </script>
+    <script type="text/javascript">
+        //# sourceURL=bb.js
+        $(function () {
+            $('#logistics_dg').datagrid({
+                iconCls: 'icon-save',
+                /*width: 700,
+                 height: 350,*/
+                nowrap: true,
+                autoRowHeight: true,
+                striped: true,
+            	//url: '/index.php/Setting/Shop/getLogisticsShop',
+                pagination: false,
+                rownumbers: true,
+                singleSelect: true,
+                fit: true,
+                onDblClickCell: shop_logistics_onClickRow,
+                onLoadSuccess:loadShopLogisticsSuccess,
+                onEndEdit:shopEndEdit,
+                onBeginEdit:shopBeginEdit,
+                columns: [[
+                    {field: 'id', width: '100', title: '店铺id', hidden: true,},
+                    {field: 'name', width: '20%', title: '物流公司',},
+                    {field: 'logistics_code', width: '39%', title: '物流编码',},
+                    {
+                        field: 'logistics_name', width: '35%', title: '物流类别（可编辑）',
+                        editor: {
+                            type: 'combobox',
+                            options: {
+                                panelHeight: '300',
+                                valueField: 'name',
+                                textField: 'name',
+                                data: formatter.get_data('logistics_type', 'def'),
+                                required: true,
+                                //multiple: true,
+                                checkbox: true,
+                                editable: true,
+                                validType:'logistics_name_unique',
+                            },
+                        },
+                    },
+                ]],
+                toolbar: '#shop_logistics_toolbar'
+            })
+
+            $('#home_service_dg').datagrid({
+                iconCls: 'icon-save',
+                /*width: 700,
+                 height: 350,*/
+                nowrap: true,
+                autoRowHeight: true,
+                striped: true,
+                //url: '/index.php/Setting/Shop/getLogisticsShop',
+                pagination: false,
+                rownumbers: true,
+                singleSelect: true,
+                fit: true,
+                onDblClickCell: shop_logistics_onClickRow,
+                onLoadSuccess:loadShopLogisticsSuccess,
+                onEndEdit:shopEndEdit,
+                onBeginEdit:shopBeginEdit,
+                columns: [[
+                    {field: 'id', width: '100', title: '店铺id', hidden: true,},
+                    {field: 'target_code', width: '20%', title: '服务商编码'},
+                    {field: 'target_name', width: '35%', title: '服务商名称'},
+                    {field: 'is_virtual', width: '15%',formatter:formatter.boolen, title: '是否虚拟'},
+
+                ]],
+                toolbar: '#home_service_toolbar'
+            })
+        });
+        var dict_map_logistics={};
+		function loadShopLogisticsSuccess(data){
+			$.each(formatter.get_data('logistics_type', 'def'),function(key,obj){
+				dict_map_logistics[obj.name]=false;
+			});
+			var names=[];
+			$.each(data.rows,function(key,obj){
+				if(!(!obj.logistics_name)){
+					names=obj.logistics_name.split(',');
+					for(i in names){ if(dict_map_logistics[names[i]]!=undefined){ dict_map_logistics[names[i]]=true; } }
+				}
+			});
+		}
+		$.extend($.fn.validatebox.defaults.rules, {
+			logistics_name_unique: {
+                validator: function (value) {
+                	if(!(!value)){
+                		var names=value.split(',');
+                		for(i in names){if(dict_map_logistics[names[i]]){return false;}}
+                	}
+                    return true;
+                },
+                message: "物流公司重复，请重新选择!"
+            }
+        });
+        function downloadLogistics() {
+            var row = $('#shop_datagrid').datagrid('getSelected');
+            if (null == row) {
+                messager.alert('请选择店铺');
+                return;
+            }
+            if (row.is_disabled != 0) {
+                messager.alert('店铺已经停用');
+                return;
+            }
+            if (row.auth_state != 1) {
+                messager.alert('请授权店铺');
+                return;
+            }
+
+            //$("#logistics_wnd").window('open');
+            $("#logistics_wnd").dialog({
+                title: "下载物流公司",
+                width: 764,
+                height: 500,
+                modal: true,
+                closed: false,
+                inline: true,
+                iconCls: "icon-save",
+                onClose: function () {
+                    editIndex = undefined;
+                }
+            });
+            $('#logistics_dg').datagrid('options').url = 'index.php/Setting/Shop/getLogisticsShop?id=' + row.id;
+            $('#logis_shop_id').val(row.id);
+            logistics_shop_reset();
+            $('#logistics_dg').datagrid('reload');
+
+        }
+        function downloadHomeService(){
+            var row = $('#shop_datagrid').datagrid('getSelected');
+            if (null == row) {
+                messager.alert('请选择店铺');
+                return;
+            }
+            if (row.is_disabled != 0) {
+                messager.alert('店铺已经停用');
+                return;
+            }
+            if (row.platform_id != 1) {
+                messager.alert('目前只支持淘宝平台');
+                return;
+            }
+            if (row.auth_state != 1) {
+                messager.alert('请授权店铺');
+                return;
+            }
+
+            $("#home_service_wnd").dialog({
+                title: "下载家装服务",
+                width: 764,
+                height: 500,
+                modal: true,
+                closed: false,
+                inline: true,
+                iconCls: "icon-save",
+                onClose: function () {
+                    editIndex = undefined;
+                }
+            });
+            $('#home_service_dg').datagrid('options').url = 'index.php/Setting/Shop/getHomeServiceShop?id=' + row.id;
+            $('#home_service_shop_id').val(row.id);
+            $('#home_service_dg').datagrid('reload');
+        }
+
+    </script>
+</block>

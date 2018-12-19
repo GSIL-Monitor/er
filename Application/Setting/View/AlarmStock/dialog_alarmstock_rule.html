@@ -1,0 +1,75 @@
+<div>
+     <form id="{$id_list.form}" class="easyui-form" method="post">
+         <div>
+             <div class="form-div" style="border-bottom:  1px solid #7CAAB1;padding-bottom: 5px">
+                 <a href="javascript:void(0)" class="easyui-linkbutton" name="button_refresh" data-options="iconCls:'icon-reload'">刷新警戒库存</a>
+             </div>
+             <div style="display: block;vertical-align:middle">
+                 <fieldset style="border:  1px solid #7CAAB1;height: 80px"><legend>通用销售增长率设置</legend>
+                     <div class="form-div"><input type="radio" name="purchase_rate_type" value="1"/><label>固定销售增长率，月增长率：</label><input class="easyui-numberbox txt" name="purchase_fixrate_value" data-options="min:1,precision:4,required:true" /><label>(1表示不增长，1.1表示增长10%)</label></div>
+                     <div class="form-div"><input type="radio" name="purchase_rate_type" value="2"/><label>动态销售增长率，计算周期：</label><input class="easyui-numberbox txt" name="purchase_rate_cycle" data-options="min:1,precision:0,required:true"/></div>
+                 </fieldset>
+             </div>
+             <div style="display: block;vertical-align:middle">
+                 <fieldset style="border:  1px solid #7CAAB1;"><legend>通用警戒库存设置</legend>
+                     <!--<div class="form-div"><input type="checkbox" name="alarm_stock_type" value="1"/><label>不刷新警戒库存</label></div>-->
+                     <div class="form-div"><!--<input type="checkbox" name="alarm_stock_type" value="2"/><label>按销量和销售增长率刷新</label>--><label style="padding-left: 20px">警戒库存天数：</label><input class="easyui-numberbox txt" name="alarm_stock_days" data-options="min:1,precision:0,required:true"/></div>
+                     <div><!--<input type="checkbox" name="alarm_stock_type" value="2"/><label>按销量和销售增长率刷新</label>--><p style="padding-left: 20px;color: red">警戒库存计算方式：根据“通用销售增长率设置”得到每天的销售增长率为r，根据“通用警戒库存设置”得到警戒库存天数（采购周期）为t。统计执行策略当天的前t天的销售总量为n，计算警戒库存=n×（r的t次方）。</p></div>
+                 </fieldset>
+             </div>
+         </div><!--form-div-->
+     </form>
+</div>
+<script type="text/javascript">
+    //# sourceURL=alarm_stock.js
+    (function(){
+        var dom_refresh = $('#{$id_list.form}'+" a[name='button_refresh']");
+        setTimeout(function(){
+            dom_refresh.linkbutton({onClick:function(){
+                if(!$('#{$id_list.form}').form('validate')){return false;}
+                var rule_data = $('#{$id_list.form}').form('get');
+                $.messager.progress({
+                    title: "请稍候",
+                    msg: "该操作可能需要几分钟，请稍等...",
+                    text: "",
+                    interval: 100
+                });
+                $.post('{:U("Setting/AlarmStock/refreshAlarmStock")}',rule_data,function(r){
+                    $.messager.progress('close');
+                    if(r.status == 1)
+                    {
+                        messager.alert(r.info);
+                    }else{
+                        messager.alert(r.info);
+                    }
+                },'json');
+            }});
+            var init_rule_data = JSON.parse('{$rule_data}');
+            var input_text = {};
+            for(var key in init_rule_data)
+            {
+                if($("#{$id_list.form} :input[type=redio][name='"+key+"'][value='"+init_rule_data[key]+"']").is('input'))
+                {
+                    $("#{$id_list.form} :input[type=redio][name='"+key+"'][value='"+init_rule_data[key]+"']").prop({checked:true});
+
+                }else{
+                    input_text[key] = init_rule_data[key];
+                }
+            }
+            $('#{$id_list.form}').form('filterLoad',input_text);
+        });
+    })();
+    function submitMenuDialog(){
+        if(!$('#{$id_list.form}').form('validate')){return false;}
+        var rule_data = $('#{$id_list.form}').form('get');
+        $.post('{:U("Setting/AlarmStock/saveAlarmRule")}',rule_data,function(r){
+            if(r.status == 1)
+            {
+                messager.alert(r.info);
+            }else{
+                messager.alert(r.info);
+            }
+        },'json');
+        return false;
+    }
+</script>

@@ -1,0 +1,32 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　　　　账单完成日期：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" value="{$summary_start_time}"  data-options="editable:false"/>
+                <label>至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]" value="{$summary_end_time}" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="alipayBillAccountSummary.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="alipayBillAccountSummary.loadFormData();">重置</a>
+
+
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function (){
+                alipayBillAccountSummary = new RichDatagrid(JSON.parse('{$params}'));
+                alipayBillAccountSummary.setFormData();
+                var datagrid_id = alipayBillAccount.params.datagrid.id;
+
+
+
+            },0);
+        })
+
+    </script>
+</block>
+

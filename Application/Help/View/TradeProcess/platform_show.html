@@ -1,0 +1,65 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="下载平台货品" data-options="headerCls:'panel-header-title'" style="width:100%;">
+     <div class="platform_process process-map" style="border:none;" id="platform_process">
+         <span class="begin" href="javascript:void(0);">开始</span>
+         <a class="shop font-img" href="javascript:void(0);" onClick="open_menu('{$platform.shop.text}', '{$platform.shop.href}')"><div class="png"><i class="fa {$platform.shop.img}"></i><p>{$platform.shop.text}</p></div></a>
+         <a class="system font-img" href="javascript:void(0);" onClick="open_menu('{$platform.system.text}', '{$platform.system.href}')"><div class="png"><i class="fa {$platform.system.img}"></i><p>{$platform.system.text}</p></div></a>
+         <a class="goods font-img" href="javascript:void(0);" onClick="open_menu('{$platform.goods.text}', '{$platform.goods.href}')"><div class="png"><i class="fa {$platform.goods.img}"></i><p>{$platform.goods.text}</p></div></a>
+         <span class="make" href="javascript:void(0);" >新建</span>
+         <span class="accredit" href="javascript:void(0);" >授权</span>
+         <a class="down_goods" href="javascript:void(0);" onmouseover="show_platform_text(event,'down_goods')" onmouseout="close_platform_text()">下载<br>平台货品</a>
+         <span class="automatic_goods" href="javascript:void(0);" >开启自动<br>下载货品</span>
+         <span class="manual_goods" href="javascript:void(0);" style="line-height: 60px;">货品下载</span>
+         <a id="isTaobao" class="isTaobao" href="javascript:void(0);" onClick="isTaobao()" id="advance" >查看非淘宝店铺</a>
+         <span class="finish" href="javascript:void(0);">结束</span>
+         <div id="show_platform_Div" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+     </div>
+    </div>
+    <div class="easyui-draggable" style="position: absolute;top:80px;left:140px;"  data-options="onDrag:onDrag">
+        <div id="title" class="easyui-panel" title="<i class='fa fa-bookmark'></i> 相关任务" collapsible="true" style="width:150px;height:auto;padding:10px;" >
+            <ul>
+                <volist name="work_list" id="work" key="i">
+                    <li style="list-style-type:none;">
+                        <a href="javascript:void(0);"onClick="open_menu('{$work.text}', '{$work.href}')"><span style="margin-left: 15px;">{$work.msg}</span></a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div style="position: absolute;right:500px;top:40px;padding:10px;">
+        <a href="javascript:void(0)" class="easyui-linkbutton next_link" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('初始化系统货品', '{:U('Help/TradeProcess/goodsProcess')}')">下一步</a>
+    </div>
+</div>
+<script type="text/javascript">
+    //# sourceURL=platform_show.js
+    function isTaobao(){
+        var ad_text=$('#isTaobao').text();
+        if(ad_text=='查看非淘宝店铺'){
+            $('#platform_process').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/p_2.png') no-repeat 0px 72px;");$('#isTaobao').text('查看淘宝店铺');
+            $('.system').css({'display':'none'});
+            $('.automatic_goods').css({'display':'none'});
+        }
+        if(ad_text=='查看淘宝店铺'){
+            $('#platform_process').attr("style","background:url('__ROOT__/Public/Image/Process/Trade/p.png') no-repeat;");$('#isTaobao').text('查看非淘宝店铺');
+            $('.system').css({'display':'block'});
+            $('.automatic_goods').css({'display':'block'});
+        }
+    }
+    function show_platform_text(event,key){
+        var platform=document.getElementById('platform_process');
+        var text=JSON.parse('{$text}');
+        var showDiv = document.getElementById('show_platform_Div');
+        var x=event.clientX;
+        var y=parseInt(event.clientY)+parseInt(10);
+        showDiv.style.left =(x-platform.getBoundingClientRect().left)+'px';
+        showDiv.style.top = (y-platform.getBoundingClientRect().top)+'px';
+        showDiv.style.display = 'block';
+        showDiv.innerHTML = text[key];
+    }
+    function close_platform_text() {
+        var showDiv = document.getElementById('show_platform_Div');
+        showDiv.style.display = 'none';
+        showDiv.innerHTML = '';
+    }
+
+</script>

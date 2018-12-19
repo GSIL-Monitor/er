@@ -1,0 +1,11 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="datagrid">
+    <div data-options="region:'center'" style="width:100%;">
+        <easyui:propertygrid id="{$propertygrid.id}" style="{$propertygrid.style}" options="propertygrid.options"
+                         fields="propertygrid.fields"/>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar"></block>
+<block name="script"></block>

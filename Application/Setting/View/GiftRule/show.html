@@ -1,0 +1,46 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}">
+<div class="form-div">
+<label class="six-character-width">策略编码：</label><input class="easyui-textbox txt" type="text" name="search[rule_no]" />
+<label class="six-character-width">规则名称：</label><input class="easyui-textbox txt" type="text" name="search[rule_name]" />
+<label class="six-character-width">策略状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('gift_rule_status')"/>
+<label class="six-character-width">店　　铺：</label><select class="easyui-combobox sel" name="search[shop_list]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<a href="javascript:void(0)" onclick="giftRule.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="giftRule.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="giftRule.loadFormData();">重置</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</label>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label class="six-character-width">商品商家编码：</label><input class="easyui-textbox txt" type="text" name="search[merchant_no]" />
+<label class="six-character-width">商品货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<label class="six-character-width">赠品商家编码：</label><input class="easyui-textbox txt" type="text" name="search[gift_merchant_no]" /> 
+<label class="six-character-width">赠品货品编码：</label><input class="easyui-textbox txt" type="text" name="search[gift_goods_no]" />
+</div>
+<div class="form-div">
+<label class="six-character-width">开始时间：</label><input class="easyui-datetimebox txt" name="search[start_time]" type="text" data-options="editable:false"/>
+<label class="six-character-width">结束时间：</label><input class="easyui-datetimebox txt" name="search[end_time]" type="text" data-options="editable:false" />
+<label>停用：</label><input extend_type="complex-check" onclick="$(this).triStateCheckbox('click')" name="search[is_disabled]" value="" type="checkbox" /> 
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="giftRule.add()">新建</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="giftRule.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="giftRule.remove('gift_rule')">删除</a>
+</div>
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () { 
+		giftRule=new RichDatagrid(JSON.parse('{$params}')); 
+		giftRule.setFormData();
+	}, 0); 
+});
+</script>
+</block>
+<block name="tabs"></block>

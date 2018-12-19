@@ -1,0 +1,148 @@
+<div style="margin: 20px 27px;">
+    <table class="a_sale_process_button">
+        <tr>
+            <td onclick="reloadProcess(this,'all')" class="click_style">全部</td>
+            <td onclick="reloadProcess(this,'refund')">退款</td>
+            <td onclick="reloadProcess(this,'return')">退货</td>
+            <td onclick="reloadProcess(this,'exchange')">换货</td>
+        </tr>
+    </table>
+    <div class="a_sale_process" id="a_sale_process">
+        <span class="a_sale_start font-blue">平台</span>
+        <div class="a_sale_refund font-orange" href="javascript:void(0);" onClick="open_menu('原始退款单','index.php/Trade/OriginalRefund/getOriginalRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/original_refund.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/original_refund_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/original_refund.png'"/>
+            <br/>原始退款单
+        </div>
+        <span class="a_sale_deliver font-green-msg">递交</span>
+        <span class="a_sale_refund1 font-white">退款</span>
+        <span class="a_sale_return1 font-white">退货</span>
+        <span class="a_sale_exchange1 font-white">换货</span>
+        <span class="a_sale_creturn font-green-msg">新建退货单</span>
+        <span class="a_sale_cexchange font-green-msg">新建换货单</span>
+        <div class="a_sale_refundmanagement font-orange" href="javascript:void(0);" onClick="open_menu('退换管理','index.php/Trade/RefundManage/getSalesRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/refund_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/refund_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/refund_management.png'"/>
+            <br/>退换管理
+        </div>
+        <span class="a_sale_agree font-green-msg">同意</span>
+        <span class="a_sale_refund2 font-white">退款</span>
+        <span class="a_sale_refund_finish font-orange">完成退款</span>
+        <span class="a_sale_return2 font-white">退货</span>
+        <span class="a_sale_return_goods font-green-msg">退回的货品</span>
+        <span class="a_sale_storage font-green-msg">一键入库</span>
+        <span class="a_sale_return_finish font-orange">完成退货</span>
+        <span class="a_sale_exchange2 font-white">换货</span>
+        <span class="a_sale_changed font-green-msg">换出的货品</span>
+        <div class="a_sale_check font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="a_sale_through font-green-msg">审核通过</span>
+        <div class="a_sale_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="a_sale_confirm font-green-msg">确认发货</span>
+        <span class="a_sale_change_finish font-orange">完成换货</span>
+    </div>
+    <div class="a_sale_process_refund" id="a_sale_process_refund" style="display: none;">
+        <span class="a_sale_start font-blue">平台</span>
+        <div class="a_sale_refund font-orange" href="javascript:void(0);" onClick="open_menu('原始退款单','index.php/Trade/OriginalRefund/getOriginalRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/original_refund.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/original_refund_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/original_refund.png'"/>
+            <br/>原始退款单
+        </div>
+        <span class="a_sale_deliver font-green-msg">递交</span>
+        <div class="a_sale_refundmanagement font-orange" href="javascript:void(0);" onClick="open_menu('退换管理','index.php/Trade/RefundManage/getSalesRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/refund_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/refund_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/refund_management.png'"/>
+            <br/>退换管理
+        </div>
+        <span class="a_sale_agree font-green-msg">同意</span>
+        <span class="a_sale_refund2 font-white">退款</span>
+        <span class="a_sale_refund_finish font-orange">完成退款</span>
+    </div>
+    <div class="a_sale_process_return" id="a_sale_process_return" style="display: none;">
+        <span class="a_sale_start font-blue">平台</span>
+        <div class="a_sale_refund font-orange" href="javascript:void(0);" onClick="open_menu('原始退款单','index.php/Trade/OriginalRefund/getOriginalRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/original_refund.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/original_refund_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/original_refund.png'"/>
+            <br/>原始退款单
+        </div>
+        <span class="a_sale_deliver font-green-msg">递交</span>
+        <span class="a_sale_return1 font-white">退货</span>
+        <span class="a_sale_creturn font-green-msg">新建退货单</span>
+        <div class="a_sale_refundmanagement font-orange" href="javascript:void(0);" onClick="open_menu('退换管理','index.php/Trade/RefundManage/getSalesRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/refund_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/refund_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/refund_management.png'"/>
+            <br/>退换管理
+        </div>
+        <span class="a_sale_agree font-green-msg">同意</span>
+        <span class="a_sale_return2 font-white">退货</span>
+        <span class="a_sale_return_goods font-green-msg">退回的货品</span>
+        <span class="a_sale_storage font-green-msg">一键入库</span>
+        <span class="a_sale_return_finish font-orange">完成退货</span>
+    </div>
+    <div class="a_sale_process_exchange" id="a_sale_process_exchange" style="display: none">
+        <span class="a_sale_start font-blue">平台</span>
+        <div class="a_sale_refund font-orange" href="javascript:void(0);" onClick="open_menu('原始退款单','index.php/Trade/OriginalRefund/getOriginalRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/original_refund.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/original_refund_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/original_refund.png'"/>
+            <br/>原始退款单
+        </div>
+        <span class="a_sale_deliver font-green-msg">递交</span>
+        <span class="a_sale_creturn font-green-msg">新建退货单</span>
+        <div class="a_sale_refundmanagement font-orange" href="javascript:void(0);" onClick="open_menu('退换管理','index.php/Trade/RefundManage/getSalesRefundList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/refund_management.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/refund_management_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/refund_management.png'"/>
+            <br/>退换管理
+        </div>
+        <span class="a_sale_agree font-green-msg">同意</span>
+        <span class="a_sale_return2 font-white">退货</span>
+        <span class="a_sale_return_goods font-green-msg">退回的货品</span>
+        <span class="a_sale_storage font-green-msg">一键入库</span>
+        <span class="a_sale_return_finish font-orange">完成退货</span>
+        <span class="a_sale_exchange2 font-white">换货</span>
+        <span class="a_sale_changed font-green-msg">换出的货品</span>
+        <div class="a_sale_check font-green" href="javascript:void(0);" onClick="open_menu('订单审核','index.php/Trade/TradeCheck/getTradeList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/sales_tradecheck.png'"/>
+            <br/>订单审核
+        </div>
+        <span class="a_sale_through font-green-msg">审核通过</span>
+        <div class="a_sale_printing font-green" href="javascript:void(0);" onClick="open_menu('单据打印','index.php/Stock/StockSalesPrint/getPrintList');">
+            <img src="__ROOT__/Public/Image/Process/Trade/document_printing.png" onmouseover="this.src='__ROOT__/Public/Image/Process/Trade/document_printing_check.png'" onmouseout="this.src='__ROOT__/Public/Image/Process/Trade/document_printing.png'"/>
+            <br/>单据打印
+        </div>
+        <span class="a_sale_confirm font-green-msg">确认发货</span>
+        <span class="a_sale_change_finish font-orange">完成换货</span>
+    </div>
+</div>
+<script type="text/javascript">
+    function reloadProcess(that,type){
+        if(that != null) {
+            $('.click_style').each(function (key, obj) {
+                $(this).removeClass("click_style");
+            });
+            $(that).addClass('click_style');
+        }
+        switch(type){
+            case 'all':
+                $('#a_sale_process').show();
+                $('#a_sale_process_refund').hide();
+                $('#a_sale_process_return').hide();
+                $('#a_sale_process_exchange').hide();
+                break;
+            case 'refund':
+                $('#a_sale_process').hide();
+                $('#a_sale_process_refund').show();
+                $('#a_sale_process_return').hide();
+                $('#a_sale_process_exchange').hide();
+                break;
+            case 'return':
+                $('#a_sale_process').hide();
+                $('#a_sale_process_refund').hide();
+                $('#a_sale_process_return').show();
+                $('#a_sale_process_exchange').hide();
+                break;
+            case 'exchange':
+                $('#a_sale_process').hide();
+                $('#a_sale_process_refund').hide();
+                $('#a_sale_process_return').hide();
+                $('#a_sale_process_exchange').show();
+                break;
+        }
+    }
+</script>

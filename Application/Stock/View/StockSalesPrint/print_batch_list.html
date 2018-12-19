@@ -1,0 +1,32 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+	<div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+		<form id="{$id_list['form']}" class="easyui-form" method="post">
+			<div class="form-div">
+				<label>打印批次：</label><input class="easyui-textbox txt" type="text" name="search[batch_no]"/>
+				<label>单据类型：</label><input class="easyui-combobox txt" text="txt" name="search[order_mask]" data-options="panelHeight:110,valueField:'id',textField:'name',data:[{'id':'all','name':'全部'},{'id':'1','name':'发货单'},{'id':'2','name':'物流单'},{'id':'3','name':'分拣单'}],editable:false,value:'all'">
+				<label>订单数量：</label><input class="easyui-textbox txt" type="text" name="search[order_num]"/>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="print_batch_list.submitSearchForm(this)">搜索</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="print_batch_list.loadFormData()">重置</a><br>
+				<label>订单编号：</label><input class="easyui-textbox txt" type="text" name="search[src_order_no]"/>
+				<label>创建时间：</label><input class="easyui-datetimebox txt" type="text" name="search[create_time_start]" data-options="editable:false"/>
+				<label style="margin-left: 36px;">至：</label><input class="easyui-datetimebox txt" type="text" name="search[create_time_end]" data-options="editable:false"/><br>
+				<label>原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tid]"/>
+				<label>物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]"/>
+			</div>
+		</form>
+	</div>
+</block>
+<block name="tabs"> <div data-options="region:'south',split:true" style="height:40%;background:#eee;overflow:hidden;"> <div class="easyui-tabs" data-options="fit:true,border:false,plain:true" id="{$id_list.tab_container}"> </div> </div>
+<block name="dialog"></block>
+<block name="script">
+	<script type="text/javascript">
+		$(function () {
+			setTimeout(function () {
+				print_batch_list = new RichDatagrid(JSON.parse('{$params}'));
+				print_batch_list.setFormData();
+				add_tabs(JSON.parse('{$arr_tabs}'));
+			}, 0);
+		});
+	</script>
+</block>

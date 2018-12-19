@@ -1,0 +1,120 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<style type="text/css">
+#tradeDownload_next_link {
+	float: right;
+	margin-right: 10px;
+}
+</style>
+<form id="down_trade_form" class="easyui-form" method="post">
+<div class="form-div">
+<span id="sp-tid">
+　<input name="search[downtrade_radio]" type="radio" value="1" class="easyui-validatebox" checked="checked" required="true"}/>
+<label>按原始单号：</label><input class="easyui-textbox txt" type="text" name="tid" />
+</span>
+<span id="sp-buyer_no">
+　<input name="search[downtrade_radio]" type="radio" value="2" class="easyui-validatebox"  required="true"/>
+<label>按买家网名：</label><input class="easyui-textbox txt" type="text" name="buyer_nick" />
+</span>
+<span id="sp-time">
+　<input name="search[downtrade_radio]" type="radio" value="3" class="easyui-validatebox"  required="true"/>
+<label>按照时间段：</label><input class="easyui-datetimebox" type="text" value="{$now}" name="start_time" style="width:145px;"/>
+<label>到</label><input class="easyui-datetimebox" type="text" value="{$now}" name="end_time" style="width:145px;"/>
+</span>
+<a href="javascript:void(0)" class="easyui-linkbutton"  onclick="submitApiTradeDownSearchForm('订单');">下载订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton"  onclick="submitApiTradeDownSearchForm('退款单');">下载退款订单</a>
+<label class="form-div">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+</label>
+<a href="javascript:void(0)" id="tradeDownload_next_link" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('原始订单', '{:U('Trade/OriginalTrade/getOriginalTradeList')}')">原始订单</a>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+var shop_index=undefined;
+var trade_down_shop_datagrid_id='#{$datagrid.id}';
+function onClickShopList(index) { shop_index=index; }
+function formatterSubPlatForm(value, row, index){
+	switch(row.platform_id){
+	case '0':{ return '默认';}
+    case '1':{ switch(value){ case '0': return '淘宝集市'; case '1': return '天猫商城'; default : return '默认'; } }
+    case '3':{ switch(value){ case '0': return 'SOP'; case '1': return 'LBP'; case '2': return 'SOPL'; case '3': return 'FBP'; case '4': return '海外购'; default : return '默认'; } }
+	case '32':{ switch(value){case '0': return '微店';case '1': return '微中心';default: return '默认'; } }
+	case '20':{ switch (value){case '1': return '蘑菇街';case '2': return '美丽说';default: return '默认'}}
+	}
+}
+function submitApiTradeDownSearchForm(type)
+{
+	if(shop_index==undefined){messager.alert('请选择店铺');return;}
+	var radio_val=$("#down_trade_form span>input[type='radio']:checked").val();
+	var tid_val=$("#down_trade_form :input[name='tid']").val();
+	var buyer_nick_val=$("#down_trade_form :input[name='buyer_nick']").val();
+	var start_val=$("#down_trade_form :input[name='start_time']").val();
+	var end_val=$("#down_trade_form :input[name='end_time']").val();
+	var form_data;
+	var tip_info;
+	switch(radio_val)
+	{
+		case '1':
+			if(tid_val=='') { messager.alert('请输入原始单号'); return;}
+			form_data={'radio':radio_val,'trade_id':tid_val};
+			tip_info='，原始单号：'+tid_val;
+			break;
+		case '2':
+			if(buyer_nick_val=='') { messager.alert('请输入买家网名'); return;}
+			form_data={'radio':radio_val,'buyer_nick':buyer_nick_val};
+			tip_info='，买家网名：'+buyer_nick_val;
+			break;
+		case '3':
+			var reg=/^(1|2\d{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3([0|1]))))( (\d{2}):(\d{2}):(\d{2}))?$/;
+			if((!reg.test(start_val))||(!reg.test(end_val))){messager.alert('时间格式不正确');return;}
+			var start=new Date(start_val.replace("-", "/").replace("-", "/"));
+			var end=new Date(end_val.replace("-", "/").replace("-", "/"));
+			if(start>end){messager.alert('开始时间不能大于结束时间');return;}
+			if((end-start)>86400000){messager.alert('时间跨度不能超过24小时');return;}//时间差不能大于24小时
+			/*current_time=new Date();
+			if(end>current_time){messager.alert('结束时间不能大于当前时间');return;}*/
+			form_data={'radio':radio_val,'start':start_val,'end':end_val};
+			tip_info='，时间段为：'+start_val+'到'+end_val;
+			break;
+	}
+	var data={};
+	data['form']=form_data;
+	data['shop_datagrid']=$(trade_down_shop_datagrid_id).datagrid('getSelected');
+	if(data['shop_datagrid']['auth_state']!=1){messager.alert('该店铺未授权或授权已失效');return;}
+	var data_type =[];
+	data_type[1] = type;
+	$('#down-trade-log').append('<br>准备开始下载'+data_type[1] +' --> 店铺：'+data['shop_datagrid']['shop_name']+tip_info+'....');
+	$.post('{:U('TradeDownload/downTrade')}',{data:data,type:type}, function(res){
+	if(!res.status){
+		$.messager.alert('提示信息', res.info,'warning');
+		$('#down-trade-log').append('<br><span style="color:red;">'+res.info+'</span>');
+		return false;
+	}else{
+		$('#down-trade-log').append('<br><span style="color:green;">'+res.info+'</span>');
+	}
+},"JSON");
+
+}
+$(function(){
+//单选框事件
+$('#sp-tid').bind('click',function(){
+	$("#sp-tid>input[type='radio']").prop("checked","checked");
+	$("#sp-buyer_no>input[type='radio']").prop("checked",false);
+	$("#sp-time>input[type='radio']").prop("checked",false);
+});
+$('#sp-buyer_no').bind('click',function(){
+	$("#sp-tid>input[type='radio']").prop("checked",false);
+	$("#sp-buyer_no>input[type='radio']").prop("checked","checked");
+	$("#sp-time>input[type='radio']").prop("checked",false);
+});
+$('#sp-time').bind('click',function(){
+	$("#sp-tid>input[type='radio']").prop("checked",false);
+	$("#sp-buyer_no>input[type='radio']").prop("checked",false);
+	$("#sp-time>input[type='radio']").prop("checked","checked");
+});
+});
+</script>
+</block>

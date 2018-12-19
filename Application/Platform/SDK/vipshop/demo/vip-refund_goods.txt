@@ -1,0 +1,1151 @@
+vipapis\vreturn\GetReturnDetailResponse Object
+(
+    [returnDeliveryInfos] => Array
+        (
+            [0] => vipapis\vreturn\ReturnDeliveryInfo Object
+                (
+                    [return_sn] => 160425RTV00252NH
+                    [out_time] => 2016-04-28 19:32:04
+                    [total_cases] => 6
+                    [total_skus] => 106
+                    [total_qtys] => 115
+                    [delivery_list] => Array
+                        (
+                            [0] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M90900234
+                                    [product_name] => 新款头层牛皮厚底舒适休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [1] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A82704038
+                                    [product_name] => 新款珠光纹平底透气乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [2] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A80901538
+                                    [product_name] => 唯品会专供 透气内里细带舒适厚底凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [3] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A82704034
+                                    [product_name] => 新款珠光纹平底透气乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [4] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH02100235
+                                    [product_name] => 新款头层牛皮内猪里皮简约平底乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [5] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH02905238
+                                    [product_name] => 新品里外全皮小高跟工作鞋OL单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [6] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y52504038
+                                    [product_name] => 新品韩版性感尖头腕带高跟单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [7] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041R53201039
+                                    [product_name] => 新款珠光牛皮细跟真皮内里凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [8] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041P91800237
+                                    [product_name] => 新款头层牛皮圆头平底内增高乐福单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [9] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041P59500735
+                                    [product_name] => 新款头层牛皮平底舒适内增高乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [10] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH01700236
+                                    [product_name] => 新款头层牛皮内猪里皮尖头OL单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [11] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A88807636
+                                    [product_name] => 新品韩版简约舒适露趾透气凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CR160425RTV00252NH1693
+                                )
+
+                            [12] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y56208939
+                                    [product_name] => 新品英伦风纯色圆头侧系带低跟单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [13] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87100235
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [14] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012D700736
+                                    [product_name] => 头层牛皮流苏鱼嘴凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [15] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87707637
+                                    [product_name] => 新品韩版休闲露趾透气铆钉凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [16] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M90800735
+                                    [product_name] => 新款头层牛皮厚底舒适休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [17] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 067B34600939
+                                    [product_name] => 头层羊皮鱼嘴高跟防水台拼色凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [18] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70600237
+                                    [product_name] => 新款头层牛皮厚底韩版休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [19] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y51700839
+                                    [product_name] => 新品尖头套脚高跟细跟纯色浅口OL单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [20] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y51200236
+                                    [product_name] => 新品韩版甜美漆皮圆头休闲单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [21] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 006G96300337
+                                    [product_name] => 新品头层羊皮韩版平底舒适凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100038463
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [22] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B75300739
+                                    [product_name] => 新品休闲韩版平底镂空百搭乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [23] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 071V90100639
+                                    [product_name] => 2016新品头层牛皮休闲鱼嘴高跟内猪皮凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [24] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y56700236
+                                    [product_name] => 新品韩版漆皮浅口舒适百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [25] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH02600734
+                                    [product_name] => 2016新品里外全皮平底内增高休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [26] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 006G96600736
+                                    [product_name] => 新品韩版圆头平底魔术贴休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [27] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099SH00500237
+                                    [product_name] => 韩版全真皮内里甜美腕带扣高跟单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [28] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M90800735
+                                    [product_name] => 新款头层牛皮厚底舒适休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [29] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012W80202638
+                                    [product_name] => 2015新款头层羊皮水钻平底凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [30] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70600237
+                                    [product_name] => 新款头层牛皮厚底韩版休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [31] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y51300238
+                                    [product_name] => 新品韩版可爱圆头低跟百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [32] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87105239
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [33] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 071V90500237
+                                    [product_name] => 2016新品头层牛皮平底休闲内猪皮凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [34] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87100736
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [35] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH02700636
+                                    [product_name] => 2016新品猪皮内里尖头蝴蝶结浅口单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [36] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87508736
+                                    [product_name] => 新品舒适透气露趾搭扣百搭凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [37] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B74907635
+                                    [product_name] => 新品韩版平底休闲系带内增高休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [38] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A80901039
+                                    [product_name] => 唯品会专供 透气内里细带舒适厚底凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [39] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A90600736
+                                    [product_name] => 新品韩版尖头性感高跟细跟百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [40] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A82704039
+                                    [product_name] => 新款珠光纹平底透气乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [41] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M80800235
+                                    [product_name] => 头层羊漆皮韩版蝴蝶结平底鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [42] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH02905238
+                                    [product_name] => 新品里外全皮小高跟工作鞋OL单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [43] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B75000936
+                                    [product_name] => 新品马毛休闲平底系带透气乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [44] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041R53201038
+                                    [product_name] => 新款珠光牛皮细跟真皮内里凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [45] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87101035
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [46] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 004F61000235
+                                    [product_name] => 新款头层牛皮小尖头高跟工作单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [47] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B72001235
+                                    [product_name] => 新款牛皮系带运动休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [48] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 006W89902637
+                                    [product_name] => 2015新款头层羊皮水钻鱼嘴方跟凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [49] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 093T10203037
+                                    [product_name] => 新款牛皮韩版休闲舒适平底乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [50] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70600237
+                                    [product_name] => 新款头层牛皮厚底韩版休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [51] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 016D89100235
+                                    [product_name] => 新款英伦复古厚底松糕雕花圆头单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [52] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A30502638
+                                    [product_name] => 头层牛皮闪耀水钻浅口镂空单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [53] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70501039
+                                    [product_name] => 新款牛皮拼色网纱拼接圆头低跟镂空单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [54] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 002M34600636
+                                    [product_name] => 韩版尖头低跟拼色蝴蝶结休闲单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [55] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B71201237
+                                    [product_name] => 新款牛皮韩版休闲平底乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [56] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y57300234
+                                    [product_name] => 新品韩版系带圆头平底百搭休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [57] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A58600237
+                                    [product_name] => 新品头层牛皮圆头系带内增高透气休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [58] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B74900238
+                                    [product_name] => 新品韩版平底休闲系带内增高休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [59] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 016K01505238
+                                    [product_name] => 新款头层牛皮舒适优雅花朵凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [60] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 016D82300237
+                                    [product_name] => 羊皮韩版圆头松糕厚底乐福鞋纯色单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100038463
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [61] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A58600237
+                                    [product_name] => 新品头层牛皮圆头系带内增高透气休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [62] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A88200735
+                                    [product_name] => 新品韩版头层牛皮内猪皮厚底百搭凉鞋拖鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [63] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 006G96500237
+                                    [product_name] => 2016年新品牛皮韩版平底简约凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [64] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y52500238
+                                    [product_name] => 新品韩版性感尖头腕带高跟单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [65] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 004D6100836
+                                    [product_name] => 头层牛皮尖头通勤单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [66] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A58800735
+                                    [product_name] => 新品头层牛皮韩版舒适透气内增高乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [67] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098SH01907634
+                                    [product_name] => 新款里外全皮平底内增高休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [68] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041P90303839
+                                    [product_name] => 2015新款珠光牛皮腕带防水台高跟鱼嘴凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [69] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A88207639
+                                    [product_name] => 新品韩版头层牛皮内猪皮厚底百搭凉鞋拖鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [70] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87500736
+                                    [product_name] => 新品舒适透气露趾搭扣百搭凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [71] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A88200735
+                                    [product_name] => 新品韩版头层牛皮内猪皮厚底百搭凉鞋拖鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [72] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A88200636
+                                    [product_name] => 新品韩版头层牛皮内猪皮厚底百搭凉鞋拖鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [73] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87500838
+                                    [product_name] => 新品舒适透气露趾搭扣百搭凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [74] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 066SH00100739
+                                    [product_name] => 新款简约韩版厚底内增高乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [75] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 066J05717938
+                                    [product_name] => 韩版时尚尖头平底浅口扣带纯色单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [76] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 003Z90107637
+                                    [product_name] => 新款头层羊皮鱼嘴高跟凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [77] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87104036
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [78] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70501237
+                                    [product_name] => 新款牛皮拼色网纱拼接圆头低跟镂空单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [79] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A87100836
+                                    [product_name] => 新品里外全皮舒适平底四季乐福鞋十一色可选
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [80] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041P90300736
+                                    [product_name] => 2015新款珠光牛皮腕带防水台高跟鱼嘴凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [81] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 004W22201137
+                                    [product_name] => 头层牛皮流苏平底罗马凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [82] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A88804037
+                                    [product_name] => 新品韩版简约舒适露趾透气凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [83] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70301037
+                                    [product_name] => 新品牛皮时尚拼色运动透气网纱休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 2
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [84] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A90300234
+                                    [product_name] => 2016新品里外全皮平底内增高休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [85] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B72500638
+                                    [product_name] => 新款简约拼色圆头百搭平底乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [86] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 010L90100236
+                                    [product_name] => 头层牛皮舒适厚底全凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [87] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 041R53200738
+                                    [product_name] => 新款珠光牛皮细跟真皮内里凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [88] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A20301036
+                                    [product_name] => 唯品会专供 水钻尖头一字扣后空凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100038463
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [89] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A82704035
+                                    [product_name] => 新款珠光纹平底透气乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [90] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B73100235
+                                    [product_name] => 新品牛皮系带运动鞋休闲百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [91] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 003Z88300234
+                                    [product_name] => 新品里外全皮厚底舒适休闲百搭真皮乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [92] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y56300236
+                                    [product_name] => 新品韩版漆皮圆头流苏休闲百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [93] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 006G96800239
+                                    [product_name] => 新品韩版休闲平底舒适圆头乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [94] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 098A90300237
+                                    [product_name] => 2016新品里外全皮平底内增高休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [95] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 015K06600234
+                                    [product_name] => 新款真皮内里厚底英伦风学院增高休闲鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [96] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B75300736
+                                    [product_name] => 新品休闲韩版平底镂空百搭乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [97] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012Q25000737
+                                    [product_name] => 白色厚底坡跟雕花鱼嘴凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 2
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [98] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 075Y56700236
+                                    [product_name] => 新品韩版漆皮浅口舒适百搭单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [99] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87707634
+                                    [product_name] => 新品韩版休闲露趾透气铆钉凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                            [100] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099SH00900637
+                                    [product_name] => 新品头层牛皮小圆头韩版舒适平底休闲单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [101] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M83300237
+                                    [product_name] => 羊皮性感尖头浅口酒杯跟舒适单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [102] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 001C20202637
+                                    [product_name] => 新品头层羊皮透气舒适坡跟凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [103] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 089B70500235
+                                    [product_name] => 新款牛皮拼色网纱拼接圆头低跟镂空单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [104] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 016K02001136
+                                    [product_name] => 2016新品头层牛皮平底休闲凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [105] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M91000736
+                                    [product_name] => 新款韩版简约舒适休闲乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CC160425RTV00252NH1669
+                                )
+
+                            [106] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 012M86800236
+                                    [product_name] => 甜美尖头镂空蝴蝶结内增高单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [107] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 003Z88100237
+                                    [product_name] => 新品韩版休闲平底舒适百搭乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100039402
+                                    [qty] => 1
+                                    [box_no] => CG160425RTV00252NH1720
+                                )
+
+                            [108] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 016D99008937
+                                    [product_name] => 新款韩版休闲圆头百搭及踝靴
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [109] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099SH01100235
+                                    [product_name] => 新品四季百搭舒适系带小白鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [110] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 093T10600736
+                                    [product_name] => 新品头层牛皮韩版休闲平底系带单鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CS160425RTV00252NH1650
+                                )
+
+                            [111] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 093T10203035
+                                    [product_name] => 新款牛皮韩版休闲舒适平底乐福鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CZ160425RTV00252NH1686
+                                )
+
+                            [112] => vipapis\vreturn\ReturnDeliveryDetail Object
+                                (
+                                    [barcode] => 099A87300238
+                                    [product_name] => 新品韩版休闲百搭蝴蝶结露趾凉鞋
+                                    [grade] => 100
+                                    [po_no] => 2100040518
+                                    [qty] => 1
+                                    [box_no] => CD160425RTV00252NH1661
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [total] => 1
+)

@@ -1,0 +1,6 @@
+[ 2017-08-05T18:29:13+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=26&ids=225&isMulti=1&_=1501926539668
+ERR: Class 'Memcached' not found
+
+[ 2017-08-05T18:31:04+08:00 ] 127.0.0.1 /index.php/stock/way_bill/gettemplates.html?logisticsId=26&ids=225&isMulti=1&_=1501926539671
+ERR: Class 'Memcached' not found
+

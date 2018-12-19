@@ -1,0 +1,329 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="{$id_list.search_form}" class="easyui-form" method="post">
+<div class="form-div" style="width:100%">
+    <label class="five-character-width">同步状态：</label>
+    <select class="easyui-combobox sel" name="search[sync_status]">
+        <volist name='list_sync_status' id='vo'><option value="{$vo.key}">{$vo.value}</option></volist>
+    </select>
+    <label class="five-character-width">店铺：</label>
+    <select class="easyui-combobox sel" name="search[shop_id]">
+        <volist name='list_shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+    </select>
+    <label class="five-character-width">订单号：</label>
+    <input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+    <label class="five-character-width">原始单号：</label>
+    <input class="easyui-textbox txt" type="text" name="search[src_tid]" />
+    <a href="javascript:void(0)" onclick="apiLogisticsSync.clickMore(this)">更多</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="apiLogisticsSync.submitSearchForm(this);">搜索</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="apiLogisticsSync.loadFormData();">重置</a>
+    <label class="form-div">
+        <a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+    </label>
+</div>
+<div id="{$id_list.more_content}" class="form-div">
+    <label class="five-character-width">客户网名：</label>
+    <input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+    <label class="five-character-width">物流单号：</label>
+    <input class="easyui-textbox txt" type="text" name="search[logistics_no]" />
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<div style="padding:5px;height:auto">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="" onclick="apiLogisticsSync.chgLogistics()">更改物流</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="" onclick="apiLogisticsSync.retrySync()">重新同步</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="" onclick="apiLogisticsSync.setSyncSuccess()">设为同步成功</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="" onclick="apiLogisticsSync.cancelSync()">取消同步</a>
+<if condition="$setting eq 0">
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="" onclick="apiLogisticsSync.manualSyncLogistics()">手动物流同步</a>
+</if>
+</div>
+</div>
+
+</block>
+<block name="dialog">
+    <div id= "{$id_list.chg_dialog}" style="overflow: hidden;"></div>
+    <div id="apiLogisticsSync_solution"></div>
+</block>
+<block name="tabs">
+<div data-options="region:'south',split:true" style="height:30%;overflow:hidden;">
+<div class="easyui-tabs" data-options="fit:true,border:false,plain:true,showHeader:false" id="{$id_list.tab_container}">
+</div>
+</div>
+
+<script type="text/javascript">
+//# sourceURL=stock_ApiLogisticsSync.js
+
+$(function(){
+setTimeout('add_tabs(JSON.parse(\'{$arr_tabs}\'))',0);
+});
+ var als_formatter = new Array();
+    als_formatter['shop_name'] = {$formatter_shop};
+    als_formatter['logistics_name'] ={$formatter_logistics};
+    //als_formatter['platform_name']  = {$formatter_platform};
+$(function(){
+    setTimeout(function(){
+        apiLogisticsSync = new RichDatagrid(JSON.parse('{$params}'));
+        apiLogisticsSync.setFormData();
+
+/**
+ * [chgLogistics 改变物流信息]
+ * @return {[type]} [description]
+ */
+
+apiLogisticsSync.chgLogistics = function (){
+	var datagridId = apiLogisticsSync.params.datagrid.id;
+	var row = $('#'+datagridId).datagrid('getSelections');
+    if(row == null || row ==undefined ||row.length==0  )
+    {
+        messager.alert("请选择要操作的行");
+        return false;
+    }
+	if(row.length>1){
+		messager.alert('请选择单行操作');
+		return;
+	}
+	for(var i in row){
+		if(0 != row[i].bill_type && 1 != row[i].bill_type && 9 != row[i].bill_type && 2 != row[i].bill_type){
+        messager.alert("物流单号类型不正确！");
+        return false;
+		}else{
+        this.chg(row[i]['id']);
+		}
+	}
+}
+/**
+ * [chgLogistics 重新同步]
+ * @return {[type]} [description]
+ */
+apiLogisticsSync.retrySync = function (){
+	var datagridId = apiLogisticsSync.params.datagrid.id;
+    var row = $('#'+datagridId).datagrid('getSelections');
+    var that = this;
+    if(row == null || row ==undefined ||row.length==0 )
+    {
+        messager.alert("请选择要操作的行");
+        return;
+    }
+    $.messager.progress({
+        title: "请稍后",
+        msg: "正在重新同步，请稍等..."
+    });
+    var ids = [];
+    for(var i in row){
+        if(row[i].sync_status==3){continue;}
+        ids.push({index:$('#'+datagridId).datagrid('getRowIndex',row[i]),id:row[i].id,trade_no:row[i].trade_no});
+    }
+    $.post("{:U('ApiLogisticsSync/retrySync')}",{ids:ids},function(result){
+        $.messager.progress('close');
+        if(result['status'] == 1)
+        {
+            messager.alert(result['info']);
+        }
+        else
+        {
+            if(!$.isEmptyObject(result.data.fail)){
+                $.fn.richDialog("response", result.data.fail, "tradecheck");
+            }
+            if(!$.isEmptyObject(result.data.success)){
+                for(var i in result.data.success){
+                    $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(result.data.success[i]['index']),row:{is_need_sync:result.data.success[i]['is_need_sync']}});
+                }
+            }
+        }
+    },'json');
+}
+/**
+ * [chgLogistics 设置为同步成功]
+ * @return {[type]} [description]
+ */
+apiLogisticsSync.setSyncSuccess = function (){
+	var datagridId = apiLogisticsSync.params.datagrid.id;
+    var row = $('#'+datagridId).datagrid('getSelections');
+    var that = this;
+    if(row == null || row ==undefined ||row.length==0 )
+    {
+        messager.alert("请选择要操作的行");
+        return;
+    }
+    var ids = [];
+    for(var i in row){
+        ids.push({index:$('#'+datagridId).datagrid('getRowIndex',row[i]),id:row[i].id,trade_no:row[i].trade_no});
+    }
+	messager.confirm("您确定要手动设置同步成功吗？", function (data) {  
+            if (data) {  
+                $.post("{:U('ApiLogisticsSync/setSyncSuccess')}",{ids:ids},function(result){
+				if(result['status'] == 1)
+				{
+					messager.alert(result['info']);
+				} else
+				{
+					if(!$.isEmptyObject(result.data.fail)){
+					$.fn.richDialog("response", result.data.fail, "tradecheck");
+				}
+					if(!$.isEmptyObject(result.data.success)){
+					for(var i in result.data.success){
+                    $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(result.data.success[i]['index']),row:{is_need_sync:result.data.success[i]['is_need_sync'],sync_status:result.data.success[i]['sync_status']}});
+						}
+					}
+				}
+			},'json');
+		}
+	})
+}
+
+/**
+ * [chgLogistics 取消同步]
+ * @return {[type]} [description]
+ */
+apiLogisticsSync.cancelSync = function (){
+	var datagridId = apiLogisticsSync.params.datagrid.id;
+    var row = $('#'+datagridId).datagrid('getSelections');
+    var that = this;
+    if(row == null || row ==undefined ||row.length==0 )
+    {
+        messager.alert("请选择要操作的行");
+        return;
+    }
+	var ids = [];
+    for(var i in row){
+        ids.push({index:$('#'+datagridId).datagrid('getRowIndex',row[i]),id:row[i].id,trade_no:row[i].trade_no});
+    }
+	messager.confirm("您确定要取消同步吗？", function (data) {  
+            if (data) {  
+                $.post("{:U('ApiLogisticsSync/cancelSync')}",{ids:ids},function(result){
+				if(result['status'] == 1)
+				{
+					messager.alert(result['info']);
+				} else
+				{
+					if(!$.isEmptyObject(result.data.fail)){
+					$.fn.richDialog("response", result.data.fail, "tradecheck");
+				}
+					if(!$.isEmptyObject(result.data.success)){
+					for(var i in result.data.success){
+                    $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(result.data.success[i]['index']),row:{is_need_sync:result.data.success[i]['is_need_sync'],sync_status:result.data.success[i]['sync_status']}});
+						}
+					}
+				}
+			},'json');  
+		}
+    });
+}
+/*
+* 手动物流同步
+*/
+apiLogisticsSync.manualSyncLogistics = function () {
+    var datagridId = apiLogisticsSync.params.datagrid.id;
+    var row = $('#'+datagridId).datagrid('getSelections');
+    var ids = [];
+    if(row == null || row == undefined ||row.length == 0 ){
+        messager.confirm('是否手动同步全部物流？',function (data) {
+            if(!data){
+                return false;
+            }
+            $.messager.progress({
+                title: "请稍后",
+                msg: "正在同步，请稍等..."
+            });
+	        $.post("{:U('ApiLogisticsSync/manualSyncLogistics')}",{'ids':ids},function(result){
+                $.messager.progress('close');
+                if(result['status']==1){
+			        messager.alert(result['info']);
+		        }else{
+			        apiLogisticsSync.refresh();
+			        messager.alert(result['info']);
+		        }
+	        },'json');
+        })
+    }else{
+        $.messager.progress({
+            title: "请稍后",
+            msg: "正在同步，请稍等..."
+        });
+        for(var i in row){
+          ids.push(row[i].id);
+        }
+		    $.post("{:U('ApiLogisticsSync/manualSyncLogistics')}",{'ids':ids},function(result){
+                $.messager.progress('close');
+                if(result['status']==1){
+				    messager.alert(result['info']);
+			    }else{
+				    apiLogisticsSync.refresh();
+				    messager.alert(result['info']);
+			    }
+		    },'json');
+    }
+}
+/*apiLogisticsSync.chg = function(rec_id){
+    $('#'+this.params.chg.id).dialog({
+        // title:'{$params.edit_title}',
+        title:this.params.chg.title,
+        width:typeof(this.params.chg.width) != "undefined" ? this.params.chg.width : 764,
+        height:typeof(this.params.chg.height) != "undefined" ? this.params.chg.height : 500,
+        modal:true,
+        closed:false,
+        href:this.params.chg.url+"?rec_id="+rec_id+"&datagridId="+this.params.datagrid.id+"&dialogId="+this.params.chg.id,
+        inline:true,
+        iconCls:'icon-edit',
+        inline:true,
+        resizable:true,
+        });
+}*/
+        apiLogisticsSync.chg = function (rec_id) {
+            var that = this;
+            var buttons = [{
+                text: '确定', handler: function () {
+                    that.submitChg();
+                }
+            }, {
+                text: '取消', handler: function () {
+                    that.cancelDialog(that.params.chg.id);
+                }
+            }];
+            this.showDialog(
+                    that.params.chg.id,
+                    that.params.chg.title,
+                    that.params.chg.url + "?rec_id=" + rec_id,
+                    that.params.chg.height,
+                    that.params.chg.width,
+                    buttons,
+                    that.params.chg.toolbar,
+                    that.params.chg.ismax
+            );
+        }
+
+        apiLogisticsSync.solution = function(id){
+            var dialogId = 'apiLogisticsSync_solution';
+            var datagridId = apiLogisticsSync.params.datagrid.id;
+            var index = $('#'+datagridId).datagrid('getSelections');
+            if(index.length>1){messager.alert('请选择单行查看');return}
+           // var url = "{:U('ApiLogisticsSync/getErrorMsgSolution')}"
+            var url = "index.php/Stock/ApiLogisticsSync/getErrorMsgSolution?id=" + id;
+            /*$.post(url,{id:id},function(res){
+                if(!res.status && res.status!=undefined){
+                    $.fn.richDialog("response", res.info, "logistics_error");
+                }else{
+                    messager.alert(res.info);
+                }
+            });*/
+
+            $('#'+dialogId).dialog({
+                title:'物流同步错误信息',
+                iconCls:'icon-save',
+                width:500,
+                height:300,
+                href:url,
+                closed:false,
+                inline:true,
+                modal:true
+            });
+
+        }
+    },0);
+});
+</script>
+</block>
+
+  

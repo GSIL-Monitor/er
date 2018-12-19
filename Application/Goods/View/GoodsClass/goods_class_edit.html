@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 货品分类 </title>
+</head>
+<body >
+<div id="goodsClassLayoutControl" style="width:100%; height:100%;">
+<div class="easyui-layout" style="width:100%; height:100%;overflow: hidden;">
+<div data-options="region:'north'" style="width:50%;height:38px;background:#eee;">
+<div style="padding:5px 0">
+<a href="javascript:void(0)"  id="goodsClassAddGButton"  class="easyui-linkbutton"  data-options="iconCls:'icon-add'">添加父分类</a>
+<a href="javascript:void(0)"  id="goodsClassAddLButton"  class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加子分类</a>
+<a href="javascript:void(0)"  id="goodsClassRemoveButton"  class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+<a href="javascript:void(0)"  id="goodsClassModifyButton"  class="easyui-linkbutton" data-options="iconCls:'icon-save'">修改</a>
+<a href="javascript:void(0)"  id="goodsClassRefreshButton"  class="easyui-linkbutton" data-options="iconCls:'icon-reload'">刷新</a>
+<!--<a href="javascript:void(0)"  id="goodsClassImportButton"  class="easyui-linkbutton" data-options="iconCls:'icon-save'">导入</a>-->
+</div>
+</div>
+<div data-options="region:'center'" style = "height: 180%">
+<ul  id="goodsClassTree" class="easyui-tree" data-options='animate:true,lines:true,data: {$treejson}'></ul>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=goods_class_edit.js 
+var goods_class_oper_status = 1;
+$(function(){   
+    //var original_node_text = "";
+     //初始化树
+    
+    //绑定添加、删除、修改方法
+    $('#goodsClassRemoveButton').bind('click',goodsClassRemove); //移除
+    $('#goodsClassAddGButton').bind('click',goodsClassAddGroup); //添加分组
+    $('#goodsClassAddLButton').bind('click',goodsClassAddLeaf); //添加分类
+    $('#goodsClassModifyButton').bind('click',goodsClassModify); //修改
+    $('#goodsClassRefreshButton').bind('click',goodsClassRefresh); //刷新
+    //绑定双击修改事件函数    
+    /* $('#goodsClassTree').tree({
+        onDblClick:function(node){
+            return;
+            if(node.id == "0" || parseInt(node.id) == -1)//用来显示无节点状态的节点“无”不可以删除
+            {
+                messager.alert('没有节点可以编辑的节点，请先添加分类!');
+                return;
+            }
+            $(node.target).data("original_node_text",node.text) ;
+            $(this).tree("beginEdit",node.target);
+            modifyInputwidth(node.target);
+         }
+    }); */
+    //绑定失去焦点后的时间函数
+    $('#goodsClassTree').tree({onAfterEdit:afterEditeTrigger});
+    initTree(); //初始化树节点  把组节点的样式显示出来
+   
+}); 
+function goodsClassRefresh(){
+	goods_class_oper_status=1;
+	$.post('{:U('GoodsClass/getTreeClass')}',{type:'all'},function(res){
+		$('#goodsClassTree').tree('loadData',res);
+		initTree();
+	});
+	
+}
+function afterEditeTrigger(node)
+{
+    var edited_node_id = node.id;
+    var edited_node_text = node.text;
+    var edited_node_isleaf = node.attributes;
+    var node_parent_id = $(this).tree("getSelected").id;
+    var tree_root = $(this);
+    var selected_node_first_parent = tree_root.tree('getParent',node.target);
+    edited_node_text = $.trim(edited_node_text);
+    var tmp = stripscript(edited_node_text);
+    if(edited_node_text.length > 20){
+    	messager.alert("分类名过长请重新输入！",'',function(){
+    		tree_root.tree("beginEdit",node.target);
+            modifyInputwidth(node.target);
+            return;
+    	});
+    	return ;
+    }
+    if(tmp === true){
+    	messager.alert("请勿输入(中文、英文、数字、-、_)非法字符！",'',function(){
+    		tree_root.tree("beginEdit",node.target);
+            modifyInputwidth(node.target);
+            return;
+    	});
+    	return;
+    }
+    if(edited_node_text == ""  )
+    {
+    	if(edited_node_id =="newLeaf"||edited_node_id =="newGroup")
+    	{
+    		
+             goods_class_oper_status = 1;    
+             tree_root.tree('remove',node.target);
+             modifyStyleAfterRemove(tree_root, node, selected_node_first_parent);   //移除后修改样式
+             return;
+    	}else{
+    		messager.alert("输入的内容不能为空，请重新编辑！",'',function(){
+        		tree_root.tree("beginEdit",node.target);
+                modifyInputwidth(node.target);
+                return;
+        	});
+    		return;
+    	}
+    	$(".panel-tool-close").bind('click',function(){
+            tree_root.tree("beginEdit",node.target);
+            modifyInputwidth(node.target);
+        });
+        return;
+        
+    }
+    else //判断是否有相同命名的节点
+    {
+        var is_equal = issetEqualClassName(tree_root, node);
+        if(is_equal == true)
+        {
+               
+        	 messager.confirm('存在相同的名称！是否重新编辑', function(r){
+                 if (r)
+                 {
+	               	 tree_root.tree("beginEdit",node.target);
+	                 modifyInputwidth(node.target);
+                     return;
+                 }
+                 else
+                 {
+	               	  goods_class_oper_status = 1; 
+	               	  if(node.id!='newGroup' && node.id != 'newLeaf')
+	               	  {
+	               		  return ;
+	               	  }
+	               	  
+	               	  tree_root.tree('remove',node.target);
+	                  modifyStyleAfterRemove(tree_root, node, selected_node_first_parent);   //移除后修改样式
+                      return;
+                 }
+        	 });
+        	 $(".panel-tool-close").bind('click',function(){
+                 tree_root.tree("beginEdit",node.target);
+             });
+            return;
+        }
+    }
+    if(edited_node_id == "newGroup")
+    {
+        $.ajax({
+              url: "index.php/Goods/GoodsClass/add",
+              data:"nodeName="+encodeURI(edited_node_text)+"&parentNodeId="+node_parent_id+"&isLeaf="+"0",
+              cache: false,
+              dataType:"json",
+              success: function(result){ 
+            	  goods_class_oper_status = 1;
+               if(result['status'] == 1)
+               {
+            	   goodsClassTreeAlert(result['info']);
+                    tree_root.tree('remove',node.target);
+                    //tree_root.tree("beginEdit",node.target);
+                    return;
+               }
+               else if(result['status'] == 0)
+               {
+            	  
+                     //$.messager.alert('提示','添加成功!','info');
+                     node.id = result['data'][0].class_id;
+                     return;
+               }
+              }
+        });  
+    }
+    else if(edited_node_id == "newLeaf")
+    {
+        $.ajax({
+              url: "index.php/Goods/GoodsClass/add",
+              data:"nodeName="+encodeURI(edited_node_text)+"&parentNodeId="+node_parent_id+"&isLeaf="+"1",
+              cache: false,
+              dataType:"json",
+              success: function(result){ 
+            	  goods_class_oper_status = 1;
+                   if(result['status'] == 1)
+                   {
+                	   goodsClassTreeAlert(result['info']);
+                        //tree_root.tree("beginEdit",node.target);
+                        //return;
+                        tree_root.tree('remove',node.target);
+                   }
+                   else if(result['status'] == 0)
+                   {
+//                         $.messager.alert('提示','添加成功!','info');
+                         node.id = result['data'][0].class_id;
+                         //return;
+                   }
+              }
+        }); 
+    }
+    else
+    {
+        if($.trim($(node.target).data("original_node_text")) == $.trim(edited_node_text))  //判断是否修改内容了
+        {
+            
+            goods_class_oper_status = 1;
+        	return;
+        }
+        else
+        {
+        
+            $.ajax({
+                  url: "index.php/Goods/GoodsClass/modify",
+                  cache: false,
+                  dataType:"json",
+                  data: "nodeName="+encodeURI(edited_node_text)+"&nodeId="+edited_node_id,
+                  success: function(result){
+                	  goods_class_oper_status = 1;
+                       if(result['status'] == 1)
+                       {
+                           // $.messager.alert('警告',result['msg']+'!请重新编辑','warning');
+                            goodsClassTreeAlert(result['info']);
+                            tree_root.tree("beginEdit",node.target);
+                            modifyInputwidth(node.target);
+                        
+                       }
+                       else if(result['status'] == 0)
+                       {                            // $.messager.alert('提示','编辑成功!','info');
+                            //node.id = result['id'];
+                            
+                       }
+                  }
+            }); 
+        }
+    }
+	goods_class_oper_status = 1;
+    return;
+}
+function modifyInputwidth(input_dom)
+{
+	var input_selector =  $(input_dom).find("input[class='tree-editor']");
+	var input_width =input_selector.css('width');
+    if(parseInt(input_width)<150)
+    {
+    	$(input_dom).find("input[class='tree-editor']").css({'width':'150px'});
+    }
+    //input_selector.bind('keydown',addEscEvent);
+}
+function judgOperStatus()
+{
+	if(goods_class_oper_status == 0)
+	{
+		messager.alert("不能重复操作，请刷新后操作");
+		return false;
+	}
+	else
+	{
+		goods_class_oper_status = 0;
+		return true;
+	}	
+}
+function goodsClassRemove()
+{
+	if(!judgOperStatus())
+ 	{
+ 		return false;
+ 	}	
+    var tree_obj = $('#goodsClassTree');
+    
+    var selected_node = tree_obj.tree('getSelected');
+    if(selected_node == undefined || selected_node == null){
+    	goodsClassTreeAlert("请选择操作的行！");
+        return;
+    }
+    var selected_node_first_parent = tree_obj.tree('getParent',selected_node.target); 
+    var isleaf_selected = selected_node.isleaf;
+  //用来显示无节点状态的节点“无”不可以删除
+    if(selected_node.id == "0" || parseInt(selected_node.id) == -1){
+    	goodsClassTreeAlert('没有节点可以删除，请先添加分类');
+        return;
+    }
+    
+    if(isleaf_selected == 1)
+    {
+        $.ajax({
+                url: "index.php/Goods/GoodsClass/remove",
+                cache: false,
+                dataType: "json",
+                data: "nodeId="+selected_node.id,
+                //注意is_seccess  回来的是否是bool
+                success: function(result){ 
+                	goods_class_oper_status = 1;
+                    if(result['status'] != 0)
+                    {
+                    	goodsClassTreeAlert(result['info']);
+                    }
+                    else{
+                    	 
+                         tree_obj.tree('remove',selected_node.target);
+                         modifyStyleAfterRemove(tree_obj, selected_node, selected_node_first_parent);   //移除后修改样式
+                        
+                    }
+                }
+        }); 
+    }
+    else
+    {
+        
+        var selected_node_children = tree_obj.tree('getChildren',selected_node.target);
+        if(selected_node_children.length != 0)
+        {
+        	//goods_class_oper_status = 1;
+        	goodsClassTreeAlert('不能删除含有子分类的组!');
+            return;
+        }
+        else
+        {
+            if(selected_node.id == "0" || parseInt(selected_node.id) == -1)//用来显示无节点状态的节点“无”不可以删除
+            {
+            	//goods_class_oper_status =1; 	 
+            	goodsClassTreeAlert('没有节点可以删除，请先添加分类');
+                return;
+            }        
+            $.ajax({
+                url: "index.php/Goods/GoodsClass/remove",
+                cache: false,
+                dataType: "json",
+                data: "nodeId="+selected_node.id,
+                //注意is_seccess  回来的是否是bool
+                success: function(result){   
+                	goods_class_oper_status = 1;
+                    if(result['status'] != 0)
+                    {
+                        // $.messager.alert('警告',result['msg']+'!','warning');
+                        goodsClassTreeAlert(result['info']);
+                        return;
+                    }
+                    else {
+                         tree_obj.tree('remove',selected_node.target);
+                         modifyStyleAfterRemove(tree_obj, selected_node, selected_node_first_parent);   //移除后修改样式
+                        // $.messager.alert('提示','移除成功!','info');
+                    }
+                }
+            }); 
+            
+        }
+    }
+    
+    return;
+}
+function modifyStyleAfterRemove(tree_root, removed_node, removed_node_parent){
+    var tree_obj = tree_root;
+    var selected_node = removed_node;
+    var selected_node_first_parent = removed_node_parent; 
+    var childrens_obj = tree_obj.tree('getChildren');
+    if(childrens_obj.length == 2 && tree_obj.tree('find',"0"))//判断是否已没有节点了，如果没有添加“无”节点
+    {
+        $(tree_obj.tree('find',"0").target).css({"display":"block"});//显示“无”节点
+    }
+    var selected_node_brothers = tree_obj.tree('getChildren',selected_node_first_parent.target);//判断是否还有兄弟节点，有不用改变样式，没有改变样式
+    if(selected_node_brothers.length == 0||(selected_node_brothers.length == 1 && selected_node_brothers[0].id == removed_node.id))
+    {
+        var parent_dom = selected_node_first_parent.target;
+        var parent_dom_children = $(parent_dom).children();//获取节点的html内容
+        var parent_dom_children_length = parent_dom_children.length;
+        for (var i = 0; i < parent_dom_children_length; i++) 
+        {
+            var parent_dom_child = parent_dom_children.get(i);
+            var parent_dom_child_obj = $(parent_dom_child);
+            var parent_dom_child_class = parent_dom_child_obj.attr('class');
+            parent_dom_child_class = $.trim(parent_dom_child_class);//去除字符串两头的  空白  字符  不是   空字符
+            var parent_dom_child_class_split = parent_dom_child_class.split(/^[\s]{0,0}|[\s]{0,0}$|[\s]+/);//{0,0}去除空字符如""   [\s]+去除空白字符     应注意顺序
+            
+            if($.inArray('tree-join',parent_dom_child_class_split) != -1)
+            {
+                parent_dom_child_obj.removeClass();
+                parent_dom_child_obj.addClass('tree-hit tree-collapsed');
+            }
+            else  if ($.inArray('tree-file',parent_dom_child_class_split) != -1) 
+            {
+                if($.inArray('tree-folder-open',parent_dom_child_class_split) != -1)
+                {
+                     parent_dom_child_obj.removeClass("tree-folder-open");
+                }
+                parent_dom_child_obj.removeClass("tree-file");
+               
+                parent_dom_child_obj.addClass('tree-folder');
+            }else if($.inArray('tree-joinbottom',parent_dom_child_class_split) != -1)
+            {
+                
+                parent_dom_child_obj.removeClass();
+                parent_dom_child_obj.addClass('tree-hit tree-collapsed');
+            }
+        }
+    }
+    return;
+}       
+function goodsClassAddGroup(){
+	
+	if(!judgOperStatus())
+	{
+		return false;
+	}
+    var tree_obj = $('#goodsClassTree');
+    var selected_node_obj = tree_obj.tree('getSelected');
+    if(selected_node_obj == undefined || selected_node_obj == null){
+    	goodsClassTreeAlert("请选择相应的分类！");
+        return;
+    }
+    //判断是否为组节点
+    if(selected_node_obj.attributes == undefined)
+    {
+    	goodsClassTreeAlert('节点属性数据有误，请联系管理员');
+        return;
+    }
+    if(parseInt(selected_node_obj.attributes))
+    {
+    	goodsClassTreeAlert('不能在子分类节点下新建父分类!');
+        return;
+    }
+    var childrens_obj = tree_obj.tree('getChildren');
+    //判断是否含有子节点，没有显示“无”节点   有子节点则隐藏“无”节点
+    if(childrens_obj.length == 2 && tree_obj.tree('find',"0"))
+    {
+        $(tree_obj.tree('find',"0").target).css({"display":"none"});//隐藏“无”节点
+    }
+    else
+    {
+       $(tree_obj.tree('find',"0").target).css({"display":"black"});//显示“无”节点
+    }
+    var selected_node_dom = selected_node_obj.target;     //定义一个变量用来记录选中的节点dom
+    tree_obj.tree('expand',selected_node_dom);            //展开选中的节点
+    tree_obj.tree('append',{parent:selected_node_obj.target,   //追加节点
+                              data:[{
+                                      id:"newGroup",
+                                      text:"",
+                                      attributes:0
+                                   }]
+                   });
+    $(selected_node_dom).next().css({display:'block'});  //是追加的节点显示出来
+    setTimeout(function(){
+       modifyStyleAddGroup(selected_node_dom);
+       var beginedit = $(selected_node_dom).next().children().last().children().first();
+       
+       tree_obj.tree("beginEdit",beginedit);
+       modifyInputwidth(beginedit);
+    },0);
+    
+    
+} 
+function modifyStyleAddGroup(nodeDom)
+{
+    var selected_node_dom = nodeDom;
+    var append_node_dom = $(selected_node_dom).next().children().last().children().first();
+    var append_node_childrens = $(append_node_dom).children();
+    var append_node_childrens_length = append_node_childrens.length;
+    for (var i = 0; i < append_node_childrens_length; i++) 
+    {
+        var append_node_child_dom = append_node_childrens.get(i);
+        var append_node_child_obj = $(append_node_child_dom);
+        var append_node_child_class_str = append_node_child_obj.attr('class');
+        append_node_child_class_str = $.trim(append_node_child_class_str);//去除字符串两头的  空白  字符  不是   空字符
+        var append_node_child_class_split = append_node_child_class_str.split(/^[\s]{0,0}|[\s]{0,0}$|[\s]+/);//{0,0}去除空字符如""   [\s]+去除空白字符     应注意顺序
+        
+       if($.inArray('tree-joinbottom',append_node_child_class_split) != -1)
+       {
+            append_node_child_obj.removeClass();
+            append_node_child_obj.addClass('tree-hit tree-collapsed');
+       }
+       else  if ($.inArray('tree-file',append_node_child_class_split) != -1) 
+       {
+            append_node_child_obj.removeClass("tree-file");
+            append_node_child_obj.addClass('tree-folder');
+       } 
+    }
+}
+function goodsClassAddLeaf()
+{
+	if(!judgOperStatus())
+	{
+		return false;
+	}	
+    var tree_obj = $('#goodsClassTree');
+    var selected_node_obj = tree_obj.tree('getSelected');
+    if(selected_node_obj == undefined || selected_node_obj == null){
+    	goodsClassTreeAlert("请选择相应的子分类！");
+        return;
+    }
+    //判断是否为组节点
+    if(selected_node_obj.attributes == undefined)
+    {
+    	goodsClassTreeAlert("节点属性数据有误！请联系管理员");
+        return;
+    }
+    if(parseInt(selected_node_obj.attributes))
+    {
+    	goodsClassTreeAlert('只能在父分类节点下创建子分类!');
+        return;
+    }
+    var childrens_obj = tree_obj.tree('getChildren');
+    //判断是否含有子节点，没有显示“无”节点   有子节点则隐藏“无”节点
+    if(childrens_obj.length == 2 && tree_obj.tree('find',"0"))
+    {
+        $(tree_obj.tree('find',"0").target).css({"display":"none"});//隐藏“无”节点
+    }
+    else
+    {
+       $(tree_obj.tree('find',"0").target).css({"display":"black"});//显示“无”节点
+    }
+    //展开选中的组节点
+    var selected_node_dom = selected_node_obj.target;
+    tree_obj.tree('expand',selected_node_dom);
+    tree_obj.tree('append',{parent:selected_node_obj.target,
+                              data:[{
+                                  id : "newLeaf",
+                                  text:"",
+                                  attributes:1
+                                  
+                              }]
+                });
+    $(selected_node_dom).next().css({display:'block'});
+    var append_child_dom = $(selected_node_dom).next().children().last().children().first();
+    tree_obj.tree("beginEdit",append_child_dom);
+    modifyInputwidth(append_child_dom);
+}
+function goodsClassModify()
+{
+	if(!judgOperStatus())
+	{
+		return false;
+	}	
+    var tree_obj = $('#goodsClassTree');
+    var selected_node_obj = tree_obj.tree('getSelected');
+    if(selected_node_obj == undefined || selected_node_obj == null){
+    	goodsClassTreeAlert("请选择操作的行！");
+        return;
+    }
+    if(selected_node_obj.id == "0" || parseInt(selected_node_obj.id) == -1)//用来显示无节点状态的节点“无”不可以删除
+    {
+    	goodsClassTreeAlert('没有节点可以编辑的节点');
+        return;
+    }
+   
+    $(selected_node_obj.target).data("original_node_text",$.trim(selected_node_obj.text)) ;
+    tree_obj.tree("beginEdit",selected_node_obj.target);
+    modifyInputwidth(selected_node_obj.target);
+    
+}
+function initTree() {
+    setTimeout("modifyNodeToGroup('#goodsClassTree')",0);
+}
+/** 
+ * @Title:  
+ * @Description: 修改easyUI初始化后的生成树样式，以区分分组节点和类节点
+ * @param tree_id_str 生成树的domId   'goodsClassTree'
+ * @return  
+*/
+function modifyNodeToGroup(tree_id_str){
+
+    var tree_obj = $(tree_id_str);
+    var childrens_obj = tree_obj.tree('getChildren');
+    //判断是否含有子节点，没有显示“无”节点   有子节点则隐藏“无”节点
+    if(childrens_obj.length == 2 && tree_obj.tree('find',0))
+    {
+        $(tree_obj.tree('find',0).target).css({"display":"block"});//显示“无”节点
+    }
+    else
+    {
+       $(tree_obj.tree('find',0).target).css({"display":"none"});//隐藏“无”节点
+    }
+    for ( var key in childrens_obj) 
+    {
+        var child_obj = childrens_obj[key];
+        if (tree_obj.tree('isLeaf',child_obj.target) != 1) 
+        {
+            continue;
+        }
+        else
+        {
+           
+            if( child_obj.attributes == null)
+                 continue;
+            var isLeaf = child_obj.attributes;
+            if (typeof isleaf == undefined)
+            {
+                            continue;
+            }
+            if(isLeaf == 0)
+            {
+                var child_dom = child_obj.target;
+                var span_dom_arr= $(child_dom).children();//转化为jquery类型 并获取最近子节点
+                var span_dom_length = span_dom_arr.length;
+                for (var i = 0; i < span_dom_length; i++) 
+                {
+                    var span_dom = span_dom_arr.get(i);
+                    var span_obj = $(span_dom);
+                    var span_class_str = span_obj.attr('class');
+                    span_class_str = $.trim(span_class_str);//去除字符串两头的  空白  字符  不是   空字符
+                    var span_class_split = span_class_str.split(/^[\s]{0,0}|[\s]{0,0}$|[\s]+/);//{0,0}去除空字符如""   [\s]+去除空白字符     应注意顺序
+         
+                    if($.inArray('tree-join',span_class_split) != -1)  //处于中间位置的分组节点
+                    {
+                        span_obj.removeClass();
+                        span_obj.addClass('tree-hit tree-collapsed');
+                    }
+                    else  if ($.inArray('tree-joinbottom',span_class_split) != -1) //处于末尾的分组节点
+                    {
+                        span_obj.removeClass();
+                        span_obj.addClass('tree-hit tree-collapsed');
+                    }
+                    else  if ($.inArray('tree-file',span_class_split) != -1) //把文件icon改为文件夹icon
+                    {
+                        span_obj.removeClass("tree-file");
+                        span_obj.addClass('tree-folder');
+                    }
+                }
+                            
+            }
+        }                   
+    }
+}
+/** 
+ * @Title:  
+ * @Description: 判断是否存在相同的节点名称
+ * @param tree_id_str 生成树的domId   'goodsClassTree'
+ * @return  
+*/  
+function issetEqualClassName(treeRoot_obj, addNode){
+    var tree_childrens_arr = treeRoot_obj.tree("getChildren",treeRoot_obj.target);
+    var issetEqual = false;
+    for(var i = 0; i < tree_childrens_arr.length; i++)
+    {
+        var tree_node_obj = tree_childrens_arr[i];
+        //判断两个字符串是否相等
+        if(tree_node_obj.id == addNode.id)
+        {
+           continue;
+        }
+        else
+        {
+           var node_text = $.trim(tree_node_obj.text);
+           var added_text = $.trim(addNode.text);
+           if(node_text == added_text)
+           {
+               issetEqual = true;
+               break;
+           }
+        }
+    }
+    return issetEqual;
+}
+function stripscript(s)
+{
+    var pattern = new  RegExp(/[^\u4E00-\u9FA5\uF900-\uFA2Da-zA-Z_\-\d]+/)
+   	
+    return pattern.test(s);
+}
+
+function goodsClassTreeAlert(str){
+	goods_class_oper_status = 1;
+	messager.alert(str);
+}
+
+/* function addEscEvent(evnet){
+   if (event.keyCode == 27) {
+	   goods_class_oper_status = 1;
+	   var tree_obj = $('#goodsClassTree');
+	   var select_leaf =  tree_obj.tree('getSelected');
+	   tree_obj.tree("endEdit",select_leaf.target);
+    }
+} */
+</script>
+</body>
+
+</html>

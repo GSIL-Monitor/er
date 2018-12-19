@@ -1,0 +1,61 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>订单编号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+                <label>客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+                <label>店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>下单时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+                <label>　　　至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="historysalestrade.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="historysalestrade.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="historysalestrade.exportToExcel()">导出到Excel</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/Trade','trade_manage','{$datagrid.id}',1)">设置表头</a>
+            </div>
+
+        </form>
+
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                historysalestrade = new RichDatagrid(JSON.parse('{$params}'));
+                historysalestrade.setFormData();
+                historysalestrade.exportToExcel = function(){
+                    var dg = $('#'+historysalestrade.params.datagrid.id);
+                    var queryParams = dg.datagrid('options').queryParams;
+                    var search=JSON.stringify(queryParams);
+                    var url= "{:U('HistorySalesTrade/exportToExcel')}";
+                    var id_list=[];
+                    for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                    var form=JSON.stringify(historysalestrade.params.search.form_id);
+                    var search_form=JSON.stringify($('#{$id_list.form}').form('get'));
+                    var rows = $("#{$id_list.datagrid_id}").datagrid("getRows");
+                    if(rows==''){
+                        messager.confirm('导出不能为空！');
+                    }
+                    else if(id_list!=''){
+                        messager.confirm('确定导出选中的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list);
+                        })
+                    }else if(search=='{}'||(search_form==form&&search.length==675)){
+                        messager.confirm('确定导出所有的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list);
+                        })
+                    }
+                    else{
+                        messager.confirm('确定导出搜索的订单吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url+'?id_list='+id_list+'&'+'search='+search);
+                        })
+                    }
+                }
+            }, 0);
+        });
+    </script>
+
+</block>

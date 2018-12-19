@@ -1,0 +1,39 @@
+<div style="margin-left: 48px; margin-top: 6px;">
+	<div>
+		<label for="escaleList" title="括号内为电脑端捕获的数据格式">型&nbsp&nbsp号：</label>
+		<input class="easyui-combobox" id="escaleList" isFirst="0" 
+			data-options='textField:"name",valueField:"type",value:{$defaultEscale.type},data:{$data},onChange:function(newValue,oldValue){var type = {$type};$("#bandrate").combobox("setValue",type[newValue].bandrate);}' />
+			<!-- <a href="javascript:void(0);" onClick="open_menu('称重常见问题FAQ','{:U('Help/StockWeightFAQ/escaleFAQ')}#stockWeightGetDataFormat');" title="点击了解关于型号的详细信息" class="easyui-linkbutton" data-options="iconCls:'icon-help'"></a> -->
+			<a href="{:U('Help/StockWeightFAQ/escaleFAQ')}#stockWeightGetDataFormat" title="点击了解关于型号的详细信息" target="_blank" class="easyui-linkbutton" data-options="iconCls:'icon-help'"></a>
+	</div>
+	<div style="margin-top: 7px;">
+		<label for="serialPort">串&nbsp&nbsp口：</label>
+		<input class="easyui-combobox" id="escalePort"
+			data-options="textField:'name',valueField:'id'" />
+	</div>
+	<div style="margin-top: 9px;">
+		<label>波特率：</label>
+		<input class="easyui-combobox" id="bandrate"
+			data-options="valueField:'type',textField:'bandrate',value:{$defaultEscale.bandrate},data:[
+			{type:1,bandrate:600},
+			{type:2,bandrate:1200},
+			{type:3,bandrate:1800},
+			{type:4,bandrate:2400},
+			{type:5,bandrate:4800},
+			{type:6,bandrate:7200},
+			{type:7,bandrate:9600},
+			{type:8,bandrate:14400},
+			{type:9,bandrate:19200}
+			]" />
+	</div>
+</div>
+<script>
+function getEscaleInfo(){
+	var type = {$type};
+	return type;
+}
+function getDefault(){
+	return {:json_encode($defaultEscale)};
+}
+</script>
+

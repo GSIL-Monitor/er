@@ -1,0 +1,6 @@
+[ 2017-10-02T20:22:53+08:00 ] 127.0.0.1 /index.php
+ERR: Class 'Memcached' not found
+
+[ 2017-10-02T20:23:54+08:00 ] 127.0.0.1 /index.php
+ERR: Class 'Memcached' not found
+

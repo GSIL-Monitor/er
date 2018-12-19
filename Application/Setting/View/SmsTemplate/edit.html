@@ -1,0 +1,68 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['form']}" style="padding: 5px 10px;">
+        <div style="display: none;"> <input name="rec_id" value="{$template.rec_id}" hidden="true"/> </div>
+        <div class="form-div">
+            <input type="hidden" value="{$template.is_marketing}" id="is_marketing">
+            <label class="five-character-width">模板类型:</label><input type="radio" name="type" id="x" value="1"><label for="x">营销短信</label>
+            <input type="radio" name="type" id="y" value="0"><label for="y">非营销短信</label><br>
+            <label class="five-character-width">模板名称:</label><input id="sms_template_edit_title" class="easyui-textbox txt" type="text" name="title" data-options="validType:'specialCharacter'" required="true" value="{$template.title}"/>
+        </div>
+        <div class="form-div hidden" id="select_variable_edit">
+            <label class="five-character-width">插入变量:</label>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(1)"><span id="var1"><b>客户网名</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(2)"><span id="var2"><b>客户姓名</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(3)"><span id="var3"><b>原始单号</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(4)"><span id="var4"><b>店铺名称</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(9)"><span id="var9"><b>收货地区</b></span></a><br>
+            　　　　　　
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(5)"><span id="var5"><b>物流单号</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(6)"><span id="var6"><b>物流公司</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(7)"><span id="var7"><b>下单时间</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(8)"><span id="var8"><b>发货时间</b></span></a>
+            <a href="javascript:void(0)" ondragstart="return false;" class="easyui-linkbutton" onclick="changeStatus(10)"><span id="var10"><b>收货地址</b></span></a>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">模板内容:</label><input id="sms_template_edit_content" class="easyui-textbox" name="content" data-options="multiline:true" style="width:400px;height:100px" value="{$template.content}"/>
+        </div>
+        <div class="form-div">
+            <label class="five-character-width">短信签名:</label><input id="sms_template_edit_sign" class="easyui-textbox txt" type="text" name="sign" data-options="validType:'specialCharacter'" required="true" value="{$template.sign}"/>
+        </div>
+        <div id="sms_decribe">
+            <span style="color:red;">
+            1、每条短信67个字符以内，超过长度将占用多条短信数量，亲的模板尽量简洁一点.<br>
+            2、短信结尾必须有签名(建议使用店铺名)，如:<span style="color:blue;">京东XXXX旗舰店</span>，系统会自动在签名外面加上"【】",都会占用短信长度哦!<br>
+            3、营销短信会在短信最后添加<span style="color:blue;">"回T退订"</span>,都会占用短信长度哦!
+            </span>
+        </div>
+    </form>
+    <script>
+        set_radio();
+        function set_radio(){
+            var is_market=$('#is_marketing').val();
+            if(is_market==0)$('#select_variable_edit').removeClass('hidden');
+            $("[name=type][value="+is_market+"]").attr('checked','true');
+        }
+        function changeStatus(num){
+            var inputVal;
+            var content;
+            inputVal=$('#var'+num).text();
+            content = $('#sms_template_edit_content').textbox('getValue');
+            $('#sms_template_edit_content').textbox('setValue',content+'{'+inputVal+'}');
+        }
+
+        $('[name=type]').change(function(){
+            var is_market=$(this).val();
+            if(is_market==1){
+                $('#select_variable_edit').addClass('hidden');
+            }else{
+                $('#select_variable_edit').removeClass('hidden');
+            }
+            $('#sms_template_edit_content').textbox('setValue','');
+        });
+
+    </script>
+</block>

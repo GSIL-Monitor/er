@@ -1,0 +1,106 @@
+<script type="text/javascript">
+//# sourceURL=goodsBarcode_add.js
+var gb_add_dailog_tb='goods_addgoodsbarcode_datagrid';
+$(function(){
+	$('#'+gb_add_dailog_tb).datagrid({ 
+		toolbar: '#goods_add_dialog_toolbar',
+		border:false,
+		collapsible:true,
+		singleSelect:true,
+		fitColumns:false,  
+		fit:true,
+		onDblClickCell: gbAddonClickRow,
+	    columns:[[ {$datagrid_addGoodsBarcode} ]]
+	});
+});
+function gbAddCancel(){
+	$('#goodsbarcode_add').dialog('close');
+}
+function gbAddonClickRow(index) {
+    $('#'+gb_add_dailog_tb).datagrid('selectRow', index).datagrid('beginEdit', index);
+}
+function gbAddSave(){
+	$('#'+gb_add_dailog_tb).datagrid('selectRow', 0).datagrid('endEdit', 0);
+    if(!$('#'+gb_add_dailog_tb).datagrid('validateRow',0)){
+        messager.alert("请填写正确的数据！");
+        return false;
+    }
+	$('#'+gb_add_dailog_tb).datagrid("getChanges");
+    var data = $("#"+gb_add_dailog_tb).datagrid("getData");
+    var ndata = data.rows[0];
+    if(data.total == "0"){
+        messager.alert('请选择单品或组合装!');
+    }else{
+        if(ndata.barcode){
+        $.post('{:U('Goods/GoodsBarcode/addGoodsBarcode')}',ndata,function(data){
+            switch(data.status){
+                case 1:
+                    gbAddCancel();
+                    goodsbarcode_obj.refresh();
+                    break;
+                case 0:
+                    messager.alert(data.info);
+                    $('#'+gb_add_dailog_tb).datagrid('beginEdit',0);
+                    break;
+                default :
+                    messager.alert("系统错误，请联系管理员!");
+            }
+        });
+        }else{
+            messager.alert("请填写条形码！");
+        }
+    }
+}
+    
+function selectITEM(){
+    $('#goods_barcode_select_barcode_dialog').richDialog('goodsSpec', getSpecRow,{'prefix': 'goodsbarcode', 'type':false});
+}
+function selectUNIT(){
+    $('#goods_barcode_select_barcode_dialog').richDialog('goodsSuite', getSuiteRow,'goodsSuite');
+}
+function getSuiteRow(pId){
+    var suite_data = $('#'+pId).datagrid("getSelected");
+    var data = {};
+    data.rec_id = suite_data.id;
+    data.goods_name = suite_data.suite_name;
+    data.goods_no = "";
+    data.spec_no = suite_data.suite_no;
+    data.spec_code = "";
+    data.type = 2;
+    data.is_master = 0;
+    var array = new Array();
+    array[0] = data;
+    var ndata = {'total': 1, 'rows': array};
+    $('#goods_addgoodsbarcode_datagrid').datagrid('loadData', ndata);
+    $('#goods_barcode_select_barcode_dialog').dialog('close');
+}
+function getSpecRow(pId){
+    var spec_data = $('#'+pId).datagrid("getSelected");
+    var data = {};
+    data.rec_id = spec_data.id;
+    data.goods_name = spec_data.goods_name;
+    data.goods_no = spec_data.goods_no;
+    data.spec_no = spec_data.spec_no;
+    data.spec_code = spec_data.spec_code;
+    data.type = 1;
+    data.is_master = 0;
+    var array = new Array();
+    array[0] = data;
+    var ndata = {'total': 1, 'rows': array};
+    $('#goods_addgoodsbarcode_datagrid').datagrid('loadData', ndata);
+    $('#goods_barcode_select_barcode_dialog').dialog('close');
+}
+    goodsbarcode_obj.submitAddDialog = gbAddSave;
+
+</script>
+<table id="goods_addgoodsbarcode_datagrid"></table>
+<div id="goods_add_dialog_toolbar">
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="gbAddSave()">保存</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="gbAddCancel()">取消</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="selectITEM()">选择单品</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="selectUNIT()">选择组合装</a>
+</div>
+<div id="select_wnd" class="easyui-window" closed="true" title="请选择单品" data-options="iconCls:'icon-save'" style="width:700px;hright:350px:padding:0px;">
+    <table id="select_dg"></table>
+</div>
+<div id = "goods_barcode_select_barcode_dialog" class="easyui-window" closed="true" ></div>

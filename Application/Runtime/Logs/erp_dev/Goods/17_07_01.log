@@ -1,0 +1,4 @@
+[ 2017-07-01T20:02:06+08:00 ] 127.0.0.1 /index.php/Goods/GoodsGoods/setOutWarehouse?id=20374&type=spec&_=1498901412929
+ERR: unknown field name:out_warehouse_dialog
+[ 2017-07-01T20:02:25+08:00 ] 127.0.0.1 /index.php/Goods/GoodsGoods/setOutWarehouse?id=20374&type=spec&_=1498901412930
+ERR: unknown field name:out_warehouse_dialog

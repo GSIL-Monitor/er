@@ -1,0 +1,8 @@
+<extend name="../../Common/View/datagrid_tabs_base" /> <block name="tabs"></block> <block name="dialog"> </block>
+<block name="toolbar">
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {  $('#{$datagrid.id}').datagrid('copyCell'); },0);
+        });
+    </script>
+</block>

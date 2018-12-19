@@ -1,0 +1,46 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        function submitBatchEditClassDialog(params) {
+            $.messager.progress({
+                title: "请稍后",
+                msg: "正在修改，请稍等..."
+            });
+            var form = $("#{$id_list.form_id}");
+            var url = params.edit_class_dialog.url;
+            var dialog = $("#"+params.edit_class_dialog.id);
+            var dg = $("#"+params.datagrid.id);
+            if (!form.form("validate")) {
+                return false;
+            }
+            form.form('options').queryParams = {};
+            var edit_params = form.form('get');
+            $.post(url,edit_params,function (res) {
+                $.messager.progress('close');
+                if (res.status == 0) {
+                    dialog.dialog("close");
+                    messager.alert(res.info);
+                    dg.datagrid('reload');
+                } else {
+                    messager.alert(res.info);
+                }
+            },'json');
+        }
+    </script>
+</block>
+<block name="datagrid">
+    <div class="form-div">
+        <form method="post" id="{$id_list.form_id}" style="padding:20px 45px 20px 45px">
+            <div style="display: none;"> <input hidden="true" name="customer_id" value="{$id_list.rec_id}"/> </div>
+            <label>标签：</label>
+            <select class="easyui-combobox sel" name="class_id" data-options="editable:false">
+                <volist name='customer_class' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>　
+        </form>
+    </div>
+</block>

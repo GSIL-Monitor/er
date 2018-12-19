@@ -1,0 +1,73 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" method="post">
+<div class="form-div">
+<label>商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+<label>　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false,"> <option value="all">全部</option> <volist name='list.warehouse' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+<label>　　操作人：</label><select class="easyui-combobox sel" name="search[operator_id]"><option value="all">全部</option><volist name='list.employee' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　操作类型：</label><input class="easyui-combobox txt" name="search[type]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockspeclog_type')"/>
+<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+<a href="javascript:void(0)" onclick="HistoryStockSpecLog.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="HistoryStockSpecLog.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="HistoryStockSpecLog.loadFormData();">重置</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>操作时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+<label>　　至：</label><input class="easyui-datebox txt" type="text"   name="search[end_time]"  data-options="editable:false"/>
+<label>　货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+<label>　规格名称：</label><input class="easyui-textbox txt" type="text" name="search[spec_name]"/>
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+</div>
+    <script>
+        $(function () {
+            setTimeout(function () {
+                HistoryStockSpecLog = new RichDatagrid(JSON.parse('{$params}'));
+                HistoryStockSpecLog.setFormData();
+                $('#'+HistoryStockSpecLog.params.datagrid.id).datagrid({rowStyler:function(index,row){
+                    var page_size = $(this).datagrid('options').pageSize ;
+
+                    if (row.sales_date == '合计'){
+                        return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                    }
+                }});
+                HistoryStockSpecLog.loadSuccess=function() {
+                    var rows =  $('#'+HistoryStockSpecLog.params.datagrid.id).datagrid('getRows');
+                    var stat_fields = ['num'];
+                    var append_row = {};
+                    append_row['sales_date'] = '合计';
+                    statAmountStockSpecLogCompute(rows, stat_fields, append_row);
+                    $('#'+HistoryStockSpecLog.params.datagrid.id).datagrid('appendRow', append_row);
+                };
+                function statAmountStockSpecLogCompute(page_rows,arr_fields,append_row) {
+                    var rows = page_rows;
+                    append_row['spec_name'] = '合计:';
+                    append_row['warehouse_name'] = '入库:';
+                    append_row['goods_name'] = 0;
+                    append_row['spec_no'] = '出库:';
+                    append_row['goods_no'] = 0;
+                    for(var index in arr_fields)
+                    {
+                        var field = arr_fields[index];
+                        append_row[field] = 0;
+                        for (var i = 0; i < rows.length; i++) {
+                            append_row[field] += parseFloat(rows[i][field]);
+                            if(rows[i]['operator_type'] == 2){
+                                append_row['goods_name'] += parseFloat(rows[i][field]);
+                            }else if(rows[i]['operator_type'] == 3){
+                                append_row['goods_no'] += parseFloat(rows[i][field]);
+                            }
+                        }
+                        append_row[field] = append_row[field];
+                    }
+                }
+            }, 0);
+        });
+    </script>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>

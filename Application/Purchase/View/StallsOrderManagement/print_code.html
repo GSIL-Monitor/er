@@ -1,0 +1,41 @@
+<div id = '{$dialog_div}'>
+    <a href="javascript:void(0)" id="{$code}" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="(function(){stallsManagement.checkPrintCode('onlycode',{$isMulti});})()">打印</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="(function(){stallsManagement.previewPrintcode('onlycode',{$isMulti});})()">预览</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="(function(){stallsManagement.printerSetting();})()">设置</a>
+
+    <div style="margin-top:10px;margin-left:5px">
+    <div>
+        <span><label>打&nbsp;印&nbsp;机：&nbsp;</label></span>
+        <input name="printer_list" class="easyui-combobox" data-options="width:161,onSelect:function(res){stallsManagement.onPrinterSelect(res.name);}"/>
+    </div>
+    <div style="margin-top:10px">
+        <label>选择模板：</label>
+        <select name="template_list" class='easyui-combobox sel' data-options="width:161,onSelect:function(res){stallsManagement.templateOnSelect();}" >
+        <volist name='goods_template' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+        </select>
+        <div name="template_guide" style="margin-top:7px;margin-left:57px;display:none"><span style="color:red">没有模板？去</span><a href="javascript:void(0)" onclick="(function(){stallsManagement.changeTemplatePage();})()">打印模板</a><span style="color:red">界面下载模板</span></div><!---->
+    </div>
+    </div>
+<script type="text/javascript">
+//# sourceURL=test.js
+	stallsManagement.code = "{$code}";
+    stallsManagement.template_contents = {$contents};
+    stallsManagement.select_box.printer_list =  $('#'+'{$dialog_div}'+" input[name='printer_list']");
+    stallsManagement.select_box.template_list =  $('#'+'{$dialog_div}'+" select[name='template_list']");
+    stallsManagement.select_box.template_guide =  $('#'+'{$dialog_div}'+" div[name='template_guide']");
+    stallsManagement.connectStockWS();
+$(function(){
+    setTimeout(function(){
+        stallsManagement.newSelectPrinter();
+        if(stallsManagement.select_box.template_list.combobox('getData').length == 0)
+        {
+             stallsManagement.select_box.template_guide.show();
+        }
+    },10);
+});
+stallsManagement.getGoodsTemplatesContents=function(){
+	var contents = {$contents};
+	return contents;
+}
+</script>
+</div>

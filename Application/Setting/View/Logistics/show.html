@@ -1,0 +1,85 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+	<style type="text/css">
+   		.set-icon{position:relative;left:-25px;color: #5881B1;text-align: center;}
+    	.set-text{position:relative;left:-16px;}
+    </style>
+    <div id="{$id_list.tool_bar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post" style="background-color: #f3f3f3;margin: 0;display: inline;">
+            <div class="form-div" style="padding: 10px;display: inline;">
+                <label>物流名称：</label><input class="easyui-textbox txt" type="text" name="search[logistics_name]"/>
+                <label style="display:none;"><input id="logi_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>                
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="logistics_obj.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="logistics_obj.loadFormData();">重置</a>
+            </div>
+        </form>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="logistics_obj.add()">新建物流</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="logistics_obj.edit()">编辑物流</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="logistics_obj.waybillDetail()">面单使用详情</a>
+        <a id="logi_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="logistics_obj.showDisabled()">显示停用</a>
+        <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-setting',plain:true,menu:'#mbut-logistics-rule'" >设置策略</a>
+        <div id="mbut-logistics-rule" style="width:100px;">
+			<div onclick="open_menu('物流匹配', '{:U('Setting/LogisticsMatch/getLogisticsMatchList')}')"><span class="set-icon"><i class='fa fa-truck' style="font-size: 15px;width: 16px;"></i></span><span class="set-text">物流匹配</span></div>
+			<div onclick="open_menu('物流资费', '{:U('Setting/LogisticsFee/getLogisticsFeeList')}')"><span class="set-icon"><i class='fa fa-money' style="font-size: 15px;width: 16px;"></i></span><span class="set-text">物流邮资</span></div>
+			<div onclick="open_menu('地区别名', '{:U('Setting/AreaAlias/getAreaAliasList')}')"><span class="set-icon"><i class='fa fa-tag' style="font-size: 15px;width: 16px;"></i></span><span class="set-text">地区别名</span></div>
+		</div>
+        <a href="javascript:void(0)" class="easyui-linkbutton" title="物流同步时需要有物流映射关系,否则会提示请检查物流公司编码与其他信息是否完整的错误" data-options="iconCls:'icon-reload',plain:true" onclick="logistics_obj.upon()">全店铺映射平台物流</a>
+        <label class="form-div">
+            <a href="{$faq_url_logistics_question}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+        </label>
+    </div>
+        <script type="text/javascript">
+//# sourceURL=logistics_obj.js
+$(function () {
+    setTimeout(function () {
+        logistics_obj = new RichDatagrid(JSON.parse('{$params}'));
+        logistics_obj.setFormData();
+        logistics_obj.waybillDetail = function() {
+            var selected = $('#'+logistics_obj.params.datagrid.id).datagrid('getSelected');
+            if($.isEmptyObject(selected))
+            {
+                messager.alert('请选择相应的行!');
+                return;
+            }
+            if(selected.bill_type != 2)
+            {
+                messager.alert('只支持菜鸟电子面单类型的物流查找!');
+                return;
+            }
+            var dialog_info = logistics_obj.params.waybill_detail;
+            Dialog.show(dialog_info.id,dialog_info.title,dialog_info.url+'?logistics_id='+selected.id,dialog_info.height,dialog_info.width,[]);
+        }
+        logistics_obj.showDisabled =function(){
+        	if($("#logi_show_disabled").val()==0){
+        		$("#logi_show_disabled").val('1');
+            	logistics_obj.submitSearchForm(this);
+            	$("#logi_but_disabled").linkbutton({text:'隐藏停用'});
+        	}else{
+        		$("#logi_show_disabled").val('0');
+            	logistics_obj.submitSearchForm(this);
+            	$("#logi_but_disabled").linkbutton({text:'显示停用'});
+        	}
+        }
+        logistics_obj.upon = function () {
+            var selected = $('#'+logistics_obj.params.datagrid.id).datagrid('getSelected');
+            if($.isEmptyObject(selected))
+            {
+                messager.alert('请选择相应的行!');
+                return;
+            }
+            var url = "{:U('Logistics/uponLogistics')}";
+            $.messager.progress({title: 'ERP', msg: '正在处理，请稍待。。。'});
+            $.post(url,{"id":selected.id},function(res){
+                $.messager.progress("close");
+                if(res.status!=2){
+                    messager.alert(res.info);
+                }else{
+                    $.fn.richDialog("response", res.info, "uponLogistics");
+                }
+
+            })
+        }
+    }, 0);
+});
+</script>
+</block>

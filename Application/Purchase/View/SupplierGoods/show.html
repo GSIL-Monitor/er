@@ -1,0 +1,134 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="suppliergoods.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding-top:10px;margin-top: 0;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post" style="background-color: #f3f3f3;margin: 0;display: inline;">
+			<div class="form-div" style="padding:10px;display:inline;">
+				<label>供应商：</label><select class="easyui-combobox sel" name="search[provider]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+						<volist name='provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select> 
+				<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+				<!--<label>　供货商货号：</label><input class="easyui-textbox txt" type="text" name="search[provider_goods_no]"/>-->
+				<label>　货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]"/>
+				<label>　货品编号：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]"/>
+				
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="suppliergoods.submitSearchForm()">搜索</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="suppliergoods.loadFormData()">重置</a>
+			</div>
+		</form>
+		<div class="form-div">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="suppliergoods.add()">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="suppliergoods.remove()">删除</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="suppliergoods.uploadDialog()">导入供应商货品</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="suppliergoods.downloadTemplet()">下载模板</a>
+		<div>
+	</div>
+    <script type="text/javascript">
+        //# sourceURL=suppliergoods.js
+        $(function(){
+            setTimeout(function(){
+                suppliergoods = new RichDatagrid(JSON.parse('{$params}'));
+			    suppliergoods.setFormData();
+				suppliergoods.add = function(){
+					suppliergoods.showDialog(this.params.add.id,this.params.add.title,this.params.add.url+'?dialog_id='+this.params.add.id+'&datagrid_id='+this.params.datagrid.id,550,1250,[])
+				
+				}
+                suppliergoods.upload = function () {
+                    var form = $("#{$id_list.fileForm}");
+                    var url = "{:U('SupplierGoods/uploadExcel')}";
+                    var dg = $("#{$id_list.datagrid}");
+                    var dialog = $("#{$id_list.fileDialog}");
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "该操作可能需要几分钟，请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    form.form("submit", {
+                        url: url,
+                        success: function (res) {
+                            $.messager.progress('close');
+                            res = JSON.parse(res);
+                            if (res.status==0) {
+                                dialog.dialog("close");
+                                dg.datagrid("reload");
+                            } else if (res.status == 1) {
+                                messager.alert(res.info);
+                            } else if (res.status == 2) {
+                                $.fn.richDialog("response", res.data, "importResponse");
+                                dialog.dialog("close");
+                                dg.datagrid("reload");
+                            }
+                            form.form("load", {"file": ""});
+                        }
+                    })
+                }
+                suppliergoods.uploadDialog = function () {
+                    var dialog = $("#{$id_list.fileDialog}");
+                    dialog.dialog({
+                        title: "导入供应商货品",
+                        width: "350px",
+                        height: "160px",
+                        modal: true,
+                        closed: false,
+                        inline: true,
+                        iconCls: 'icon-save',
+                    });
+                }
+				
+                suppliergoods.downloadTemplet = function(){
+				 var url = "{:U('SupplierGoods/downloadTemplet')}";
+                    if (!!window.ActiveXObject || "ActiveXObject" in window){
+                        messager.confirm('IE浏览器下文件名会中文乱码，确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }else{
+                        messager.confirm('确定下载模板吗？',function(r){
+                            if(!r){return false;}
+                            window.open(url);
+                        })
+                    }
+                }
+                suppliergoods.remove = function(){
+                    var row = $('#'+suppliergoods.params.datagrid.id).datagrid('getSelections');
+                    var that = this;
+                    if(row == null){
+                        messager.alert("请选择操作的行!");
+                        return;
+                    }
+                    messager.confirm('确定删除供应商货品吗？',function(r){
+                        if(r){
+                            $.post("{:U('Purchase/SupplierGoods/remove')}",{'id':row}, function(r){
+                                switch (r.status){
+                                    case 1:
+                                        messager.alert(r.info);
+                                        break;
+                                    case 0:
+                                        var index = $('#'+that.params.datagrid.id).datagrid('reload');
+                                    
+                                        break;
+                                    default :
+                                        messager.alert("系统发生错误，请与管理员联系！");
+                                }
+                            });
+                        }
+                    });
+                }
+            },0);
+        });
+    </script>
+</block>
+<block name="tabs">
+</block>

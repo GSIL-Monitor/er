@@ -1,0 +1,243 @@
+<table id="edit_GoodsStocksyncstrategy_datagrid_edit"></table>
+<div id="GoodsStocksyncstrategy_edit_dialog_toolbar">
+    <form id="GoodsStocksyncstrategy_add_dialog_form_edit" method="post">
+        <div class="form-div">
+            <if condition="$is_no_rule eq true || $is_custom eq false">
+                <input type="radio" id='custom_radio_0' name="is_custom" value="0" checked="checked"><label>默认同步策略</label><br>
+                <input type="radio" id='custom_radio_1' name="is_custom" value="1"><label>自定义同步策略</label>
+            <else/>
+                <input type="radio" id='custom_radio_0' name="is_custom" value="0"><label>默认同步策略</label><br>
+                <input type="radio" id='custom_radio_1' name="is_custom" value="1" checked="checked"><label>自定义同步策略</label>
+            </if>
+            <hr/>
+            <input type="checkbox" id="is_disable_syn" name="is_disable_syn" value="1" checked><label>不同步库存</label><br>
+        </div>
+        <div class="form-div">
+            <lable>已有单品策略：</lable>
+            <select class="easyui-combobox sel" id="shortcut_strategy" name="shortcut_strategy" data-options="panelHeight:'200px',disabled:false" style="width:233px;">
+                <option value="无">无</option>
+                <volist name='list_shortcut_strategy' id='vo1'>
+                    <option value="{$vo1.rec_id}">{$vo1.code}</option>
+                </volist>
+            </select>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="add_shortcut_strategy" onclick="platform_goods.add_shortcut_strategy_name()">添加</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="remove_shortcut_strategy" onclick="platform_goods.remove_shortcut_strategy()">删除</a><br/>
+            <lable style="color: red">(快捷策略可以快速将之前设置好的配置应用上)</lable>
+        </div>
+        <div class="form-div">
+            <label>默认策略规则编号：</label><input class="easyui-textbox txt" id='rule_no' type="text" name="rule_no" data-options="disabled:true,validType:'englishOrNum'"/>
+        </div>
+        <div class="form-div">
+            <label class="four-character-width" >仓库：</label><select class="easyui-combobox sel" id="goods_warehouse_list_edit" name="warehouse_list" data-options="panelHeight:'200px',editable:false, multiple:true,required:true" style="width:233px;">
+            <volist name='list_warehouse' id='vo'>
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+        </div>
+
+        <div class="form-div">
+            <label>库存数量 ＝ 实际库存</label><input type="checkbox" name="purchase_num" value="1" ><label>+采购在途量</label><!--<input type="checkbox" name="purchase_arrive_num" value="1" ><label>+采购到货量</label>--><!--<input type="checkbox" name="to_purchase_num" value="1" ><label>+待采购量</label><input type="checkbox" name="transfer_num" value="1" ><label>+调拨在途量</label>
+            <br/>
+            <label style="width: 60px;display: inline-block;"> </label>-->
+                                      <!--<input type="checkbox" name="subscribe_num" value="1" ><label>-预订单量</label>--><input type="checkbox" name="order_num" value="1"><label>-待审核量</label><input type="checkbox" name="unpay_num" value="1" ><label>-未付款量</label><input type="checkbox" name="sending_num" value="1"><label>-待发货量</label><!--<input type="checkbox" name="lock_num" value="1" ><label>-锁定库存量</label><input type="checkbox" name="to_transfer_num" value="1" ><label>-待调拨量</label>-->
+        </div>
+        <div class="form-div">
+            <label class="four-character-width">百分比:</label><input id='rule_percent' class="easyui-numberbox" style="width:40px;" type="text" name="percent" value="100" data-options="disabled:false"/><label>% + </label><input class="easyui-numberbox " style="width:40px;" type="text" id='rule_percent_plus' name="plus_value" value="0" data-options="disabled:false"/><br/>
+            <label class="four-character-width">最小库存:</label><input class="easyui-numberbox" id='rule_min_stock' style="width:40px;" type="text" name="min_stock" value="0" data-options="validType:'integ',disabled:false"/>
+        </div>
+        <div class="form-div">
+            <hr/>
+            <input type="checkbox" id="is_auto_delisting" name="is_auto_delisting" value="1" checked><label>达到最小库存时自动下架</label><br>
+            <input type="checkbox" id="is_auto_listing" name="is_auto_listing" value="1" checked><label>超过最小库存时自动上架</label><br>
+        </div>
+    </form>
+</div>
+<block name="dialog">
+    <div id="shortcut_strategy_name"></div>
+</block>
+<block name="tabs"></block>
+<script type="text/javascript">
+    //# sourceURL=Goodsstocksyncstrategy_add.js
+
+    $(function () {
+        var form = {$form};
+        var data = {$data};
+        var is_custom = {$is_custom};
+        var is_no_rule = {$is_no_rule};
+        if (form != 'none') {
+            $("#GoodsStocksyncstrategy_add_dialog_form_edit").form('load', form);
+            setTimeout(function () {
+                $("#goods_warehouse_list_edit").combobox('clear');
+                $("#goods_warehouse_list_edit").combobox('setValues', data['warehouse_list']);
+            }, 10);
+        }
+        platform_goods.disable_button = function(){
+            $('input:checkbox[name="is_disable_syn"]').prop('disabled', true);
+            $("#shortcut_strategy").combobox({ disabled: true });
+            $("#goods_warehouse_list_edit").combobox('disable');
+            $("#rule_percent").numberbox('disable');
+            $("#rule_percent_plus").numberbox('disable');
+            $("#rule_min_stock").numberbox('disable');
+            $('#add_shortcut_strategy').linkbutton('disable');
+            $('#remove_shortcut_strategy').linkbutton('disable');
+            $('input:checkbox[name="purchase_num"]').prop('disabled', true);
+            $('input:checkbox[name="unpay_num"]').prop('disabled', true);
+            //$('input:checkbox[name="purchase_arrive_num"]').prop('disabled', true);
+            $('input:checkbox[name="order_num"]').prop('disabled', true);
+            $('input:checkbox[name="sending_num"]').prop('disabled', true);
+            $('input:checkbox[name="is_auto_delisting"]').prop('disabled', true);
+            $('input:checkbox[name="is_auto_listing"]').prop('disabled', true);
+        }
+
+        if(is_no_rule == 1 || is_custom==0){
+            setTimeout(function () {
+                platform_goods.disable_button();
+            }, 0);
+
+        }
+
+        $('#shortcut_strategy').combobox({onChange:function(n,o)
+        {
+            var url = "{:U('Goods/PlatformGoods/getShortCutStrategyById')}" ;
+            $.post(url,n,function(res)
+            {
+                if(res.status==0){
+                    $("#goods_warehouse_list_edit").combobox('setValues',(res.warehouse_id) );
+                    $("#goods_warehouse_list_edit").combobox('setText',(res.warehouse_name) );
+                    $("#rule_percent").numberbox('setValue',res.percent);
+                    $("#rule_percent_plus").numberbox('setValue',res.plus_value);
+                    $("#rule_min_stock").numberbox('setValue',res.min_stock);
+                    if(res.is_disable_syn ==1){
+                        $('input:checkbox[name="is_disable_syn"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="is_disable_syn"]').prop('checked', false);
+                    }
+                    if(res.purchase_num ==1){
+                        $('input:checkbox[name="purchase_num"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="purchase_num"]').prop('checked', false);
+                    }
+                    if(res.unpay_num ==1){
+                        $('input:checkbox[name="unpay_num"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="unpay_num"]').prop('checked', false);
+                    }
+                   /* if(res.purchase_arrive_num ==1){
+                        $('input:checkbox[name="purchase_arrive_num"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="purchase_arrive_num"]').prop('checked', false);
+                    }*/
+                    if(res.order_num ==1){
+                        $('input:checkbox[name="order_num"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="order_num"]').prop('checked', false);
+                    }
+                    if(res.sending_num == 1 ){
+                        $('input:checkbox[name="sending_num"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="sending_num"]').prop('checked', false);
+                    }
+                    if(res.is_auto_delisting ==1 ){
+                        $('input:checkbox[name="is_auto_delisting"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="is_auto_delisting"]').prop('checked', false)
+                    }
+                    if(res.is_auto_listing ==1){
+                        $('input:checkbox[name="is_auto_listing"]').prop('checked', true);
+                    }else{
+                        $('input:checkbox[name="is_auto_listing"]').prop('checked', false);
+                    }
+
+                }else{
+                    messager.alert(res.info);
+                }
+            },'json')
+        }
+        });
+
+        $("#custom_radio_0").click(function()
+        {
+            platform_goods.disable_button();
+        });
+        $("#custom_radio_1").click(function()
+        {
+            $('input:checkbox[name="is_disable_syn"]').prop('disabled', false);
+            $("#shortcut_strategy").combobox('enable');
+            $("#goods_warehouse_list_edit").combobox('enable');
+            $("#rule_percent").numberbox('enable');
+            $("#rule_percent_plus").numberbox('enable');
+            $("#rule_min_stock").numberbox('enable');
+            $('#add_shortcut_strategy').linkbutton('enable');
+            $('#remove_shortcut_strategy').linkbutton('enable');
+            $('input:checkbox[name="purchase_num"]').prop('disabled', false);
+            $('input:checkbox[name="unpay_num"]').prop('disabled', false);
+            //$('input:checkbox[name="purchase_arrive_num"]').prop('disabled', false);
+            $('input:checkbox[name="order_num"]').prop('disabled', false);
+            $('input:checkbox[name="sending_num"]').prop('disabled', false);
+            $('input:checkbox[name="is_auto_delisting"]').prop('disabled', false);
+            $('input:checkbox[name="is_auto_listing"]').prop('disabled', false);
+        });
+
+    });
+    platform_goods.submitEditDialog = platform_goods.submitAddDialog = function() {
+        var params = $("#GoodsStocksyncstrategy_add_dialog_form_edit").form('get',{warehouse_list:true});
+        if(params.warehouse_list=='' && params.is_custom ==1){
+            messager.alert('仓库不能为空,请选择仓库');
+            return;
+        }
+        params.type = "edit";
+        params.ags_id = "{$id}";
+		$.post("{:U('Goods/PlatformGoods/saveSyncStrategy')}",params,function (r) {
+                //r = JSON.parse(r);
+            $('#platform_goods_Strategy_edit').dialog('close');
+            messager.alert(r.info);
+        },'json');
+    }
+
+    platform_goods.add_shortcut_strategy_name = function()
+    {
+        var params = $("#GoodsStocksyncstrategy_add_dialog_form_edit").form('get',{warehouse_list:true});
+        if(params.warehouse_list==''){
+            messager.alert('仓库不能为空,请选择仓库');
+            return;
+        }
+        params = JSON.stringify(params);
+        platform_goods.add_shortcut_strategy(params);
+
+    }
+    platform_goods.add_shortcut_strategy = function(params)
+    {
+        var that = this;
+        var dg = $('#shortcut_strategy_name');
+        var url = "index.php/Goods/PlatformGoods/showShortCutStrategyNameDialog?data=" + params;
+        var buttons = [{
+            text: '确定', handler: function () {
+                that.add_shortcut_dialog();
+            }
+        }
+        ];
+        dg.dialog({
+            title:'添加',
+            iconCls:'icon-save',
+            width:400,
+            height:150,
+            href:url,
+            closed:false,
+            inline:true,
+            modal:true,
+            buttons:buttons
+        });
+    }
+    platform_goods.remove_shortcut_strategy = function()
+    {
+        var url = "{:U('Goods/PlatformGoods/removeShortcutStrategy')}";
+        var id = $("#shortcut_strategy").combobox('getValue');
+        $.post(url,{id:id},function(res)
+        {
+            $('#platform_goods_Strategy_edit').dialog('close');
+            messager.alert(res.info);
+
+        },'json')
+    }
+
+</script>

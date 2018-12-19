@@ -1,0 +1,131 @@
+<table id="{$mark}_Stocksyncstrategy_datagrid_edit"></table>
+<div id="Stocksyncstrategy_{$mark}_dialog_toolbar">
+    <form id="Stocksyncstrategy_add_dialog_form_{$mark}" method="post">
+        <div class="form-div">
+            <input type="checkbox" name="is_disabled" value="1"><label>停用</label><br>
+            <hr/>
+            <input type="checkbox" name="is_disable_syn" value="1"><label>不同步库存</label><br>
+        </div>
+        <div class="form-div">
+            <label class="four-character-width">规则编号</label><input class="easyui-textbox txt" type="text" name="rule_no" data-options="required:true,editable:{$status},validType:'englishOrNum'"/>
+            <label class="four-character-width">规则名称</label><input class="easyui-textbox txt" type="text" name="rule_name" data-options="required:true,validType:'loginName'"/>
+            <label class="four-character-width">优先级</label><input class="easyui-numberbox " type="text" name="priority" value="1" required="true"/>
+        </div>
+        <div class="form-div">
+            <label class="four-character-width">店铺：</label><select class="easyui-combobox sel" id="shop_list_{$mark}" name="shop_list" data-options="panelHeight:'200px',editable:false, multiple:true,required:true" style="width:233px;">
+            <volist name='list_shop' id='vo'>
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+            <label class="four-character-width" >仓库：</label><select class="easyui-combobox sel" id="warehouse_list_{$mark}" name="warehouse_list" data-options="panelHeight:'200px',editable:false, multiple:true,required:true" style="width:233px;">
+            <volist name='list_warehouse' id='vo'>
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+        </div>
+        <div class="form-div">
+            <label class="four-character-width">品牌：</label><select class="easyui-combobox sel" id="brand_id" name="brand_id" data-options="panelHeight:'200px',editable:false, multiple:false,required:true" style="width:233px;">
+            <volist name='list_brand' id='vo'>
+                <option value="{$vo.id}">{$vo.name}</option>
+            </volist>
+        </select>
+            <label class="four-character-width">分类：</label><input class="txt" id="stock_tree_class_show_goods_{$mark}" value="-1" name="class_id" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+        </div>
+        <div class="form-div">
+            <label>库存数量 ＝ 实际库存</label><input type="checkbox" name="purchase_num" value="1" ><label>+采购在途量</label><!--<input type="checkbox" name="purchase_arrive_num" value="1" ><label>+采购到货量</label>--><!--<input type="checkbox" name="to_purchase_num" value="1" ><label>+待采购量</label><input type="checkbox" name="transfer_num" value="1" ><label>+调拨在途量</label>
+            <br/>
+            <label style="width: 60px;display: inline-block;"> </label>-->
+                                      <!--<input type="checkbox" name="subscribe_num" value="1" ><label>-预订单量</label>--><input type="checkbox" name="order_num" value="1"><label>-待审核量</label><input type="checkbox" name="unpay_num" value="1" ><label>-未付款量</label><input type="checkbox" name="sending_num" value="1"><label>-待发货量</label><!--<input type="checkbox" name="lock_num" value="1" ><label>-锁定库存量</label><input type="checkbox" name="to_transfer_num" value="1" ><label>-待调拨量</label>-->
+        </div>
+        <div class="form-div">
+            <label class="four-character-width">百分比:</label><input class="easyui-numberbox" style="width:40px;" type="text" name="percent" value="100" required="true"/><label>% + </label><input class="easyui-numberbox " style="width:40px;" type="text" name="plus_value" value="0" required="true"/><br/>
+            <label class="four-character-width">最小库存:</label><input class="easyui-numberbox" style="width:40px;" type="text" name="min_stock" value="0" data-options="validType:'integ'" required="true"/>
+        </div>
+        <div class="form-div">
+            <hr/>
+            <input type="checkbox" name="is_auto_delisting" value="1" checked><label>达到最小库存时自动下架</label><br>
+            <input type="checkbox" name="is_auto_listing" value="1" checked><label>超过最小库存时自动上架</label><br>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //# sourceURL=stocksyncstrategy_add.js
+
+    $(function () {
+        setTimeout(function () {
+            $("#stock_tree_class_show_goods_{$mark}").changStyleTreeCombo("stock_tree_class_show_goods_{$mark}");
+        }, 0);
+        var form = {$form};
+        var data = {$data};
+        if (form != 'none') {
+            $("#Stocksyncstrategy_add_dialog_form_{$mark}").form('load', form);
+            setTimeout(function () {
+
+                $("#shop_list_{$mark}").combobox('setValues', data['shop_list']);
+                $("#warehouse_list_{$mark}").combobox('setValues', data['warehouse_list']);
+            }, 1);
+        }
+    });
+
+    stockSyncStrategy.submitEditDialog = stockSyncStrategy.submitAddDialog = function() {
+		if(!$("#Stocksyncstrategy_add_dialog_form_{$mark}").form('validate'))
+		{
+			return false;
+		}
+		var stock_sync_params = $("#Stocksyncstrategy_add_dialog_form_{$mark}").form('get',{shop_list:true,warehouse_list:true});
+        stock_sync_params.type = "{$mark}";
+		$.post("{:U('Setting/StockSyncStrategy/saveSyncStrategy')}",stock_sync_params,function (r) {
+                //r = JSON.parse(r);
+                if (r.status == 0) {
+                    messager.alert(r.info);
+                    return;
+                }
+                if (r.status == 1) {
+                    stockSyncStrategy.refresh();
+                    switch (r.type) {
+                        case "edit":
+                            $('#' + stockSyncStrategy.params.edit.id).dialog('close');
+                            break;
+                        case "add":
+                            $('#' + stockSyncStrategy.params.add.id).dialog('close');
+                            break;
+                    }
+                    return;
+                }
+                messager.alert("系统错误请联系管理员！");
+            },'json');
+        /*$("#Stocksyncstrategy_add_dialog_form_{$mark}").form('submit', {
+            url: "{:U('Setting/StockSyncStrategy/saveSyncStrategy')}",
+            onSubmit: function (param) {
+                var isValid = $(this).form('validate');
+                if (!isValid) {
+                    messager.alert("表单信息不正确或不完整，请检查表单信息！");
+                    return false;
+                }
+                param.shop_list = $('#shop_list_{$mark}').combobox('getValues');
+                param.warehouse_list = $('#warehouse_list_{$mark}').combobox('getValues');
+                param.type = "{$mark}";
+            },
+            success: function (r) {
+                r = JSON.parse(r);
+                if (r.status == 0) {
+                    messager.alert(r.info);
+                    return;
+                }
+                if (r.status == 1) {
+                    stockSyncStrategy.refresh();
+                    switch (r.type) {
+                        case "edit":
+                            $('#' + stockSyncStrategy.params.edit.id).dialog('close');
+                            break;
+                        case "add":
+                            $('#' + stockSyncStrategy.params.add.id).dialog('close');
+                            break;
+                    }
+                    return;
+                }
+                messager.alert("系统错误请联系管理员！");
+            }
+        });*/
+    }
+</script>

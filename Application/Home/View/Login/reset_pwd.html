@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="keywords " content="E快帮,E快帮ERP,旺店通,ERP,店铺管理,店铺管理ERP"/>
+<title>{:C('SYSTEM_NAME')}-欢迎登录</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/icon.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.css?v={$version_number}">
+<link rel="icon" href="__ROOT__/Public/Image/favicon.ico"  type="image/x-icon">
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.md5.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.cookie.js"></script>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.2.css">
+<script type="text/javascript" src="__ROOT__/Public/Js/json.2.js"></script>
+<![endif]-->
+<script type="text/javascript" src="__ROOT__/Public/Js/login.util.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/easyui.extends.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/erp.util.js?v={$version_number}"></script>
+</head>
+<style>
+#ret-top{width: 894px;margin-left: auto;margin-right: auto;padding-top: 20px;}
+#ret-logo{overflow: hidden;}
+#ret-logo a:first-of-type {float: left; width: 100px; height: 30px}
+#ret-logo a:nth-of-type(2) {float: left;font-family: Microsoft Yahei;font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 26px;letter-spacing: 0px;color: #999999; margin-top:14px;margin-left:12px;}
+#ret-logo a:nth-of-type(3) {float: right;font-family: Microsoft Yahei;font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 26px;letter-spacing: 0px;color: #31ac7f;margin-top:14px;margin-right: 12px;}
+#reset-content{width: 900px;height: 530px;background-color: #ffffff;box-shadow: 0px 5px 19px 1px rgba(177, 187, 184, 0.28);margin-left: auto;margin-right: auto;margin-top: 20px;}
+.ret-content-top{width: 900px;height: 60px;background-image: linear-gradient(87deg,#2ac38a 11%,#2eb4a7 43%,#2d9db5 100%),linear-gradient(#31ac7f,#31ac7f);background-blend-mode: normal,normal;text-align: center;}
+.ret-content-top span{position: relative;top:18px;width: 79px;height: 19px;font-family: Microsoft Yahei;font-size: 20px;font-weight: 300;font-stretch: normal;line-height: 26px;letter-spacing: 0px;color: #ffffff;}
+.ret-cell{margin-left: auto;margin-right: auto;margin-top: 30px;width: 301px;height:40px;}
+.ret-pwd-bottom {position: relative;bottom:50px;left:0;right:0;margin:auto;}
+.ret-pwd-cell:first-of-type{margin-top: 70px;}
+.ret-pwd-cell:nth-of-type(3){margin-top: 40px;}
+.ret-pwd-cell input{padding: 6px 10px;}
+.ret-msg {display:none;position: relative;top: -41px;color:#f15151;font-family: SourceHanSansCN-Normal;font-size: 12px;font-weight: normal;font-stretch: normal;line-height: 42px;letter-spacing: 0px;left:320px;width: 309px;height: 55px;background-image: url('__PUBLIC__/Image/Login/Password-box.png');background-repeat: no-repeat;background-position: center;overflow: hidden;background-size: 309px 55px;box-sizing: border-box;padding: 5px 15px 5px 35px;word-break: break-all;/*white-space: nowrap;*//*text-overflow: ellipsis;*/}
+.ret-msg i{position: absolute;top:19px;left: 15px;background-color: white;border: none;background-image: url('__PUBLIC__/Image/Login/Close.png');background-repeat: no-repeat;background-position: center;width: 14px;height: 14px;}
+</style>
+<body>
+<div id="ret-top">
+	<div id="ret-logo">
+		<a href="__ROOT__/index.php/home/login/login.html">
+		<img alt="E快帮" src="__ROOT__/Public/Image/Login/login_logo_green.png" >
+		</a>
+		<a href="__ROOT__/index.php/home/login/login.html" >网上开店 找E快帮</a>
+		<img src="__ROOT__/Public/Image/Login/login_icon_consulting.png" onclick="sendToQQ()" title="点击联系客服"/>
+		<a href="{:U('Home/Login/login')}?type=logout">登录</a>
+	</div>
+</div>
+<div id="reset-content">
+	<div class="ret-content-top">
+		<span>设置新密码</span>
+	</div>
+	<div class="ret-pwd-form">
+		<form id="ret-pwd-form" method="post">
+			<div class="cell ret-cell ret-pwd-cell"><input class="text" type="password" id="password" name="password" maxlength="50" placeholder="新密码"/><p class="ret-msg ret-msg-password" name="新密码"></p></div>
+			<div class="cell ret-cell ret-pwd-cell"><input class="text" type="password" id="repassword" name="repassword" maxlength="50" placeholder="确认新密码"/><p class="ret-msg ret-msg-repassword" name="确认新密码"></p></div>
+			<div class="cell2 ret-cell ret-pwd-cell"><a id="submit" href="javascript:void(0)" class="button" onclick="resetPwd();" >完成</a></div>
+		</form>
+	</div>
+</div>
+<div class="ret-pwd-bottom"><div class="copyright">©版权所有E快帮  服务热线:400-010-1039</div></div>
+<script type="text/javascript">
+$(function(){
+	//检测浏览器版本
+	check_navigator();
+	function check_navigator(){
+		var userAgent=navigator.userAgent.toLowerCase();
+		var appVersion=navigator.appVersion.toLowerCase();
+		var status=1;
+		if (!!window.ActiveXObject || "ActiveXObject" in window){
+			if(appVersion.match(/msie 8./i)=="msie 8."){
+				status=0;
+			}else if(appVersion.match(/msie 7./i)=="msie 7."){
+				status=0;
+			}else if(appVersion.match(/msie 5./i)=="msie 5."){
+				status=0;
+			}
+		}
+		if(status==0){
+			alert('当前浏览器版本无法正常使用本系统，请更换谷歌浏览器！');
+		}
+	}
+});
+$('#password').focus(function(){
+	$('.ret-msg-password').css({"display":"block","line-height":"22px","color":"#777","padding":"5px 15px 5px 25px"});
+	$('.ret-msg-password').html('必须是8-20位英文字母(包含大小写)、数字或符号，不能是纯数字或纯字母！');
+});
+$('#password').blur(function(){
+	var pwdRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$", "g");
+	var password = $('#password').val();
+	if(!pwdRegex.test(password)&&password!='') {
+		$('.ret-msg-password').css({"display":"block","line-height":"22px","color":"#f15151","padding":"5px 15px 5px 35px"});
+		$('.ret-msg-password').html('<i></i>必须是8-20位英文字母(包含大小写)、数字或符号，不能是纯数字或纯字母！');
+	}else{
+		$('.ret-msg-password').css({"display":"none","line-height":"42px","color":"#f15151","padding":"5px 15px 5px 35px"});
+		$('.ret-msg-password').html('');
+	}
+
+
+});
+function sendToQQ(){
+	var url = "http://wpa.qq.com/msgrd?v=3&uin=3194947699&site=qq&menu=yes";
+	window.open(url);
+}
+function formValidate(data){
+	var is_show = true;
+	var is_return = true;
+	for(var i in data){
+		if(!$.trim(data[i])){
+			$('#'+i).addClass('err');
+			if(is_show){
+				$('.ret-msg-'+i).css('display','block');$('.ret-msg-'+i).html('<i></i>'+$('.ret-msg-'+i).attr('name')+'不能为空');
+			}
+			is_show = false;is_return = false;
+		}
+		else{$('#'+i).removeClass('err');$('.ret-msg-'+i).css('display','none');
+			$('.ret-msg-'+i).html('');
+		}
+	}
+	if(is_show){
+		var pwdRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$", "g");
+		if(!pwdRegex.test(data.password)){
+			$('#password').addClass('err');
+			$('#repassword').addClass('err');
+			$('.ret-msg-password').css('line-height','22px');
+			$('.ret-msg-password').css('display','block');
+			$('.ret-msg-password').html('<i></i>必须是8-20位英文字母(包含大小写)、数字或符号，不能是纯数字或纯字母！');
+			$('#password').val('');
+			$('#repassword').val('');
+			is_return = false;
+		}else if(pwdRegex.test(data.password)){
+			$('#password').removeClass('err');
+			$('#repassword').removeClass('err');
+			$('.ret-msg-password').css('display','none');
+			$('.ret-msg-password').html('');
+		}else if(data.password != data.repassword){
+			$('#repassword').addClass('err');
+			$('.ret-msg-repassword').css('display','block');
+			$('.ret-msg-repassword').html('<i></i>两次输入的密码不一致！');
+			$('#repassword').val('');
+			is_return = false;
+		}
+	}
+	return is_return;
+}
+function resetPwd(){
+	var form=$("#ret-pwd-form");
+	var data=form.form('get');
+	data.id="{$employee_id}";
+	if(!formValidate(data)){return;}
+	$.post("{:U('Home/Login/changePassword')}",{data:JSON.stringify(data)},function(res){
+		if(res.status==1){
+			messager.alert(res.info);return false;
+		}else if(res.status==0){
+			window.location.href = res.info;
+		}
+	});
+}
+</script>
+</body>
+</html>

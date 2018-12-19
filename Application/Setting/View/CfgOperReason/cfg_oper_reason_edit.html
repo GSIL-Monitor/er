@@ -1,0 +1,65 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="tabs"> 
+<div data-options="region:'west'" style="width:30%;">
+<div class="easyui-datalist" id="{$id_list.datalist_class}" style="width:100%" data-options='textField:"name",valueField:"class_id",groupField: "group",data:{$data_list}'>
+</div>
+</div>
+</block>
+<!-- dialog -->
+<block name="dialog"></block>
+<!-- toolbar -->
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+	<label style="display:none;"><input id="cor_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="{$dialog}cfgOperReasonRight.append();">添加</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="{$dialog}cfgOperReasonRight.reject();">取消</a>
+	<if condition="$isDialog eq false">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="{$dialog}cfgOperReasonRight.submitCfgOperReasonsDialog();">保存</a>
+	</if>
+	<a id="cor_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="{$dialog}cfgOperReasonRight.showDisabled()">显示停用</a>
+</div>
+</block>
+<block name="script">
+<script>
+//# sourceURL=cfgoperreason_show.js
+    $(function(){
+       setTimeout(function(){
+	       {$dialog}cfgOperReasonRight = new ThinDatagrid($('#{$id_list.id_datagrid}'),undefined,false);
+	       {$dialog}cfgOperReasonRight.cfgOperReasonLeft = new CfgOperReason({$params});
+	       {$dialog}cfgOperReasonRight.cfgOperReasonLeft.cfgOperReasonInitShow();
+	       {$dialog}cfgOperReasonRight.submitCfgOperReasonsDialog = {$dialog}cfgOperReasonRight.cfgOperReasonLeft.submitCfgOperReasonsDialog;
+	       $.extend($.fn.validatebox.defaults.rules, {
+	    	   reason_title_unique: {
+			        validator: function (value) {
+			        	if(value.trim()==''  || /[<>/]+/g.test(value)){return false;}
+			            if (typeof(value) != "undefined") {
+			                var rows = {$dialog}cfgOperReasonRight.selector.datagrid("getRows");
+			                for (var i in rows) { if (i!={$dialog}cfgOperReasonRight.editIndex && value==rows[i].title) { return false; } }
+			            }
+			            return true;
+			        },
+			        message: "原因名称不能重复，且不能为空（不能含有<>/字符）"
+			    }
+			});
+
+		   {$dialog}cfgOperReasonRight.showDisabled = function(){
+			   if($("#cor_show_disabled").val() == '0'){
+				   $("#cor_show_disabled").val('1');
+				   $("#cor_but_disabled").linkbutton({text:'隐藏停用'});
+			   }else{
+				   $("#cor_show_disabled").val('0');
+				   $("#cor_but_disabled").linkbutton({text:'显示停用'});
+			   }
+
+			   var disabled = $("#cor_show_disabled").val();
+			   var left = {$dialog}cfgOperReasonRight.cfgOperReasonLeft
+			   var select_row = $('#'+left.params.datalist.id).datalist('getSelected');
+			   var selector = $('#'+ left.params.datagrid.id);
+
+			   selector.datagrid({url:left.params.datagrid.refresh_url+"?class_id="+select_row.class_id+"&is_disabled="+disabled});
+		   }
+	   },0);
+	});
+
+</script>
+</block>

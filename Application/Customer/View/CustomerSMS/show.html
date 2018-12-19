@@ -1,0 +1,89 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label>批次号</label><input id="batch_no" class="easyui-textbox txt" type="text" name="search[batch_no]" value=""/>
+                <label>操作人</label><select id="operator_id" class="easyui-combobox sel" name="search[operator_id]"><option value="all">全部</option><volist name='employee' id='vo'><option value="{$vo.id}">{$vo.fullname}</option></volist></select>
+                <label>实际发送时间</label><input id="customer_sms_start" class="easyui-datebox txt" value="" type="text" name="search[start_time]" data-options="editable:false"/>
+                <label class="">到</label><input id="customer_sms_end" class="easyui-datebox txt" value="" type="text" name="search[end_time]" data-options="editable:false"/>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="customer_sms.submitSearchForm_sms(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="customer_sms.loadFormData()">重置</a>
+            </div>
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" plain=true onclick="customer_sms.sendAction(0)">取消发送</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" plain=true onclick="customer_sms.sendAction(1)">重新发送</a>
+                <a href="http://alipay.wangdian.cn?version=0&seller_account={$seller_account}" class="easyui-linkbutton" data-options="iconCls:'icon-add'" plain=true target="_blank">短信充值</a>
+                <span style="color:red;position:relative;top:2px;font-size:13px">短信余额：{$sms_count}条</span>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+            setTimeout(function(){
+                customer_sms = new RichDatagrid(JSON.parse('{$params}'));
+                customer_sms.setFormData();
+
+                /** 1.批次号有搜索条件的情况下，不限制操作人和实际发送时间
+                  * 2.批次号无搜索条件的情况下，操作人有搜索条件则实际发
+                  * 送时间必须要同时有搜索条件
+                  */
+                customer_sms.submitSearchForm_sms = function(that,id){
+                    // var batch_no = $("#batch_no").val();
+                    // var operator_id   = $("#operator_id").val();
+                    // var start_time = $("#customer_sms_start").datebox('getValue');
+                    // var end_time   = $("#customer_sms_end").datebox('getValue');
+                    // if(batch_no == "")
+                    // {
+                    //     if(operator_id != "全部" && start_time == "" && end_time == "")
+                    //     {
+                    //         messager.alert("请添加时间限制");
+                    //         return false;
+                    //     }
+                    // }
+                    customer_sms.submitSearchForm(this);
+                }
+
+                /**
+                  *   type 为0是取消发送
+                  *   type 为1是重新发送
+                  */
+                customer_sms.sendAction = function(type){
+                    if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null) { messager.alert('请选择操作的行!'); return false; }
+                    if(type == 0)
+                    {
+                        var url = this.params.cancelSend;
+                    }else
+                    {
+                        var url = this.params.againSend;
+                    }
+                    var sms_id = [];
+                    for(i in this.selectRows)
+                    {
+                        var status = this.selectRows[i].status;
+                        if((status != 0 || status == undefined || status == null) && type == 0)
+                        {
+                            console.log(type);
+                            messager.alert('只能取消发送状态为待发送的短信');
+                            return false;
+                        }
+                        if((status == 0 || status == 1 || status == undefined || status == null) && type == 1)
+                        {
+                            messager.alert('只能重新发送状态为已发送或发送失败的短信');
+                            return false;
+                        }
+                        sms_id.push(this.selectRows[i].rec_id);
+                    }
+                    $.post(url, { sms_id: sms_id }, function(res) {
+                        if(res.status==0){messager.alert( res.info);customer_sms.refresh();
+                        }
+                        else if(res.status==1){messager.alert( res.info, 'error');}
+                    }, 'json')
+                }
+            },0);
+        });
+    </script>
+</block>

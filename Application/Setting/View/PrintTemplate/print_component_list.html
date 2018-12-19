@@ -1,0 +1,194 @@
+<OBJECT ID='[type]dlgHelper' CLASSID="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" WIDTH="0px" HEIGHT="0px"></OBJECT>
+<div id="[type]_print_tempalte_html" style="display: none">
+	<style>
+		#[type]_print_tempalte_table_html, #[type]_print_tempalte_table_html td{
+			/*font-size: 12px;*/
+			border-width: 1px;
+			border-style: solid;
+			border-color: #000;
+			border-collapse: collapse
+		}
+	</style>
+	<table id='[type]_print_tempalte_table_html' style="font-family:'宋体';font-size: 12px">
+		<tr>
+			<td width="50px"></td>
+			<!-- <td width="200px">货品名称</td>
+             <td width="200px">规格</td>
+             <td width="80px">数量</td>-->
+			<!--<td width="80px">价格</td>-->
+		</tr>
+		<tr id='order-item' >
+			<td width="50px">1</td>
+			<!--<td width="200px">[货品名称]</td>
+            <td width="200px">[规格]</td>
+            <td width="80px">[数量]</td>-->
+			<!--<td width="80px">[价格]</td>-->
+		</tr>
+	</table>
+
+</div>
+<div id="[print_menu_id]" class="easyui-accordion" data-options="fit:true,border:true">
+		<div title="打印偏移设置" data-options="iconCls:'icon-man',collapsed:false,collapsible:true" style="padding: 0px;">
+			<table class="easyui-datagrid" style="width:100%;height:150px"	 id="[type]_print_template_float_position_datagrid"   data-options="fitColumns:true,singleSelect:true">
+				<thead>
+				<tr>
+					<th data-options="field:'printor_name',width:40">打印机名称</th>
+					<th data-options="field:'left',width:30,editor:{type:'numberbox',options:{min:0,value:0}}">左边距(mm)</th>
+					<th data-options="field:'top',width:30,editor:{type:'numberbox',options:{min:0,value:0}}">上边距(mm)</th>
+				</tr>
+				</thead>
+			</table>
+			<script>
+				$(function(){
+					$('#[type]_print_template_float_position_datagrid').datagrid().datagrid('enableCellEditing');
+				})
+			</script>
+		</div>
+	<if condition="([type] eq 'logistics')">
+		<div title="菜鸟打印设置"  class="print-field">
+			<form id ='[type]_cn_setting'>
+				<div><label>是否打印logo</label><input type="checkbox" name="logo_show" value = 1 checked="checked"/></div>
+			</form>
+		</div>
+		</if>
+		<div title="发件人(仓库)"  class="print-field">
+			<input class='[print_item_class]' value="发件人姓名" 		name="contact" 			type="button" seq=0 group=1/>
+			<input class='[print_item_class]' value="发件人手机" 		name="mobile" 			type="button" seq=1 group=1/>
+			<input class='[print_item_class]' value="发件人固话" 		name="telno" 			type="button" seq=2 group=1/>
+			<input class='[print_item_class]' value="发件人电话" 		name="phone" 			type="button" seq=3 group=1/>
+			<input class='[print_item_class]' value="发件人省份" 		name="province" 		type="button" seq=4 group=1/>
+			<input class='[print_item_class]' value="发件人城市" 		name="city" 			type="button" seq=5 group=1/>
+			<input class='[print_item_class]' value="发件人区县" 		name="district" 		type="button" seq=6 group=1/>
+			<input class='[print_item_class]' value="发件人邮编" 		name="zip" 				type="button" seq=8 group=1/>
+			<input class='[print_item_class]' value="发件人地址(不含省、市、区县)" 		name="address" 			type="button" seq=7 group=1/>
+			<input class='[print_item_class]' value="发件人详细地址(含省、市、区县)" 	name="address_detail" 	type="button" seq=9 group=1/>
+
+		</div>
+		<div title="收件人" class="print-field">
+			<input class='[print_item_class]' value="收件人姓名" 		name="receiver_name" 			type="button" seq=0 group=2/>
+			<input class='[print_item_class]' value="收件人手机" 		name="receiver_mobile" 			type="button" seq=1 group=2/>
+			<input class='[print_item_class]' value="收件人固话" 		name="receiver_telno" 			type="button" seq=2 group=2/>
+			<input class='[print_item_class]' value="收件人电话" 		name="receiver_phone" 			type="button" seq=3 group=2/>
+			<input class='[print_item_class]' value="收件人省份" 		name="receiver_province" 		type="button" seq=4 group=2/>
+			<input class='[print_item_class]' value="收件人城市" 		name="receiver_city" 			type="button" seq=5 group=2/>
+			<input class='[print_item_class]' value="收件人区县" 		name="receiver_district" 		type="button" seq=6 group=2/>
+			<input class='[print_item_class]' value="收件人邮编" 		name="receiver_zip" 			type="button" seq=8 group=2/>
+			<input class='[print_item_class]' value="收件人地址(不含省、市、区县)" 		name="receiver_address" 		type="button" seq=7 group=2/>
+			<input class='[print_item_class]' value="收件人详细地址(含省、市、区县)" 	name="receiver_address_detail" 	type="button" seq=9 group=2/>
+			
+		</div>
+		<div title="订单" class="print-field">
+			<input class='[print_item_class]' value="订单编号" 		name="src_order_no" 		type="button" seq=0 group=3/>
+			<input class='[print_item_class]' value="订单编号条码" 	name="src_order_no_code" 	type="button" seq=1 group=3 component_type='code'/>
+			<input class='[print_item_class]' value="原始单号" 		name="src_tids" 			type="button" seq=2 group=3/>
+			<input class='[print_item_class]' value="原始单号条码" 	name="src_tids_code" 		type="button" seq=3 group=3 component_type='code'/>
+			<input class='[print_item_class]' value="物流单号" 		name="logistics_no"  		type="button" seq=4 group=3 />
+			<input class='[print_item_class]' value="物流单号条码" 	name="logistics_no_code"  	type="button" seq=5 group=3 component_type='code'/>
+ 			<input class='[print_item_class]' value="包裹号条码" 		name="package_no_code"  	type="button" seq=6 group=3 component_type='code'/>
+ 		    <input class='[print_item_class]' value="包裹序列号" 		name="package_sequence"  	type="button" seq=7 group=3/>
+ 			<input class='[print_item_class]' value="应付金额" 		name="receivable" 			type="button" seq=8 group=3/>
+			<input class='[print_item_class]' value="打印日期" 		name="print_date" 			type="button" seq=9 group=3/>
+			<input class='[print_item_class]' value="下单日期" 		name="trade_time" 			type="button" seq=10 group=3/>
+			<input class='[print_item_class]' value="买家网名" 		name="buyer_nick" 			type="button" seq=11 group=3/>
+			<input class='[print_item_class]' value="买家留言" 		name="buyer_message" 	    type="button" seq=12 group=3/>
+			<input class='[print_item_class]' value="发票抬头" 		name="invoice_title" 	    type="button" seq=13 group=3/>
+			<input class='[print_item_class]' value="发票内容" 		name="invoice_content" 	    type="button" seq=14 group=3/>
+			<input class='[print_item_class]' value="卖家留言" 		name="cs_remark" 	    type="button" seq=15 group=3/>
+			<input class='[print_item_class]' value="打印序号" 		name="print_sequence" 	    type="button" seq=16 group=3/>
+			<input class='[print_item_class]' value="大头笔" 		name="receiver_dtb" 	    type="button" seq=17 group=3/>
+			<input class='[print_item_class]' value="货品总量" 		name="goods_count" 	    type="button" seq=18 group=3/>
+			<input class='[print_item_class]' value="货品种数" 		name="goods_type_count" 	    type="button" seq=19 group=3/>
+			<input class='[print_item_class]' value="实际重量" 		name="weight" 	    type="button" seq=20 group=3/>
+			<input class='[print_item_class]' value="估重" 		name="calc_weight" 	    type="button" seq=21 group=3/>
+			<input class='[print_item_class]' value="出库单号" 		name="stockout_no" 	    type="button" seq=22 group=3/>
+			<input class='[print_item_class]' value="出库单号条码" 	name="stockout_no"  	type="button" seq=23 group=3 component_type='code'/>
+			<input class='[print_item_class]' value="邮费" 		name="post_amount" 	    type="button" seq=24 group=3/>
+			<input class='[print_item_class]' value="组合装名称和数量" 		name="suite_info" 	    type="button" seq=25 group=3/>
+
+		</div>
+		<div title="店铺" class="print-field">
+			<input class='[print_item_class]' value="店铺名称" 		name="shop_name" 		type="button" seq=0 group=4/>
+			<input class='[print_item_class]' value="店铺网址" 		name="website" 		type="button" seq=1 group=4/>
+		</div>
+		<div title="货品" class="print-field" data-options="collapsed:true">
+			<div style="margin-bottom: 10px;">
+				<script>
+					$(function(){
+						//data-options="editable:false, required:true,data: formatter.get_data('font_family'),valueField: 'font_id',textField: 'font_name'"
+						function getSystemFonts(dlgHelperId)
+						{
+							var a = document.all(dlgHelperId).fonts.count;
+							var fArray = new Array();
+							for (i = 1;i <= parent.document.all(dlgHelperId).fonts.count;i++){
+								fArray[i] = parent.document.all(dlgHelperId).fonts(i);
+							}
+							var font_data = [];
+							for (var s=1; s < fArray.length; s++)
+							{
+								if(fArray[s] == '宋体'){
+									font_data.push({'id':fArray[s],'name':fArray[s],'selected':true});
+								}else{
+									font_data.push({'id':fArray[s],'name':fArray[s]});
+								}
+							}
+
+							$('#[type]_goods_print_table_font_family').combobox({
+								data:font_data,
+								editable:false,
+								required:true,
+								valueField: 'id',
+								textField: 'name',
+							});
+
+						}
+						getSystemFonts('[type]dlgHelper');
+						$('#[type]_goods_print_table_title_show').combobox({
+							data:[{'id':1,'name':'是',selected:true},{'id':0,'name':'否'}],editable:false,valueField:'id',textField:'name',panelHeight:'auto'
+						});
+						$('#[type]_goods_print_table_line_show').combobox({
+							data:[{'id':1,'name':'是',selected:true},{'id':0,'name':'否'}],editable:false,valueField:'id',textField:'name',panelHeight:'auto'
+						});
+						$('#[type]_goods_print_table_number_show').combobox({
+							data:[{'id':1,'name':'是',selected:true},{'id':0,'name':'否'}],editable:false,valueField:'id',textField:'name',panelHeight:'auto'
+						});
+					});
+				</script>
+				<div id='[type]_goods_print_table_toolbar' style="font-family: 隶书 ">
+					<form id='[type]_goods_print_table_toolbar_form'>
+						<label style="font-family:tahoma;">字体:</label><input id='[type]_goods_print_table_font_family' name="font_family" style="width:30%"/>
+						<label style="font-family:tahoma;">字号:</label><input id='[type]_goods_print_table_font_size' class="easyui-numberspinner" name="font_size" data-options="min:0,increment:1,precision:0,value:9" style="width:30%;"/>
+					<div>
+						<label style="font-family:tahoma;">表头显示:</label><input id='[type]_goods_print_table_title_show' name="title_show" style="width:50px;"/>
+						<label style="font-family:tahoma;">表格框显示:</label><input id='[type]_goods_print_table_line_show' name="line_show" style="width:50px;"/>
+					</div>
+					<div>
+						<label style="font-family:tahoma;">序号列显示:</label><input id='[type]_goods_print_table_number_show' name="number_show" style="width:50px;"/>
+					</div>
+					</form>
+				</div>
+				<table id='[type]_goods_print_table_info'></table>
+				<script>
+					$('#[type]_goods_print_table_info').datagrid({
+						title:'货品信息表格设置',
+						singleSelect:true,
+//				fit:true,
+						toolbar:'#[type]_goods_print_table_toolbar',
+						width:'100%',
+						height:300,
+						columns:[[
+							{field:'name',title:'表头',width:'40%'},
+							{field:'field_name',title:'组件类名',hidden:true,width:100},
+							{field:'is_display',title:'添加',width:'20%',align:'center',formatter:formatter.boolen,editor:{type:'checkbox',options:{on:1,off:0}}},
+							{field:'width',title:'宽度(px)',width:'40%',align:'center',editor:{type:'numberbox',options:{required:true,precision:0,min:0}}},
+						]],
+					});
+					$('#[type]_goods_print_table_info').datagrid().datagrid('enableCellEditing');
+
+				</script>
+			</div>
+			<input class='[print_item_class]' value="货品表格信息" name='goods_info_table' type="button" seq=0 group=5 component_type='table'/>
+			<input class='[print_item_class]' value="货品文字信息" name='goods_info_text' type="button" seq=1 group=5 component_type='table'/>
+		</div>
+
+		
+	</div>

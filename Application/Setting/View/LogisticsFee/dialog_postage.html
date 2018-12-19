@@ -1,0 +1,240 @@
+<style> .five-width {display: inline-block; width: 74px;text-align: right;} </style>
+<div class="easyui-layout" data-options="fit:true,border:false">
+<div data-options="region:'west',title:'适用范围',split:true" style="width:250px;height:400px;overflow:auto"> 
+		<ul id="fee-area-tree"></ul>
+</div>
+<div data-options="region:'center',title:'计算规则'" style="overflow:auto;">
+<form  id="{$id_list.form_id}">
+<div class="form-div">
+<if condition="$id eq 0">
+<label class="five-width">物流公司：</label><select class="easyui-combobox sel" type="text" name="logistics_id"  data-options="editable:false,required:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $trade['logistics_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<label> 适用店铺：</label><select class="easyui-combobox sel" type="text" name="target_id"  data-options="editable:false,required:true"><volist name='list.shop' id='vo'><if condition="$vo['id'] eq $trade['shop']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<else/>
+<label class="five-width">物流公司：</label><select class="easyui-combobox sel" type="text" name="logistics_id"  data-options="editable:false,required:true,disabled:true"><volist name='list.logistics' id='vo'><if condition="$vo['id'] eq $trade['logistics_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<label> 适用店铺：</label><select class="easyui-combobox sel" type="text" name="target_id"  data-options="editable:false,required:true,disabled:true"><volist name='list.shop' id='vo'><if condition="$vo['id'] eq $trade['shop']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</if>
+</div> 
+ <hr style="border:none;border-top:2px dotted #95B8E7;">
+ <div class="form-div">
+<label class="seven-width">特殊重量区间1：</label><input class="easyui-numberbox txt" name="special_weight1" data-options="min:0,precision:4"/>
+<label>特殊区间1邮资：</label><input class="easyui-numberbox txt" name="special_fee1" data-options="min:0,precision:4"/>
+</div>
+<div class="form-div">
+<label class="seven-width">特殊重量区间2：</label><input class="easyui-numberbox txt" name="special_weight2" data-options="min:0,precision:4"/>
+<label>特殊区间2邮资：</label><input class="easyui-numberbox txt" name="special_fee2" data-options="min:0,precision:4"/>
+</div>
+<div class="form-div">
+<label class="seven-width">特殊重量区间3：</label><input class="easyui-numberbox txt" name="special_weight3" data-options="min:0,precision:4"/>
+<label>特殊区间3邮资：</label><input class="easyui-numberbox txt" name="special_fee3" data-options="min:0,precision:4"/>
+</div>
+ <hr style="border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div">
+<label class="five-width">首　　重：</label><input class="easyui-numberbox txt" name="first_weight" data-options="min:0.1,precision:4,required:true"/>
+<label>首重资费：</label><input class="easyui-numberbox txt" name="first_price" data-options="min:0,precision:4,required:true"/>
+</div>
+<div class="form-div">
+<label class="five-width">重量区间1：</label><input class="easyui-numberbox txt" name="weight_step1" data-options="min:0,precision:4,required:true"/>
+<label>续重单位：</label><input class="easyui-numberbox txt" name="unit_step1" data-options="min:0,precision:4,required:true"/>
+<label>单位资费：</label><input class="easyui-numberbox txt" name="price_step1" data-options="min:0,precision:4,required:true"/>
+</div>
+<div class="form-div">
+<label class="five-width">重量区间2：</label><input class="easyui-numberbox txt" name="weight_step2" data-options="min:0,precision:4"/>
+<label>续重单位：</label><input class="easyui-numberbox txt" name="unit_step2" data-options="min:0,precision:4"/>
+<label>单位资费：</label><input class="easyui-numberbox txt" name="price_step2" data-options="min:0,precision:4"/>
+</div>
+<div class="form-div">
+<label class="five-width">重量区间3：</label><input class="easyui-numberbox txt" name="weight_step3" data-options="min:0,precision:4"/>
+<label>续重单位：</label><input class="easyui-numberbox txt" name="unit_step3" data-options="min:0,precision:4"/>
+<label>单位资费：</label><input class="easyui-numberbox txt" name="price_step3" data-options="min:0,precision:4"/>
+</div>
+<div class="form-div">
+<label class="five-width">重量区间4：</label><input class="easyui-numberbox txt" name="weight_step4" data-options="min:0,precision:4"/>
+<label>续重单位：</label><input class="easyui-numberbox txt" name="unit_step4" data-options="min:0,precision:4"/>
+<label>单位资费：</label><input class="easyui-numberbox txt" name="price_step4" data-options="min:0,precision:4"/>
+</div>
+ <hr style="border:none;border-top:2px dotted #95B8E7;">
+<div class="form-div">
+<label class="five-width">取整方式：</label><input class="easyui-combobox txt" name="trunc_mode" data-options="editable:false,required:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trunc_mode','def')"/>
+</div>
+<hr style="border:none;border-top:2px dotted #95B8E7;">
+</form>
+<div class="form-div" style="color: red;margin: 8px;"> 重量满足设置的特殊重量区间则忽略下方邮资计算方法<br>重量单位千克，资费单位元 <br>重量区间结束前，要从上往下、从小向大连续填写，不能跳行填写<br>重量区间必须以0结束，表示无限大<br> 示例：首重=5 重量区间1=15 续重单位=2 单位资费=4；则表示：在5kg到15kg重量区间，每2kg需要4元 </div> 
+</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=edit.logistics_fee.js
+var postage=JSON.parse('{$postage}');
+$(function () { 
+	initFeeAreaTree();
+	setTimeout(function () { 
+		initPostage();
+	}, 0); 
+});
+function initFeeAreaTree(){
+	$('#fee-area-tree').tree({cascadeCheck:true, checkbox:true, lines:true, });
+	var tree=$('#fee-area-tree');
+	$.post("{:U('Setting/WarehouseRule/getAreaTree')}", {}, function(data){
+		tree.tree('loadData',data);
+		tree.tree('collapseAll');
+		tree.tree('expand',$('#fee-area-tree>li>div'));
+		tree.tree('uncheck',$('#fee-area-tree>li>div'))
+		var area=tree.tree('getData',$('#fee-area-tree>li>div'));
+		var areas=[];areas.push(area);
+		setFeeCheckedTree(postage['area'],areas,tree);
+	});
+}
+function getLogisticsFee(){
+	var form=$('#{$id_list.form_id}');
+	if(!form.form('validate')){ return false;}
+	var data={};
+	data['info']=form.form('get');
+	//if(data.info.province==0){messager.info('请选择地址');return false;}
+	data.info['weight_step0']=data.info.first_weight;
+	for (var i=1; i<5; i++) {
+		if(parseFloat(data.info['weight_step'+i])==0){
+			if((!data.info['unit_step'+i])||(!data.info['price_step'+i])){messager.info('重量区间'+i+'的续重单位和资费不能为空且大于0');return false;}
+			break;
+		}else{
+			if((!data.info['weight_step'+i])||i==4){messager.info('重量区间必须以0结束，表示无限大');return false;}
+			if(parseFloat(data.info['weight_step'+i])<=parseFloat(data.info['weight_step'+(i-1)])){messager.info('续重区间必须比前面的要大');return false;}
+			if((!data.info['unit_step'+i])||(!data.info['price_step'+i])){messager.info('重量区间'+i+'的续重单位和资费不能为空且大于0');return false;}
+		}
+	}
+	for (var i = 1; i < 4; i++){  
+		if (!parseFloat(data.info['special_weight'+i])&&parseFloat(data.info['special_fee'+i])) {
+			messager.info('特殊重量区间'+i+"不能为空且大于0");return false;
+		}
+		if (parseFloat(data.info['special_weight'+i])&&!parseFloat(data.info['special_fee'+i])) {
+			messager.info('特殊区间'+i+"邮资不能为空且大于0");return false;
+		}
+		if (i!=1&&(parseFloat(data.info['special_weight'+i])||parseFloat(data.info['special_fee'+i]))&&(!parseFloat(data.info['special_weight'+(i-1)])||!parseFloat(data.info['special_fee'+(i-1)]))) {
+			var j = i-1;
+			messager.info('特殊重量区间'+j+"及特殊区间"+j+"邮资不能为空且大于0");return false;
+		}                                                          
+		if (i!=1&&parseFloat(data.info['special_weight'+i])&&parseFloat(data.info['special_weight'+i])<=parseFloat(data.info['special_weight'+(i-1)])) {
+			var j = i-1;
+			messager.info("特殊重量区间"+i+"必须大于特殊重量区间"+j);return false;
+		}
+	}
+	return data;
+}
+function initPostage(){
+	$('#{$id_list.form_id}').form('filterLoad',postage);
+}
+function setFeeCheckedTree(logistics,areas,tree){
+	if(logistics==undefined){return false;}
+	for (var i=0; i<logistics.length; i++) {
+		switch(parseInt(logistics[i].level)){
+			case 0://全国
+				tree.tree('check',areas[0].target);return;
+				// areas[0].checked=true;return;
+			case 1://省
+				var p=getFeeTreeIndexById(areas[0].children,logistics[i].province);
+				tree.tree('check',areas[0].children[p].target);break;
+				// areas[0].children[p].checked=true;break;
+			case 2://市
+				var p=getFeeTreeIndexById(areas[0].children,logistics[i].province);
+				var c=getFeeTreeIndexById(areas[0].children[p].children,logistics[i].city);
+				tree.tree('check',areas[0].children[p].children[c].target);break;
+				// areas[0].children[p].children[c].checked=true;break;
+			case 3://区
+				var p=getFeeTreeIndexById(areas[0].children,logistics[i].province);
+				var c=getFeeTreeIndexById(areas[0].children[p].children,logistics[i].city);
+				var d=getFeeTreeIndexById(areas[0].children[p].children[c].children,logistics[i].district);
+				tree.tree('check',areas[0].children[p].children[c].children[d].target);break;
+				// areas[0].children[p].children[c].children[d].checked=true;break;
+		}
+	}
+}
+
+function getFeeTreeIndexById(areas,id){
+	var index=0;
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].id==id) {index=i; break;}
+	}
+	return index;
+}
+//submit-提交数据
+logisticsFee.submitEditDialog=function(){
+	var fee=JSON.parse('{$postage}');
+	var data=getLogisticsFee();
+	var fee_area=[];
+	var tree=$('#fee-area-tree');
+	var target=$('#fee-area-tree>li>div');
+	var area=tree.tree('getData',target);
+	getFeeAreaTree(fee_area,[area],0);
+	if(fee_area.length==0){messager.info('请选择策略适用范围');return false;}
+	data.info['area']=fee_area;
+	data.info['old_area']=fee['area'];
+	data.info['logistics_id']=fee['logistics_id'];
+	data.info['target_id']=fee['target_id'];
+	if(data==false){return;}
+	data.id='{$id}';
+	$.post("{:U('LogisticsFee/editLogisticsFee')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+logisticsFee.params.edit.id).dialog('close');
+			logisticsFee.refresh();
+		}
+	},"JSON");
+}
+logisticsFee.submitAddDialog=function(){
+	var data=getLogisticsFee();
+	var fee_area=[];
+	var tree=$('#fee-area-tree');
+	var target=$('#fee-area-tree>li>div');
+	var area=tree.tree('getData',target);
+	getFeeAreaTree(fee_area,[area],0);
+	if(fee_area.length==0){messager.info('请选择策略适用范围');return false;}
+	data.info['area']=fee_area;
+	if(data==false){return;}
+	$.post("{:U('logisticsFee/addLogisticsFee')}",data,function(res){
+		if(!res.status){
+			messager.info(res.info);
+		}else{
+			$('#'+logisticsFee.params.add.id).dialog('close');
+			logisticsFee.refresh();
+		}
+	},"JSON");
+}
+function getFeeAreaTree(fee_area,areas,level){
+	for (var i=0; i<areas.length; i++) {
+		if (areas[i].checked) {
+			var address={level:level};
+			switch(level){
+				case 0:
+				case 1:
+					address.province=parseInt(areas[i].id);
+					address.city=0;
+					address.district=0;
+					break;
+				case 2:
+					address.province=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					address.city=parseInt(areas[i].id);
+					address.district=0;
+					break;
+				case 3:
+					address.province=parseInt((areas[i].id+'').substring(0,2)+'0000');
+					address.city=parseInt((areas[i].id+'').substring(0,4)+'00');
+					switch(address.city){
+						case 110200:
+							address.city=110100;break;
+						case 120200:
+							address.city=120100;break;
+						case 310200:
+							address.city=310100;break;
+						case 500200:
+						case 500300:
+							address.city=500100;break;
+					}
+					address.district=parseInt(areas[i].id);
+					break;
+			}
+			fee_area.push(address);
+		}else if ((!!areas[i].children)&&areas[i].children.length>0) {
+			getFeeAreaTree(fee_area,areas[i].children,level+1);
+		}
+	}
+}
+</script>

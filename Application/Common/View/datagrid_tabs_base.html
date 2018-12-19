@@ -1,0 +1,47 @@
+<taglib name="TagLib\EasyUI" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <include file="../Application/Common/View/Common/css.html"/>
+<include file="../Application/Common/View/Common/js.html"/>-->
+</head>
+<body>
+<!-- layout-datagrid -->
+<div class="easyui-layout" data-options="fit:true" style="width:100%;height:100%;overflow:hidden;" id="panel_layout">
+<!-- layout-center-datagrid -->
+<block name="datagrid"> 
+<div data-options="region:'center'" style="width:100%;background:#eee;"><easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" /></div> </block>
+<!-- layout-south-tabs -->
+<block name="tabs"> <div data-options="region:'south',split:true" style="height:30%;background:#eee;overflow:hidden;">
+    <!--<if condition="$datagrid.setTabs eq 1">-->
+        <!--<a href="javascript:void(0)" class="easyui-menubutton" style="position: absolute;margin-left: 150px;z-index:10000;" data-options="iconCls:'icon-excel',plain:true,menu:'#common_datagrid_tabs_export'" >导出功能</a>-->
+        <!--<div id="common_datagrid_tabs_export">-->
+            <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" name="exportToExcel" onclick="{$datagrid.setTabsClick}('csv')">导出csv(推荐)</a>-->
+            <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" name="exportToExcel" onclick="{$datagrid.setTabsClick}('excel')">导出到Excel</a>-->
+        <!--</div>-->
+    <!--</if>-->
+    <div class="easyui-tabs" data-options="fit:true,border:false,plain:true" id="{$id_list.tab_container}"> </div>
+</div>
+<script type="text/javascript">
+$(function(){
+setTimeout('add_tabs(JSON.parse(\'{$arr_tabs}\'))',0);
+}); 
+/*
+$(function(){ add_tabs(JSON.parse('{$arr_tabs}')); 
+$('body').show();
+$('#panel_layout').layout('resize',{height:$('#panel_layout').parent().height()});
+}); 
+*/
+</script>
+</block>
+</div>
+<!-- dialog -->
+<block name="dialog"> <div id="{$id_list.add}"></div> <div id="{$id_list.edit}"></div> </block>
+<!-- toolbar -->
+<block name="toolbar"> </block>
+<!-- layout-south-tabs, call add_tabs js function to add tabs -->
+<block name="script">
+</block>
+</body>
+</html>

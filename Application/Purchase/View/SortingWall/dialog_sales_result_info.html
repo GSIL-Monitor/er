@@ -1,0 +1,18 @@
+<table id="merge-split-trade-fail"></table>
+<script>
+//# sourceURL=result_info.js
+$('#merge-split-trade-fail').datagrid({
+	border:false,
+	collapsible:true,
+	singleSelect:true,
+	fitColumns:true,  
+	rownumbers:true,
+	data:{$sales_trade_result_info},
+	fit:true,
+    columns:[[{field:'trade_no',title:'订单编码',width:120}, {field:'result_info',title:'处理信息',width:300}]]
+});
+$(function(){
+	var checkFlag='{$check_flag}';
+	if(checkFlag=='success'){tradeCheck.refresh();}
+});
+</script>

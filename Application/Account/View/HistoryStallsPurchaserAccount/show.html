@@ -1,0 +1,36 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>货品名称：</label><input class="easyui-textbox txt" type="text" name="search[goods_name]" />
+                <label>　　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+                <label>　　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                <label>　　供货商名称：</label><select class="easyui-combobox sel" name="search[provider]" data-options="editable:false" style="width: 130px;">　　
+                <volist name='provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                &emsp;&emsp;<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="HistoryStallsPurchaserAccount.submitSearchForm(this);">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="HistoryStallsPurchaserAccount.loadFormData();">重置</a>　
+            </div>
+            <div class="form-div">
+                <!--<label>入库时间：</label><input class="easyui-datetimebox txt" type="text" name="search[start_time]" value="{$query_start_date}" data-options="editable:false" style="width: 154px;"/>
+                <label>　至：</label><input class="easyui-datetimebox txt" type="text"   name="search[end_time]" value="{$current_date}" data-options="editable:false" style="width: 154px;"/>-->
+                <label>　采购员：</label><select class="easyui-combobox sel" name="search[purchaser_name]" data-options="editable:false" style="width: 130px;">
+                <volist name='purchaser' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　　取货时间：</label><input id="history_stalls_purchaser_account_start" class="easyui-datetimebox txt" type="text" name="search[purchaser_start_time]" value="{$query_start_date}"  data-options="editable:false" style="width: 154px;"/>
+                <label>　至：</label><input id="history_stalls_purchaser_account_end" class="easyui-datetimebox txt" type="text"   name="search[purchaser_end_time]" value="{$current_date}" data-options="editable:false" style="width: 154px;"/>　　
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            setTimeout(function () {
+                HistoryStallsPurchaserAccount = new RichDatagrid(JSON.parse('{$params}'));
+                HistoryStallsPurchaserAccount.setFormData();
+            },0);
+        });
+    </script>
+</block>
+
+
+
+

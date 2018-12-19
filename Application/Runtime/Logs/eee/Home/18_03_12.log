@@ -1,0 +1,22 @@
+[ 2018-03-12T22:31:32+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp1@163.com
+[ 2018-03-12T22:31:32+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:eee=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 244
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('eee')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(370): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(382): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(155): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(575): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+

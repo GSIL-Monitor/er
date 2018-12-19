@@ -1,0 +1,66 @@
+<taglib name="TagLib\EasyUI" />
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:540px;width:740px;overflow:hidden;">
+	<div data-options="region:'west',split:true" style="width:200px;">
+		<table id="shop-warehouse"> </table>
+	</div>
+	<div data-options="region:'center'" >
+		<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+	</div>
+</div>
+<script type="text/javascript">
+//# sourceURL=shop_warehouse.js
+$(function(){
+	$("#shop-warehouse").datagrid({
+		title:'店铺列表',singleSelect:true,nowrap:false,fitColumns:true,fit:true,border:false,url:'{:U('WarehouseRule/getShopList')}',
+		columns:[[{field:'id',hidden:true}, {field:'name',title:'店铺名称',width:190,align:'left'}, ]]
+	});
+	$('#{$datagrid.id}').datagrid().datagrid('enableCellEditing',false);
+	setTimeout(function(){
+		$("#shop-warehouse").datagrid('options').onClickRow=function(index,row){
+			var sw_dg=$('#{$datagrid.id}'); sw_dg.datagrid('loading');
+			$.post("{:U('Setting/WarehouseRule/getShopWarehouseList')}", {shop_id:row.id}, function(data){
+				sw_dg.datagrid('loaded');
+				sw_dg.datagrid('loadData',data);
+			});
+		};
+		if (/chrome/.test(get_brower())) {
+			if($("#shop-warehouse").datagrid('getData').total>0) {
+				$("#shop-warehouse").datagrid('selectRow',0);
+				$("#shop-warehouse").datagrid('options').onClickRow(0,$("#shop-warehouse").datagrid('getSelected'));
+			}
+		}else{
+			$("#shop-warehouse").datagrid('options').onLoadSuccess=function(data){
+				if (data.total>0) {
+					$("#shop-warehouse").datagrid('selectRow',0);
+					$("#shop-warehouse").datagrid('options').onClickRow(0,$("#shop-warehouse").datagrid('getSelected'));
+				}
+			}
+		}
+	},0);
+});
+function submitShopWarehouseDialog(){
+	var sw_dg=$('#{$datagrid.id}');
+	var row=$("#shop-warehouse").datagrid('getSelected');
+	if(!row){messager.info('请选择店铺！');return;}
+	var rows=sw_dg.datagrid('getChanges','updated');
+	if(rows.length==0){messager.info('仓库列表没有更新数据！');return;}
+	sw_dg.datagrid('endEdit',sw_dg.datagrid('getRowIndex',sw_dg.datagrid('getSelected')));// 结束当前行的编辑
+	for (var i=0; i<rows.length; i++) {
+		if(rows[i].is_select==1&&rows[i].priority==''){messager.info('仓库:'+rows[i].name+',优先级不能为空！');return;}
+		if (rows[i].is_select==0&&rows[i].priority!=''&&rows[i].rec_id==0) {messager.info('仓库:'+rows[i].name+',未选中仓库,无需设置优先级');return;}
+	}
+	$.post("{:U('Setting/WarehouseRule/editShopWarehouse')}", {shop_id:row.id,shop_warehouse:JSON.stringify(rows)}, function(res) {
+		if (res.status==0) {messager.info(res.info);return;}
+		for (var i=0; i<rows.length; i++) {
+			if (rows[i].is_select==0&&rows[i].priority!=''&&rows[i].rec_id!=0){rows[i].rec_id=0;}
+			if (rows[i].is_select==1&&rows[i].priority!=''&&rows[i].rec_id==0){rows[i].rec_id=1;}
+		}
+		sw_dg.datagrid('acceptChanges');
+		messager.info('店铺使用仓库，保存成功！');
+		// messager.confirm('店铺使用仓库-保存成功，是否关闭窗口？',function(r){
+		// 	if(!r){return false;}
+		// 	return true;
+		// });
+	});
+}
+</script>

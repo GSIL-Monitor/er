@@ -1,0 +1,73 @@
+<style>
+    .sw-div label{vertical-align:middle;width: 75px;display:inline-block; font-size: 12px;text-align: left;}
+</style>
+<div>
+    <form id="{$dialog_list.form}" method="post">
+
+        <div class="form-div sw-div" style="margin-top:10px;">
+            <label style="padding-left: 25px;">编号：</label><select id="{$dialog_list.id}wall_no" class="easyui-combobox sel" name="wall_no"   data-options="width:'150px',panelHeight:'150px',editable:false,required:true" disabled="true">
+            <volist name='sorting_wall_no' id='vo'><option value="{$vo}">{$vo}</option></volist></select>
+        </div>
+        <div class="form-div sw-div" style="margin-top:10px;">
+            <label style="padding-left: 25px;">框数：</label><input id="{$dialog_list.id}box_num" class="easyui-textbox txt" type="text" name="box_num"  style="width:150px;" data-options="required:true,prompt:'该墙的拣货框数量',validType:'ddNumber[1,1000]'"  missingMessage="不能为空"/>
+        </div>
+        <div class="form-div sw-div" style="margin-top:10px;">
+            <label style="padding-left: 25px;">货品数：</label><input id="{$dialog_list.id}goods_num" class="easyui-textbox txt" type="text" name="goods_num"  style="width:150px;" data-options="required:true,prompt:'拣货框最多可放的货品数',validType:'ddNumber[1,1000]'"  missingMessage="不能为空"/>
+        </div>
+        <div class="form-div sw-div" style="margin-top:10px;">
+            <label style="padding-left: 25px;">属性：</label><select class="easyui-combobox sel" name="type"   data-options="width:'150px',panelHeight:'150px',editable:false ">
+            <volist name='sorting_wall_type' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+        </div>
+        <div class="form-div sw-div" style="margin-top:10px;">
+            <label style="padding-left: 25px;">停用：</label><select class="easyui-combobox sel" name="is_disabled" data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+            <option value="0">否</option>
+            <option value="1">是</option>
+        </select>
+        </div>
+    </form>
+</div>
+<script>
+    (function(){
+        var dialog_id = '{$dialog_list.id}';
+        var element_selectors ={
+            'wall_no'	            : $('#'+dialog_id + 'wall_no'),
+            'box_num'               : $('#'+dialog_id + 'box_num'),
+            'goods_num'            : $('#'+dialog_id + 'goods_num'),
+        };
+        $(function(){
+            var dynamic_info=JSON.parse('{$dynamic_info}');
+            var dialog_list=JSON.parse('{$dialog_list_json}');
+            dynamic.submitEditDialog=dynamic.submitAddDialog = function(){
+                if (!$("#"+dialog_list.form).form('validate')) { return false; }
+                var data=$("#"+dialog_list.form).form('get');
+                data.id=dynamic_info.id;
+                if(dynamic_info.id!=0){data.wall_no=dynamic_info.wall_no;}
+                $.post("{:U('Purchase/SortingWall/saveDynamic')}",data,function(r){
+                    if(r.status==1){
+                        messager.alert(r.info);
+                        return;
+                    }
+                    if(r.status==0){
+                        if(data.id==0){
+                            $("#"+dynamic.params.add.id).dialog('close');
+                        }else{
+                            $("#"+dynamic.params.edit.id).dialog('close');
+                        }
+                        dynamic.refresh();
+                        return;
+                    }
+                },'json');
+            }
+            
+            setTimeout(function(){
+                if(dynamic_info.id==0){
+                    element_selectors.wall_no.combobox('enable');
+                }else{
+                    $("#"+dialog_list.form).form('filterLoad',dynamic_info);
+                }
+            },0);
+
+        });
+    })();
+
+</script>

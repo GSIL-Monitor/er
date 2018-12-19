@@ -1,0 +1,25 @@
+<div class="easyui-tabs" data-options="fit:true,border:false" id="{$id_list.tab_container}">
+</div>
+<div class="form-div" style="margin-top: -485px;margin-left: 200px;">
+	<a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见实例" data-options="iconCls:'icon-help',plain:true">常见实例</a>
+</div>
+<script type="text/javascript">
+//# sourceURL=warehouse_rule.js
+$(function(){
+	setTimeout(function(){add_tabs(JSON.parse('{$arr_tabs}')); },0);
+});
+function submitMenuDialog(){
+	var wr_tab=$('#{$id_list.tab_container}');
+	var tab=wr_tab.tabs('getSelected');
+	var index=wr_tab.tabs('getTabIndex',tab);
+	switch(index){
+		case 0:
+			submitShopWarehouseDialog();
+			break;
+		case 1:
+			submitWarehouseAreaDialog();
+			break;
+	}
+	return false;
+}
+</script>

@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--
+<object id="CaiNiaoPrint_OB" classid="clsid:09896DB8-1189-44B5-BADC-D6DB5286AC57" width=0 height=0> 
+	<embed id="CaiNiaoPrint_EM" TYPE="application/x-cainiaoprint" width=0 height=0  ></embed>
+</object> 
+-->
+
+</head>
+<body>
+<style>
+.print-field > label
+{
+	font-weight:bold;
+	display:block;
+	margin:5px 5px;
+	font-size: 15px;
+    align-content: center;
+	background: #eaf2ff;
+}
+.print_tool_print_tool_dragitem{
+}
+
+</style>
+
+<script language="javascript" src="__ROOT__/Public/Js/CaiNiaoPrintFuncs.js"></script>
+
+<div class="easyui-layout" data-options="fit:true" style="width:100%;height:100%;overflow:hidden;" id="panel_layout">
+<div data-options="region:'west',split:true" style="width:18%;height:100%;overflow:hidden;"> 
+	<table id="logistics_print_template_dg" class="easyui-datagrid" data-options="fit:true"></table>
+	<div id="logistics_print_template_tb" style="padding:5px;height:auto;">
+		<div>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true"
+		   onclick="printTemplate.addTemplate()">添加</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true"
+		   onclick="printTemplate.accept(savePrintTemplate, true)">保存</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true"
+		   onclick="printTemplate.extendReject()">撤销</a>
+	   <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true"
+			   onclick="printTemplate.copyTemplate()">复制</a>
+		</div>
+		<label>物流公司：</label>
+		<select class="easyui-combobox sel" id="logistics_print_template_logistics_list" data-options="multiple:true,onUnselect:function(record){printTemplate.templateSelect(record);},onSelect:function(record){printTemplate.templateSelect(record);}">
+		<volist name='logistics_list' id='vo'><option value="{$vo.id}" type="{$vo.type}">{$vo.name}</option></volist>
+		</select>
+	</div> 
+</div> 
+  
+<div id="logistics_print_template_center" data-options="region:'center'" style="width:70%;height:100%;">
+<div id = 'logistics_print_drop_area' class="easyui-droppable targetarea"
+				data-options="
+					accept: '.logistics_print_tool_dragitem',
+					onDrop: print_item_ondrop
+				">
+<object id="logistics_print_template_cn_obj" classid="clsid:09896DB8-1189-44B5-BADC-D6DB5286AC57" width=800 height=400> 
+  <param name="Caption" value="内嵌显示区域">
+  <param name="Border" value="1">
+  <param name="Color" value="#C0C0C0">
+  <embed id="logistics_print_template_cn_em" TYPE="application/x-cainiaoprint"width=800 height=400></embed>
+</object> 
+</div>
+</div> 
+
+<div data-options="region:'east',split:true" style="width:20%;height:100%;overflow:hidden;background:#E0ECFF;">
+	<include file="../Application/Setting/View/PrintTemplate/print_component_list.html" print_menu_id="{$print_menu_id}" type='logistics' js_class_object='printTemplate' print_item_class='logistics_print_tool_dragitem' />
+</div> 
+ 
+<script type="text/javascript"> 
+//# sourceURL=logisticsPrintTemplate.js
+	var CNPrint; //声明为全局变量 
+	function print_item_ondrop(e,source){
+		if(printTemplate.handle_status == 0){
+			printTemplate.extendAlertHandler('请先新建模板，再布局！');
+			return;
+		}
+		if(printTemplate.handle_status == 2){
+			printTemplate.extendAlertHandler('请选择编辑的模板！');
+			return;
+		}
+		var name 	= $(source).val();
+		var value 	= $(source).attr('name');
+		var offset 	= $(source).attr('seq');
+		var group 	= $(source).attr('group');
+		var deltaX  = $('.proxy').offset().left - $('#logistics_print_template_cn_obj').offset().left-95;
+		var deltaY  = $('.proxy').offset().top - $('#logistics_print_template_cn_obj').offset().top-70;
+		if($(source).attr('component_type')=='code'){
+            //CNPrint.ADD_PRINT_BARCODE(20+offset*20,10+(parseInt(group)-1)*50,100,20,'128A',name); 
+            CNPrint.ADD_PRINT_BARCODE(deltaY,deltaX,100,20,'128A',name);
+            CNPrint.SET_PRINT_STYLEA(0,'ItemName',value);
+		}else if($(source).attr('name')=='goods_info_table'){
+			var row = $('#logistics_print_template_dg').datagrid('getSelected');
+			var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+			var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+			var type_value = $(type_ed.target).combobox('getValue');
+			var width = calcTableWidth();;
+			var height = 0;
+			if (2== parseInt(type_value)){
+				if(width>350){
+					width = 350;
+				}
+				height = 50;
+			}else{
+				height = 500;
+			}
+			var datagrid_id = '#logistics_goods_print_table_info';
+			var rows =  $(datagrid_id).datagrid('getRows');
+            CNPrint.ADD_PRINT_HTM(240,35,width,height,$('#logistics_print_tempalte_html').html());
+            CNPrint.SET_PRINT_STYLEA(0,'ItemName',value);
+			tableShowFilter(rows,CNPrint);
+		}else if($(source).attr('name')=='goods_info_text'){
+			var row = $('#logistics_print_template_dg').datagrid('getSelected');
+			var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+			var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+			var type_value = $(type_ed.target).combobox('getValue');
+			var width = 300;
+			var height = 150;
+			if(2== parseInt(type_value))
+			{
+				width = 200;
+				height = 100;
+			}
+			var name = getTableText();
+			CNPrint.ADD_PRINT_TEXTA(value,290,35,width,height, name);
+		}else{
+            //CNPrint.ADD_PRINT_TEXTA(value,20+offset*20,10+(parseInt(group)-1)*50,100,20, name);
+            if($(source).attr('name')=='suite_info'){
+            	CNPrint.ADD_PRINT_TEXTA(value,deltaY-25,deltaX-50,300,50, name);
+            	return;
+            }
+            CNPrint.ADD_PRINT_TEXTA(value,deltaY,deltaX,100,20, name);
+		}
+	}
+	function createLogisticsTemplate(page_info){
+		CNPrint=getCaiNiaoPrint(document.getElementById('logistics_print_template_cn_obj'),document.getElementById('logistics_print_template_cn_em')); 
+		$('#logistics_print_template_cn_obj').css('width', $('#logistics_print_template_center').width());
+		$('#logistics_print_template_cn_obj').css('height', $('#logistics_print_template_center').height());
+		$('#logistics_print_template_cn_em').css('width', $('#logistics_print_template_center').width());
+		$('#logistics_print_template_cn_em').css('height', $('#logistics_print_template_center').height());
+//		CNPrint.PRINT_INIT("物流单模板设计");
+		if(page_info != undefined){
+			CNPrint.PRINT_INITA(0,0,compatibleSize(page_info.width),compatibleSize(page_info.height),'物流单模板设计');
+			//CNPrint.ADD_PRINT_SETUP_BKIMG(page_info.background_url);
+
+		}else{
+			CNPrint.PRINT_INITA(0,0,400,800,'物流单模板设计');
+		}
+	}
+	function compatibleSize(deal_str){
+		if(deal_str == undefined){
+			deal_str = '800';
+			return deal_str;
+		}
+		if(typeof deal_str == 'string'){
+			var temp_str = deal_str.toString();
+			if(!$.isEmptyObject(temp_str.match(/mm/))){
+				temp_str = temp_str.replace(/[\"]|[\']|(mm)/g,'');
+				temp_str = parseInt(parseFloat(temp_str)*96/25.4).toString();
+			}
+		}
+		return temp_str
+	}
+   	function displayLogisticsDesign(type) {
+
+		var row = $('#logistics_print_template_dg').datagrid('getSelected');
+		if('copy' == type && undefined != printTemplate.content){
+			row.content = printTemplate.content;
+		}
+		var pare_info = undefined;
+		if(!$.isEmptyObject(row)){
+			var content = (typeof row.content == 'string') ? JSON.parse(row.content):row.content;
+			if(content!=undefined){
+				pare_info = {width:content.width,height:content.height};//,background_url:content.background_url
+			}
+		}
+
+		createLogisticsTemplate(pare_info);
+		var that = $('#logistics_print_template_dg').datagrid('options').that;
+		var logistics_selected = $('#logistics_print_template_logistics_list').combobox('getValue');
+		if (!$.isEmptyObject(row)){
+			if(that.handle_status == 1 && (logistics_selected!= undefined && logistics_selected !='')){
+				var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+				var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+				var type_value = $(type_ed.target).combobox('getValue'); 
+				if (2== parseInt(type_value)){
+
+					CNPrint.SET_PRINT_IDENTITY("AppKey=98801&Seller_ID=155809");
+					var config="c2lnbkE1M0ZFODMzQjkzREVBRUREOUZBQzY2QjYxMEU2MTJEJnsidmVyc2lvbiI6IjEiLCJhbGlfd2F5YmlsbF9jcF9sb2dvX1ZJU0lCTEUiOiJmYWxzZSIsImFsaV93YXliaWxsX2NvbnNpZ25lZV9hZGRyZXNzX0NPTlRFTlQiOiLmtYvor5Xpgq7lr4Tmm7/mjaIiLCJhbGlfd2F5YmlsbF9zaGlwcGluZ19hZGRyZXNzX1BPU1RGSVgiOiLvvIjmt5jlrp3mtYvor5Xov73liqDlhoXlrrnvvIkifQ==";
+					var logisticsId = $('#logistics_print_template_logistics_list').combobox('getValue');
+					var logisticsType = $('#logistics_print_template_logistics_list [value='+ logisticsId +']').attr('type');
+					var CP_CODE =formatter.logistics_type_code(logisticsType);
+					CNPrint.SET_PRINT_MODE("CAINIAOPRINT_MODE","CP_CODE="+CP_CODE+"&CONFIG="+config);
+					CNPrint.SET_SHOW_MODE("DESIGN_IN_BROWSE",1);
+					//logo显示
+					var logo_show;
+					if(!!content){
+						logo_show = !content.cn_setting?0:(!content.cn_setting.logo_show?0:content.cn_setting.logo_show);
+
+					}else{
+						logo_show = 1;
+					}
+					CNPrint.SET_PRINT_STYLEA("ali_waybill_cp_logo_up","PreviewOnly",logo_show?0:1); //签收联物流公司logo
+					CNPrint.SET_PRINT_STYLEA("ali_waybill_cp_logo_down","PreviewOnly",logo_show?0:1); //留存联物流公司 logo
+					//----------替换变量--------------------------------------------------------------
+
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_product_type","代收货款");//单据类型
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_short_address","021D-123-789");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_package_center_name","黑龙江齐齐哈尔集散");//集散地名称
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_package_center_code","053277886278");//集散地条码
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_waybill_code","053277886278");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_cod_amount","FKFS=到付;PSRQ=2015-07-10");//服务
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_consignee_name","齐齐哈尔沐鱼");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_consignee_phone","15605883677");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_consignee_address","黑龙江省齐齐哈尔市建华区文化大街42号齐齐哈尔大学计算机工程学院计算机001班");//收件人地址
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_send_name","浙江杭州行者");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_send_phone","180000980909");
+					 CNPrint.SET_PRINT_CONTENT("ali_waybill_shipping_address","浙江省杭州市余杭区文一西路1001号阿里巴巴淘宝城5号小邮局");
+					 CNPrint.SET_PRINT_CONTENT("EWM","123456789012");
+
+				}else{
+					CNPrint.SET_SHOW_MODE("DESIGN_IN_BROWSE",1);
+				}
+			}else{
+				CNPrint.SET_SHOW_MODE("DESIGN_IN_BROWSE",1);
+			}
+
+			var printor_list = {};
+			printor_list = getPrintLogisticsTemplatePrintorLocalList();
+			var temp_printor_data = {};
+			if (!$.isEmptyObject(row.content)){
+				
+				if ("string" == typeof(row.content)){
+					row.content = JSON.parse(row.content);
+				}
+				CNPrint.ADD_PRINT_DATA("ProgramData", row.content.print);
+				initCnSetting(row.content.cn_setting);
+				//[type]_print_template_float_position_datagrid
+				if(row.content.printor_float_position != undefined && !$.isEmptyObject(row.content.printor_float_position)){
+					printor_list = mergePrintLogisticsTemplatePrintorList(printor_list,row.content.printor_float_position)
+
+				}
+
+			}
+			temp_printor_data = $.extend(true,{},printor_list);
+			$('#logistics_print_template_float_position_datagrid').datagrid('loadData',temp_printor_data);
+		}else{
+			CNPrint.SET_SHOW_MODE("DESIGN_IN_BROWSE",1);		
+		}
+
+	   	CNPrint.PRINT_DESIGN();//打开ISV设计模式
+        if (!$.isEmptyObject(row) && !$.isEmptyObject(row.content)){
+            formatterDataInfoToPropertyInfo(row.content);
+            tempClearPricePrint(CNPrint);
+        }else{
+            formatterDataInfoToPropertyInfo();
+        }
+		initGoodsTable();
+	};
+function calcTableWidth(){
+    var datagrid_id = '#logistics_goods_print_table_info';
+    var rows =  $(datagrid_id).datagrid('getRows');
+    var width = 100;
+    var field_map_td = {
+        'goods_name':{width:90,name:'货品名称'},
+        'spec_name':{width:90,name:'规格'},
+        'num':{width:90,name:'数量'},
+        'price':{width:90,name:'单价'},
+    };
+    for(var i in rows){
+        if(rows[i].is_display == 1){
+            width += isNaN(parseInt(rows[i].width))?field_map_td[rows[i].field_name].width:parseInt(rows[i].width);
+        }
+    }
+    return width;
+}
+function tempClearPricePrint(printer){
+	var datagrid_id = '#logistics_goods_print_table_info';
+
+	var rows =  $(datagrid_id).datagrid('getRows');
+	//整理使用的字段信息,用来保存
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+
+}
+//把的属性信息转化为数据
+function formatterDataInfoToPropertyInfo(content){
+	var data = {'total':4,'rows':[
+		{'name':'货品名称','field_name':'goods_name','is_display':1,'width':90},
+		{'name':'货品简称','field_name':'short_name','is_display':0,'width':90},
+		{'name':'规格','field_name':'spec_name','is_display':1,'width':90},
+		{'name':'数量','field_name':'num','is_display':1,'width':90},
+		{'name':'单价','field_name':'price','is_display':0,'width':90},
+		{'name':'商家编码','field_name':'spec_no','is_display':0,'width':90},
+		{'name':'货品编号','field_name':'goods_no','is_display':0,'width':90},
+		{'name':'规格码','field_name':'spec_code','is_display':0,'width':90},
+		{'name':'货位','field_name':'position_no','is_display':0,'width':90},
+		//{'name':'货品条码','field_name':'goods_barcode','is_display':0,'width':90},
+	]};
+
+	var temp_data = $.extend(true,{},data);
+
+	if(!!content && content.formatter_table_info != undefined && !$.isEmptyObject(content.formatter_table_info )){
+		for(var i in temp_data.rows){
+			if(!content.formatter_table_info[temp_data.rows[i].field_name]){
+				continue;
+			}
+			var field_is_display = content.formatter_table_info[temp_data.rows[i].field_name].is_display;
+			var field_width = content.formatter_table_info[temp_data.rows[i].field_name].width;
+			temp_data.rows[i].is_display = field_is_display;
+			if(!!field_width){
+				temp_data.rows[i].width = field_width;
+			}
+		}
+	}
+	$('#logistics_goods_print_table_info').datagrid('loadData',temp_data);
+	//return temp_data;
+}
+//整理显示信息用来保存
+function formatterTableFieldsInfo(rows){
+
+	var row = $('#logistics_print_template_dg').datagrid('getSelected');
+	var show_info = {};
+	for(var i in rows){
+		show_info[rows[i].field_name] = {is_display:rows[i].is_display,width:rows[i].width}
+	}
+    if(!!row){
+		if(!row.content){
+			row.content = {};
+		}
+        row.content.formatter_table_info = show_info;
+    }
+}
+//根据属性显示table
+function tableShowFilter(rows,printer){
+	var table_form_data = $('#logistics_goods_print_table_toolbar_form').form('get');
+	var show_title = table_form_data.title_show;
+	var show_line = table_form_data.line_show;
+	var show_number = table_form_data.number_show;
+	var goods_object = this;
+
+	var table_show_info = rows;
+	var table_selector = $('#logistics_print_tempalte_table_html tr');
+
+	var table_tr = ['<td width="50px"></td>','<td width="50px">1</td>'];
+	var field_map_td = {
+		'goods_name':{width:90,name:'货品名称'},
+		'goods_name':{width:90,name:'货品简称'},
+		'spec_name':{width:90,name:'规格'},
+		'num':{width:90,name:'数量'},
+		'price':{width:90,name:'单价'},
+		'spec_no':{width:90,name:'商家编码'},
+		'goods_no':{width:90,name:'货品编号'},
+		'spec_code':{width:90,name:'规格码'},
+		'position_no':{width:90,name:'货位'},
+		//'goods_barcode':{width:90,name:'货品条码'},
+	};
+	var width = 100;
+	for(var i in table_show_info){
+		if(table_show_info[i].is_display == 1){
+			width += isNaN(parseInt(table_show_info[i].width))?0:parseInt(table_show_info[i].width);
+			table_tr[0] = table_tr[0] +'<td width="'+table_show_info[i].width+'px">'+table_show_info[i].name+'</td>';
+			table_tr[1] = table_tr[1] +'<td width="'+table_show_info[i].width+'px">['+table_show_info[i].name+']</td>';
+		}
+	}
+
+
+	for(var j=0 ;j< table_selector.length;j++){
+		$(table_selector[j]).html(table_tr[j]);
+		if(j==0){
+			if(show_title==0){
+				$(table_selector[j]).css({'display':'none'});
+			}else {
+				$(table_selector[j]).css({'display':'block'});
+			}
+		}
+	}
+	if(show_line == 0){
+		$('#logistics_print_tempalte_table_html td').css({'border':'0'});
+		$('#logistics_print_tempalte_table_html').css({'border':'0'});
+	}
+	if(show_number == 0){
+		$('#logistics_print_tempalte_table_html tr td:first-child').css({'display':'none'});
+	}
+	var total_item_num = printer.GET_VALUE('ItemCount',0);
+
+	for(var item_index = 1;item_index<=total_item_num;item_index++){
+		var item_class_name = printer.GET_VALUE('ItemName',item_index);
+		if( item_class_name == 'goods_info_table'){
+			var row = $('#logistics_print_template_dg').datagrid('getSelected');
+			var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+			var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+			var type_value = $(type_ed.target).combobox('getValue');
+			if (2== parseInt(type_value)) {
+				if(width>350){
+					width = 350;
+				}
+			}
+			printer.SET_PRINT_STYLEA(item_index,"Width",width);
+			printer.SET_PRINT_STYLEA(item_index,"CONTENT",$('#logistics_print_tempalte_html').html());
+
+
+//			printer.ADD_PRINT_HTM(240,35,700,500,$('#goods_print_tempalte_html').html());
+		}
+		if( item_class_name == 'goods_info_text'){
+			var text = getTableText();
+			printer.SET_PRINT_STYLEA(item_index,"CONTENT",text);
+		}
+	}
+		
+}
+function getTableText() {
+	var datagrid_id = '#logistics_goods_print_table_info';
+	var rows =  $(datagrid_id).datagrid('getRows');
+	var form = $('#logistics_goods_print_table_toolbar_form').form('get');
+	var print_field_show_sequence = {'goods_name':{'numb':0,'width':200,'text':'货品名称'},'short_name':{'numb':1,'width':80,'text':'货品简称'},'spec_name':{'numb':2,'width':200,'text':'规格'},'num':{'numb':3,'width':80,'text':'数量'},'spec_no':{'numb':5,'width':80,'text':'商家编码'},'goods_no':{'numb':6,'width':80,'text':'货品编号'},'spec_code':{'numb':7,'width':80,'text':'规格码'},'price':{'numb':4,'width':80,'text':'单价'},'position_no':{'numb':8,'width':80,'text':'货位'}/*,'goods_barcode':{'numb':9,'width':80,'text':'货品条码'}*/};
+
+	var  text = '';
+
+	var text_ar = [];
+	for(var i in rows){
+		if(rows[i].is_display == 1){
+			text_ar[print_field_show_sequence[rows[i].field_name].numb] = print_field_show_sequence[rows[i].field_name].text;
+		}
+	}
+	var text_f = [];
+	text += (form.number_show == 1?'1-':'');
+	for(var i in text_ar)
+	{
+		if(!!text_ar[i])
+		{
+			text_f.push(text_ar[i]);
+		}
+	}
+
+	text += text_f.join('-');
+	return text+'(根据需要调整长宽)';
+}
+	function getPrintLogisticsTemplatePrintorLocalList(){
+		var printor_list = {'total':0,'rows':[]};
+		printor_list.total = CNPrint.GET_PRINTER_COUNT();
+		for(var i= 0;i<printor_list.total;i++){
+			printor_list.rows[i] = {'printor_name':CNPrint.GET_PRINTER_NAME(i+':PrinterName'),'left':0,'top':0};
+		}
+		return printor_list;
+	}
+	function mergePrintLogisticsTemplatePrintorList(local_list,db_list){
+		db_list_count = db_list.rows.length;
+		local_list_count = local_list.rows.length;
+		for(var i = 0;i<local_list_count;i++){
+			var temp_local_list_item = local_list.rows[i];
+			var is_set_local_printor = false;
+			for(var j = 0;j<db_list_count;j++){
+				if(db_list.rows[j].printor_name == temp_local_list_item.printor_name){
+					is_set_local_printor = true;
+					break;
+				}
+			}
+			if(is_set_local_printor == false){
+				var temp_item = $.extend(true,{},temp_local_list_item);
+				db_list.rows.push(temp_item);
+			}
+		}
+		return db_list;
+	}
+	function isChangedPageInfo(new_page_info,old_content){
+		if(old_content == undefined){
+			return true;
+		}
+		if(new_page_info.width!=old_content.width || new_page_info.height != old_content.height )//|| new_page_info.background_url != old_content.background_url
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	//此函数是在endEdit row 的时候才执行的，所以row里面的数据得到了保存
+	function savePrintTemplate(data,that){
+		if(that.handle_status !=1){
+			that.extendAlertHandler("请先选择相应的模板，或者添加模板后再保存！");
+			return;
+		}
+		var logisticsList 	= $('#logistics_print_template_logistics_list').combobox('getValues').join();//返回字符串
+		var print 			= CNPrint.GET_VALUE("CustomProgramData",0);
+		var width 			= CNPrint.GET_VALUE("PrintInitWidth",0);
+		var height 			= CNPrint.GET_VALUE("PrintInitHeight",0);
+
+		var font_info 	= $('#logistics_goods_print_table_toolbar_form').form('get');
+
+		//var background_url = CNPrint.GET_VALUE('BKIMG_CONTENT',0);
+		var new_page_info = {width:width,height:height};//,background_url:background_url
+
+		var row = $('#logistics_print_template_dg').datagrid('getSelected');
+		var is_changed_page = isChangedPageInfo(new_page_info,row.content);
+		var old_font_info;
+		if(!row.content){
+			old_font_info = {};
+		}else{
+			old_font_info = $.extend({},row.content.font_info);
+		}
+
+
+		var printor_float_position = $('#logistics_print_template_float_position_datagrid').datagrid('getData');
+		var change_printor_list = $('#logistics_print_template_float_position_datagrid').datagrid('getChanges');
+		var change_goods_table = $('#logistics_goods_print_table_info').datagrid('getChanges');
+		var cn_setting = $('#logistics_cn_setting').form('get');
+		var cn_setting_input = $('#logistics_cn_setting').find('input[type="checkbox"]').each(function(){
+			var name = $(this).attr('name');
+			if(!cn_setting[name]){
+				cn_setting[name] = 0;
+			}
+		});
+		//	var that =  $('#logistics_print_template_dg').datagrid('options').that
+		// no customer program data is OK.
+		if (	(($.isEmptyObject(print) && $.isEmptyObject(row.content))||
+				(!$.isEmptyObject(print) && !$.isEmptyObject(row.content)&& print == row.content.print && compareJson(old_font_info,font_info)))
+			&& 	$.isEmptyObject(data)
+			&&  logisticsList == row.logistics_list &&$.isEmptyObject(change_printor_list)&& $.isEmptyObject(change_goods_table)&&!is_changed_page&&!cn_setting){
+			var select_row = 	$(that.selector).datagrid('getSelected');
+			var select_index =  $(that.selector).datagrid('getRowIndex',select_row);
+			
+			that.editIndex = select_index;
+			$(that.selector).datagrid('selectRow', select_index).datagrid('beginEdit', select_index);
+			that.extendAlertHandler('模板没有被修改过！');
+			return;
+		}
+		
+		var temp_content = {print:print,width:width,height:height};//,background_url:background_url
+		if(row.content == undefined){
+			row.content = $.extend({},temp_content);
+		}else{
+			$.extend(row.content,temp_content);
+		}
+		row.content.printor_float_position = $.extend(true,{},printor_float_position);
+		row.content.printor_float_position.total = printor_float_position.rows.length;
+		row.content.font_info = font_info;
+		row.logistics_list = logisticsList;
+		row.content.cn_setting = cn_setting;
+		/* if(row.rec_id == undefined && row.content != undefined )
+		{
+			displayLogisticsDesign();
+			row.content.init_num = CNPrint.GET_VALUE('ItemCount',0);
+		}
+		if(row.content.init_num == undefined){
+			//以后可以给我们的打印项的item的类名称添加前缀，这样能够来具体区分添加对象名称
+			row.content.init_num = 0;
+		} */
+		//获取每个打印项的相对排序位置
+		var total_item_num = CNPrint.GET_VALUE('ItemCount',0);
+		var item_name_to_index_arr = {};
+		for(var item_index = 1;item_index<=total_item_num;item_index++){
+			var item_class_name = CNPrint.GET_VALUE('ItemName',item_index);
+			if($.isEmptyObject(item_class_name) || $.trim(item_class_name) == ''){
+				continue;
+			}
+			if(item_name_to_index_arr[item_class_name] ==undefined){
+				item_name_to_index_arr[item_class_name] = [];
+			}
+			item_name_to_index_arr[item_class_name].push(item_index);
+		}
+		row.content.item_to_position=item_name_to_index_arr;
+		row.content.total_item=total_item_num;
+
+		var copy = jQuery.extend(true,{}, row);
+		delete copy.modified;
+		copy.content = JSON.stringify(row.content);
+		copy.logistics_list = logisticsList;
+		$.post("__ROOT__/index.php/Setting/PrintTemplate/savePrintTemplate", copy, function(r){
+			if (r.status != 0){
+				that.extendAlertHandler(r.msg);
+				//messager.alert(r.msg);
+				$('#logistics_print_template_dg').datagrid('selectRow', that.editIndex).datagrid('beginEdit', that.editIndex);
+			}else{
+				var rec_id = r.id;
+				var selected_row 	= $('#logistics_print_template_dg').datagrid("getSelected");
+				var selected_index 	= $('#logistics_print_template_dg').datagrid("getRowIndex", selected_row);
+				$('#logistics_print_template_dg').datagrid("updateRow",{
+					index:selected_index,
+					row:{
+						'rec_id':rec_id,
+					}
+				});
+				$('#logistics_print_template_dg').datagrid('clearSelections');
+				that.handle_status = 2;
+			}
+		});
+	}
+
+	function showPrintTemplate(index){
+		var row = $('#logistics_print_template_dg').datagrid('getSelected');
+		//var that = $('#logistics_print_template_dg').datagrid('options').that;
+		if($.trim(row.logistics_list.split(',')) == ''){
+			$('#logistics_print_template_logistics_list').combobox('clear');
+		}else{
+			$('#logistics_print_template_logistics_list').combobox('setValues', row.logistics_list.split(','));
+		}
+		
+		displayLogisticsDesign();
+	}
+function initGoodsTable(){
+	var row = $('#logistics_print_template_dg').datagrid('getSelected');
+	var font_info = undefined;
+	if(!$.isEmptyObject(row) && row.content != undefined){
+		font_info = row.content.font_info;
+	}
+	font_info = setTableFont(font_info);
+	if(font_info.title_show==undefined){
+		font_info.title_show = 1;
+	}
+	$('#logistics_goods_print_table_toolbar_form').form('filterLoad',font_info);
+}
+function fontFamilyChange(newValue, oldValue,combo_point){
+	if(printTemplate.handle_status == 0){
+//		printTemplate.extendAlertHandler('请先新建模板，再布局！');
+		return;
+	}
+	if(printTemplate.handle_status == 2){
+//		printTemplate.extendAlertHandler('请选择编辑的模板！');
+		return;
+	}
+	$('#logistics_print_tempalte_table_html').css({'font-family':newValue});
+	var rows =  $('#logistics_goods_print_table_info').datagrid('getRows');
+	//整理使用的字段信息,用来保存
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+}
+//表头是否显示问题
+function changetableTitleShow(newValue, oldValue,combo_point){
+	if(printTemplate.handle_status == 0){
+//		printTemplate.extendAlertHandler('请先新建模板，再布局！');
+		return;
+	}
+	if(printTemplate.handle_status == 2){
+//		printTemplate.extendAlertHandler('请选择编辑的模板！');
+		return;
+	}
+	var rows =  $('#logistics_goods_print_table_info').datagrid('getRows');
+	//整理使用的字段信息,用来保存
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+}
+//表格框是否显示问题
+function changetableLineShow(newValue,oldValue,combo_point){
+	if(printTemplate.handle_status == 0){
+		return;
+	}
+	if(printTemplate.handle_status == 2){
+		return;
+	}
+	var rows =  $('#logistics_goods_print_table_info').datagrid('getRows');
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+}
+//序号列是否显示
+function changetableNumberShow(newValue,oldValue,combo_point){
+	if(printTemplate.handle_status == 0){
+		return;
+	}
+	if(printTemplate.handle_status == 2){
+		return;
+	}
+	var rows =  $('#logistics_goods_print_table_info').datagrid('getRows');
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+}
+
+function fontSizeChange(spinner_point){
+	if(printTemplate.handle_status == 0){
+//		printTemplate.extendAlertHandler('请先新建模板，再布局！');
+		return;
+	}
+	if(printTemplate.handle_status == 2){
+//		printTemplate.extendAlertHandler('请选择编辑的模板！');
+		return;
+	}
+	var size = $(spinner_point).numberspinner('getValue');
+	$('#logistics_print_tempalte_table_html').css({'font-size':size+'pt'});
+	var rows =  $('#logistics_goods_print_table_info').datagrid('getRows');
+	//整理使用的字段信息,用来保存
+	formatterTableFieldsInfo(rows);
+	tableShowFilter(rows,CNPrint);
+}
+function setTableFont(font_info){
+	var family_data = $('#logistics_goods_print_table_font_family').combobox('options').data;
+	var isset_font = false;
+	if(font_info==undefined || $.isEmptyObject(font_info)){
+		var font_family = $('#logistics_print_tempalte_table_html').css('font-family');
+		font_info = {font_family :font_family.replace(/"|'/g,''),font_size:9};
+	}
+	for(var i = 0;i<family_data.length;i++){
+		if(family_data[i].id == font_info.font_family){
+			isset_font =true;
+		}
+	}
+
+	if(!isset_font){
+		printTemplate.extendAlertHandler('该系统不存在['+font_info.font_family+']字体');
+		font_info.font_family = family_data[0].id;
+	}
+	$('#logistics_print_tempalte_table_html').css({'font-size':font_info.font_size+'pt','font-family':font_info.font_family});
+//					font_family.test ++;
+	return font_info;
+}
+//-------比较json是否相等 1维的
+function compareJson(json_f,json_t){
+
+	for(var key in json_f){
+		if($.trim(json_t[key]) != $.trim(json_f[key])){
+			return false;
+		}
+	}
+	return true;
+};
+function initCnSetting(cn_setting)
+{
+
+	var checkbox_input_jqs = $('#logistics_cn_setting').find('input[type="checkbox"]');
+	if(cn_setting == undefined){
+		cn_setting = {};
+		$.each(checkbox_input_jqs,function(){
+			var name = $(this).attr('name');
+			if(cn_setting[name]){
+				$(this).prop('checked',true);
+			}
+		});
+	}else{
+		$.each(checkbox_input_jqs,function(){
+			var name = $(this).attr('name');
+			if(cn_setting[name] != undefined){
+				$(this).prop('checked',cn_setting[name]);
+			}
+		});
+	}
+}
+function onClickCnSetting(is_show,component_name)
+{
+	CNPrint.SET_PRINT_STYLEA("ali_waybill_cp_logo_up","PreviewOnly",is_show?0:1); //签收联物流公司logo
+	CNPrint.SET_PRINT_STYLEA("ali_waybill_cp_logo_down","PreviewOnly",is_show?0:1); //留存联物流公司 logo
+};
+function rigisterCnSetting()
+{
+	var checkbox_input_jqs = $('#logistics_cn_setting').find('input[type="checkbox"]');
+	$.each(checkbox_input_jqs,function(){
+		$(this).click(function(){
+			var name = $(this).attr('name');
+			var row = $('#logistics_print_template_dg').datagrid('getSelected');
+			if(row ==null)return;
+			var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+			var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+			var type_value = $(type_ed.target).combobox('getValue');
+			if (2== parseInt(type_value)){
+				onClickCnSetting(!$(this).prop('checked'),name);
+			}
+			});
+	});
+};
+	$(function(){
+		setTimeout(function(){
+			$('#logistics_goods_print_table_info').datagrid({onAfterEdit:function(index, row, changes){
+				var rows =  $(this).datagrid('getRows');
+				//整理使用的字段信息,用来保存
+				formatterTableFieldsInfo(rows);
+				tableShowFilter(rows,CNPrint);
+			}})
+			messager.tip('logistics_print_template_float_position_datagrid');
+			$('.logistics_print_tool_dragitem').draggable({
+				revert:true,
+				deltaX:10,
+				deltaY:10,
+				proxy:function(source){
+					var n = $('<div class="proxy"></div>');
+					var value 	= $(source).val();
+					
+					n.html("<input value='"+value+"' type='button'/>").appendTo('body');
+					return n;
+				}
+			});
+			rigisterCnSetting();
+			printTemplate = new ThinDatagrid('#logistics_print_template_dg', showPrintTemplate,true,{print:{type:'print_template',object_id:'logistics_print_template_cn_obj'}});
+			$(printTemplate.selector).datagrid('options').onClickRow =function(index,row){
+				var tap_obj = $(this).datagrid('options').that;
+				tap_obj.handle_status = 1;
+				tap_obj.bill_type = row.type
+				tap_obj.clickRow.call(this,index,row);
+				tap_obj.logistics_init = $('#logistics_print_template_logistics_list').combobox('getValue');
+			};
+			printTemplate.extendReject = function(){
+				this.handle_status = 0;
+				$('#logistics_print_template_logistics_list').combobox('reset');
+				this.reject();
+				displayLogisticsDesign();
+				
+			}
+			printTemplate.handle_status = 0;//0初始化状态，1新建状态，2保存新建状态
+			printTemplate.addTemplate =  function(){
+				var that = this;
+				this.handle_status = 1;
+				this.append({is_disabled:0,type:'0'});
+				
+				$('#logistics_print_template_logistics_list').combobox('reset');
+				that.logistics_init = $('#logistics_print_template_logistics_list').combobox('getValue');
+				that.bill_type = '0';
+				displayLogisticsDesign();
+			};
+
+			printTemplate.copyTemplate = function(){
+				var row = $('#logistics_print_template_dg').datagrid('getSelected');
+				if($.isEmptyObject(row)){
+					printTemplate.extendAlertHandler("请先选择相应的模板再复制");
+					return;
+				}
+				if(row.type == 2){
+					printTemplate.extendAlertHandler("电子面单模板不用复制，可以直接新建");
+					return;
+				}
+				printTemplate.content = row.content;
+				this.handle_status = 1;
+				this.append({is_disabled:0,type:'0'});
+				$('#logistics_print_template_logistics_list').combobox('reset');
+				printTemplate.logistics_init = $('#logistics_print_template_logistics_list').combobox('getValue');
+				printTemplate.bill_type = '0';
+				displayLogisticsDesign("copy");
+			}
+
+			printTemplate.templateSelect = function(record){
+				var that = this;
+				var row = $('#logistics_print_template_dg').datagrid('getSelected');
+				if(row == null){return;}
+				var index = $('#logistics_print_template_dg').datagrid('getRowIndex',row);
+				var type_ed = $('#logistics_print_template_dg').datagrid('getEditor',{index:index,field:'type'});
+				var type_value = $(type_ed.target).combobox('getValue'); 
+				var logistics_init = $('#logistics_print_template_logistics_list').combobox('getValue');
+				if(parseInt(that.bill_type)==parseInt(type_value)){
+					if(parseInt(that.bill_type)==0){
+						return;
+					}else if(parseInt(logistics_init)==parseInt(that.logistics_init)){
+						return;
+					}
+				}
+					
+				displayLogisticsDesign();
+				that.bill_type = type_value;
+				that.logistics_init = logistics_init;
+			};
+			displayLogisticsDesign();
+			$('#logistics_print_template_dg').datagrid({
+				singleSelect: true,
+				toolbar: '#logistics_print_template_tb',
+				url: '__ROOT__/index.php/Setting/PrintTemplate/getTemplateList/type/0,1,2',
+				//onClickRow: printTemplate.clickRow,
+				//remoteSort: false,
+				columns:[[ {field: 'rec_id', hidden: true,},
+						  {field: 'title', title: '模板名称',width:100,editor:{type:'validatebox',options:{required: true}}},
+						  {field: 'type', title: '物流单类型',width:80,formatter:formatter.bill_type,editor:{type:'combobox',options:{valueField:'id',textField:'name',data: formatter.get_data('bill_type'),onSelect:function(){printTemplate.templateSelect();}}}},
+						  {field: 'content', hidden: true,width:40},
+						  {field: 'is_disabled', title: '停用',formatter:formatter.boolen,editor: {type: 'checkbox', options: {on: 1, off: 0}},},
+						  {field: 'modified', title: '修改时间',},
+						  ]],
+			});
+			$('#logistics_goods_print_table_font_family').combobox({onChange:function(newValue, oldValue){var combo_point = this; fontFamilyChange(newValue, oldValue,combo_point);}});
+			$('#logistics_goods_print_table_font_size').numberspinner({onChange:function(){var spinner_point = this; fontSizeChange(spinner_point);}});
+			$('#logistics_goods_print_table_title_show').combobox({onChange:function(newValue, oldValue){var combo_point = this;changetableTitleShow(newValue, oldValue,combo_point);}});
+			$('#logistics_goods_print_table_line_show').combobox({onChange:function(newValue, oldValue){var combo_point = this;changetableLineShow(newValue, oldValue,combo_point);}});
+			$('#logistics_goods_print_table_number_show').combobox({onChange:function(newValue, oldValue){var combo_point = this;changetableNumberShow(newValue, oldValue,combo_point);}});
+			});
+	});
+</script>
+
+</div>
+</body>
+</html>

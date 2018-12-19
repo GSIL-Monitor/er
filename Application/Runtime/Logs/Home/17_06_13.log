@@ -1,0 +1,6 @@
+[ 2017-06-13T13:37:04+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: syntax error, unexpected '<<' (T_SL)
+
+[ 2017-06-13T13:37:51+08:00 ] 127.0.0.1 /index.php/home/login/access.html
+ERR: syntax error, unexpected '<<' (T_SL)
+

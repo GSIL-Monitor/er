@@ -1,0 +1,123 @@
+<table id="{$id_list.table}"></table>
+<div id="{$id_list.tool_bar}">
+    <form id="{$id_list.form}" method="post">
+        <div class="form-div">
+            <label   style="width: 60px;display: inline-block;">名&nbsp;&nbsp;&nbsp;称</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="provider_group_name"
+                   value="{$form.provider_group_name}"
+                   style="width:150px;"
+                   data-options="required:true,validType:'chineseOrEngOrNum'"
+                   missingMessage="不能为空"/>
+            <label style="width: 60px;display: inline-block;">编号</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   name="provider_group_no"
+                   value="{$form.provider_group_no}"
+                   style="width:150px;"
+                   data-options="required:true,validType:'EnglishOrNum'" missingMessage="不能为空"/>
+
+        </div>
+		<div class="form-div">
+		  <label style="width: 60px;display: inline-block;">省&nbsp;&nbsp;&nbsp;份</label>
+		 <select class="easyui-combobox sel" 
+			style="width:150px;" 
+			name="province"  
+			id="{$id_list.province}" 
+			data-options="panelHeight:'200',
+			editable:false,required:false,validType:'cfg_warehouse_address'" > </select>
+          <label style="width: 60px;display: inline-block;">城&nbsp;&nbsp;&nbsp;市</label>
+		  <select class="easyui-combobox sel" 
+			style="width:150px;"
+			name="city"      
+			id="{$id_list.city}"     
+			data-options="panelHeight:'200',  
+			editable:false,required:false,validType:'cfg_warehouse_address'" > </select>
+     
+		</div>
+		<div class="form-div">
+		  <label style="width: 60px;display: inline-block;">区&nbsp;&nbsp;&nbsp;县</label>
+		  <select class="easyui-combobox sel" 
+			style="width:150px;" name="district"  
+			id="{$id_list.district}" 
+			data-options="editable:false" > </select>
+           
+		</div>
+        <div class="form-div">
+                   
+					<label style="width: 60px;display: inline-block;">地&nbsp;&nbsp;&nbsp;址</label>
+                    <input class="easyui-textbox"
+                           type="text"
+                           name="address"
+                           value="{$form.address}"
+                           style="width:370px;"
+                           data-options="validType:'chineseOrEngOrNum'"/>
+        </div>
+        <div class="form-div">
+            <label   style="width:60px;display: inline-block;">备&nbsp;&nbsp;&nbsp;注</label>
+            <input class="easyui-textbox"
+                   type="text"
+                   value="{$form.remark}"
+                   name="remark"
+                   style="width:370px;"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">是否停用</label>
+            <input value='{$form.is_disabled}' type="checkbox" name="is_disabled" id="{$id_list['is_disabled']}" />
+        </div>
+    </form>
+</div>
+<script>
+	//# sourceURL=add_provider_group.js
+	var dialog_list     = JSON.parse('{$dialog_list_json}');
+    var provider_info = {$provider_info};
+    var operator_object ={};
+    setTimeout(function () {
+		if($.isEmptyObject(provider_info)){
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district);
+        }else {
+            var area_code = area.area_id(provider_info);
+            operator_object.address_object = new area(dialog_list.province, dialog_list.city, dialog_list.district,area_code);
+        }
+		var t = '{$form.is_disabled}';
+       var check = document.getElementById("{$id_list['is_disabled']}");
+                    var value = check.value;
+                    if (value != 1) {
+                        check.checked = false;
+                    }else {
+                        check.checked = true;
+        }
+        providergroup.submitEditDialog = providergroup.submitAddDialog = function(){
+            var form=$("#{$id_list.form}");
+            if(!form.form('validate')){return;}
+            var data = form.form('get'); data.type = "{$mark}";
+			data.id=0;
+            if(data.type=='edit'){
+                var row=$("#"+providergroup.params.datagrid.id).datagrid('getSelected');
+                if(!row){messager.info('请选择操作的行！');return;}
+                data.id=row.id;
+            }
+            var post_url='';
+			var address_name_json = operator_object.address_object.getText();
+            data.province = address_name_json.province;
+            data.city = address_name_json.city;
+            data.district = address_name_json.district;
+            if('edit'=='{$mark}'){
+                post_url="{:U('Setting/ProviderGroup/edit_provider_group')}";
+            }else{
+                post_url="{:U('Setting/ProviderGroup/addProviderGroup')}";
+            }
+            $.post(post_url,data,function(res){
+                res=JSON.parse(res);
+                if(res.status==1){messager.alert(res.info);return;}
+                providergroup.refresh();
+				if(data.type != 'edit'){
+					$("#"+providergroup.params.add.id).dialog('close');
+				}else{
+					$("#"+providergroup.params.edit.id).dialog('close');
+				}
+            });
+        }
+    }, 0);
+</script>

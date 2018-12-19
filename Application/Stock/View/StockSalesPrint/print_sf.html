@@ -1,0 +1,61 @@
+
+<div>
+    <a href="javascript:void(0)" id="printing_sf" class="easyui-linkbutton" data-options="iconCls:'icon-print',plain:true" onclick="newDealBeforePrint('sfOrder',0,'','')">打印</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="previewSfOrder(1)">预览</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="printerSetting()">设置</a></div>
+<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="selectPrinter()">选择打印机</a> -->
+<div style="margin-top:10px;margin-left:5px">
+    <div><span><label for="stockSalesPrint_goods_printer_list">打&nbsp印&nbsp机：&nbsp</label></span>
+        <input id="stockSalesPrint_goods_printer_list" class="easyui-combobox" data-options="width:161,onSelect:function(res){onPrinterSelect(res.name,'goods');}"/>
+    </div><div style="margin-top:10px">
+    <label>选择模板：</label>
+    <select class='easyui-combobox sel' data-options="width:161,onSelect:function(res){newTemplateOnSelect('goods');}" id='stock_sales_print_goods_template'>
+        <volist name='goods_template' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist>
+    </select>
+    <div id="goodsGuideTemplateDiv" style="margin-top:7px;margin-left:57px;display:none"><span style="color:red">没有模板？去</span><a href="javascript:changeTemplatePage()">打印模板</a><span style="color:red">界面下载模板</span></div>
+</div>
+</div>
+<script>
+    var default_template_id = {$template_id};
+    $(function(){
+        stockSalesPrint.goods_contents = {$contents};
+		stockSalesPrint.printing ='printing_sf';
+        stockSalesPrint.goods_print = 'stockSalesPrint_goods_printer_list';
+        stockSalesPrint.goods_print_template ='stock_sales_print_goods_template';
+        setTimeout(function(){
+            newSelectPrinter('goods');
+            /*	templateOnSelect("goods");*/
+            if($('#stock_sales_print_goods_template').combobox('getData').length == 0)
+                $('#goodsGuideTemplateDiv').show();
+            if(default_template_id != '-1')
+                $('#stock_sales_print_goods_template').combobox('select',{$template_id});
+        },10);
+    });
+    function getGoodsTemplatesContents(){
+        var contents = {$contents};
+        return contents;
+    }
+    function getGoodsGoodsDetail(){
+        var goods = {$goods};
+        return goods;
+    }
+    function getMultiLogisticsNo(){
+        var multiLogisticsNo = {$multiLogisticsNo};
+        return multiLogisticsNo;
+    }
+    function getMultiIdsList(){
+        var multiIdList = '';
+        var multiLogisticsNo = {$multiLogisticsNo};
+        for(var j=0;j<multiLogisticsNo.length;j++){
+            multiIdList = multiIdList + multiLogisticsNo[j].rec_id + ",";
+        }
+        var multiIdList_length = multiIdList.length;
+        multiIdList = multiIdList.substr(0,multiIdList_length-1);
+        return multiIdList;
+    }
+    function getPreviewFormat(){
+        var format = "{$preview_format}";
+        return format;
+    }
+</script>
+</div>

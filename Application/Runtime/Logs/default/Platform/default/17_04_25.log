@@ -1,0 +1,54 @@
+2017-04-25 14:53:19	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=web_erp): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 234
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 237
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:19	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:50	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=web_erp): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 234
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 237
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2017-04-25 14:53:50	PHP Error Severity: 8 --> Undefined offset: 0 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Db\Driver.class.php 113
+2017-04-25 14:54:12	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 234
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 237
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:12	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:56	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=conn&amp;sid=security): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 234
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 237
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 242
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 243
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 246
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247
+2017-04-25 14:54:56	PHP Error Severity: 8 --> Trying to get property of non-object C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php 247

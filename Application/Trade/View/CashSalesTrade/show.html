@@ -1,0 +1,987 @@
+<taglib name="TagLib\EasyUI" />
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:540px;width:740px;overflow:hidden;">
+	<form  id="{$id_list.form_id}">
+		<div data-options="region:'center'" style="height:100%;">
+			<div data-options="region:'center',fit:true" style="height:80%;">
+				<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+				<div id="{$id_list.edit}" style="top:10px;height:320px;width:764px;" closed="true"></div>
+				<div id="{$id_list.toolbar}">
+					<style type="text/css">
+						#tradeManual_next_link {
+							float: right;
+							margin-right: 15px;
+						}
+						.cash-line {
+							width:100%;
+							height:20px;
+							padding-top: 10px;
+						}
+						.cash-line span {
+							float:right;
+							width:94%;
+							margin:10px 5px 5px 0px;
+							border:none;
+							border-top:2px dotted #95B8E7;
+						}
+						.cash-line strong{
+							margin-left: 10px;
+							font-size: 14px;
+							float:left;
+						}
+						.cash-customer span {
+							width:90%;
+						}
+						.cash-customer a{
+							font-size:13px;
+						}
+						.cash-customer i{
+							font-style:normal;
+							display:inline-block;
+							position: relative;
+							top:2px;
+							left:0px;
+						}
+						.cash-customer-detal{
+							display:none;
+						}
+						#balance_goods {
+							/* padding-top:5px; */
+							padding:5px 10px 0 0;
+						}
+						#balance_goods label{
+							color:red;
+							margin-left:10px;
+							font-size: 16px;
+						}
+						#balance_goods a:hover{
+							background: #eee;
+						}
+					</style>
+						<!-- 基本信息 -->
+						<div class="cash-line"><strong >基本信息</strong><span ></span></div>
+						<div class="form-div">
+							<label>　　店　铺：</label><select class="easyui-combobox sel" name="shop_id" id="shop_id" data-options="editable:false,required:true"><volist name='list_form.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+							<label>　　　仓　库：</label><select class="easyui-combobox sel" name="warehouse_id" data-options="editable:false,required:true"><volist name='list_form.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+							<label>　　　业务员：</label><select class="easyui-combobox sel" name="salesman_id"  data-options="editable:false,required:true"><volist name='list_form.employee' id='vo'><if condition="$vo['selected'] eq true"><option value="{$vo.id}" selected>{$vo.name}</option><else/><option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+							<label>　　　原　价：</label><input class="easyui-combobox txt" name="execute_price" data-options="editable:false,required:true,panelHeight:'auto',onSelect:selectExecutePrice,valueField:'id',textField:'name',data:formatter.get_data('execute_price','def')"/>
+						</div>
+
+						<!-- 客户信息 -->
+						<div class="cash-line cash-customer">
+							<strong >客户信息</strong>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" id="cash_customer" data-flag="1" onclick="cashSalesTrade.cashCustomer()">展开 <i>︾</i></a>
+							<span ></span>
+						</div>
+						<div class="form-div cash-customer-detal" >
+							<label>　　网　名：</label><input class="easyui-textbox txt" id="buyer_nick_cash" name="buyer_nick" type="text" data-options="buttonText:'...'"/>
+							<label>　　　姓　名：</label><input class="easyui-textbox txt" name="receiver_name" type="text"/>
+							<label>　　　手　机：</label><input class="easyui-textbox txt" name="receiver_mobile" type="text" data-options="validType:'mobile'"/>
+							<label>　　　固　话：</label><input class="easyui-textbox txt" name="receiver_telno" type="text" data-options="validType:'mobileAndTel'"/>
+							<label>　买家留言：</label><input class="easyui-textbox" style="width:336px;" name="buyer_message" type="text"/>
+						</div>
+						<div class="form-div cash-customer-detal" id="add_tarde_address">
+							<label>　　邮　编：</label><input class="easyui-textbox txt" name="receiver_zip" type="text" data-options="validType:'zip'"/>
+							<label>　　　　　省：</label><input id="cashSalesTradeProvince" class="easyui-combobox txt" name="receiver_province"/>
+							<label>　　　　　市：</label><input id="cashSalesTradeCity" class="easyui-combobox txt" name="receiver_city"/>
+							<label>　　　　　区：</label><input id="cashSalesTradeDistrict" class="easyui-combobox txt" name="receiver_district"/>
+							<label>　　地　址：</label><input class="easyui-textbox" style="width:336px;" name="receiver_address"  type="text"/>
+						</div>
+						<!-- 订单货品 -->
+						<div class="cash-line">
+							<strong >订单货品</strong>
+							<span ></span>
+						</div>
+						<div class="form-div">
+						<a href="#" name="menu-cash-order" class="easyui-menubutton" data-options="menu:'#cash-mbut-select-order'">添加货品</a>
+						<a href="#" name="menu-cash-gift" class="easyui-menubutton" data-options="menu:'#cash-mbut-select-gift'">添加赠品</a>
+						<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="cashSalesTrade.remove()">删除</a>
+						<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="cashSalesTrade.uploadDialog()">导入货品</a> -->
+						<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="cashSalesTrade.downloadTemplet()">下载模板</a>   -->
+						<!-- </div> -->
+						<!-- <div class="form-div"> -->
+						<label style="padding-left:5px">　　扫描条码添加货品：</label>
+						<label>
+							<input class="easyui-textbox txt" type="text" id="trade_cash_barcode" style="padding-right:20px;"/>
+							<a href="javascript:void(0);" style="position:relative;top:2px;right:39px;width:20px;height:20px;padding:0 5px;border-left:1px solid #95b8e7;" onclick="tradeCashScan(0)">确定</a>
+						</label>
+						<label >扫描条码添加赠品：</label>
+						<label >
+							<input class="easyui-textbox txt" type="text" id="trade_cash_gift_barcode" style="padding-right:20px;"/>
+							<a href="javascript:void(0);" style="position:relative;top:2px;right:39px;width:20px;height:20px;padding:0 5px;border-left:1px solid #95b8e7;" onclick="tradeCashScan(2)">确定</a>
+						</label>
+						</div>
+						<div id="cash-mbut-select-order"><div>添加单品</div><div>添加组合装</div></div>
+						<div id="cash-mbut-select-gift"><div>添加单品</div><div>添加组合装</div></div>
+
+					<!-- </form> -->
+				</div>
+			</div>
+			<div data-options="region:'south',split:true" style="border-top:1px solid #95B8E7;height: 18%;background:#efefef;overflow:hidden;padding-top:10px;">
+				<!-- <div id="{$id_list.toolbar_bottom}"> -->
+					<!-- <form  id="{$id_list.form_bottom_id}"> -->
+						<!-- 合计 -->
+						<div class="form-div" id="cash_total">
+							<label>账款总计：</label><input class="easyui-numberbox txt" name="goods_amount" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/>
+							<label>　折后减免：</label><input class="easyui-numberbox txt" name="remission" type="text" value="0.00" data-options="min:0,precision:4,required:true,disabled:true"/>
+							<label>　优惠金额：</label><input class="easyui-numberbox txt" name="discount" type="text" value="0.00" data-options="precision:4,required:true"/>
+							<label>　合计应收：</label><input class="easyui-numberbox txt" name="receivable" type="text" value="0.00" data-options="precision:4,required:true,disabled:true"/>
+							<label>　实收金额：</label><input class="easyui-numberbox txt" name="paid" type="text" value="0.00" data-options="min:0,precision:4,required:true"/>
+							<label>　找零金额：</label><input class="easyui-numberbox txt" name="give_paid" type="text" value="0.00" data-options="precision:4,required:true,disabled:true"/>
+						</div>
+						<div class="form-div">
+							<label>发票类型：</label><input class="easyui-combobox txt" name="invoice_type" data-options="panelHeight:'auto',onSelect:cash_selectInvoiceType,valueField:'id',textField:'name',data:formatter.get_data('invoice_type','def')"/>
+							<label>　发票抬头：</label><input class="easyui-textbox txt" name="invoice_title" data-options="disabled:true"/>
+							<label>　发票内容：</label><input class="easyui-textbox txt" name="invoice_content" data-options="disabled:true"/>
+							<label>　客服备注：</label><input class="easyui-textbox" style="width:542px;" name="cs_remark" type="text"/>
+						</div>
+						<div class="form-div" id="balance_goods">
+							<span><label>货品总数量：</label><label id="goods-total" style="margin-right: 10px;">0.0000</label></span>
+							<span><label>合计应收：</label><label id="goods-receivable" style="margin-right: 10px;">0.0000</label></span>
+							<span><label>找零金额：</label><label id="goods-give" style="margin-right: 10px;">0.0000</label></span>
+
+							<a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 10%;height :25px;background: #fff;margin-right: 128px;float: right;" onclick="cashSalesTradeTicket.cashSave()">保存</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 10%;height :25px;background: #fff;margin-right: 10px;float: right;" onclick="cashSalesTrade.refresh();">重置</a>
+							<a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 10%;height :25px;background: #fff;margin-right:10px;float:right;" onclick="cashSalesTradeTicket.setting(0)">打印设置</a>
+							<!-- <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 5%;height :25px;background: #fff;margin-right: 10px;float: right;" data-options="disabled:false" onclick="cashSalesTradeTicket.printGoodsWarehouseInfo(0)">打印小票</a> -->
+							
+						</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div id="cash_sales_trade_setting"></div>
+<div id="{$id_list.print_dialog}"></div>
+<script type="text/javascript">
+//# sourceURL=cash.trade.js
+var cashtradeWS;
+$(function () {
+	function CashSalesTradeTicket(params,settings){
+		this.params = params;
+		this.settings = settings;
+		this.scan_status = 0;//扫描状态
+		this.template_contents = {$contents};
+	}
+	
+	/***************************打印相关*****************************/
+	CashSalesTradeTicket.prototype = {
+		changeTemplatePage : function(){
+			open_menu('打印模板','{:U("Setting/NewPrintTemplate/getNewPrintTemplate")}');
+		},
+		newSelectPrinter:function(){
+			var request = {
+				"cmd":"getPrinters",
+				"requestID":"123458976"+"99",
+				"version":"1.0",
+			}
+			cashtradeWS.send(JSON.stringify(request));
+		},
+		connectStockWS:function(){
+			if(cashtradeWS == undefined){
+				cashtradeWS = new WebSocket("ws://127.0.0.1:13528");
+				cashtradeWS.onmessage = function(event){cashSalesTradeTicket.onStockMessage(event);};
+				cashtradeWS.onerror = function(){cashSalesTradeTicket.onStockError();};
+			}
+			return ;
+		},
+		onStockMessage:function(event){
+			var response_result =JSON.parse(event.data);
+			if(!$.isEmptyObject(response_result.status) && response_result.status != 'success')
+			{
+				messager.alert(response_result.msg);
+				return;
+			}
+			if(!$.isEmptyObject(response_result))
+			{
+				switch(response_result.cmd)
+				{
+					case 'getPrinters':/*打印机列表命令*/
+					{
+						var type = response_result.requestID;
+						type = type.substr(type.length-2,type.length);
+						if(type == 99)
+						{
+							// $('#cash_printer_list').combobox({
+							cashSalesTradeTicket.printer_list.combobox({
+								valueField: 'name',
+								textField: 'name',
+								data: response_result.printers,
+								value: cashSalesTradeTicket.settings.cash_trade_return_printer_list!=undefined?cashSalesTradeTicket.settings.cash_trade_return_printer_list:response_result.defaultPrinter
+							});
+							cashSalesTradeTicket.printer_list.combobox('reload');
+						}
+						break;
+					}
+					case 'print':
+					{
+						var taskID = response_result.taskID+"";
+						taskID = taskID.substr(taskID.length-3,taskID.length);
+						if(taskID==231)
+						{
+							var preview;
+							preview = response_result.previewURL;
+							if(!$.isEmptyObject(preview))
+								window.open(response_result.previewURL);
+							preview = response_result.previewImage;
+							if(!$.isEmptyObject(preview)&&(preview.length != 0))
+								window.open(response_result.previewImage[0]);
+						}
+						break;
+					}
+					case 'notifyPrintResult':
+					{
+						if(response_result.taskStatus == "printed")
+						{
+							var type = response_result.taskID;
+							type = type.substr(type.length-2,type.length);
+							if(type==13)
+							{
+								messager.alert("打印完成");
+							}
+						}
+						else if(response_result.taskStatus == "failed")
+						{
+							messager.alert("打印失败");
+						}
+						break;
+					}
+				}
+			}
+		},
+		onStockError:function(){
+			cashtradeWS = null;
+			var print_dialog = '{$id_list.print_dialog}';
+			$('#'+print_dialog).dialog({
+				title: '打印组件错误',
+				width: 400,
+				height: 200,
+				closed: false,
+				cache: false,
+				href:  "{:U('Stock/StockSalesPrint/onWSError')}",
+				modal: true
+			});
+		},
+		getGoodsData:function(rows,contents,templateId,print_warehouse_position,print_type){
+			contents = JSON.parse(contents[templateId]);
+			var templateURL = contents.custom_area_url;
+			// var templateURL ="http://cloudprint.cainiao.com/template/standard/238313";//现款销售小票_标准
+			if($.isEmptyObject(rows))
+			{
+				messager.alert('请先选择需要打印的行!');
+				return false;
+			}
+			var datas = [],row,data={};
+			data['total_real_price']=0;
+			var now_date = new Date();
+			var now_millisecond = now_date.getTime();
+			var ID = 0;
+			for (var j = 0; j < rows.length; ++j){
+				row = rows[j];
+				data[j]={
+					// no	:	j,//序号
+					// goods_no   : $.isEmptyObject(row.goods_no)?'无':row.goods_no,//货品编码
+					// merchant_no :  $.isEmptyObject(row.merchant_no)?'无':row.merchant_no,//商家编码
+					goods_name :  $.isEmptyObject(row.goods_name)?'无':row.goods_name,//货品名称
+					// spec_code :  $.isEmptyObject(row.spec_code)?'无':row.spec_code,//规格码
+					// spec_name :  $.isEmptyObject(row.spec_name)?'无':row.spec_name,//平台规格名
+					num :  $.isEmptyObject(row.num)?'无':row.num,//数量
+					real_price :  $.isEmptyObject(row.real_price)?'无':row.real_price,//折后价
+					total_price :  $.isEmptyObject(row.total_price)?'无':row.total_price,//总计
+				}
+				// data['total_real_price'] = parseFloat(parseFloat(data['total_real_price']) + parseFloat(row.total_price)).toFixed(4);//合计应收
+				data['goods_amount']=new_cash_trade_element_arr[15].numberbox('getValue');	//账款总计
+				data['discount']=parseFloat(parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))+parseFloat(new_cash_trade_element_arr[17].numberbox('getValue'))).toFixed(4);	//优惠金额
+				data['total_real_price'] = new_cash_trade_element_arr[18].numberbox().numberbox('getValue');//合计应收
+				data['paid'] = new_cash_trade_element_arr[19].numberbox('getValue');//实收金额
+				data['give_paid'] = new_cash_trade_element_arr[20].numberbox().numberbox('getValue');//找零金额
+				data['cash_order_time']=now_date.getFullYear()+'/'+now_date.getMonth()+'/'+now_date.getDate()+' '+now_date.getHours()+':'+now_date.getMinutes()+':'+now_date.getSeconds();
+			}
+			if(print_warehouse_position == null)
+			{
+				print_warehouse_position = [];
+				stock_in_warehouse='';
+			}
+			ID++;
+			datas.push({
+				'documentID' : now_millisecond.toString().concat(ID.toString()),
+				'contents' : [
+					{
+						'templateURL' : templateURL,
+						'data' : {
+							cashsalestrade :{
+								data:data,
+								length:rows.length
+							}
+						}
+					}
+				]
+			});
+			return datas;
+		},
+		// 打印货品
+		printGoodsWarehouseInfo:function(print_type){
+			var that = this;
+			var rows = $('#'+that.params.datagrid.id).datagrid('getRows');
+			var printer = cashSalesTradeTicket.printer_list==undefined ? cashSalesTradeTicket.settings.cash_trade_return_printer_list : cashSalesTradeTicket.printer_list.combobox('getValue');
+			var templateId = cashSalesTradeTicket.template_list==undefined ? cashSalesTradeTicket.settings.cash_trade_return_template_list : cashSalesTradeTicket.template_list.combobox('getValue');
+			if(templateId == "")
+			{
+				messager.alert("没有选择模板，请到模板列表页面下载模板");
+				return ;
+			}
+			var rows_id_list = '';
+			for(var i=0; i<rows.length; i++){
+					rows_id_list += rows[i].spec_id + ',';
+			}
+			rows_id_list = rows_id_list.substr(0,rows_id_list.length-1);
+				var print_warehouse_position = null;
+				var contents = that.template_contents;
+				var datas = that.getGoodsData(rows,contents,templateId,print_warehouse_position,print_type);
+				if(datas === false){
+					return;
+				}
+				var requestID =  parseInt(1000*Math.random());
+				var request = {
+					'cmd' : 'print',
+					'version' : '1.0',
+					'requestID' : requestID,
+					'task' : {
+						'taskID' : requestID +''+'13',
+						'printer' : printer,
+						'preview' : false,
+						'notifyMode':'allInOne',
+						'documents' : datas
+					}
+				};
+				cashtradeWS.send(JSON.stringify(request));
+		},
+		cashSave:function(){
+			//第一次登录显示打印设置
+			if(cashSalesTradeTicket.settings.cash_trade_return_is_first_login==1){
+				cashSalesTradeTicket.setting(1);
+				cashSalesTradeTicket.settings.cash_trade_return_is_first_login=0;
+			}else{
+				cashSalesTrade.save();
+			}
+		},
+		//cash_flag=0 设置，=1保存
+		setting:function(cash_flag){
+			Dialog.show('cash_sales_trade_setting','打印小票',"{:U('CashSalesTrade/PrintTicket')}",190,350,[{text:"确定",handler:function(){
+				var data = {};
+				$('#only_code_print_dialog input').each(function(){
+					var input_that = this;
+					if (input_that.type == "checkbox"&&typeof(input_that.name) != "undefined" && input_that.name != ""){
+						data[input_that.name] = input_that.value;
+					}
+				});
+				data['cash_trade_return_printer_list'] = cashSalesTradeTicket.printer_list.combobox('getValue');
+				data['cash_trade_return_template_list'] = cashSalesTradeTicket.template_list.combobox('getValue');
+				cashSalesTradeTicket.settings.cash_trade_return_ticket_checked=data['cash_trade_return_ticket_checked'];
+				cashSalesTradeTicket.settings.cash_trade_return_template_list=data['cash_trade_return_template_list'];
+				cashSalesTradeTicket.settings.cash_trade_return_printer_list=data['cash_trade_return_printer_list'];
+				var url = '{:U("Trade/CashSalesTrade/updateSetting")}';
+				$.post(url, {"data": data}, function (res) {
+					if (res.status){
+						$("#cash_sales_trade_setting").dialog('close');
+					}else{
+						messager.alert(res.info);
+					}
+					//设置失败不会影响订单保存
+					if(cash_flag==1){
+						cashSalesTrade.save();
+					}
+				});
+			}},{text:"取消",handler:function(){$("#cash_sales_trade_setting").dialog('close');}}]);
+		},
+		// 选择打印机
+		onPrinterSelect:function(printer_name){
+			var that = this;
+			var templateId = cashSalesTradeTicket.template_list.combobox('getValue');
+			var contents = that.template_contents;
+			var content = contents[templateId];
+			if(content.defaultPrinter != undefined && content.default_printer == printer_name)
+				return;
+			else
+				messager.confirm("您确定把\""+printer_name+"\"设置为此模板的打印机么？",function(r){
+					if(r){
+						that.setDefaultPrinter(content,printer_name,templateId);
+					}
+				});
+		},
+		// 设置默认打印机
+		setDefaultPrinter:function(content,printor,templateId){
+			var that = this;
+			content = JSON.parse(content);
+			content.default_printer = printor;
+			$.post("{:U('Goods/GoodsBarcodePrint/setDefaultPrinter')}",{content:JSON.stringify(content),templateId:templateId},function(ret){
+				if(1 == ret.status){
+					messager.alert(ret.msg);
+				}else{
+					that.template_contents[templateId] = JSON.stringify(content);
+				}
+			});
+		},
+		templateOnSelect:function () {
+			var that = this;
+			if(cashSalesTradeTicket.template_list.combobox('getData').length == 0){
+				return;
+			}
+			var print_list = cashSalesTradeTicket.printer_list.combobox('getData');
+			var content = JSON.parse(that.template_contents[cashSalesTradeTicket.template_list.combobox('getValue')]);
+			if(undefined != content.default_printer && JSON.stringify(print_list).indexOf(content.default_printer) != -1)
+			{
+				cashSalesTradeTicket.printer_list.combobox('setValue',content.default_printer);
+			}
+		}
+	}
+	
+
+	$('#{$id_list.id_datagrid}').datagrid().datagrid('enableCellEditing');
+	initNewCashTradeElement();	
+	$("#buyer_nick_cash").textbox({'prompt':'点击按钮可选择'});
+	// 网名
+	new_cash_trade_element_arr['5'].textbox().textbox('options').onClickButton=function(){
+		$.post('{:U('Trade/TradeCommon/checkNumberRight')}',{key:'sales_trade'},function(res){
+			if(res.status==0){messager.info(res.info); return;}
+			$.fn.richDialog('customerFile', cashSalesTrade.addCustomerInfo); 
+		},'JSON');
+	}
+	// 优惠金额变更
+	new_cash_trade_element_arr[17].numberbox().numberbox('options').onChange=function(newValue,oldValue){
+		if(newValue==''||newValue==null||newValue==undefined){
+			 newValue=0;
+			new_cash_trade_element_arr[17].numberbox('setValue',newValue);
+		}
+		// newValue=(newValue==undefined?0:newValue);
+		var receivable=parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[16].numberbox('getValue'))-parseFloat(newValue)).toFixed(4);
+		new_cash_trade_element_arr[18].numberbox('setValue',receivable);
+		// new_cash_trade_element_arr[25].html(parseFloat(parseFloat(new_cash_trade_element_arr[25].text())+number).toFixed(4));//总数量
+		new_cash_trade_element_arr[26].html(receivable);//最后合计应收
+		new_cash_trade_element_arr[20].numberbox('setValue',parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue')));
+		new_cash_trade_element_arr[27].html(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4));
+	}
+	// 实收金额变更
+	new_cash_trade_element_arr[19].numberbox().numberbox('options').onChange=function(newValue,oldValue){
+		if(newValue==''||newValue==null||newValue==undefined){
+			 newValue=0;
+			new_cash_trade_element_arr[19].numberbox('setValue',newValue);
+		}
+		// newValue=(newValue==undefined?0:newValue);
+		var give_paid=parseFloat(parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue'))).toFixed(4);
+	    new_cash_trade_element_arr[20].numberbox('setValue',give_paid);
+	    new_cash_trade_element_arr[27].html(give_paid);
+	}
+	setTimeout(function () { 
+		
+		cashSalesTrade = new ThinDatagrid($('#{$id_list.id_datagrid}'),undefined,false);
+		cashSalesTradeTicket = new CashSalesTradeTicket(JSON.parse('{$params}'),JSON.parse('{$setting}'));
+		cashSalesTradeTicket.connectStockWS();
+		// 是否保存客户信息
+		cashSalesTrade.cashCustomer=function(){
+			$data_flag = $('#cash_customer').attr('data-flag');
+			if($data_flag!=1) { //将表格收起了
+				$('.cash-customer-detal').hide();
+				$('#cash_customer').html("展开 <i>︾</i>").attr('data-flag','1');
+				$('#cash_customer i').css('top','2px');
+				for(var i=5;i<=14;i++){
+					if(i>=11&&i<=13){
+						new_cash_trade_element_arr[i].combobox('setValue','');						
+					}else{
+						new_cash_trade_element_arr[i].textbox('setValue','');
+					}
+				}
+			}else{
+				$('.cash-customer-detal').show();
+				$('#cash_customer').html("收起 <i>︽</i>").attr('data-flag','2');
+				$('#cash_customer i').css('top','-2px');
+			}
+		}
+
+		cashSalesTradeArea = new area("cashSalesTradeProvince", "cashSalesTradeCity", "cashSalesTradeDistrict");
+		// 原价调用
+		// new_trade_cfg_val = JSON.parse('{$cfg_val}');
+		// if(new_trade_cfg_val['order_limit_real_price'] == 1){//零售价
+		// 	document.getElementById('limit_tips').style.display="";
+		// 	$("#{$datagrid.id}").datagrid('showColumn', new_trade_cfg_val['real_price_limit_value']);
+		// }else{//市场价
+		// 	document.getElementById('limit_tips').style.display="none";
+		// 	$("#{$datagrid.id}").datagrid('hideColumn', new_trade_cfg_val['real_price_limit_value']);
+		// }
+
+		// $('#{$datagrid.id}').datagrid({onAfterEdit:function(index, row, changes){ change_column=changes;}});
+		// $("#{$datagrid.id}").datagrid('getColumnOption','discount').styler = function(value,row,index){return cashSalesTrade.setDiscountAndPriceColor('discount',value,row,index);};
+		// $("#{$datagrid.id}").datagrid('getColumnOption','real_price').styler = function(value,row,index){return cashSalesTrade.setDiscountAndPriceColor('real_price',value,row,index);};
+		//设置折扣及折后价颜色标志
+		// cashSalesTrade.setDiscountAndPriceColor = function(title,value,row,index){
+		// 	if(title == "discount"){
+		// 		if(value > 1){
+		// 			return 'background-color:yellow;';
+		// 		}else{ return ''; }
+		// 	}else if(title == "real_price"){
+		// 		if(new_trade_cfg_val['order_limit_real_price']==1 && parseFloat(row.real_price)<parseFloat(row[new_trade_cfg_val['real_price_limit_value']]) && row.gift_type!=2){
+		// 			return 'background-color:#FF6666;';
+		// 		}else{ return ''; }
+		// 	}
+		// }
+
+		//保存
+		cashSalesTrade.save=function(){
+			var form_id='{$id_list.form_id}';
+			var trade_form=$('#'+form_id);
+			var rows=cashSalesTrade.selector.datagrid('getRows');
+			if(rows.length==0){messager.alert('请添加订单货品');return;}
+			if(!cashSalesTrade.endEdit(true)) { return false; }//?
+			if(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue'))<0){ messager.alert('找零金额不能为负！');return;}
+			if(parseFloat(parseFloat(new_cash_trade_element_arr[18].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[17].numberbox('getValue')))<0){ messager.alert('优惠金额不能大于合计应收');return;}
+			if(new_cash_trade_element_arr['customer_id']==-1||new_cash_trade_element_arr['nickname'].textbox('getValue')!=new_cash_trade_element_arr['nick_name']){
+				// messager.confirm('未选中客户，是否继续创建新订单？', function(r) {
+					// if(!r){return false;}
+					new_cash_trade_element_arr['customer_id']=0; 
+					cashSalesTrade.submitToTrade(rows,trade_form,form_id);
+				// });
+			}else{
+				cashSalesTrade.submitToTrade(rows,trade_form,form_id);
+			}
+		}
+		cashSalesTrade.submitToTrade=function(rows,trade_form,form_id){
+			//将form_id中的input设为可用，能获取到其中的值
+			$('#'+form_id+" :input").attr('disabled',false);
+			// for(var i=15;i<=20;i++){new_cash_trade_element_arr[i].numberbox('enable');}
+			// for(var i=22;i<=23;i++){new_cash_trade_element_arr[i].textbox('enable');}
+			var trade_form_data=trade_form.form('get');
+			trade_form_data['discount']=parseFloat(parseFloat(trade_form_data['discount'])+parseFloat(trade_form_data['remission'])).toFixed(4)//折后减免+优惠金额
+			trade_form_data['paid']=parseFloat(new_cash_trade_element_arr[19].numberbox('getValue')-new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4);
+			trade_form_data['flag']=false;//是否记录客户信息
+			if(!trade_form.form('validate')){ return false;}
+			//有用户信息
+			if($('#cash_customer').attr('data-flag')!=1){
+				trade_form_data['flag']=true;
+				if(new_cash_trade_element_arr['mobile'].textbox('getValue')==''&&new_cash_trade_element_arr['telno'].textbox('getValue')==''){ messager.alert('手机和固话至少有一个不能为空');return; }
+				var area=cashSalesTradeArea.getText();
+				trade_form_data['receiver_area']=area['province']+' '+area['city']+' '+area['district'];
+			}
+			var data={};
+			trade_form_data['weight']=parseFloat(new_cash_trade_element_arr[25].html());
+			trade_form_data['customer_id']=new_cash_trade_element_arr['customer_id'];
+			data['info']=JSON.stringify(trade_form_data);
+			data['orders']=JSON.stringify(rows);
+			$("#trade_cash_barcode").textbox('setValue','');//条形码
+			$("#trade_cash_gift_barcode").textbox('setValue','');
+			cashSalesTrade.selector.datagrid('loading');
+			$.post('{:U("CashSalesTrade/getCashSalesTradeList")}',data,function(res){
+				cashSalesTrade.selector.datagrid('loaded');
+				if(!res.status){
+					for(var i=15;i<=20;i++){
+						if(i==17||i==19){
+							continue;
+						}else{
+							new_cash_trade_element_arr[i].textbox('disable');
+						}
+					}
+					new_cash_trade_element_arr[22].textbox('disable');
+					new_cash_trade_element_arr[23].textbox('disable');
+					messager.alert(res.info);
+					return false;
+				}else{
+					// 保存之后打印小票
+					if(cashSalesTradeTicket.settings.cash_trade_return_ticket_checked==1){
+						cashSalesTradeTicket.printGoodsWarehouseInfo(0);
+					}else{
+						messager.alert(res.info);
+					}
+					var rows=cashSalesTrade.selector.datagrid('loadData',{total:0,rows:[]});
+					cashSalesTrade.reloadData();
+				}
+			},"JSON");
+		}
+		//删除
+		cashSalesTrade.remove=function(){
+			var delete_rows=cashSalesTrade.selector.datagrid('getSelections');
+			if($.isEmptyObject(delete_rows)){ messager.alert('请选择操作的行！');return;}
+			for (var i in delete_rows) {
+				var delete_index = cashSalesTrade.selector.datagrid('getRowIndex',delete_rows[i]);
+				var row = delete_rows[i];
+				new_cash_trade_element_arr[15].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-parseFloat(row.original_price)*parseFloat(row.num)).toFixed(4));
+				new_cash_trade_element_arr[16].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-(parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num)).toFixed(4));//折后减免
+				var receivable=parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[17].numberbox('getValue'))).toFixed(4);
+				new_cash_trade_element_arr[18].numberbox('setValue',receivable); 
+				var num=parseFloat(parseFloat(new_cash_trade_element_arr[25].text())-parseFloat(row.num));
+				new_cash_trade_element_arr[25].html(parseFloat(num<0?0:num).toFixed(4));
+				new_cash_trade_element_arr[26].html(receivable);//合计应收
+				new_cash_trade_element_arr[20].numberbox('setValue',parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue')));
+				new_cash_trade_element_arr[27].html(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4));
+				cashSalesTrade.selector.datagrid('deleteRow', delete_index);
+			}
+			cashSalesTrade.selector.datagrid('loadData', cashSalesTrade.selector.datagrid('getData'));
+		}
+		// 添加客户
+		cashSalesTrade.addCustomerInfo=function(customer_dg_id,dialog_id){
+			var customer_dg=$('#'+customer_dg_id);
+			CRM_dialog.getCustomerInfo(cashSalesTrade.fillCustomerInfo);
+			$('#'+dialog_id).dialog('close');
+		}
+		cashSalesTrade.fillCustomerInfo=function(row){
+			$.each(row,function(key,val){
+				if(new_cash_trade_element_arr[key]!=undefined){new_cash_trade_element_arr[key].textbox('setValue',val.html_decode());}
+			});
+			if(row.district!=undefined){
+				cashSalesTradeArea.selfP.combobox("setValue", row.province);//省
+				cashSalesTradeArea.selfC.combobox("loadData", cashSalesTradeArea.getArea("city", row.province, 1));
+				cashSalesTradeArea.selfC.combobox("setValue", row.city);//市
+				cashSalesTradeArea.selfD.combobox("loadData", cashSalesTradeArea.getArea("district", row.city, 1));
+				cashSalesTradeArea.selfD.combobox("setValue", row.district);//区
+			}
+			new_cash_trade_element_arr['nick_name']=row.nickname;
+			new_cash_trade_element_arr['customer_id']=row.id;
+		}
+
+		//刷新页面
+		cashSalesTrade.refresh = function(){
+			messager.confirm('确定要重置信息吗？', function(r){
+				if(r){
+					var url = "{:U('Trade/CashSalesTrade/refresh')}";
+					var data = {};
+					cashSalesTrade.selector.datagrid('loading');
+					$.post(url, data, function(res){
+						cashSalesTrade.selector.datagrid('loaded');
+						// new_trade_cfg_val = res;
+						// if(new_trade_cfg_val['order_limit_real_price'] == 1){
+						// 	document.getElementById('limit_tips').innerHTML="#系统设置中限定了商品折后价不低于"+new_trade_cfg_val['text']+"，低于它时背景显示为红色。";
+						// 	document.getElementById('limit_tips').style.display="";
+						// 	cashSalesTrade.changeColumn(new_trade_cfg_val['real_price_limit_value']);
+						// }else{
+						// 	document.getElementById('limit_tips').style.display="none";
+						// 	cashSalesTrade.changeColumn('all');
+						// }
+					},"JSON");
+					cashSalesTrade.selector.datagrid('loadData',{total:0,rows:[]});
+					cashSalesTrade.reloadData();
+				}
+			});
+		}
+
+		//重置数据
+		cashSalesTrade.reloadData = function(){
+			var form_id='{$id_list.form_id}';
+			var trade_form=$('#'+form_id);
+			$('#'+form_id+" :input").attr('disabled',false);
+			trade_form.form('load',new_cash_trade_element_arr.form);
+			new_cash_trade_element_arr['customer_id']=false;
+			for(var i=5;i<=14;i++){
+				if(i>=11&&i<=13){
+					new_cash_trade_element_arr[i].combobox('setValue','');					
+				}else{
+					new_cash_trade_element_arr[i].textbox('setValue','');
+				}
+			}
+			$('.cash-customer-detal').hide();
+			$('#cash_customer').html("展开 <i>︾</i>").attr('data-flag','1');
+			$('#cash_customer i').css('top','2px');
+			for(var i=15;i<=20;i++){
+				new_cash_trade_element_arr[i].numberbox('setValue','0.0000');
+				if(i==17||i==19){
+					continue;
+				}else{
+					new_cash_trade_element_arr[i].textbox('disable');
+				}
+			}
+			new_cash_trade_element_arr[i].combobox('setValue','不需要');
+			new_cash_trade_element_arr[24].textbox('setValue','');
+			for(var i=25;i<=27;i++){
+				new_cash_trade_element_arr[i].html('0.0000');
+			}
+			cash_selectInvoiceType({id:0});//发票类型
+			$("#trade_cash_barcode").textbox('setValue','');//扫描条码添加货品
+			$("#trade_cash_gift_barcode").textbox('setValue','');
+		}
+		$("#trade_cash_barcode").textbox('textbox').bind('keydown',function(e){
+			if(e.keyCode==13){
+				tradeCashScan(0);
+			}
+		});
+		$("#trade_cash_gift_barcode").textbox('textbox').bind('keydown',function(e){
+			if(e.keyCode==13){
+				tradeCashScan(2);
+			}
+		});
+	},0);
+});
+
+
+//元素--初始化
+var new_cash_trade_element_arr;
+function initNewCashTradeElement(){
+	var form_id='{$id_list.form_id}';
+	new_cash_trade_element_arr={
+		1:$('#'+form_id+" :input[name='shop_id']"),
+		2:$('#'+form_id+" :input[name='warehouse_id']"),
+		3:$('#'+form_id+" :input[name='salesman_id']"),
+		4:$('#'+form_id+" :input[name='execute_price']"),
+
+		5:$('#'+form_id+" :input[name='buyer_nick']"),
+		6:$('#'+form_id+" :input[name='receiver_name']"),
+		7:$('#'+form_id+" :input[name='receiver_mobile']"),
+		8:$('#'+form_id+" :input[name='receiver_telno']"),
+		9:$('#'+form_id+" :input[name='buyer_message']"),
+
+		10:$('#'+form_id+" :input[name='receiver_zip']"),
+		11:$('#'+form_id+" :input[name='receiver_province']"),
+		12:$('#'+form_id+" :input[name='receiver_city']"),
+		13:$('#'+form_id+" :input[name='receiver_district']"),
+		14:$('#'+form_id+" :input[name='receiver_address']"),
+
+		15:$('#'+form_id+" :input[name='goods_amount']"),
+		16:$('#'+form_id+" :input[name='remission']"),
+		17:$('#'+form_id+" :input[name='discount']"),
+		18:$('#'+form_id+" :input[name='receivable']"),
+		19:$('#'+form_id+" :input[name='paid']"),
+		20:$('#'+form_id+" :input[name='give_paid']"),
+
+		21:$('#'+form_id+" :input[name='invoice_type']"),
+		22:$('#'+form_id+" :input[name='invoice_title']"),
+		23:$('#'+form_id+" :input[name='invoice_content']"),
+		24:$('#'+form_id+" :input[name='cs_remark']"),
+
+		25:$('#goods-total'),
+		26:$('#goods-receivable'),
+		27:$('#goods-give'),
+
+		'mobile':$('#'+form_id+" :input[name='receiver_mobile']"),
+		'telno':$('#'+form_id+" :input[name='receiver_telno']"),
+		'nickname':$('#'+form_id+" :input[name='buyer_nick']"),
+		'name':$('#'+form_id+" :input[name='receiver_name']"),
+		'zip':$('#'+form_id+" :input[name='receiver_zip']"),
+		'address':$('#'+form_id+" :input[name='receiver_address']"),
+		'customer_id':-1,
+		'flag':false
+
+	};
+}
+
+//添加--物品
+$($(".easyui-menubutton[name='menu-cash-order']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 switch(item.text){
+	 case '添加单品':
+		 var params={'prefix':'add_trade_cash','type':true};
+		 $('#'+'{$id_list.edit}').richDialog('goodsSpec', addCashSpecOrder, params, false);
+		 break;
+	 case '添加组合装':
+		 $('#'+'{$id_list.edit}').richDialog('goodsSuite', addCashSuiteOrder, 'add_trade_cash', false);
+		 break;
+	 }}
+});
+//添加--赠品
+$($(".easyui-menubutton[name='menu-cash-gift']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 switch(item.text){
+	 case '添加单品'://spec_rows[i].gift_type=2 
+		 var params={'prefix':'add_trade_cash','type':true};
+		 $('#'+'{$id_list.edit}').richDialog('goodsSpec', addCashSpecOrder, params, true);
+		 break;
+	 case '添加组合装':// suite_row.gift_type=2
+		 $('#'+'{$id_list.edit}').richDialog('goodsSuite', addCashSuiteOrder, 'add_trade_cash', true);
+		 break;
+	 }}
+});
+function addCashSpecOrder(spec_dg_id,sub_dg_id,is_gift){
+	var spec_dg=$('#'+sub_dg_id);
+	var spec_rows=spec_dg.datagrid('getRows');
+    $('#'+'{$id_list.edit}').dialog('close');
+    tradeCashUpdateSpec(spec_rows,is_gift);
+}
+function addCashSuiteOrder(suite_dg_id,is_gift){
+    var suite_dg=$('#'+suite_dg_id);
+	var suite_row=suite_dg.datagrid('getSelected');
+    $('#'+'{$id_list.edit}').dialog('close');
+    tardeCashUpdateSuite(suite_row,is_gift);
+}
+function tradeCashUpdateSpec(spec_rows,is_gift){
+    var show_dg=$('#'+'{$id_list.id_datagrid}');
+    var show_rows=show_dg.datagrid('getRows');
+    var sel_row=show_dg.datagrid('getSelected');
+    var sel_index=!sel_row?-1:show_dg.datagrid('getRowIndex',sel_row);
+    var flag=false; var show_index=0; var weight=0; 
+    var number=0; var goods_amount=0; var discount=0; 
+    var execute_price=new_cash_trade_element_arr[4].combobox('getValue');	//retail_price
+	
+    for(var i in spec_rows){
+		// 赠品-单品
+    	if(is_gift){spec_rows[i].gift_type=2;spec_rows[i].discount=0.0000;}//else{spec_rows[i].discount=1.0000;}
+    	spec_rows[i].num=parseFloat(spec_rows[i].num).toFixed(4);
+    	spec_rows[i].is_suite=0;
+    	flag=false;
+    	for(var x in show_rows){
+    		if(spec_rows[i].is_suite==show_rows[x].is_suite&&spec_rows[i].id==show_rows[x].id&&spec_rows[i].gift_type==show_rows[x].gift_type){
+    			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+    			show_dg.datagrid('refreshRow',show_index);
+    			flag=true;
+    			//总款--优惠--计算
+    	    	if(sel_index==show_index){beginEditNewTrade(sel_index,show_rows[x]);}
+    			break;
+    		}
+    	}
+    	if(!flag){		
+			spec_rows[i].original_price=spec_rows[i][execute_price];//原价
+        	spec_rows[i].discount=(spec_rows[i].discount==0?spec_rows[i].discount:1.0000);//折扣
+        	spec_rows[i].real_price=parseFloat(spec_rows[i].original_price*spec_rows[i].discount).toFixed(4);//实际价格
+        	spec_rows[i].total_price=parseFloat(spec_rows[i].num*spec_rows[i].real_price).toFixed(4);//实际总价格
+    	    show_dg.datagrid('appendRow',spec_rows[i]);//将数据添加到列表页面
+    	    //总款--优惠--计算
+    	    goods_amount+=parseFloat(spec_rows[i].original_price*spec_rows[i].num);//账款总计
+    	    discount+=spec_rows[i].num*(spec_rows[i].original_price-spec_rows[i].real_price);//折后减免
+    	    //数量--重量--计算
+	    	number+=parseFloat(spec_rows[i].num);
+	    	weight+=spec_rows[i].num*spec_rows[i].weight;
+    	}   	
+    }
+    new_cash_trade_element_arr[15].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))+goods_amount).toFixed(4));//账款总计
+    new_cash_trade_element_arr[16].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))+discount).toFixed(4));//折后减免
+    var receivable=parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[17].numberbox('getValue'))).toFixed(4);
+    new_cash_trade_element_arr[18].numberbox('setValue',receivable);//合计应收
+	new_cash_trade_element_arr[25].html(parseFloat(parseFloat(new_cash_trade_element_arr[25].text())+number).toFixed(4));//总数量
+    new_cash_trade_element_arr[26].html(receivable);//最后合计应收
+	new_cash_trade_element_arr[20].numberbox('setValue',parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue')));
+	new_cash_trade_element_arr[27].html(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4));
+}
+tardeCashUpdateSuite=function (suite_row,is_gift){
+	// var list_unit ={$list.unit};
+    var show_dg=$('#'+'{$id_list.id_datagrid}');
+    var show_rows=show_dg.datagrid('getRows');
+    var sel_row=show_dg.datagrid('getSelected');
+    var sel_index=!sel_row?-1:show_dg.datagrid('getRowIndex',sel_row);
+    var flag=false; var show_index=0;
+    var execute_price=new_cash_trade_element_arr[4].combobox('getValue');
+    if(is_gift){suite_row.gift_type=2;suite_row.discount=0.0000;}//else{suite_row.discount=1.0000;}
+    suite_row.num=parseFloat('1').toFixed(4);
+    suite_row.is_suite=1;
+    for(var x in show_rows){
+		if(suite_row.is_suite==show_rows[x].is_suite&&suite_row.id==show_rows[x].id&&suite_row.gift_type==show_rows[x].gift_type){
+			show_index=show_dg.datagrid('getRowIndex',show_rows[x]);
+			show_dg.datagrid('refreshRow',show_index);
+			flag=true;
+			//总款--优惠--计算
+			if(sel_index==show_index){beginEditNewTrade(sel_index,show_rows[x]);}
+			break;
+		}
+	}
+    if(!flag){
+    	suite_row.orderable_num=0;
+        suite_row.spec_no=suite_row.suite_no;
+        suite_row.goods_name=suite_row.suite_name;
+        suite_row.original_price=suite_row[execute_price];
+        suite_row.discount=(suite_row.discount==0?suite_row.discount:1.0000);
+        suite_row.real_price=parseFloat(suite_row.original_price*suite_row.discount).toFixed(4);
+        suite_row.total_price=parseFloat(suite_row.num*(suite_row.original_price*suite_row.discount)).toFixed(4);
+        show_dg.datagrid('appendRow',suite_row);
+		new_cash_trade_element_arr[15].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))+parseFloat(suite_row.original_price*suite_row.num)).toFixed(4));
+		new_cash_trade_element_arr[16].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))+parseFloat(suite_row.num)*(suite_row.original_price-suite_row.real_price)).toFixed(4));
+		//数量--重量--计算
+		var receivable=parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[17].numberbox('getValue'))).toFixed(4);
+		new_cash_trade_element_arr[18].numberbox('setValue',receivable);
+		new_cash_trade_element_arr[25].html(parseFloat(parseFloat(new_cash_trade_element_arr[25].text())+parseFloat(suite_row.num)).toFixed(4));
+		new_cash_trade_element_arr[26].html(receivable);//最后合计应收
+		new_cash_trade_element_arr[20].numberbox('setValue',parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue')));
+		new_cash_trade_element_arr[27].html(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4));
+	
+    }
+}
+//invoice--选择事件（发票类型）
+function cash_selectInvoiceType(record){
+	if(record.id==0){
+		new_cash_trade_element_arr[22].textbox('disable');
+		new_cash_trade_element_arr[23].textbox('disable');
+		new_cash_trade_element_arr[22].textbox('setValue','');
+		new_cash_trade_element_arr[23].textbox('setValue','');
+	}else{
+		new_cash_trade_element_arr[22].textbox('enable');
+		new_cash_trade_element_arr[23].textbox('enable');
+	}
+}
+
+//executePrice--选择事件（原价调用）
+function selectExecutePrice(record){
+	var show_dg=$('#'+'{$id_list.id_datagrid}');
+	var data=show_dg.datagrid('getData');
+	var rows=data.rows;
+	if(rows.length==0){return;}
+	if(record.id=='sel'){record.id='retail_price';}
+	var changs={}
+	for(var i in rows){
+		beginEditNewTrade(i,rows[i]);
+		rows[i].original_price=rows[i][record.id];
+		changs['original_price']=rows[i][record.id];
+		endEditNewTrade(i,rows[i],changs);
+	}
+	show_dg.datagrid('loadData',data);
+}
+//datagrid--事件
+function beginEditNewTrade(index,row){
+	new_cash_trade_element_arr['goods_amount']=parseFloat(row.original_price)*parseFloat(row.num);
+	new_cash_trade_element_arr['discount']=parseFloat((parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num));
+	new_cash_trade_element_arr['number']=parseFloat(row.num);
+}
+
+function endEditNewTrade(index,row,changes){
+	$.each(changes,function(key,val){
+		switch(key){
+		case 'num':row.num=parseFloat(row.num<=0?(row.num==0?1:-row.num):row.num).toFixed(4);break;
+		case 'original_price':row.original_price=row.original_price<0?-row.original_price:row.original_price; row.real_price=parseFloat(row.original_price*row.discount).toFixed(4);break;
+		case 'discount':if(row.gift_type==2){row.discount=0;}else{row.discount=row.discount<0?-row.discount:row.discount; row.real_price=parseFloat(row.original_price*row.discount).toFixed(4);}break;
+		case 'real_price':if(row.gift_type==2){row.real_price=0.0000}else{row.real_price=row.real_price<0?-row.real_price:row.real_price;if(row.original_price==0){row.discount=1;row.real_price=0.000;}else{ row.discount=parseFloat(row.real_price/row.original_price).toFixed(4);}}break;
+		}
+	});
+    row.total_price=parseFloat(row.num*(row.original_price*row.discount)).toFixed(4);
+    new_cash_trade_element_arr[15].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-new_cash_trade_element_arr['goods_amount']+parseFloat(row.original_price)*parseFloat(row.num)).toFixed(4));//更改后的账款总计
+    new_cash_trade_element_arr[16].numberbox('setValue',parseFloat(parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-new_cash_trade_element_arr['discount']+(parseFloat(row.original_price)-parseFloat(row.real_price))*parseFloat(row.num)).toFixed(4));//更改后的折后减免
+    var receivable=parseFloat(parseFloat(new_cash_trade_element_arr[15].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[16].numberbox().numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[17].numberbox('getValue'))).toFixed(4);//更改后合计应收
+    new_cash_trade_element_arr[18].numberbox('setValue',receivable); //合计应收
+    new_cash_trade_element_arr[25].html(parseFloat(parseFloat(new_cash_trade_element_arr[25].text())-new_cash_trade_element_arr['number']+parseFloat(row.num)).toFixed(4));//货品总数量
+	new_cash_trade_element_arr[26].html(receivable);//合计应收
+	new_cash_trade_element_arr[20].numberbox('setValue',parseFloat(new_cash_trade_element_arr[19].numberbox('getValue'))-parseFloat(new_cash_trade_element_arr[18].numberbox('getValue')));
+	new_cash_trade_element_arr[27].html(parseFloat(new_cash_trade_element_arr[20].numberbox().numberbox('getValue')).toFixed(4));
+}
+
+//扫描条码加载货品-现款销售
+var warehouse_id;
+function tradeCashScan(type){
+	var barcode=['trade_cash_barcode','','trade_cash_gift_barcode'];
+	var cash_barcode_value = $("#"+barcode[type]).textbox('getValue');
+	$("#"+barcode[type]).textbox('setValue','');
+	warehouse_id=new_cash_trade_element_arr[2].combobox('getValue');
+	if(cash_barcode_value == ''){
+		messager.alert('条形码不能为空',undefined,function(){
+			 $("#"+barcode[type]).textbox('textbox').focus();
+		});
+		return;
+	}
+	$.post('{:U("CashSalesTrade/getBarcodeInfo")}',{barcode:cash_barcode_value,warehouse_id:warehouse_id,type:type},function(res){
+		var url="{:U('Trade/CashSalesTrade/showGoodsList')}";
+		if(res.status == 1){
+			messager.alert(res.info,undefined,function(){
+				that.selectors.barcode.textbox('textbox').focus();
+			});
+		}else{
+			cashSalesTrade.cash_goods_list = res.info;
+			if(res.info.length > 1){
+				$('#{$id_list.edit}').dialog({
+					title:"选择货品",
+					iconCls:'icon-save',
+					width:764,
+					height:560,
+					closed:false,
+					inline:true,
+					modal:true,
+					href:url+'?parent_datagrid_id='+'{$id_list.id_datagrid}'+'&parent_object=trade_cash&goods_list_dialog='+'{$id_list.edit}',
+					buttons:[]
+				});
+			}else if(res.info[0].is_suite==1){
+				tardeCashUpdateSuite(res.info[0],type);
+			}else{
+				tradeCashUpdateSpec(res.info,type);
+			}
+			
+		}
+	});
+}
+
+</script>
+</block>

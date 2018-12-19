@@ -1,0 +1,36 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}" style="padding:5px;height:auto">
+        <form id="{$id_list['form']}" class="easyui-form" method="post">
+            <div class="form-div">
+                <label>组合装名称</label><input class="easyui-textbox txt" type="text" name="search[suite_name]"/>
+                <label>商家编码</label><input class="easyui-textbox txt" type="text" name="search[suite_no]"/>
+                <!--<label>条形码</label><input class="easyui-textbox txt" type="text" name="search[barcode]"/>-->
+                <if condition="$model neq 'goodssuitbarcode' ">
+                    <label>品牌：</label><select class="easyui-combobox txt" name="search[brand_id]" data-options="editable:false">
+                    <option value="all">全部</option>
+                    <volist name='goods_brand' id='vo'>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+                    <else/>
+                    <label>条形码</label><input class="easyui-textbox txt" type="text" name="search[barcode]"/>
+                </if>
+
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="{$id_list.prefix}goods_suite_list.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="{$id_list.prefix}goods_suite_list.loadFormData()">重置</a>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="dialog"></block>
+<block name="script">
+    <script type="text/javascript">
+        $(function () {
+            setTimeout(function () {
+                {$id_list.prefix}goods_suite_list = new RichDatagrid(JSON.parse('{$params}'));
+                {$id_list.prefix}goods_suite_list.setFormData();
+            }, 0);
+        });
+    </script>
+</block>

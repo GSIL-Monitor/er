@@ -1,0 +1,129 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="datagrid">
+
+    <div data-options="region:'center'" style="width:100%;height: 60%">
+        <easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields"/>
+    </div>
+    <switch name="type">
+        <case value="true">
+            <div data-options="region:'south'" style="width:100%;height: 40%">
+                <easyui:datagrid id="{$sub_datagrid.id}" style="{$sub_datagrid.style}" options="sub_datagrid.options" fields="sub_datagrid.fields"/>
+            </div>
+        </case>
+        <default/>
+    </switch>
+
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div style="display: none;"><input id="select_customer_hidden_id" name="id" value="{$id}" hidden="true"/></div>
+            <div class="form-div">
+                <label class="four-character-width"> 客户网名：</label>&nbsp;&nbsp;<input class="easyui-textbox txt" type="text" name="search[nickname]"/>
+                <label class="">&nbsp;　下单时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+                <label>&nbsp;至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" data-options="editable:false"/>
+                <label class="">　店铺：</label><input id="customer_shop_id" class="easyui-combobox txt" type="text" name="search[shop_id]" value="all" data-options="valueField:'id',textField:'name'"/>
+                <div class="form-div">
+                    <label class="four-character-width">购买品牌:</label>
+                    <select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                        <option value="all">全部</option>
+                        <volist name='goods_brand' id='vo'>
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                    <label > 　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]"/>
+                    <a href="javascript:void(0)" onclick="{$prefix}customer_select.clickMore(this)">更多</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="{$prefix}customer_select.submitSearchForm(this)">搜索</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="{$prefix}customer_select.loadFormData()">重置</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="{$prefix}customer_select.addSelect()">添加搜索结果</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="{$prefix}customer_select.selectChoose()">添加选中行</a>
+                </div>
+
+            </div>
+            <div id="{$id_list.more_content}">
+                <div class="form-div">
+                    <label>&nbsp;省:</label>&nbsp;<input id="selectCustomerProvince" class="easyui-combobox txt" type="text" name="search[province]"/>
+                    <label>&nbsp;&nbsp; 市:</label>&nbsp;<input id="selectCustomerCity" class="easyui-combobox txt" type="text" name="search[city]"/>
+                    <label>&nbsp;&nbsp; 县:</label>&nbsp;<input id="selectCustomerDistrict" class="easyui-combobox txt" type="text" name="search[district]"/>
+                </div>
+            </div>
+        </form>
+        <div style="display: none;"><input hidden="true" id="{$id_list.hidden_flag}" value="1"/> </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sorceURL=select_temp.js
+        $(function () {
+            setTimeout(function () {
+                selectCustomerArea = new area("selectCustomerProvince", "selectCustomerCity", "selectCustomerDistrict");
+                {$prefix}customer_select = new RichDatagrid(JSON.parse('{$params}'));
+                {$prefix}customer_select.setFormData();
+                $("#customer_shop_id").combobox("loadData", {$shop_list});
+                if ("{$type}") {
+                    var dg = $("#" + "{$id_list.datagrid}");
+                    var sub_dg = $("#" + "{$id_list.sub_datagrid}");
+                    dg.datagrid("options").onDblClickRow = function (index, row) {
+                        var rows = sub_dg.datagrid("getRows");
+                        for (var x in rows) {
+                            if (rows[x].id == row.id) {
+                                messager.alert("该数据已添加");
+                                return false;
+                            }
+                        }
+                        sub_dg.datagrid("appendRow", row);
+                    }
+                    sub_dg.datagrid("options").onDblClickRow = function (index, row) {
+                        sub_dg.datagrid("deleteRow", index);
+                    }
+                }
+                {$prefix}customer_select.addSelect = function(){
+                    var dialog = $('#market_management_add_customer');
+                    plan_id = $("#select_customer_hidden_id").val();
+                    var sub_dg = $('#tabs_market_detail_datagrid');
+                    $.messager.progress({
+                        title: "请稍后",
+                        msg: "正在添加,请稍等...",
+                        text: "",
+                        interval: 100
+                    });
+                    $.post("{:U('MarketManagement/addMarketById')}",{plan_id:plan_id},function(res){
+                        $.messager.progress('close');
+                        if (res.status==1) {
+                            messager.alert(res.info);
+                        } else if (res.status == 0) {
+                            dialog.dialog("close");
+                            sub_dg.datagrid('reload');
+                            messager.alert(res.info);
+                        }
+
+                    },'json')
+                }
+
+                {$prefix}customer_select.selectChoose = function () {
+                    if (this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null) {
+                        messager.alert("请选择需要添加的信息再点击！");
+                        return false;
+                    }
+                    var ids = [];
+                    for(i in this.selectRows){ids.push(this.selectRows[i].id)}
+                    var dialog = $('#market_management_add_customer');
+                    var sub_dg = $('#tabs_market_detail_datagrid');
+                    plan_id = $("#select_customer_hidden_id").val();
+                    $.post("{:U('MarketManagement/addMarketById')}",{id:ids,plan_id:plan_id},function(res){
+                        if (res.status==1) {
+                            messager.alert(res.info);
+                        } else if (res.status == 0) {
+                            dialog.dialog("close");
+                            sub_dg.datagrid('reload');
+                            messager.alert(res.info);
+                        }
+
+                    },'json')
+                }
+            }, 0);
+        });
+    </script>
+</block>

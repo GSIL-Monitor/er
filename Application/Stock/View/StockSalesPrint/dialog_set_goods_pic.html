@@ -1,0 +1,74 @@
+<form id = {$form_id} style="padding-top: 10px;padding-bottom: 10px;padding-left: 10px">
+	<div class="form-div">
+		<!--<input name="stockout_order_field_goods_pic" value="1" type="checkbox" /><label>订单列表显示货品图片</label>-->
+	</div>
+	<div class="form-div">
+		<input name="stockout_detail_field_goods_pic" value="2"  type="checkbox" /><label>下方出库单详情页中显示货品图片</label>
+	</div>
+	<div class="form-div">
+		<!--<label style='color: red'>*单个订单限制显示图片个数为6个</label></br>-->
+		<label style='color: red'>*显示货品图片，打开该页面的速度会变慢，请耐心等待</label>
+	</div>
+</form>
+<script type="text/javascript">
+	//# sourceURL=sales_stockprintsetgoodspic.js
+	$(function(){
+		setTimeout(function(){
+			var form = {$form_data};
+			$('#'+'{$form_id}').form('filterLoad',form);
+		});
+	});
+	stockSalesPrint.submitPrintGoodsPicSetting = function(dialog_id){
+		var set_data = $('#'+'{$form_id}').form('get');
+		var that = this;
+		var stockout_field_goods_pic = 0;
+		if(set_data['stockout_order_field_goods_pic']){
+			stockout_field_goods_pic = stockout_field_goods_pic| parseInt(set_data['stockout_order_field_goods_pic']);
+		}
+		if(set_data['stockout_detail_field_goods_pic']){
+			stockout_field_goods_pic = stockout_field_goods_pic| parseInt(set_data['stockout_detail_field_goods_pic']);
+		}
+		$.post('{:U("Stock/StockSalesPrint/saveGoodsPicSetting")}',{'stockout_field_goods_pic':stockout_field_goods_pic},function(r){
+			if(r.status == 0)
+			{
+				$('#'+dialog_id).dialog('close');
+				var options = $('#'+that.params.datagrid.id).datagrid('options');
+				for(var i in options.columns[0])
+				{
+					if(options.columns[0][i].field == 'img_url')
+					{
+						if(set_data['stockout_order_field_goods_pic'])
+						{
+							options.columns[0][i].formatter = formatter.print_img;
+						}else{
+							options.columns[0][i].formatter = function(){return'';};
+						}
+
+					}
+				}
+
+				/*if(!set_data['stockout_order_field_goods_pic'])
+				{
+					$('#'+that.params.datagrid.id).datagrid('hideColumn','img_url');
+				}else{
+					$('#'+that.params.datagrid.id).datagrid('showColumn','img_url');
+				}*/
+//				that.refresh();
+				/*if(!set_data['stockout_detail_field_goods_pic'])
+				{
+					var tab_datagrid_id = $('#'+that.params.tabs.id).tabs('getTab','出库单详情').find('.easyui-datagrid').attr('id');
+					$('#'+tab_datagrid_id).datagrid('hideColumn','img_url');
+				}else{
+					var tab_datagrid_id = $('#'+that.params.tabs.id).tabs('getTab','出库单详情').find('.easyui-datagrid').attr('id');
+					$('#'+tab_datagrid_id).datagrid('showColumn','img_url');
+				}*/
+				var tab_datagrid_id = $('#'+that.params.tabs.id).tabs('getTab','出库单详情').find('.easyui-datagrid').attr('id');
+//				$('#'+tab_datagrid_id).datagrid('loadData', {'total': 0, 'rows': []});
+				$('#'+tab_datagrid_id).datagrid('reload', {'id':that.rowId,'datagridId':tab_datagrid_id});
+			}
+			messager.alert(r.info);
+		},'json');
+
+
+	}
+</script>

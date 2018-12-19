@@ -1,0 +1,121 @@
+<taglib name="TagLib\EasyUI" />
+<style>
+.txt-split{width:100px;}
+.footer-split{padding-left:5px;height:5%;background-color: #f4f4f4;}
+</style>
+<div style="height: 80%;">
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" class="{$datagrid.class}" options="datagrid.options" fields="datagrid.fields" />
+<div id="direct_consign_toolbar">
+<div class="form-div">
+<span style="color:#0E2D5F;font-weight:bold;"><label>请填写物流单号：</label></span>
+</div>
+</div>
+</div>
+<div class='form-div' style="color:red;margin:8px">#订单直接发货针对于不需要系统打印物流单的订单,但是为了物流同步，请务必填写物流单号#<br>#电子面单不支持直接发货，如果需要直接发货请把物流公司改成非电子面单类型的物流#</div>
+<script type="text/javascript">
+tradeCheck.datagrid_id='{$datagrid.id}';
+var logistics=JSON.parse('{$logistics}');
+var logistics_type=JSON.parse('{$logistics_type}');
+var editIndex = undefined;
+function f_logistics(value, rowData, rowIndex) {  
+    if (value == 0) {return "";}  
+    for (var i = 0; i < logistics.length; i++) {  
+        if (logistics[i].id == value) { return logistics[i].name; }  
+    }  
+    return value;  
+}
+function logistics_onClickRow(index,feild,value) {
+	if(editIndex==undefined||editIndex!=index){
+        $('#'+tradeCheck.datagrid_id).datagrid('endEdit', editIndex);
+	}
+	var rows=$('#'+tradeCheck.datagrid_id).datagrid('getRows');
+    editIndex = index;
+    if(feild=='logistics_no'){
+    	if(logistics_type[rows[index]['logistics_id']]!=0){messager.alert('电子面单不支持直接发货，若想继续，请修改物流公司。');}
+        else{$('#'+tradeCheck.datagrid_id).datagrid('selectRow', index).datagrid('beginEdit', index);}
+    }else if(feild=='logistics_id'){
+        $('#'+tradeCheck.datagrid_id).datagrid('selectRow', index).datagrid('beginEdit', index);
+        if(logistics_type[rows[index]['logistics_id']]!=0){
+           	var ed = $('#'+tradeCheck.datagrid_id).datagrid('getEditor', {index:editIndex,field:'logistics_no'});
+        	$(ed.target).textbox({disabled:true});
+        }
+    }
+}
+function select_logistics(record){
+	var ed = $('#'+tradeCheck.datagrid_id).datagrid('getEditor', {index:editIndex,field:'logistics_no'});
+	if(record.type!=0){
+		$(ed.target).textbox('setValue','电子面单不支持直接发货');
+		$(ed.target).textbox({disabled:true});
+	}else{
+		$(ed.target).textbox('setValue','');
+		$(ed.target).textbox({disabled:false});
+	}
+}
+function loadOrdersData(){	
+	var json_orders={$direct_consign_trade};
+	for(var i=0;i<json_orders.total;i++){
+		if(logistics_type[json_orders.rows[i]['logistics_id']]!=0){
+			json_orders.rows[i]['logistics_no']='电子面单不支持直接发货';
+		}
+	}
+	$('#'+tradeCheck.datagrid_id).datagrid('loadData',json_orders);
+}
+$(function(){
+	$('#'+tradeCheck.datagrid_id).datagrid({ onClickCell: logistics_onClickRow,});
+	setTimeout(loadOrdersData,0);
+});
+tradeCheck.submitTradeCheckDialog=function(){
+	$('#'+tradeCheck.datagrid_id).datagrid('endEdit',editIndex);
+	var rows=$('#'+tradeCheck.datagrid_id).datagrid('getRows');
+	var ids=[];
+	var n=0;
+	for(var i in rows){
+		if(rows[i]['logistics_no']==undefined||rows[i]['logistics_no']==''){messager.alert('请填写第'+(++i)+'条订单的物流单号');return false;}
+		if(rows[i]['logistics_no']!="电子面单不支持直接发货"){ids.push(rows[i]['trade_id']);}
+	}
+	var data={};
+	if(ids.length>0){data['ids']=ids;}
+	data['info']=rows;
+	data['is_force']=0;
+	var url='{$url}';
+	Post('{:U('TradeCheck/directConsign')}?ids='+'',data,function(res){
+		if((res.status==0||res.status==1)&&(res.waybill_error.total==0||res.waybill_error.total==undefined)){
+			$.fn.richDialog("response", res.info, 'tradecheck');
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			tradeCheck.refresh();
+		}else if(res.waybill_error.total>0){
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			$.fn.richDialog("response", res , 'direct_consign');
+		}else{
+			$.fn.richDialog("response", res.info, 'tradecheck');
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			tradeCheck.refresh();
+		}
+	},"JSON");
+}
+function continue_save_waybill(res){
+	$("#response_dialog").dialog('close');
+	var data={};
+	data['info']=res.continue_save;
+	data['is_force']=1;
+	data['error_info']=res.info;
+	Post('{:U('TradeCheck/directConsign')}?ids='+'',data,function(continue_res){
+			$.fn.richDialog("response", continue_res.info, 'tradecheck');
+			$('#'+tradeCheck.params.edit.id).dialog('close');
+			tradeCheck.refresh();
+	},"JSON");
+}
+function not_continue(data){
+	$("#response_dialog").dialog('close');
+	if(data.info.total>0){
+		$.fn.richDialog("response", data.info, 'tradecheck');
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+		tradeCheck.refresh();
+	}else{
+		$('#'+tradeCheck.params.edit.id).dialog('close');
+		tradeCheck.refresh();
+	}
+}
+
+
+</script>

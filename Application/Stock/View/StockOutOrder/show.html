@@ -1,0 +1,675 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">
+<div class="form-div" style="border-bottom:  1px solid #7CAAB1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true,onClick:function(){{$stockout_order_tool}.stOutOrdSave();}" >保存</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" id="{$id_list.reset_button}" data-options="iconCls:'icon-redo',plain:true,onClick:function(){{$stockout_order_tool}.stOutOrdReset();}" >重置</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" id="{$id_list.outmanage}" data-options="iconCls:'icon-next',plain:true" style="float: right;margin-right:10px;" onClick="open_menu('出库单管理', '{:U('Stock/StockOutManagement/getStockOutSpec')}')">出库单管理</a>
+</div>
+<form id="{$id_list.tool_bar_form}" class="easyui-form" method="post">
+<div class="form-div" style="overflow: auto;overflow-style: scrollbar">
+<label>出库原因：</label><input class="easyui-combobox txt"  name="search[stockout_type]" data-options="editable:false,data:formatter.get_data('stockout_reason'),valueField:'id',textField:'name',onSelect:function(record){{$stockout_order_tool}.stOutOrdSelectStockinType(record);}"/>
+<label name = 'src_order_title'>　原始单：</label><input  	class="easyui-textbox 	txt" 	name="search[src_order_no]" 	data-options="editable:false,buttonText: '...'"  />
+<label>　　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="editable:false,"><volist name='warehouse_list' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+<label>　出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" id = "stockout_no" data-options="editable:true,readonly:true,value:'',"/>
+<label>　物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"  data-options="editable:false,"> <volist name='list_logistics' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select>
+</div>
+<div class="form-div">
+<label>物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" data-options="validType:'EnglishOrNum'" />
+<label>　　邮费：</label><input class="easyui-numberbox txt" type="text" name="search[post_fee]" data-options="value:0.00,min:0,precision:4"/>
+<label>　备注信息：</label><input class="easyui-textbox txt"  style="width: 338px"  type="text" name="search[remark]"/>
+<input type="text" name="search[src_order_id]" style="display:none;" />
+
+</div>
+</form>
+<div class="form-div" style="border-top:  1px solid #7CAAB1;padding-top: 2px">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:false,onClick:function(){{$stockout_order_tool}.stOutOrdAddGood();}">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true,onClick:function(){{$stockout_order_tool}.stOutOrdDelete();}">删除</a>
+<label style="color:red;margin-left:80px;font-size:30px;display:none;" class="font_stoOut">保存成功</label>
+<label style="color:red;margin-left:80px;font-size:30px;display:none;" class="font_stoOut_auto_commit">保存成功,并自动提交成功</label>
+</div>
+</div>
+<script>
+//# sourceURL={$prefix}stockout_order_show.js
+StockoutOrderTool.initFormElementSelector = function(form_id){
+	var new_form_input_selector={
+			'stockout_type'		:$('#'+form_id+" :input[name='search[stockout_type]']"),
+			'stockout_no'		:$('#'+form_id+" :input[name='search[stockout_no]']"),
+			'logistics_id'		:$('#'+form_id+" :input[name='search[logistics_id]']"),
+			//'warehouse_id'		:$('#'+form_id+" :input[name='search[warehouse_id]']"),
+			'src_order_no'		:$('#'+form_id+" :input[name='search[src_order_no]']"),
+			'logistics_no'		:$('#'+form_id+" :input[name='search[logistics_no]']"),
+			'warehouse_id'		:$('#'+form_id+" select[name='search[warehouse_id]']"),
+			'post_fee'			:$('#'+form_id+" :input[name='search[post_fee]']"),
+			'remark'			:$('#'+form_id+" :input[name='search[remark]']"),
+	};
+	return new_form_input_selector;
+}
+
+$(function () {
+	var new_form_input_selector = StockoutOrderTool.initFormElementSelector("{$id_list.tool_bar_form}");	
+	
+	setTimeout(function () {
+			
+		var datagird_data = {$data};
+		var form_data = {$form};
+		var default_warehouse_id = "{$warehouse_list[0]['id']}";
+		var stockoutObject = {$stockout_order_tool} = new StockoutOrderTool(JSON.parse('{$params}'),new_form_input_selector,default_warehouse_id);
+		
+        if(datagird_data == 'none'){
+			stockoutObject.initStockoutOrderInsert();
+        }else if(datagird_data == 'err'){
+            messager.alert('系统错误请联系管理员！');
+        }else{
+        	editStockOutOrder = new RichDatagrid(JSON.parse('{$params}'));
+        	stockoutObject.initStockoutOrderInsert(form_data['search[stockout_type]']);
+        	$('#'+editStockOutOrder.params.id_list.reset_button).linkbutton({'disabled':true});
+        	
+        	$('#' + editStockOutOrder.params.datagrid.id).datagrid('loadData', datagird_data);
+            $('#' + editStockOutOrder.params.form.id).form('filterLoad', form_data);
+            var soo_datagrid_id = editStockOutOrder.params.datagrid.id;
+            stockoutObject.beginEdit(soo_datagrid_id);
+			stockoutObject.disabled_input_list ={
+        			'src_order_no' :1,'stockout_type'		:1, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':1
+        	};
+        	stockoutObject.enable_input_list ={
+        			'src_order_no' :1,'stockout_type'		:1, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':1
+        	};
+			stockoutObject.disabledFormInput();	
+			$('#'+editStockOutOrder.params.id_list.outmanage).linkbutton({'disabled':true});
+        }
+        //初始化显示界面
+        
+    }, 0);
+});
+function StockoutOrderTool(params,new_stockout_form_input_selector,default_warehouse_id){
+	var that = this;
+	this.default_warehouse_id = default_warehouse_id;
+	this.combobox_changed_list = {'warehouse_id':this.default_warehouse_id};
+	this.form_init_data = {
+			'search[stockout_type]' : 7,
+			'search[stockout_no]'	: '',
+			'search[logistics_id]'	: '0',
+			'search[warehouse_id]'	: this.default_warehouse_id,
+			'search[logistics_no]'	: '',
+			'search[post_fee]'		: 0,
+			'search[remark]'		: '',
+			'search[src_order_no]'		: ''
+	};
+	this.now_warehouse_id ='all';
+	this.params = params;
+	this.input_type_list = {
+			'src_order_no' :'textbox','stockout_type'		:'combobox', 'stockout_no'	:'textbox', 'logistics_id'		:'combobox', 'post_fee'		:'numberbox', 'remark'		:'textbox','warehouse_id':'combobox'
+	};
+	this.disabled_input_list ={
+			'src_order_no' :1,'stockout_type'		:0, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':0
+	};
+	this.enable_input_list ={
+			'src_order_no' :1,'stockout_type'		:0, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':1
+	};
+	this.datagrid_fields_to_editor_type = params.fields_to_editor_type;
+	this.stockout_type = 7;
+	this.submit_switch = 1;
+	this.stockout_conf = {'all':$.extend({},this.form_init_data)}; 
+	this.form_input_selector_list = new_stockout_form_input_selector;
+	
+	this.tool_bar_id = this.params.id_list.tool_bar;
+	this.reset_button_id = this.params.id_list.reset_button;
+	this.soo_form_params = {
+			'search[post_fee]'		: 0.0000,
+	};
+	this.form_input_selector_list.stockout_type.combobox({
+			onSelect:function(record){that.selectType(record);}
+		});
+	this.form_input_selector_list.src_order_no.textbox({onClickButton:function(){
+			that.addSrcOrder();
+		}});
+	this.form_input_selector_list.warehouse_id.combobox({onSelect:function(record){
+		var combobox_that = this;
+		var value = $(this).combobox('getValue');
+		var checkRows = $('#' + params.datagrid.id).datagrid('getRows');
+		if(value != that.combobox_changed_list.warehouse_id && ((that.combobox_changed_list.warehouse_id != 0))){
+			if(checkRows.length != 0){
+			messager.confirm('是否修改出库仓库,修改仓库会清除出库信息',function(r){
+				if(r){
+					var from_data = $('#'+that.params.form.id).form('get');
+					that.initStockoutOrderInsert(that.stockout_type,{'search[warehouse_id]':value,'search[logistics_id]':from_data['search[logistics_id]']});
+					that.combobox_changed_list.warehouse_id = value;
+				}else{
+//					that.combobox_changed_list.warehouse_id = 0;
+					$(combobox_that).combobox('setValue', that.combobox_changed_list.warehouse_id);
+				}
+			});
+			}
+		}else{
+			that.combobox_changed_list.warehouse_id = value;
+		}
+
+
+	}});
+}
+
+
+StockoutOrderTool.prototype = {
+		selectType : function(record) {
+			this.enableFormInput();
+			this.initStockoutOrderInsert(record['id']);
+		},
+		initStockoutOrderInsert : function(type,extend_init_data){
+		
+			var form_data;
+			var stockout_type = type;
+			var form_id = this.params.form.id;
+			var datagrid_id = this.params.datagrid.id;
+			this.editableFormList();//需要添加
+			this.submit_switch = 1; //开保存按钮
+			form_data = $.extend({},this.stockout_conf['all'],extend_init_data);
+			if(stockout_type == undefined){ 
+				stockout_type = 7;
+			}else if(this.stockout_type != undefined ){ 
+				this.stockout_type = stockout_type;
+			}
+			stockout_type = parseInt(stockout_type);
+			switch(stockout_type){
+				case 'all':
+					form_data['search[stockout_type]'] = 'all';
+					this.form_input_selector_list['stockout_no'].textbox('disable');
+					this.disabled_input_list ={
+						'src_order_no' :1,'stockout_type'		:0, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':0
+					};
+					break;
+				case 7:
+					form_data['search[stockout_type]'] = 7;
+					$('#stockout_no').textbox('disable');
+					this.disabled_input_list ={
+						'src_order_no' :1,'stockout_type'		:0, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':0
+					};
+					break;
+				case 3:
+					form_data['search[stockout_type]'] = 3;
+					$('#stockout_no').textbox('disable');
+					this.disabled_input_list ={
+						'src_order_no' :0,'stockout_type'		:0, 'stockout_no'	:1, 'logistics_id'		:0, 'post_fee'		:0, 'remark'		:0,'warehouse_id':1
+					};
+					break;
+				default:
+					messager.alert('非法的出库类型');
+					return;
+			}
+			
+			$('#'+form_id).form('filterLoad',form_data);
+			this.combobox_changed_list = {'warehouse_id' : this.default_warehouse_id};
+			this.disabledFormInput();//设置不可编辑输入框  需要添加
+			
+			this.soo_form_params = {
+					'search[post_fee]' : 0.000
+			};
+            $('#' + datagrid_id).datagrid('loadData', {'total': 0, 'rows': []});
+			
+		},
+		 /*
+         * Object {value: "7", text: "采购入库", selected: false, disabled: false}
+         */
+
+		addSrcOrder : function () {
+			var that = this;
+			if (this.stockout_type == undefined || this.stockout_type != '3' ) {
+				messager.alert("出库单类型不正确");
+				return;
+			}
+			var buttons=[ {text:'确定',handler:function(){ that.submitAddDialog(); }}, {text:'取消',handler:function(){that.cancelDialog(that.params.return.id)}} ];
+			Dialog.show(this.params.return.id,this.params.return.title,this.params.return.url,850,960,buttons);
+		},
+		cancelDialog: function(id){
+			messager.confirm('您确定要关闭吗？', function(r){ if (r){$('#'+id).dialog('close');}});
+		},
+		submitAddDialog : function () {
+			switch (this.stockout_type)
+			{
+				case '3':{
+					stockoutSubmitReturn(this);
+					break;
+				}
+			}
+
+		},
+         stOutOrdReset : function() {
+			$('.font_stoOut').hide();
+			$('.font_stoOut_auto_commit').hide();
+             this.initStockoutOrderInsert(this.stockout_type);
+         },
+        stOutOrdSelectStockinType : function(record) {
+            this.stockout_type = record['id'];
+            this.initStockoutOrderInsert(this.stockout_type);
+        },
+		stOutOrdAddGood : function() {
+	            if (this.stockout_type == "all" || this.stockout_type == undefined ) {
+	                messager.alert('当前出库原因不符合添加条件');
+	                return;
+	            }
+				var stockin_warehouse = this.form_input_selector_list.warehouse_id.combobox('getValue');
+				if(stockin_warehouse == null ||stockin_warehouse ==0 ){
+					messager.alert('请选择出库仓库');
+					return;
+				}else{
+					this.params.warehouse_id = stockin_warehouse;
+				}
+				if($.isEmptyObject($.trim(this.params.warehouse_id)) ||  $.trim(this.params.warehouse_id) == '' || this.params.warehouse_id ==0){
+					messager.alert('获取仓库失败,请先新建仓库');
+					return;
+				}
+
+	            var stockout_order_object 	= this.params.stockout_order_tool;
+	            var dialog_params = {
+	    				"prefix":stockout_order_object,
+	    				"type": true,
+	    				"warehouse_id":this.params.warehouse_id,
+	    				'model':''
+	    				};
+	            
+	            $('#' + this.params.select.id).richDialog('goodsSpec', this.stOutOrdSubmitSelectDialog,dialog_params,this);
+		 },
+		 setPrice :function(newValue, oldValue,that) {
+			    
+				if( parseFloat(newValue)!=0 && $.isEmptyObject(newValue)){
+	                 $(that).numberbox('setValue',parseFloat(oldValue));
+	               return;
+	            }else{
+	                newValue =parseFloat(newValue);
+	            }
+	            if( parseFloat(oldValue)!=0 && $.isEmptyObject(oldValue)){
+	                oldValue = parseFloat(newValue);
+	            }else{
+	                oldValue = parseFloat(oldValue);
+	            }
+			 	var index;
+			    var row;
+			    if ($(that).numberbox('options').data != undefined) {
+			        row = $(that).numberbox('options').data.row;
+			        index = $('#' + this.params.datagrid.id).datagrid('getRowIndex', row);
+			    }
+			    else {
+			        return;
+			    }
+
+			    var ed_num = $('#' + this.params.datagrid.id).datagrid('getEditor', {index: index, field: 'num'});
+			    var num = $(ed_num.target).numberbox('getValue');
+			    //设置总成本
+			    var ed_total_cost = $('#' + this.params.datagrid.id).datagrid('getEditor', {
+			        index: index,
+			        field: 'total_amount'
+			    });
+			    $(ed_total_cost.target).numberbox('setValue', parseFloat(num * newValue).toFixed(4));
+			},
+			setNum : function(newValue, oldValue,that) {
+				if( parseFloat(newValue)!=0 && $.isEmptyObject(newValue)){
+	                 $(that).numberbox('setValue',parseFloat(oldValue));
+	                 return;
+	            }else{
+	                newValue =parseFloat(newValue);
+	            }
+	            if( parseFloat(oldValue)!=0 && $.isEmptyObject(oldValue)){
+	                oldValue = parseFloat(newValue);
+	            }else{
+	                oldValue = parseFloat(oldValue);
+	            }
+			    var index;
+			    var row;
+			    if ($(that).numberbox('options').data != undefined) {
+			        row = $(that).numberbox('options').data.row;
+			        index = $('#' + this.params.datagrid.id).datagrid('getRowIndex', row);
+			    }
+			    else {
+			        return;
+			    }
+
+			    var ed_price = $('#' + this.params.datagrid.id).datagrid('getEditor', {
+			        index: index,
+			        field: 'price'
+			    });
+			    var price = $(ed_price.target).numberbox('getValue');
+			    //设置总成本
+			    var ed_total_cost = $('#' + {$prefix}StockOutOrder.params.datagrid.id).datagrid('getEditor', {
+			        index: index,
+			        field: 'total_amount'
+			    });
+			    $(ed_total_cost.target).numberbox('setValue', parseFloat(price * newValue).toFixed(4));
+			},
+			stOutOrdSave : function() {
+				
+				var that = this;
+				
+				if(that.submit_switch==1){
+					that.submit_switch = 0;
+				}else{
+					return;
+				}
+				
+			    var checkRows = $('#' + this.params.datagrid.id).datagrid('getRows');
+			    if (this.stockout_type == undefined) {
+			    	that.submit_switch = 1;
+	                messager.alert('请选择出库单类别');
+	                return;
+	            }
+			    if (checkRows.length == 0) {
+			    	that.submit_switch = 1;
+                    messager.confirm('货品信息为空，是否添加货品信息',function(r){
+                        if(r){
+                            that.stOutOrdAddGood();
+                        }
+                    });
+			        return;
+			    }
+				//验证表单信息
+				if (!$('#' + this.params.form.id).form("validate")) {
+					return false;
+				}
+			    this.endEdit(this.params.datagrid.id);
+			    var gRows = $('#' + this.params.datagrid.id);
+			    var r = gRows.datagrid("getRows");
+			    var rlen = r.length;
+			    for(var i= 0;i<rlen;i++){
+			        if( parseFloat(r[i].num) <0){
+			        	that.submit_switch = 1;
+			            messager.alert("出库数量不能小于零！");
+			            this.beginEdit(this.params.datagrid.id);
+			            return false;
+			        }
+			        if(0 == parseFloat(r[i].num)){
+			        	that.submit_switch = 1;
+			            messager.alert("出库数量不能等于零！");
+			            this.beginEdit(this.params.datagrid.id);
+			            return false;
+			        }
+					if(parseFloat(r[i].stock_num) < parseFloat(r[i].num)){
+			        	that.submit_switch = 1;
+			            messager.alert("出库数量不能大于库存数量！");
+			            this.beginEdit(this.params.datagrid.id);
+			            return false;
+			        }
+			    }
+
+			    if("add_" == this.params.show_type){
+			        var getRowStr = JSON.stringify($('#' + this.params.datagrid.id).datagrid("getRows"));
+			    }else{
+					var getRowStr={};
+					getRowStr['del_spec']		=	gRows.datagrid("getChanges","deleted");
+					getRowStr['update_spec']	=	gRows.datagrid("getChanges","updated");
+					getRowStr['add_spec'] 		= 	gRows.datagrid("getChanges","inserted");
+					for(var add_k in getRowStr['add_spec'])
+					{
+					    for(var del_k in getRowStr['del_spec'])
+					    {
+							if( getRowStr['del_spec'][del_k].spec_no == getRowStr['add_spec'][add_k].spec_no)
+							{
+							    getRowStr['del_spec'].splice(del_k,1);
+							    for(var update_k in getRowStr['update_spec'])
+							    {
+									if(getRowStr['update_spec'][update_k].spec_no == getRowStr['add_spec'][add_k].spec_no)
+									{
+									    getRowStr['update_spec'].splice(update_k,1,getRowStr['add_spec'][add_k]);
+									}
+					
+					    		}
+							}
+			    		}
+					}
+					for(var del_k in getRowStr['del_spec'])
+					{
+					    for(var update_k in getRowStr['update_spec'])
+					    {
+							if(getRowStr['update_spec'][update_k].spec_no == getRowStr['del_spec'][del_k].spec_no)
+							{
+							    getRowStr['update_spec'].splice(update_k,1);
+							}
+					    }
+					}
+					getRowStr['update_spec'] = getRowStr['update_spec'].concat(getRowStr['add_spec']);
+					getRowStr = JSON.stringify(getRowStr);
+				}
+			    this.enableFormInput();
+			    $('#' + this.params.form.id).form('options').queryParams = {'rows':getRowStr};
+
+			   var stockout_params = $('#' + this.params.form.id).form('get');
+				$.post("{:U('Stock/StockOutOrder/saveOrder')}",stockout_params,function (data) {
+						try{
+							//var result = JSON.parse(data);
+							var result = data;
+						    if(data == 0){
+								messager.alert("系统错误请与管理员联系！");
+								
+				   			 }
+				    		if (result['status'] == '0') {
+								messager.alert(result['info']);
+								that.disabledFormInput();
+				    		} else if (result['status'] == '1') {
+								if(result['stockout_auto_commit_cfg'] == 1){$('.font_stoOut_auto_commit').show();}else{$('.font_stoOut').show();}
+				    			$('#'+that.params.form.id).form('filterLoad',{'search[stockout_no]':result['info']});
+		                    	that.disEditableFormList();
+				    		} else if (result['status'] == '2') {
+								//messager.alert('编辑成功!');
+								$('#reason_show_dialog').dialog('close');
+		                        window[that.params.stockout_management_info.stockManagementObject].refresh();
+								//$('#stockOutOrderData_dialog').dialog('close');
+						    } else if (result['status'] == '3') {
+								$('.font_stoOut').show();
+								$('#'+that.params.form.id).form('filterLoad',{'search[stockout_no]':result['info']});
+								that.disEditableFormList();
+								messager.alert(result['msg']);
+							}
+						}catch(e){
+							messager.alert("系统错误请与管理员联系！");
+							if(that.params.stockout_management_info == undefined || that.params.stockout_management_info.editDialogId == undefined || that.params.stockout_management_info.editDialogId ==''){
+								return;
+							}else{
+								$('#'+that.params.stockout_management_info.editDialogId).dialog('close');
+							}
+						}
+					    
+					},'json');
+			    /*$('#' + this.params.form.id).form('submit', {
+			    	url: "{:U('Stock/StockOutOrder/saveOrder')}",
+					onSubmit: function(){
+						var isValid = $(this).form('validate');
+						if(!isValid){
+						    messager.alert("表单信息不正确或不完整，请检查表单信息！");
+						    that.beginEdit(that.params.datagrid.id);
+						    return false;
+					}},
+					success: function (data) {
+						try{
+							var result = JSON.parse(data);
+						    if(data == 0){
+								messager.alert("系统错误请与管理员联系！");
+								
+				   			 }
+				    		if (result['status'] == '0') {
+								messager.alert(result['info']+'，请点击重置按钮重新尝试');
+								
+								that.disabledFormInput();
+				    		} else if (result['status'] == '1') {
+				    			$('#'+that.params.form.id).form('filterLoad',{'search[stockout_no]':result['info']});
+		                    	that.disEditableFormList();
+				    		} else if (result['status'] == '2') {
+								messager.alert('编辑成功!');
+								$('#'+that.params.stockout_management_info.editDialogId).dialog('close');
+		                        window[that.params.stockout_management_info.stockManagementObject].refresh();
+								//$('#stockOutOrderData_dialog').dialog('close');
+						    }
+						}catch(e){
+							messager.alert("系统错误请与管理员联系！");
+							if(that.params.stockout_management_info == undefined || that.params.stockout_management_info.editDialogId == undefined || that.params.stockout_management_info.editDialogId ==''){
+								return;
+							}else{
+								$('#'+that.params.stockout_management_info.editDialogId).dialog('close');
+							}
+						}
+					    
+					}
+			    });*/
+			},
+			stOutOrdDelete : function() {
+			    var check_rows = $('#' + this.params.datagrid.id).datagrid('getRows');
+			    var selected_row = $('#' + this.params.datagrid.id).datagrid('getSelected');
+			    if (this.stockout_type == undefined) {
+	                messager.alert('请选择出库单类别');
+	                return;
+	            }
+			    if (check_rows.length == 0) {
+			        messager.alert('暂无货品信息');
+			        return false;
+			    }
+			    if (selected_row == null) {
+			        messager.alert('请选择行');
+			        return false;
+			    }
+			    var selected_index = $('#' + this.params.datagrid.id).datagrid("getRowIndex", selected_row);
+			    $('#' + this.params.datagrid.id).datagrid("deleteRow", selected_index);
+			},
+	        endEdit : function() {
+	            var datagrid_id = this.params.datagrid.id;
+	            var rows = $('#' + datagrid_id).datagrid('getRows');
+	            for (var i in rows) {
+	                var index = $('#' + datagrid_id).datagrid('getRowIndex', rows[i]);
+	                $('#' + datagrid_id).datagrid('endEdit', index);
+	            }
+	        },
+	        beginEdit : function(id) {
+	            var datagrid_id = this.params.datagrid.id;
+	            var rows = $('#' + datagrid_id).datagrid('getRows');
+	            for (var i = 0; i < rows.length; i++) {
+	                var temp_index = $('#' + datagrid_id).datagrid('getRowIndex', rows[i]);
+	                $('#' + datagrid_id).datagrid('beginEdit', temp_index);
+	          		//获取表格列标题，给编辑行元素添加行标识
+		            var column_fields =  $('#' + datagrid_id).datagrid('getColumnFields');
+		            for(var field_index in column_fields){
+		            	var fields_name = column_fields[field_index];
+		            	var editor_object = $('#' + datagrid_id).datagrid('getEditor', {index: temp_index, field: column_fields[field_index]});
+		                if(editor_object != null){
+		                	var editor_type = this.params.fields_to_editor_type[fields_name];
+		                    $(editor_object.target)[editor_type]('options').data = {row: rows[i]};
+		                }
+		            }
+	            }
+	        },
+	        sooFormatterRows : function(rows) {
+	        	var format_row = {};
+	            var before_row = rows;
+	            for (var i in before_row) {
+	                if (before_row.length == 0){
+	                	break;
+	                }
+	                var key = before_row[i]['id'];
+	                format_row[key] = before_row[i];
+	            }
+	            return format_row;
+	        },
+	        stOutOrdSubmitSelectDialog : function(uid,did,stockoutObject) {
+	        	var merge_result_old = [];
+	            var merge_result_new = [];
+	            var merge_result = [];
+	            var src_price = [];
+
+	            var add_rows = $('#'+did).datagrid('getRows');
+	            var gs_format_rows = stockoutObject.sooFormatterRows(add_rows);
+
+	            var soo_datagrid_id = stockoutObject.params.datagrid.id;
+	            stockoutObject.endEdit(soo_datagrid_id);
+
+	            var soo_rows = $('#' + soo_datagrid_id).datagrid('getRows');
+	            var soo_format_rows = stockoutObject.sooFormatterRows(soo_rows);
+	            for (var j in gs_format_rows) {
+	        		if (soo_format_rows[j] == undefined) {
+	        			stockoutObject.keepDataIntact(gs_format_rows[j])
+	                    merge_result_new.push(gs_format_rows[j]);
+	                }
+	            }
+	            for (var k in soo_format_rows) {
+	                merge_result_old.push(soo_format_rows[k]);
+	            }
+	            for(var new_key in merge_result_new){
+					$('#' + soo_datagrid_id).datagrid('appendRow', merge_result_new[new_key]);
+				} 
+	            $('#' + stockoutObject.params.select.id).dialog('close');
+	            stockoutObject.beginEdit(soo_datagrid_id);
+
+	        },
+	        /**
+	         * 保存入库单完成时的快照
+	         */
+	        disEditableFormList:function(){
+	        	$('#'+this.tool_bar_id+" :input").attr('disabled',true);
+	        	$('#'+this.params.id_list.src_order).textbox('disable');
+
+	        	var a_dom_ar = $('#'+this.tool_bar_id+' a[class~="easyui-linkbutton"]');
+	        	$.each(a_dom_ar,function(i,a_dom){
+	        		$(a_dom).linkbutton({'disabled':true});
+	        		});
+	        	$('#'+this.reset_button_id).linkbutton({'disabled':false});
+				$('#'+this.params.id_list.outmanage).linkbutton({'disabled':false});
+	        },
+	        editableFormList:function(){
+	        	$('#'+this.tool_bar_id+" :input").attr('disabled',false);
+	        	var a_dom_ar = $('#'+this.tool_bar_id+' a[class~="easyui-linkbutton"]');
+	        	$.each(a_dom_ar,function(i,a_dom){
+	        		$(a_dom).linkbutton({'disabled':false});
+	        		});
+	        },
+	        disabledFormInput : function(){
+	        	for(var disabled_item in this.disabled_input_list){
+	        		if(this.disabled_input_list[disabled_item]){
+	        			var input_type = this.input_type_list[disabled_item];
+						if(input_type == 'combobox'){
+							this.form_input_selector_list[disabled_item][input_type]('disable');
+						}else{
+							this.form_input_selector_list[disabled_item][input_type]({disabled:true});
+						}
+	        		}
+	        	}
+				$('#outmanage').linkbutton({'disabled':false});
+	        },
+	        enableFormInput	: function(){
+	        	for(var enable_item in this.enable_input_list){
+	        		if(this.enable_input_list[enable_item]){
+	        			var input_type = this.input_type_list[enable_item];
+						if(input_type == 'combobox'){
+							this.form_input_selector_list[enable_item][input_type]('enable');
+						}else{
+							this.form_input_selector_list[enable_item][input_type]({disabled:false});
+						}
+	        		}
+	        	}
+	        },
+	        /**
+	         * 过滤NaN类型字段
+	         */
+	        convertNanToZero:function(params_deal,params_target_ar){
+	        	if($.isArray(params_target_ar)){
+	        		for(var item_name in params_deal){
+	        			if($.inArray(item_name,params_target_ar)!=-1){
+	        				if(!$.isNumeric(parseFloat(params_deal[item_name]))){
+	        					params_deal[item_name] = 0;
+	        				}
+	        			}
+	        		}
+	        		
+	        	}
+	        },
+	        keepDataIntact : function(row_data){
+	        	this.convertNanToZero(row_data,['num','price','total_amount']);
+	            if(!$.isNumeric(row_data['num']) || row_data['num'] == 0){row_data['num'] 	= (0).toFixed(4);}
+	            if(!$.isNumeric(row_data['price']) || row_data['price'] == 0){row_data['cost_price'] = (0).toFixed(4);}
+	            if(!$.isNumeric(row_data['total_amount']) || row_data['total_amount'] == 0){var temp_total_amount = parseFloat(row_data['price'])*parseFloat(row_data['num']) ; row_data['total_amount'] = temp_total_amount.toFixed(4);}
+	        }
+}
+
+</script>
+</block>
+<!-- dialog -->
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.select}"></div>
+	<div id="{$id_list.return}"></div>
+</block>
+<block name="tabs">
+</block>

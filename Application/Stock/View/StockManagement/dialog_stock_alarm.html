@@ -1,0 +1,211 @@
+<div style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div style="display: block;vertical-align:middle">
+<div>
+<label>仓库：</label><select class="easyui-combobox sel" name="warehouse_id" data-options="editable:false, required:true,onChange:function(newValue,oldValue){stockManagement.stockAlarmWhOnChange(newValue,oldValue,this);}"><volist name='warehouse_list' id='vo'> <if condition="$i eq 0"><option value="{$vo.id}" selected="selected">{$vo.name}</option><else/><option value="{$vo.id}">{$vo.name}</option></if> </volist> </select>
+</div>
+    <if condition="$is_multi eq 0">
+        <div id="{$id_list.goods_info}">
+            <fieldset style="border:  1px solid #7CAAB1;"><legend>货品信息</legend>
+                <div style="padding-left:5px;">
+                    <label>商家编码：</label><input class="easyui-textbox txt" name="spec_no" data-options="disabled:true" />
+                    <label>规格名称：</label><input class="easyui-textbox txt" name="spec_code" data-options="disabled:true" />
+                    <label>货品编码：</label><input class="easyui-textbox txt" name="goods_no" data-options="disabled:true" />
+                </div>
+                <div style="padding-left:5px;margin-top:5px ;">
+                    <label>货品名称：</label><input class="easyui-textbox txt" name="goods_name" style="width:330px" data-options="disabled:true" />
+                </div>
+            </fieldset>
+        </div>
+    <else/>
+        <div style="padding-left:5px;">
+            <p style="padding-left: 20px;color: red">{$alarm_info}</p>
+        </div>
+    </if>
+<div><label><input type="radio" name="project_type" value="0"/>方案一</label></div>
+<div style="display: block;vertical-align:middle">
+<fieldset style="border:  1px solid #7CAAB1;"><legend>通用销售增长率设置</legend>
+<div class="form-div">
+<input type="radio" project_type = '1' name="sales_rate_type" value="0"/><label>使用全局配置</label>
+</div>
+<div class="form-div">
+<input type="radio" project_type = '1' name="sales_rate_type" value="1"/><label>固定销售增长率，月增长率：</label><input class="easyui-numberbox txt" project_type = '1' name="sales_fixrate" data-options="min:1,precision:4,required:true" /><label>(1表示不增长，1.1表示增长10%)</label>
+</div>
+<div class="form-div">
+<input type="radio" project_type = '1' name="sales_rate_type" value="2"/><label>动态销售增长率，计算周期：</label><input class="easyui-numberbox txt" project_type = '1' name="sales_rate_cycle" data-options="min:1,precision:0,required:true"/>
+</div>
+</fieldset>
+</div>
+<div style="display: block;vertical-align:middle">
+<fieldset style="border:  1px solid #7CAAB1;"><legend>通用警戒库存设置</legend>
+<div class="form-div">
+<input type="radio" project_type = '1' name="alarm_type" value="1"/><label>使用全局配置</label>
+</div>
+<div class="form-div">
+<input type="radio" name="alarm_type" value="4"/>
+<label>使用当前配置的警戒库存天数：</label><input class="easyui-numberbox txt" project_type = '1' name="alarm_days" data-options="min:1,precision:0,required:true"/></div>
+</fieldset>
+</div>
+<div><label><input type="radio"  name="project_type" value="2"/>方案二</label></div>
+<div style="display: block;vertical-align:middle">
+<fieldset style="border:  1px solid #7CAAB1;"><legend>手动填写警戒库存量</legend>
+<div class="form-div">
+<label>警戒库存量：</label><input class="easyui-numberbox txt" project_type = '2' type="text" name="safe_stock" data-options="min:0,precision:0,required:true"/>
+</div>
+</fieldset>
+</div>
+</div>
+</form>
+</div>
+<script type="text/javascript">
+    //# sourceURL=stockmanagement_alarmstock.js
+(function(){
+    var spec_id = '{$spec_id}';
+    var is_multi = '{$is_multi}';
+    var element_selecor = {
+        'warehouse_id':$('#{$id_list.form} '+"select[name='warehouse_id']"),
+        'project_type':$('#{$id_list.form} '+"input[name='project_type']"),
+        'project_type_1_num':$('#{$id_list.form} '+"input[project_type='1'][class~='easyui-numberbox']"),
+        'project_type_1_radio':$('#{$id_list.form} '+"input[project_type='1'][type='radio']"),
+        'project_type_2_num':$('#{$id_list.form} '+"input[project_type='2'][class~='easyui-numberbox']"),
+    };
+    element_selecor.project_type.click(function(){
+        if(this.value == 0) {
+            element_selecor.project_type_2_num.each(function(i){
+                $(this).numberbox('disable');
+            });
+            element_selecor.project_type_1_num.each(function(i){
+                $(this).numberbox('enable');
+            });
+            element_selecor.project_type_1_radio.each(function(i){
+                $(this).attr('disabled',false);
+            });
+        }else if(this.value == 2){
+            element_selecor.project_type_1_num.each(function(i){
+                $(this).numberbox('disable');
+            });
+            element_selecor.project_type_1_radio.each(function(i){
+                $(this).attr('disabled',true);
+            });
+            element_selecor.project_type_2_num.each(function(i){
+                $(this).numberbox('enable');
+            });
+        }
+    });
+    stockManagement.submitStockAlarmDialog = function(dialog_id){
+        if(!$('#{$id_list.form}').form('validate')){return false;}
+        var rule_data = $('#{$id_list.form}').form('get');
+       /* $.messager.progress({
+            title: "请稍候",
+            msg: "该操作可能需要几分钟，请稍等...",
+            text: "",
+            interval: 100
+        });*/
+        var sel_rows = $('#'+stockManagement.params.datagrid.id).datagrid('getSelections');
+        if($.isEmptyObject(sel_rows)){
+			sel_rows = $('#'+stockManagement.params.datagrid.id).datagrid('getRows');
+			var ids =[];
+			for(var i in sel_rows)
+			{
+				ids.push({spec_id:0,warehouse_id:sel_rows[i].warehouse_id});
+				break;
+			}
+			rule_data['is_multi'] = is_multi;
+			rule_data['ids'] = ids;
+			rule_data['mul_ware_ids'] = sel_rows[0].mul_ware_ids;
+        }else{
+			var ids =[];
+			for(var i in sel_rows)
+			{
+				ids.push({spec_id:sel_rows[i].spec_id,warehouse_id:sel_rows[i].warehouse_id});
+			}
+			rule_data['is_multi'] = is_multi;
+			rule_data['ids'] = ids;
+			rule_data['mul_ware_ids'] = sel_rows[0].mul_ware_ids;
+        }
+		$.post('{:U("Stock/StockManagement/saveStockAlarm")}',rule_data,function(r){
+//            $.messager.progress('close');
+            if(r.status == 1)
+            {
+                messager.alert(r.info);
+            }else{
+                messager.alert(r.info);
+                var tab_datagrid_id = $('#'+stockManagement.params.tabs.id).tabs('getTab','库存货品详情').find('.easyui-datagrid').attr('id');
+                $('#'+tab_datagrid_id).datagrid('reload', {'id':stockManagement.rowId,'datagridId':tab_datagrid_id});
+                $('#'+stockManagement.params.datagrid.id).datagrid('reload');
+                $('#'+dialog_id).dialog('close');
+            }
+        },'json');
+    }
+    stockManagement.stockAlarmWhOnChange = function(newValue,oldValue,that){
+        if(spec_id == 0){
+            return;
+        }
+        $.post("{:U('Stock/StockManagement/getAlarmStockBySpec')}",{warehouse_id:newValue,spec_id:spec_id},function(res){
+            if(res.status){
+                messager.alert(res.info);
+            }else{
+                formatterFormInfo(res.data);
+            }
+        },'json');
+    }
+    var formatterFormInfo = function(alarm_setting){
+        var input_text      = {};
+        for(var key in alarm_setting)
+        {
+            if(key == 'alarm_type'){
+                if(alarm_setting[key] & Math.pow(2,1))
+                {
+                    $("#{$id_list.form} :input[type=radio][name='project_type'][value='"+Math.pow(2,1)+"']").prop({checked:true});
+                    element_selecor.project_type_1_num.each(function(i){
+                        $(this).numberbox('disable');
+                    });
+                    element_selecor.project_type_1_radio.each(function(i){
+                        $(this).attr('disabled',true);
+                    });
+                }else{
+                    $("#{$id_list.form} :input[type=radio][name='project_type'][value='"+0+"']").prop({checked:true});
+                    element_selecor.project_type_2_num.each(function(i){
+                        $(this).numberbox('disable');
+                    });
+                }
+                $("#{$id_list.form} :input[type=radio][name='"+key+"']").each(function(){
+                    if(alarm_setting[key] &this.value){
+                        $(this).prop({checked:true});
+                    }
+                })
+                if(alarm_setting[key] == 0){
+                    $("#{$id_list.form} :input[type=radio][name='"+key+"'][value='"+Math.pow(2,alarm_setting[key])+"']").prop({checked:true});
+                }
+            }else{
+                if($("#{$id_list.form} :input[type=radio][name='"+key+"'][value='"+alarm_setting[key]+"']").is('input'))
+                {
+                    $("#{$id_list.form} :input[type=radio][name='"+key+"'][value='"+alarm_setting[key]+"']").prop({checked:true});
+
+                }else{
+                    input_text[key] = alarm_setting[key];
+                }
+            }
+        }
+        $('#{$id_list.form}').form('filterLoad',input_text);
+    }
+    $(function(){
+        setTimeout(function(){
+            var init_rule_data  = JSON.parse('{$alarm_data}');
+            if(is_multi == 1)
+            {
+                $('#{$id_list.goods_info}').hide();
+                element_selecor.warehouse_id.combobox('disable')
+            }else{
+                $('#{$id_list.goods_info}').show();
+                element_selecor.warehouse_id.combobox('enable')
+            }
+            formatterFormInfo(init_rule_data['alarm_setting']);
+            $('#{$id_list.form}').form('filterLoad',init_rule_data['goods_info']);
+        });
+
+    });
+
+})();
+
+</script>

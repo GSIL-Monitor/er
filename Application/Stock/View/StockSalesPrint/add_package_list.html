@@ -1,0 +1,80 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+	<div id="{$tool_bar}" style="padding:5px;height:auto">
+		<form id="{$form}" method="post" style="display: inline-block;vertical-align:middle">
+			<label style="margin-left: 20px;">物流公司：</label><input id='add_package_logistics_name' name="logistics_name" class="easyui-textbox txt" type="text" disabled=true style="width: 100px;" value=""/>
+            <label style="margin-left: 35px; color: red;">注：包裹数不包含主订单数量！</label>
+            <label style="margin-left: 35px;">批量修改包裹数</label><input  class="easyui-numberbox" style = "width:50px;" name="bulk_editing" type="text" value="1" data-options="precision:0,required:true"/>
+        </form>
+	</div>
+</block>
+<block name="dialog">
+</block>
+<block name="tabs">
+</block>
+<block name="script">
+	<script>
+        //# sourceURL=addWaybill.js
+        (function(){
+            var toolbar_id = '{$tool_bar}';
+            var form_id = '{$form}';
+            var element_selectors ={
+                'form'				:$('#'+form_id),
+                'logistics_name'	:$('#'+toolbar_id+" :input[name='logistics_name']"),
+                'bulk_editing'		:$('#'+toolbar_id+" :input[name='bulk_editing']"),
+            };
+            // 可编辑cell的点击事件
+            function onClick(index,field,value,bill_type){
+                if((field=='logistics_no')&&(bill_type==1)){
+                    var ed = $('#{$datagrid.id}').datagrid('getEditor',{index:parseInt(index),field:field});
+					$(ed.target).textbox('readonly');
+                }else if((field=='package_count')&&(bill_type==0)){
+                    var ed = $('#{$datagrid.id}').datagrid('getEditor',{index:parseInt(index),field:field});
+                    $(ed.target).textbox('readonly');
+                }else if((field=='package_count')&&(bill_type==1)){
+                    var ed = $('#{$datagrid.id}').datagrid('getEditor',{index:parseInt(index),field:field});
+                    var row = $('#{$datagrid.id}').datagrid('getRows')[index];
+                    if(row.logistics_no != ''){
+                        $(ed.target).textbox('readonly');
+                    }
+				}else if((field=='package_count')&&(bill_type==2)){
+                    var ed = $('#{$datagrid.id}').datagrid('getEditor',{index:parseInt(index),field:field});
+                    $(ed.target).textbox('readonly',false);
+                }
+            }
+            $( function(){
+                stockSalesPrint.params.id_list.logistics_no_datagrid_id = '{$datagrid.id}';
+				element_selectors.bulk_editing.numberbox({onChange:function(newValue,oldValue){
+				  var waybill_info = $('#{$datagrid.id}').datagrid('getRows');
+				  for(var j in waybill_info){
+					if(parseInt(waybill_info[j].bill_type) != 0){
+						$('#{$datagrid.id}').datagrid('updateRow',{index:parseInt(j),row:{package_count:newValue}});
+					}
+				  }
+                }});
+                setTimeout(function(){
+                    var sel_rows = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections');
+                    var bill_type=undefined;
+                    for(var i in sel_rows){
+                        if(sel_rows[i].logistics_id == stockSalesPrint.add_logistics_id){
+                            bill_type = sel_rows[i].bill_type;
+                            break;
+                        }
+                    }
+                    if(bill_type==undefined){
+                        bill_type = $('#'+stockSalesPrint.params.datagrid.id).datagrid('getSelections')[0].bill_type;
+                    }
+                    // 绑定cell点击事件
+                    $('#{$datagrid.id}').datagrid('options').onClickCell = function(index,field,value){
+                        onClick(index,field,value,bill_type);
+                    };
+                    if (2 == bill_type){
+                        $('#{$datagrid.id}').datagrid().datagrid('enableCellEditing');
+                    }
+                }, 0);
+            });
+        })();
+
+
+	</script>
+</block>

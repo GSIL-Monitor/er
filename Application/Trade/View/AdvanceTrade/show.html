@@ -1,0 +1,159 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.add}"></div><div id="{$id_list.edit}"></div><div id="{$id_list.exchange}"></div></block>
+<block name="toolbar">
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<style type="text/css">
+#advanceTrade_next_link {
+	float: right;
+	margin-right: 10px;
+}
+</style>
+<form id="{$id_list.form}" class="easyui-form" method="post">
+<div class="form-div">
+<label>订单编号：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tids]" />
+<label>　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" />
+<label>　电话号码：</label><input class="easyui-textbox txt" type="text" name="search[receiver_mobile]" />
+<label>　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<a href="javascript:void(0)" onclick="advanceTrade.clickMore(this);">更多</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="advanceTrade.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="advanceTrade.loadFormData();">重置</a>
+<a href="javascript:void(0)" id="advanceTrade_next_link" class="easyui-linkbutton" data-options="iconCls:'icon-next',plain:true" onClick="open_menu('订单审核', '{:U('Trade/TradeCheck/getTradeList')}')">订单审核</a>
+</div>
+<div id="{$id_list.more_content}">
+<div class="form-div">
+<label>客服备注：</label><input class="easyui-textbox txt" type="text" name="search[cs_remark]" />
+<label>　物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]"><option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>　订单来源：</label><input class="easyui-combobox txt" name="search[trade_from]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_from')"/> 
+<label>　发货条件：</label><input class="easyui-combobox txt" name="search[delivery_term]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('delivery_term')"/>
+<label>　类别：</label><input class="easyui-combobox txt" name="search[trade_type]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type')"/>
+</div>
+<div class="form-div">
+<label>退款状态：</label><input class="easyui-combobox txt" name="search[refund_status]" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('refund_status')"/> 
+<label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+<label>　货品编码：</label><input class="easyui-textbox txt" type="text" name="search[goods_no]" />
+<label>　订单标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]"/>
+</div>
+<div class="form-div">
+<label>下单时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" data-options="editable:false"/>
+<label>　　　　至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" data-options="editable:false"/> 
+</div>
+</div>
+</form>
+<input type="hidden" id="{$id_list.hidden_flag}" value="1">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="advanceTrade.edit()">编辑</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-search',menu:'#advance-check-trade'" onclick="turnCheck(0)">转入审核</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="advanceTrade.setFlag()">标记管理</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-sign',plain:true,menu:'#advanceTrade-flag'">标记订单</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="advanceTrade.checkNumber()">查看号码</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="setDatagridField('Trade/TradeCheck','trade_check','{$datagrid.id}',1)">设置表头</a>
+<div id="advance-check-trade"><div data-options="iconCls:'icon-search'" onclick="turnCheck(1)">强制转入审核</div></div>
+</div>
+<div id="advanceTrade-flag" style="width:100px;height:150px;" noline="true" >
+	<volist name='list.flag' id='vo'>
+		<div onclick="advanceTrade.newSelectFlag({$vo.id})"><span style="margin-left: -25px; background-color:{$vo.bg_color}; font-family:{$vo.family}; color: {$vo.color};">{$vo.name}</span></div>
+	</volist>
+</div>
+<script type="text/javascript">
+//加载完调用的方法
+$(function(){
+	setTimeout(function () { 
+	advanceTrade = new RichDatagrid(JSON.parse('{$params}')); 
+	advanceTrade.setFormData();
+	advanceTrade.submitEditDialog=function(){submitTradeEditDialog();}
+	//查看号码
+	advanceTrade.checkNumber=function(){
+		var rows=advanceTrade.selectRows;
+		if(rows==undefined){messager.info('请选择操作的行');return false;}
+		var ids=[];
+		var list=[];
+		for(var i in rows){
+			if(rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+				list.push({trade_no:rows[i]['trade_no'],result_info:'手机和固话均为空！'});
+				continue;
+			}
+			ids.push(rows[i]['id']); 
+		}
+		if(ids.length>0){
+			$.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'sales_trade'},function(res){
+				advanceTrade.dealDatagridReasonRows(res,list); 
+			},'JSON');
+		}else{
+			var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+			advanceTrade.dealDatagridReasonRows(res,undefined); 
+		}
+	}
+	advanceTrade.dealDatagridReasonRows=function(result,list){
+		if(result.status==1){ messager.alert(result.message); return;}
+		if(list!=undefined&&list.length>0){
+			var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+			result.info.rows=$.merge(list,fail);
+			result.info.total+=list.length;
+			result.status=2;
+		}
+		if(result.status==2){ $.fn.richDialog("response", result.info, 'tradecheck');}
+		if((result.status==0||result.status==2)&&result.data!=undefined){
+			var rows=advanceTrade.selectRows;
+			var index;
+			var trade_dg=$('#'+advanceTrade.params.datagrid.id);
+			for(var i in rows){
+				for(var x in result.data.rows){
+					if(rows[i].id==result.data.rows[x].id){ 
+						index=trade_dg.datagrid('getRowIndex',rows[i]); 
+						if(result.freeze_reason!=undefined){rows[i].freeze_reason=result.freeze_reason;rows[i].flag_id=result.flag_id;trade_dg.datagrid('refreshRow',index);}
+						else if(result.cancel_reason!=undefined){rows[i].cancel_reason=result.cancel_reason;rows[i].trade_status=result.trade_status;rows[i].version_id=parseInt(rows[i].version_id)+1;rows[i].flag_id=result.flag_id;trade_dg.datagrid('refreshRow',index);}
+						else if(result.revert_reason!=undefined){rows[i].revert_reason=result.revert_reason;rows[i].version_id=parseInt(rows[i].version_id)+1;rows[i].flag_id=result.flag_id;trade_dg.datagrid('refreshRow',index);}
+						else if(result.turn!=undefined&&result.turn){trade_dg.datagrid('deleteRow',index);advanceTrade.selectRows=undefined;}
+						else if(result.refund!=undefined&&result.refund){trade_dg.datagrid('deleteRow',index);advanceTrade.selectRows=undefined;}
+						else if(result.check_number){rows[i].receiver_mobile=result.data.rows[x].receiver_mobile;rows[i].receiver_telno=result.data.rows[x].receiver_telno;trade_dg.datagrid('refreshRow',index);}
+					}
+				}
+			}
+		}
+	}
+	advanceTrade.newSelectFlag=function(id){
+		var flag=[];
+		flag.id=id;
+		advanceTrade.selectFlag(flag);
+	}
+	}, 0);
+});
+function editTradeRowStyler(i,row){
+	var refund_bg_color='{$refund_color}';
+	if(row.refund_status>1){return refund_bg_color;}
+	return;
+}
+function turnCheck(turnType,turnRows){
+	turnType=(turnType==undefined?0:turnType);
+	var rows=(turnRows==undefined?advanceTrade.selectRows:turnRows);
+	if(rows==undefined){messager.alert('请选择转入的订单');return false;}
+	var ids=[];
+	var list=[];
+	for(var i in rows){
+		if(rows[i]['id']<1){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+		}
+		if(rows[i]['trade_status']!=undefined&&rows[i]['trade_status']!=25){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单状态不正确'});continue;
+		}
+		if(turnType!=1&&rows[i]['freeze_reason']!=undefined&&rows[i]['freeze_reason']!=0){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单已被冻结'});continue;
+		}
+		if(turnType!=1&&rows[i]['bad_reason']!=undefined&&rows[i]['bad_reason']!=0){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'异常订单'});continue;
+		}
+		ids.push(rows[i]['id']);
+	}
+	if(ids.length>0){
+		var turn_check_ids=JSON.stringify(ids);
+		var url='{$url_list.turn_check_url}';
+		$.post(url,{'ids':turn_check_ids,'type':turnType},function(res){ 
+			advanceTrade.dealDatagridReasonRows(res,list); 
+		},'JSON');
+	}else{
+		var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+		advanceTrade.dealDatagridReasonRows(res,undefined);
+	}
+}
+</script>
+</block>

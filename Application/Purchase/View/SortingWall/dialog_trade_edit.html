@@ -1,0 +1,312 @@
+<taglib name="TagLib\EasyUI" />
+<easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />
+<div id="{$id_list.toolbar}">
+<form  id="{$id_list.form_id}">
+<div class="form-div">
+<label>　订单号：</label><input class="easyui-textbox txt" type="text" name="trade_no" value="{$trade.trade_no}" data-options="disabled:true"/>
+<label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="src_tids" value="{$trade.src_tids}" data-options="disabled:true,required:true"/>
+<label>　交易店铺：</label><select class="easyui-combobox sel" name="shop_id" data-options="disabled:true,editable:false,required:true"><volist name='list.shop' id='vo'><if condition="$vo['id'] eq $trade['shop_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<label>　　　仓库：</label><select class="easyui-combobox sel" name="warehouse_id" data-options="editable:false,required:true"><volist name='list.warehouse' id='vo'><if condition="$vo['id'] eq $trade['warehouse_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+</div>
+<div class="form-div">
+<label>物流公司：</label><select class="easyui-combobox sel" type="text" name="logistics_id"  data-options="editable:false,required:true"><if condition="$trade['delivery_term'] eq 2"><volist name="logistics.cod_logistics" id='vo'><if condition="$vo['id'] eq $trade['logistics_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist><else /><volist name="logistics.logistics" id='vo'><if condition="$vo['id'] eq $trade['logistics_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></if></select>
+<label>　　业务员：</label><select class="easyui-combobox sel" name="salesman_id"  data-options="editable:false,required:true"><volist name='list.employee' id='vo'><if condition="$vo['id'] eq $trade['salesman_id']"><option value="{$vo.id}" selected>{$vo.name}</option><else/> <option value="{$vo.id}">{$vo.name}</option></if></volist></select>
+<label>　订单类型：</label><input class="easyui-combobox txt" name="trade_type" data-options="disabled:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('trade_type','def','{$trade.trade_type}')"/>
+<label>　开具发票：</label><input class="easyui-combobox txt" name="invoice_type" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('invoice_type','def','{$trade.invoice_type}'),onSelect:selectInvoiceType"/>
+</div>
+<div class="form-div">
+<label>发票抬头：</label><input class="easyui-textbox txt" name="invoice_title" value="{$trade.invoice_title}" data-options="disabled:true"/>
+<label>　发票内容：</label><input class="easyui-textbox txt" name="invoice_content" value="{$trade.invoice_content}" data-options="disabled:true"/>
+<label>　发货条件：</label><input class="easyui-combobox txt" name="delivery_term" data-options="disabled:true,panelHeight:'auto',valueField:'id',textField:'name',data:formatter.get_data('delivery_term','def','{$trade.delivery_term}')"/>
+<label>　客户网名：</label><input class="easyui-textbox txt" name="buyer_nick" value="{$trade.buyer_nick}" type="text" data-options="disabled:true"/>
+</div>
+<div class="form-div">
+<label>预估邮费：</label><input class="easyui-numberbox txt" name="post_cost" value="{$trade.post_cost}" type="text" data-options="min:0,precision:4"/>
+<label>　收货人名：</label><input class="easyui-textbox txt" name="receiver_name" value="{$trade.receiver_name}" type="text" data-options="required:true"/> 
+<if condition="$id_list.right_flag eq 0">
+<label>　　　手机：</label><input class="easyui-textbox txt" name="receiver_mobile" value="{$trade.receiver_mobile}" type="text" data-options="disabled:true"/>
+<label>　　　固话：</label><input class="easyui-textbox txt" name="receiver_telno" value="{$trade.receiver_telno}" type="text" data-options="disabled:true"/>
+<else/>
+<label>　　　手机：</label><input class="easyui-textbox txt" name="receiver_mobile" value="{$trade.receiver_mobile}" type="text" data-options="validType:'mobile'"/>
+<label>　　　固话：</label><input class="easyui-textbox txt" name="receiver_telno" value="{$trade.receiver_telno}" type="text" data-options="validType:'mobileAndTel'"/>
+</if>
+</div>
+<div class="form-div">
+<label>　　　省：</label><input id="boxEditTradeProvince" class="easyui-combobox txt" name="receiver_province"/>
+<label>　　　　市：</label><input id="boxEditTradeCity" class="easyui-combobox txt" name="receiver_city"/>
+<label>　　　　区：</label><input id="boxEditTradeDistrict" class="easyui-combobox txt" name="receiver_district"/>
+<label>　区县别名：</label><input class="easyui-textbox txt" name="receiver_dtb" value="{$trade.receiver_dtb}" type="text"/>
+</div>
+<div class="form-div">
+<label>　　地址：</label><input class="easyui-textbox" style="width:336px;" name="receiver_address" value="{$trade.receiver_address}" type="text" data-options="required:true"/> 
+<label>　　　邮编：</label><input class="easyui-textbox txt" name="receiver_zip" value="{$trade.receiver_zip}" type="text" data-options="validType:'zip'"/> 
+<label>　支付账户：</label><input class="easyui-textbox txt" name="pay_account" value="{$trade.pay_account}" type="text" data-options="disabled:true"/>
+</div>
+<div class="form-div">
+<label>　总货款：</label><input class="easyui-numberbox txt" name="goods_amount" value="{$trade.goods_amount}" type="text" data-options="min:0,precision:4,disabled:true"/>
+<label>　　　邮费：</label><input class="easyui-numberbox txt" name="post_amount" value="{$trade.post_amount}" type="text" data-options="min:0,precision:4,disabled:true"/>
+<label>　　　优惠：</label><input class="easyui-numberbox txt" name="discount" value="{$trade.discount}" type="text" data-options="precision:4,disabled:true"/>
+<label>　　　应收：</label><input class="easyui-numberbox txt" name="receivable" value="{$trade.receivable}" type="text" data-options="min:0,precision:4,disabled:true"/> 
+</div>
+<div class="form-div">
+<label>　　已付：</label><input class="easyui-numberbox txt" name="paid" value="{$trade.paid}" type="text" data-options="min:0,precision:4,disabled:true"/>
+<label>　COD金额：</label><input class="easyui-numberbox txt" name="cod_amount" value="{$trade.cod_amount}" type="text" data-options="min:0,precision:4,disabled:true"/>
+<label>　买家留言：</label><input class="easyui-textbox" style="width:336px;" name="buyer_message" value="{$trade.buyer_message}" type="text" data-options="disabled:true"/> 
+</div>
+<!-- <div class="form-div">
+<label>货品包装：</label><select class="easyui-combobox sel" name="package_id" value="{$trade.package_id}"  data-options="panelHeight:'auto',editable:false"><volist name='list.package' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+<label>买家COD：</label><input class="easyui-numberbox txt" name="cod_amount" value="{$trade.cod_amount}" type="text" data-options="min:0,precision:4,disabled:true"/>
+<label>佣　　金：</label><input class="easyui-numberbox txt" name="commission" value="{$trade.commission}" type="text"  data-options="min:0,precision:4,disabled:true"/> 
+</div> -->
+<div class="form-div">
+<label>客服备注：</label><input class="easyui-textbox" style="width:336px;" name="cs_remark" value="{$trade.cs_remark}" type="text" />
+<label>　打印备注：</label><input class="easyui-textbox" style="width:336px;" name="print_remark" value="{$trade.print_remark}" type="text"/>
+</div>
+</form>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-reload',plain:true" onclick="editTrade.exchangeOrder()">换货</a>
+</div>
+<script type="text/javascript">
+//# sourceURL=edit.trade.js
+var editIndex = undefined;
+var spec={};
+function f_spec(value, rowData, rowIndex) {  
+    if (value == 0) {return "";}  
+    for (var i = 0; i < spec.length; i++) {  
+        if (spec[i].id == value) { return spec[i].name; }  
+    }  
+    return value;  
+}
+function sel_spec(record){
+	$('#{$id_list.id_datagrid}').datagrid('endEdit', editIndex);
+	rows=$('#{$id_list.id_datagrid}').datagrid('getSelected');
+	$('#{$id_list.id_datagrid}').datagrid('updateRow',{
+		index: editIndex,
+		row: {
+			spec_no:record['spec_no'],
+			spec_code:record['spec_code'],
+			price:record['price'],
+			weight:record['weight']*rows['actual_num'],
+			discount:(record['price']-rows['order_price'])*rows['actual_num'],
+			spec_id:record['spec_id'],
+		}
+	});
+}
+function trade_edit_onClickRow(index,feild,value) {
+	if(editIndex==undefined||editIndex!=index){
+        $('#{$id_list.id_datagrid}').datagrid('endEdit', editIndex);
+	}
+    $('#{$id_list.id_datagrid}').datagrid('selectRow', index).datagrid('beginEdit', index);
+	var rows=$('#{$id_list.id_datagrid}').datagrid('getRows');
+    editIndex = index;
+    	var url='{$id_list.url_get_spec}';
+    	var ed = $('#{$id_list.id_datagrid}').datagrid('getEditor', {index:editIndex,field:'spec_name'});
+    	Post(url,{goods_id:rows[index]['goods_id']},function(res){
+    		//for(i=0;i<res.num;i++){if(res.spec[i]['name']==rows[index]['spec_name']){res.spec[i]['selected']=true;}}
+    		spec=res.spec;
+    		$(ed.target).combobox('loadData', spec);
+    		if(res.num==1){$(ed.target).combobox({disabled:true});$(ed.target).combobox('setValue',rows[index]['spec_name'])}
+    	},'JSON');
+}
+$(function () { 
+//	$('#{$id_list.id_datagrid}').datagrid().datagrid('enableCellEditing');
+//	$('#{$id_list.id_datagrid}').datagrid({ onClickCell: trade_edit_onClickRow,});
+	box_edit_trade_element=initEditTradeElement();
+	setTimeout(function () { 
+		setShopAndDelivery();
+		selectInvoiceType({id:parseInt(box_edit_trade_element[4].combobox().combobox('getValue'))});
+		$('#{$id_list.id_datagrid}').datagrid('loadData',{$json_orders});
+		editTrade = new ThinDatagrid($('#{$id_list.id_datagrid}'),undefined,false);
+		editTradeArea = new area("boxEditTradeProvince", "boxEditTradeCity", "boxEditTradeDistrict",{province:'{$trade.receiver_province}',city:'{$trade.receiver_city}',district:'{$trade.receiver_district}'});
+		//总货款-优惠-应收-邮费-计算
+//		editTrade.calculate=function(row,type){
+//			if(type==undefined||type==1||type==2){
+//				//+  总货款-优惠-应收-邮费
+//				box_edit_trade_element[7].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[7].numberbox().numberbox('getValue'))+parseFloat(row.price*row.actual_num)).toFixed(4));
+//				box_edit_trade_element[9].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[9].numberbox().numberbox('getValue'))+(row.price-row.share_price)*row.actual_num).toFixed(4));
+//				if(type==undefined||type==1){
+//					box_edit_trade_element[8].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[8].numberbox().numberbox('getValue'))+parseFloat(row.share_post)).toFixed(4));
+//					box_edit_trade_element[10].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[10].numberbox().numberbox('getValue'))+parseFloat(row.share_amount)+parseFloat(row.share_post)).toFixed(4));
+//				}else if(type==2){
+//					box_edit_trade_element[10].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[10].numberbox().numberbox('getValue'))+row.share_price*row.actual_num).toFixed(4));
+//				}
+//			}else if(type==3){
+//				//-  总货款-优惠-应收-邮费
+//				box_edit_trade_element[7].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[7].numberbox().numberbox('getValue'))-row.price*row.actual_num).toFixed(4));
+//				box_edit_trade_element[8].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[8].numberbox().numberbox('getValue'))-row.share_post).toFixed(4));
+//				box_edit_trade_element[9].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[9].numberbox().numberbox('getValue'))-(row.price-row.share_price)*row.actual_num).toFixed(4));
+//				box_edit_trade_element[10].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[10].numberbox().numberbox('getValue'))-row.share_amount-row.share_post).toFixed(4));
+//			}
+//		}
+		sortingBox.submitTradeEditDialog = function(dg_id){
+			var trade_form=$('#{$id_list.form_id}');
+//			if(!editTrade.endEdit(true)) { return false; }
+			if(!trade_form.form('validate')){ return false;}
+//			var rows=editTrade.selector.datagrid('getRows');
+//			if (rows.length==0){messager.info('订单至少保留一件货品');return false;}
+//			else{
+//				var count_refund=0;var count_gift=0;
+//				for(var i=0;i<rows.length;i++){
+//					if(rows[i]['refund_status']>1){count_refund++;}
+//					if(rows[i]['gift_type']>0){count_gift++;}
+//				}
+//				if(count_refund>0&&(count_refund+count_gift==rows.length)){
+//					$('#flag_set_dialog').dialog('close');box_edit_trade_element['show_dg'].datagrid('reload');return false;
+//				}
+//			}
+			if(box_edit_trade_element['mobile'].textbox('getValue')==''&&box_edit_trade_element['telno'].textbox('getValue')==''){ messager.alert('手机和固话至少有一个不能为空');return; }
+			var data={};
+			for(var i=7;i<11;i++){ box_edit_trade_element[i].numberbox('enable');}
+			for(var i=0;i<3;i++){ box_edit_trade_element[i].combobox('enable');}
+			var trade_form_data=trade_form.form('get');
+			var province=$('#boxEditTradeProvince').combobox('getText');
+			var city=$('#boxEditTradeCity').combobox('getText');
+			var district=$('#boxEditTradeDistrict').combobox('getText');
+			if (province!=undefined && province!=0 && city!=undefined && city!=0 && district!=undefined) {trade_form_data['receiver_area']=province+' '+city+' '+district;
+			}
+			var trade_row=box_edit_trade_element['show_dg'].datagrid('getSelected');
+			trade_form_data['version_id']=trade_row.version_id;//tradeCheck.selectRows[0].version_id;
+			//trade_form_data['goods_type_count']=editTrade.selector.datagrid('getRows').length;//数量
+			data['id']='{$trade.id}';
+			data['trade_no']='{$trade.trade_no}';
+			data['info']=JSON.stringify(trade_form_data);
+			var orders={};
+			orders['add']=[];
+			orders['delete']=[];
+			orders['update']=[];
+			data['orders']=JSON.stringify(orders);
+			for(var i=0;i<3;i++){ if(i!==1){box_edit_trade_element[i].combobox('disable');}}
+			for(var i=7;i<11;i++){ box_edit_trade_element[i].numberbox('disable');}
+			Post("{:U('Purchase/SortingWall/editTrade')}",data,function(res){
+				if(!res.status){
+					messager.alert(res.info);
+					return false;
+				}else{
+					$('#'+dg_id).dialog('close');
+					//box_edit_trade_element['show_dg'].datagrid('reload');// tradeCheck.refresh();//添加完后刷新表格
+				}
+			},"JSON");
+		}
+		//换货
+		editTrade.exchangeOrder=function(){
+			if (editTrade.editIndex==undefined){messager.info('请选择操作的行');return;}
+			editTrade.selector.datagrid('selectRow',editTrade.editIndex);
+			var row=editTrade.selector.datagrid('getSelected');
+			if (!row.sto_id) {messager.info('无效子订单');return;};
+			if (row.refund_status>1) {messager.info('不能替换退款货品');return;};
+			var url='{$id_list.url_exchange}';
+			url += url.indexOf('?') != -1 ? '&id='+row.sto_id : '?id='+row.sto_id;
+			var buttons=[ {text:'确定',handler:function(){submitBoxEditExchangeOrderDialog();}}, {text:'取消',handler:function(){Dialog.cancel(box_edit_trade_element['exchange']);}} ];
+			Dialog.show(box_edit_trade_element['exchange'],'订单换货',url,560,764,buttons);
+		}
+	}, 0); 
+});
+
+//元素--初始化
+function initEditTradeElement(){
+	var form_id='{$id_list.form_id}';
+	var element={
+			0:$('#'+form_id+" :input[name='trade_type']"),
+			1:$('#'+form_id+" :input[name='shop_id']"),
+			2:$('#'+form_id+" :input[name='delivery_term']"),
+			3:$('#'+form_id+" :input[name='warehouse_id']"),
+			4:$('#'+form_id+" :input[name='invoice_type']"),
+			5:$('#'+form_id+" :input[name='invoice_title']"),
+			6:$('#'+form_id+" :input[name='invoice_content']"),
+			7:$('#'+form_id+" :input[name='goods_amount']"),
+			8:$('#'+form_id+" :input[name='post_amount']"),
+			9:$('#'+form_id+" :input[name='discount']"),
+			10:$('#'+form_id+" :input[name='receivable']"),
+			11:$('#'+form_id+" :input[name='paid']"),
+			'mobile':$('#'+form_id+" :input[name='receiver_mobile']"),
+			'telno':$('#'+form_id+" :input[name='receiver_telno']"),
+			'exchange':'trade_exchange',
+			'dialog_id':'reason_show_dialog',
+			'show_dg':$('#{$id_list.datagrid_id}'),
+	};
+	return element;
+}
+//设置可编辑(店铺和发货条件)
+function setShopAndDelivery(){
+	var trade_from='{$trade.trade_from}';
+	if(trade_from==2){
+		box_edit_trade_element[1].combobox('enable');
+		//box_edit_trade_element[2].combobox('enable');
+	}
+}
+//invoice--选择事件
+function selectInvoiceType(record){
+	if(record.id==0){box_edit_trade_element[5].textbox('disable');box_edit_trade_element[6].textbox('disable');}
+	else{box_edit_trade_element[5].textbox('enable');box_edit_trade_element[6].textbox('enable');}
+}
+//datagrid--事件
+/*function editTradeRowStyler(i,row){
+	var refund_bg_color='{$trade.bg_color}';
+	if(row.refund_status>1){return refund_bg_color;}
+	return;
+}
+function beginEditTrade(index,row){
+	box_edit_trade_element.actual_num=parseFloat(row.actual_num).toFixed("{$point_number}");
+	box_edit_trade_element.share_price=parseFloat(row.share_price).toFixed(4);
+	box_edit_trade_element.share_post=parseFloat(row.share_post).toFixed(4);
+	box_edit_trade_element.share_amount=parseFloat(row.share_amount).toFixed(4);
+	box_edit_trade_element.discount=parseFloat(row.discount).toFixed(4);
+}
+function endEditTrade(index, row, changes){
+	var flag=false;
+	$.each(changes,function(key,val){
+		if(key=='remark'){return;}
+		if(key=='spec_name'){return;}
+		flag=true;
+		switch(key){
+		case 'actual_num':
+			if(row.platform_id>0||row.paid>0){row.actual_num=box_edit_trade_element.actual_num;}
+			else if(row.actual_num==0){editTrade.remove(1);}
+			else{row.actual_num=row.actual_num<0?-row.actual_num:row.actual_num;
+			row.share_amount=parseFloat(row.share_price*row.actual_num).toFixed(4);
+			row.discount=parseFloat((row.price-row.share_price)*row.actual_num).toFixed(4);}
+			break;
+		case 'share_price':
+			if(row.gift_type==2){row.share_price=box_edit_trade_element.share_price;}
+			else if(row.platform_id>0||row.paid>0){row.share_price=box_edit_trade_element.share_price;}//避免货款分摊不正确
+			else{row.share_price=row.share_price<0?-row.share_price:row.share_price; 
+			row.share_amount=parseFloat(row.share_price*row.actual_num).toFixed(4);
+			row.discount=parseFloat((row.price-row.share_price)*row.actual_num).toFixed(4);}
+			break;
+		case 'share_amount':
+			if(row.gift_type==2){row.share_amount=box_edit_trade_element.share_amount;}
+			else if(row.platform_id>0||row.paid>0){row.share_amount=box_edit_trade_element.share_amount;}//避免货款分摊不正确
+			else{row.share_amount=row.share_amount<0?-row.share_amount:row.share_amount;
+			row.share_price=parseFloat(row.share_amount/row.actual_num).toFixed(4);
+			row.discount=parseFloat(row.price*row.actual_num-row.share_amount).toFixed(4);}
+			break;
+		case 'discount':
+			if(row.gift_type==2){row.discount=box_edit_trade_element.discount;}
+			else if(row.platform_id>0||row.paid>0){row.discount=box_edit_trade_element.discount;}//避免货款分摊不正确
+			else{row.share_amount=parseFloat(row.price*row.actual_num-row.discount).toFixed(4);
+			row.share_price=parseFloat(row.share_amount/row.actual_num).toFixed(4);}
+			break;
+		case 'share_post':
+			if(row.platform_id>0||row.paid>0){row.share_post=box_edit_trade_element.share_post;}
+			else{row.share_post=row.share_post<0?-row.share_post:row.share_post;}
+			break;
+		}
+		if(row.platform_id>0){ messager.alert('线上订单不可修改！');}else if(row.paid>0){messager.alert('不能修改已付款订单，请按退款处理！');}
+	});
+	if(!flag){return;}
+	//总货款-优惠-应收-邮费-计算
+	box_edit_trade_element[7].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[7].numberbox().numberbox('getValue'))-box_edit_trade_element.actual_num*row.price).toFixed(4));
+	box_edit_trade_element[8].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[8].numberbox().numberbox('getValue'))-box_edit_trade_element.share_post).toFixed(4));
+	box_edit_trade_element[9].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[9].numberbox().numberbox('getValue'))-(row.price-box_edit_trade_element.share_price)*box_edit_trade_element.actual_num).toFixed(4));
+	box_edit_trade_element[10].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[10].numberbox().numberbox('getValue'))-box_edit_trade_element.share_amount-box_edit_trade_element.share_post).toFixed(4));
+	
+	//editTrade.calculate(row,1);
+	box_edit_trade_element[7].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[7].numberbox().numberbox('getValue'))+parseFloat(row.price*row.actual_num)).toFixed(4));
+	box_edit_trade_element[8].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[8].numberbox().numberbox('getValue'))+parseFloat(row.share_post)).toFixed(4));
+	box_edit_trade_element[9].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[9].numberbox().numberbox('getValue'))+(row.price-row.share_price)*row.actual_num).toFixed(4));
+	box_edit_trade_element[10].numberbox('setValue',parseFloat(parseFloat(box_edit_trade_element[10].numberbox().numberbox('getValue'))+parseFloat(row.share_amount)+parseFloat(row.share_post)).toFixed(4));
+}*/
+
+
+
+
+</script>

@@ -1,0 +1,22 @@
+[ 2017-08-08T22:49:45+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1502203628300
+ERR: 菜鸟打印组件授权失败:
+[ 2017-08-08T23:01:34+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1502203628302
+ERR: 菜鸟打印组件授权失败:
+[ 2017-08-08T23:10:33+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:11:06+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:12:29+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:15:39+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:25:21+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:25:41+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:26:22+08:00 ] 127.0.0.1 /index.php/stock/stock_sales_print/getprintbatchdetaillist.html
+ERR: StockOutOrder-getPrintBatchDetailById-SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') group by so.stockout_id order by so.stockout_id' at line 1
+[ 2017-08-08T23:46:00+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1502207124683
+ERR: 菜鸟打印组件授权失败:
+[ 2017-08-08T23:48:57+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1502207305822
+ERR: 菜鸟打印组件授权失败:

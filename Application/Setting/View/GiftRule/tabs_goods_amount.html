@@ -1,0 +1,24 @@
+<extend name="../../Common/View/datagrid_tabs_base" /> 
+<block name="tabs"></block> <block name="dialog"> </block> 
+<block name="toolbar"> 
+<div id="{$id_list.toolbar}">
+<a href="#" name="menu-select-goods-amount" class="easyui-menubutton" data-options="menu:'#mbut-select-goods-amount'">添加货品</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="giftRule.tabDatagrid['{$datagrid.id}'].remove()">删除</a>
+<label style="color: red">(注:按单个货品金额=>任意一个指定的货品金额满足条件即可赠送；按指定金额和=>指定货品的金额总和满足条件即可赠送)</label>
+<div id="mbut-select-goods-amount"><div>添加单品</div><div>添加组合装</div></div>
+</div>
+<script type="text/javascript">
+//添加--指定金额货品
+$($(".easyui-menubutton[name='menu-select-goods-amount']").menubutton().menubutton('options').menu).menu({
+	onClick:function(item){
+	 switch(item.text){
+	 case '添加单品':
+		 $('#{$id_list.add}').richDialog('goodsSpec', giftRule.addSpec, {'prefix':'add_spec_amount','type':true,'warehouse_id':'all','model':'rule'}, false);
+		 break;
+	 case '添加组合装':
+		 $('#{$id_list.add}').richDialog('goodsSuite', giftRule.addSuite, 'add_suite_amount', false);
+		 break;
+	 }}
+});
+</script>
+</block> 

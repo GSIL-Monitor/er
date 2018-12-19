@@ -1,0 +1,254 @@
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:19	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:20	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:20	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:20	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:20	PHP Error Severity: 2 --> urlencode() expects parameter 1 to be string, array given E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:41	PHP Error Severity: 2 --> file_get_contents(http://10.132.180.236/index.php?action=license&amp;id_list=&amp;datagrid=&amp;search=&amp;tabs=&amp;flag=&amp;revert_reason=&amp;set_field_pic=&amp;chg_print_status=&amp;message=&amp;searchInitData=&amp;operator_id=1&amp;print_batch=&amp;host=): failed to open stream: ������ӷ���һ��ʱ���û���ȷ�𸴻�ӵ����û�з�Ӧ�����ӳ���ʧ�ܡ�
+ E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php 1
+2017-08-23 21:33:41	PHP Error Severity: 8 --> Trying to get property of non-object E:\wamp\www\test\trunk\source\Application\Stock\Controller\StockSalesPrintController.class.php 128
+2017-08-23 21:33:42	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 116
+2017-08-23 21:33:43	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-23 21:33:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-23 21:33:43	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:43	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:43	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:43	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:44	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 620
+2017-08-23 21:33:49	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-23 21:33:49	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 30
+2017-08-23 21:33:49	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:49	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:49	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:33:49	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:28	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 21:39:28	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 21:39:29	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:30	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-23 21:39:32	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:32	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:32	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:32	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:32	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:32	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:43	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:39:43	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:43	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:43	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:39:43	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:42:19	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 621
+2017-08-23 21:44:09	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 21:44:09	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 21:44:11	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:11	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:13	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-23 21:44:13	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:13	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:15	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:15	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:18	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:18	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:20	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:44:20	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:44:20	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:44:20	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:44:20	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 242
+2017-08-23 21:44:20	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:50:13	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:14	PHP Error Severity: 8 --> Undefined index: frozen E:\wamp\www\test\trunk\source\Application\Setting\Model\UserDataModel.class.php 129
+2017-08-23 21:50:15	PHP Error Severity: 8 --> Undefined index: setTabs E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 116
+2017-08-23 21:50:15	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 1842
+2017-08-23 21:50:15	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 1869
+2017-08-23 21:50:15	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 2230
+2017-08-23 21:50:15	PHP Error Severity: 8 --> Undefined variable: print_licenses E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\a86bf417a11fef5a67d42bef67498f3d.php 2716
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:50:17	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:50:17	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:50:18	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 621
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:50:20	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:50:20	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:52:21	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:21	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 21:52:21	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 21:52:22	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:22	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:22	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:22	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:22	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-23 21:52:25	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:25	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:25	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:26	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:26	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:26	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:27	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:27	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:27	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:52:30	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:52:30	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:52:43	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:43	PHP Error Severity: 8 --> Undefined index: _string E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 621
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:52:46	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:25	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:25	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 21:57:25	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 21:57:25	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:25	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:25	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:26	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:26	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-23 21:57:29	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:29	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:29	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:30	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:30	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:30	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:31	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:31	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:31	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:31	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:31	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:37	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:37	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:38	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:57:43	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:43	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:43	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:46	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:47	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:47	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:47	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:47	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:47	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:47	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:47	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:51	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:51	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:51	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:55	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:55	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:55	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:59	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:59	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:57:59	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:58:02	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:58:02	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:02	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:02	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:58:02	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:58:03	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:58:03	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:58:03	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 21:58:08	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:58:08	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:08	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:10	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:58:10	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 21:58:11	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 22:04:41	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:04:42	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 22:04:42	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 22:04:42	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:04:42	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:04:42	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:04:43	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:04:44	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27
+2017-08-23 22:04:46	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:04:46	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:04:46	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:04:47	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 22:04:47	PHP Error Severity: 8 --> Undefined index: shop_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 232
+2017-08-23 22:04:47	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 22:04:47	PHP Error Severity: 8 --> Undefined index: warehouse_id E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 221
+2017-08-23 22:04:47	PHP Error Severity: 2 --> explode() expects parameter 2 to be string, array given E:\wamp\www\test\trunk\source\Application\Stock\Model\StockOutOrderModel.class.php 2526
+2017-08-23 22:08:51	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:08:51	PHP Error Severity: 8 --> Undefined variable: salesstockout_status E:\wamp\www\test\trunk\source\Application\Stock\Field\StockSalesPrintField.class.php 87
+2017-08-23 22:08:51	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\73efedff521dd12c426b135bf4f4f55a.php 27
+2017-08-23 22:08:52	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:08:52	PHP Error Severity: 8 --> Undefined index: search E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:08:52	PHP Error Severity: 2 --> Invalid argument supplied for foreach() E:\wamp\www\test\trunk\source\Application\Statistics\Model\StatUseModel.class.php 34
+2017-08-23 22:08:53	PHP Error Severity: 8 --> Undefined index: Stock_StockSalesPrint E:\wamp\www\test\trunk\source\Application\Setting\Model\EmployeeRightsModel.class.php 174
+2017-08-23 22:08:53	PHP Error Severity: 8 --> Undefined index: style E:\wamp\www\test\trunk\source\Application\Runtime\Cache\Stock\b613c06c802a435344f3574bf9b9874b.php 27

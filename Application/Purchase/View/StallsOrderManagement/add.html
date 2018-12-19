@@ -1,0 +1,91 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+ <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+ <div class="form-div" style="border-bottom:  1px solid #7CAAB1">
+    <a href="javascript:void(0)" class="easyui-linkbutton" name="button_submit" onclick = "addStallsorder.saveStalls();" data-options="iconCls:'icon-save',plain:true">生成档口单</a>
+    </div>
+<div style="display: inline-block;vertical-align:middle">
+	<form id="{$id_list.form}" class="easyui-form" method="post">
+		<div class="form-div">
+			<label style="margin-left: 12px;"> 唯一码：</label><input class="easyui-textbox txt" type="text" name="search[unique_code]" />
+			<label style="margin-left: 10px;">　　订单：</label><input class="easyui-textbox txt" type="text" name="search[trade_no]" />
+			</div>
+		<div class="form-div">
+			<label style="margin-left: -12px;">　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" />
+			<label style="margin-left: 10px;">　供应商：</label><select class="easyui-combobox sel" name="search[provider_id]" data-options="panelHeight:'200px',editable:false " >
+			<option value="all">全部</option><volist name='list.provider' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+			<label style="margin-left: 12px;">　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'200px',editable:false " >
+			<option value="all">全部</option><volist name='list.warehouse' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="addStallsorder.submitSearchForm();">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="addStallsorder.loadFormData();">重置</a>
+		
+		</div>
+	</form>
+	</div>
+</div>
+
+<script>
+//# sourceURL=addstallsManagement.js
+	$(function(){
+		setTimeout(function(){
+			addStallsorder = new RichDatagrid(JSON.parse('{$params}'));
+			addStallsorder.setFormData();
+			addStallsorder.saveStalls = function(){
+				var rows = $('#'+this.params.id_list.datagrid).datagrid('getSelections');
+				var form_data = $('#'+this.params.id_list.form).form('get');
+				if(($.isEmptyObject(rows) || rows == '') && !$.isEmptyObject(form_data)){
+					messager.confirm('按搜索条件生成档口单',function(r){
+						if(r){
+							var type = 'search';
+							var data = {};
+							data['provider_id'] = form_data['search[provider_id]'];
+							data['spec_no'] = form_data['search[spec_no]'];
+							data['trade_no'] = form_data['search[trade_no]'];
+							data['unique_code'] = form_data['search[unique_code]'];
+							data['warehouse_id'] = form_data['search[warehouse_id]'];
+							$.post('{:U("Purchase/StallsOrderManagement/postAddOrder")}',{data:data,type:type},function(r){
+								messager.alert(r.info);
+								if(r.status == 0){
+									stallsManagement.refresh();
+									$('#'+stallsManagement.params.add.id).dialog('close');
+								}
+							});
+						}
+					});
+				}else{
+					messager.confirm('选中的货品生成档口单',function(r){
+						if(r){
+							var type = 'selected';
+							var rows_id_list = '';
+							for(var i=0; i<rows.length; i++){
+								rows_id_list += rows[i].id + ',';
+							}
+							rows_id_list = rows_id_list.substr(0,rows_id_list.length-1);
+							var data = rows_id_list;
+							addStallsorder.postAddOrder(data,type);
+						}
+					});
+				}
+			}
+			addStallsorder.postAddOrder = function(data,type){
+				$.post('{:U("Purchase/StallsOrderManagement/postAddOrder")}',{data:data,type:type},function(r){
+					messager.alert(r.info);
+					if(r.status == 0){
+						stallsManagement.refresh();
+						$('#'+stallsManagement.params.add.id).dialog('close');
+					}
+				});
+			}
+			
+		},0);
+	});
+</script>
+</block>
+<block name="dialog">
+     <div id="{$id_list.add}">
+     </div>
+	<div id="{$id_list.edit}">
+     </div>
+</block>
+<block name="tabs">
+</block>

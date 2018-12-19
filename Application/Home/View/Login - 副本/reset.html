@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="keywords " content="E快帮,E快帮ERP,旺店通,ERP,店铺管理,店铺管理ERP"/>
+<title>{:C('SYSTEM_NAME')}-欢迎登录</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/icon.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.css?v={$version_number}">
+<link rel="icon" href="__ROOT__/Public/Image/favicon.ico"  type="image/x-icon">
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.md5.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.cookie.js"></script>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/login.2.css">
+<script type="text/javascript" src="__ROOT__/Public/Js/json.2.js"></script>
+<![endif]-->
+<script type="text/javascript" src="__ROOT__/Public/Js/login.util.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/easyui.extends.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/easyui-lang-zh_CN.js"></script>
+</head>
+<style>
+#reset-content .reset-body .cell1 {
+	position: relative;
+	float: right;
+	right: 10px;
+	top: 10px;
+}
+#reset-content .reset-body .cell1>a{
+	font-size:14px;
+	font-weight: bold;
+	color:#babec2;
+}
+#reset-content .reset-body .cell1>a:focus,#reset-content .reset-body .cell1>a:hover{
+	color:blue;
+	text-decoration: underline;
+}
+</style>
+<body>
+<div class="w">
+	<div id="logo"><a href="__ROOT__/index.php/home/login/login.html"><img alt="E快帮" src="__ROOT__/Public/Image/Login/login-logo.png" border="0"></a></div>
+</div>
+<div id="reset-content">
+	<div class="reset-body">
+		<div class="cell1"><a href="{:U('Home/Login/login')}?type=logout">立即登录</a></div>
+		<h3 class="reset-title">重置密码</h3>
+		<p>（未绑定手机号的用户，请联系管理员进行密码重置）</p>
+		<form id="resetform" method="post">
+			<div class="reset-form">
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="account">用户名：</label>
+					<input class="easyui-textbox txt"
+							type="text" name="account" id="account"
+							style="width:300px;height:30px;"
+							data-options="required:true,validType:'englishOrNum'"
+							missingMessage="不能为空" />
+				</div>
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="password">新密码：</label>
+					<input class="easyui-textbox"
+							type="password" name="password" id="password"
+							style="width:300px;height:30px;"
+							data-options="required:true,validType:'password'"
+							missingMessage="不能为空" />
+				</div>
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="repassword">确认密码：</label>
+					<input class="easyui-textbox"
+							type="password" name="repassword" id="repassword"
+							style="width:300px;height:30px;"
+							data-options="required:true,validType:'equalTo[\'#password\']'"
+							missingMessage="两次输入需一致" />
+				</div>
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="sid">卖家账号：</label>
+					<input class="easyui-textbox txt"
+							type="text" name="sid" id="sid"
+							style="width:300px;height:30px;"
+							data-options="required:true,validType:'englishOrNum'"
+							missingMessage="不能为空" />
+				</div>
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="mobile_no">手机号：</label>
+					<input class="easyui-textbox"
+							type="text" name="mobile_no" id="mobile_no"
+							style="width:300px;height:30px;"
+							data-options="required:true,validType:'mobile'"
+							missingMessage="不能为空" />
+				</div>
+				<div class="ret-form-cell">
+					<label class="ret-cell1" for="code">验证码：</label>
+					<input class="easyui-textbox"
+							type="text" name="code" id="code"
+							style="width:150px;height:30px;"
+							data-options="required:true,validType:'code'"
+							missingMessage="验证码为六位整数" />
+					<div class="ret-form-btn sendCode"><a href="javascript:void(0)" class="easyui-linkbutton" style="width:100px;height:30px;background: #5296e3;color:#fff;"  onclick="sendCode();">发送验证码</a></div>
+				</div>
+				<div class="ret-form-btn"><a href="javascript:void(0)" class="easyui-linkbutton" style="width:200px;height:30px;background: #5296e3;color:#fff;" id="resetsubmit" onclick="checkResetInfo();"><span>提交</span></a></div>
+				<div class="ret-msg" style="font-size: 14px;color: red;"></div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+<div class="w">
+	<div id="footer">
+		<!-- <div class="link">
+			<ul>
+				<li><a href="http://www.wangdian.cn/">联系我们</a></li>
+				<li><a href="http://www.wangdian.cn/">友情链接</a></li>
+				<li class="last"><a>关于我们</a></li>
+			</ul>
+		</div> -->
+		<div class="copyright">Copyright©2015-2017  E快帮 版权所有</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	//检测浏览器版本
+	check_navigator();
+	function check_navigator(){
+		var userAgent=navigator.userAgent.toLowerCase();
+		var appVersion=navigator.appVersion.toLowerCase();
+		var status=1;
+		if (!!window.ActiveXObject || "ActiveXObject" in window){
+			if(appVersion.match(/msie 8./i)=="msie 8."){
+				status=0;
+			}else if(appVersion.match(/msie 7./i)=="msie 7."){
+				status=0;
+			}else if(appVersion.match(/msie 5./i)=="msie 5."){
+				status=0;
+			}
+		}
+		if(status==0){
+			alert('当前浏览器版本无法正常使用本系统，请更换谷歌浏览器！');
+		}
+	}
+});
+function checkResetInfo(){
+	var form=$("#resetform");
+	if(!form.form('validate')){return;}
+	var data=form.form('get');
+	$('.ret-msg').html('<span style="color:orange;">修改密码中...</span>');
+	$.post("{:U('Home/Login/checkResetInfo')}",{data:JSON.stringify(data)},function(res){
+		if(res.status==1){
+			$('.ret-msg').html(res.info);return false;
+		}else{
+			$('.ret-msg').html('<span style="color:green;">修改成功，正在登录...</span>');
+			window.location.href = res.info;
+		}
+	});
+}
+function sendCode(){
+	var form=$("#resetform");
+	var data=form.form('get');
+	if((!data.account)||(!data.sid)||(!data.mobile_no)){$('.ret-msg').html('用户名、卖家账号、手机号都不能为空！');return;}
+	if(!/^[a-zA-Z0-9_]{1,}$/.test(data.account)){$('.ret-msg').html('用户名格式不正确！');return;}
+	if(!/^[a-zA-Z0-9_]{1,}$/.test(data.sid)){$('.ret-msg').html('卖家账号格式不正确！');return;}
+	if(!/^(?:13\d|15\d|18\d|17\d|14\d)-?\d{5}(\d{3}|\*{3})$/.test(data.mobile_no)){$('.ret-msg').html('手机号格式不正确！');return;}
+
+	$.post("{:U('Home/Login/sendResetCode')}",{data:JSON.stringify(data)},function(res){
+		if(res.status==1){
+			$('.ret-msg').html(res.info);return false;
+		}else{
+			setTime.send=true;
+			$('.ret-msg').html('<span style="color:green;">'+res.info+'</span>');
+			setTime.init($('.sendCode a'),$('.sendCode .l-btn-text'));
+		}
+	});
+
+}
+var setTime=function(){
+	return{
+		node_but:null,
+		node_txt:null,
+		count:60,
+		send:false,
+		start:function(){
+			if(this.count>0){
+				this.count--;
+				this.node_txt.text(this.count+'秒后可重发');
+				var that = this;
+	            setTimeout(function(){ that.start(); },1000);
+			}else{
+				 this.count = 60;
+				 this.node_txt.text('发送验证码');
+				 $('.ret-msg').html('');
+				 this.node_but.linkbutton('enable');
+			}
+		},
+		init:function(but,txt){
+			this.node_but=but;
+			this.node_txt=txt;
+			this.node_but.linkbutton('disable');
+			this.start();
+		}
+	};
+}();
+</script>
+</body>
+</html>

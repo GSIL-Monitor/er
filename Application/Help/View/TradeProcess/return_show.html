@@ -1,0 +1,56 @@
+<div style="margin: 20px 15px;">
+    <div class="easyui-panel" title="退换流程" data-options="headerCls:'panel-header-title'" style="width:100%;">
+        <div class="return_process process-map" id="return" style="border:none;">
+            <a class="originalrefundtrade font-img" href="javascript:void(0);" onClick="open_menu('{$return.originalrefundtrade.text}', '{$return.originalrefundtrade.href}')"><div class="png"><i class="fa {$return.originalrefundtrade.img}"></i><p>{$return.originalrefundtrade.text}</p></div></a>
+            <a class="returnmanagement font-img" href="javascript:void(0);" onClick="open_menu('{$return.returnmanagement.text}', '{$return.returnmanagement.href}')"><div class="png"><i class="fa {$return.returnmanagement.img}"></i><p>{$return.returnmanagement.text}</p></div></a>
+            <a class="stockin font-img" href="javascript:void(0);" onClick="open_menu('{$return.stockin.text}', '{$return.stockin.href}')"><div class="png"><i class="fa {$return.stockin.img}"></i><p>{$return.stockin.text}</p></div></a>
+            <a class="inmanagement font-img" href="javascript:void(0);" onClick="open_menu('{$return.inmanagement.text}', '{$return.inmanagement.href}')"><div class="png"><i class="fa {$return.inmanagement.img}"></i><p>{$return.inmanagement.text}</p></div></a>
+            <a class="audit font-img" href="javascript:void(0);" onClick="open_menu('{$return.audit.text}', '{$return.audit.href}')"><div class="png"><i class="fa {$return.audit.img}"></i><p>{$return.audit.text}</p></div></a>
+            <a class="print font-img" href="javascript:void(0);" onClick="open_menu('{$return.print.text}', '{$return.print.href}')"><div class="png"><i class="fa {$return.print.img}"></i><p>{$return.print.text}</p></div></a>
+            <a class="original-from" href="javascript:void(0);" onmouseover="return_show_text(event,'from')" onmouseout="return_close_text()">API<br>抓单</a>
+            <span class="original-return-money" href="javascript:void(0);" >退款</span>
+            <span class="original-return-change" href="javascript:void(0);" >退货<br>换货</span>
+            <span class="original-return-money-submit" href="javascript:void(0);" >递交</span>
+            <span class="original-return-change-submit" href="javascript:void(0);" >递交</span>
+            <a class="original-return-change-make" href="javascript:void(0);" onmouseover="return_show_text(event,'original_make')" onmouseout="return_close_text()">新建</a>
+
+            <a class="make" href="javascript:void(0);" onmouseover="return_show_text(event,'make')" onmouseout="return_close_text()">新建</a>
+
+            <span class="return-goods" href="javascript:void(0);" >退货</span>
+            <span class="return-over" href="javascript:void(0);" >收货</span>
+            <span class="return-make" href="javascript:void(0);" >新建</span>
+            <span class="return-submit" href="javascript:void(0);" >提交</span>
+            <span class="return-goods-agree" href="javascript:void(0);" >同意</span>
+            <span class="return-goods-finish" href="javascript:void(0);" >完成</span>
+
+            <span class="change-goods" href="javascript:void(0);" >换货</span>
+            <span class="audit-goods" href="javascript:void(0);" >确认发货</span>
+            <span class="audited" href="javascript:void(0);" >审核</span>
+            <span class="change-goods-agree" href="javascript:void(0);" >同意</span>
+            <span class="change-goods-finish" href="javascript:void(0);" >完成</span>
+
+            <span class="return-money" href="javascript:void(0);" >退款</span>
+            <span class="return-money-agree" href="javascript:void(0);" >同意</span>
+            <span class="return-money-finish" href="javascript:void(0);" >完成</span>
+            <div id="returnshowDiv" style="position:absolute; background-color: white; border: 1px solid ; border-color: #95B8E7;padding: 5px 10px 5px 10px;max-width: 200px;display: none;"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function return_show_text(event,key){
+    var trade=document.getElementById('return'); 
+    var text=JSON.parse('{$text}');
+    var showDiv = document.getElementById('returnshowDiv');
+    var x=event.clientX;
+    var y=parseInt(event.clientY)+parseInt(10);
+    showDiv.style.left =(x-trade.getBoundingClientRect().left)+'px';
+    showDiv.style.top = (y-trade.getBoundingClientRect().top)+'px';
+    showDiv.style.display = 'block';
+    showDiv.innerHTML = text[key];
+}
+function return_close_text() {
+    var showDiv = document.getElementById('returnshowDiv');
+    showDiv.style.display = 'none';
+    showDiv.innerHTML = '';
+}
+</script>

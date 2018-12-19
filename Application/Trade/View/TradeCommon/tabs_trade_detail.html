@@ -1,0 +1,11 @@
+<extend name="../../Common/View/datagrid_tabs_base" /> 
+<block name="tabs"></block> <block name="dialog"> </block> <block name="toolbar"> </block> 
+<block name="script">
+<script type="text/javascript">
+$(function () { 
+	setTimeout(function () {  $('#{$datagrid.id}').datagrid('copyCell'); },0);
+});
+function tradeDetailStyler(value,row,index){ return 'background-color:#dddddd;color:black;font-weight:bolder'; }
+function onLoadSuccessTradeDetail(){ messager.tip('{$datagrid.id}') }
+</script>
+</block>

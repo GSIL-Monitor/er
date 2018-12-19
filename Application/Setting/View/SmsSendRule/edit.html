@@ -1,0 +1,55 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="datagrid">
+    <form id="{$id_list['edit_form']}" style="padding: 5px 10px;">
+        <div style="display: none;"> <input name="rec_id" value="{$rule.id}" hidden="true"/> </div>
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">店铺：</label>
+            <select class="easyui-combobox sel" name="shop_id" data-options="required:true,panelHeight:'200px'">
+                <volist name='shop_list' id='vo'>
+                    <if condition="$vo['id'] eq $rule['shop_id']">
+                        <option value="{$vo.id}" selected>{$vo.name}</option>
+                        <else/> <option value="{$vo.id}">{$vo.name}</option>
+                    </if>
+                </volist>
+            </select>
+        </div>
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">触发事件：</label>
+            <input class="easyui-combobox txt" type="text" name="event_type" value="{$rule.event_type}" required="true" data-options="valueField:'id',textField:'name',data:formatter.get_data('sms_event_type')"/>
+        </div>
+        <div class="form-div" style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">延迟时间：</label>
+            <input class="easyui-numberbox txt" type="text" name="delay_time" value="{$rule.delay_time}" required="true"/>
+        </div>
+        <if condition="$rule['event_type'] eq 4">
+            <div class="form-div" style="margin-bottom: 5px;">
+                <label class="five-character-width" style="text-align: right;">截止时间：</label>
+                <input id="sms_send_rule_end_time" class="easyui-datetimebox txt" value="{date='y-m-d',###}" type="text" name="end_time"/>
+            </div>
+        </if>
+        <div class="form-div"  style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">短信模板：</label>
+            <select class="easyui-combobox sel" name="template_id" data-options="panelHeight:'200px'">
+                <volist name='template_list' id='vo'>
+                    <if condition="$vo['template_id'] eq $rule['template_id']">
+                        <option value="{$vo.template_id}" selected>{$vo.template_name}</option>
+                        <else/> <option value="{$vo.template_id}">{$vo.template_name}</option>
+                    </if>
+                </volist>
+            </select>
+        </div>
+        <div class="form-div"  style="margin-bottom: 5px;">
+            <label class="five-character-width" style="text-align: right;">停用：</label><input id="sms_send_rule_is_disabled" type="checkbox" name="is_disabled" value="{$rule.is_disabled}" onclick="smsSendRule.initSmsSendRuleCheckbox('sms_send_rule_is_disabled')"/>
+        </div>
+    </form>
+    <script>
+        $(function () {
+            setTimeout(function () {
+                smsSendRule.initSmsSendRuleCheckbox('sms_send_rule_is_disabled', true);
+            }, 0);
+        });
+    </script>
+</block>

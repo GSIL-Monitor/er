@@ -1,0 +1,1 @@
+a:8:{i:0;s:6:"rec_id";i:1;s:4:"type";i:2;s:11:"operator_id";i:3;s:4:"data";i:4;s:7:"message";i:5;s:7:"created";s:3:"_pk";s:6:"rec_id";s:5:"_type";a:6:{s:6:"rec_id";s:7:"int(11)";s:4:"type";s:11:"smallint(6)";s:11:"operator_id";s:7:"int(11)";s:4:"data";s:11:"varchar(40)";s:7:"message";s:13:"varchar(1024)";s:7:"created";s:8:"datetime";}}

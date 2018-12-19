@@ -1,0 +1,192 @@
+[ 2017-08-23T21:44:49+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowAAHBhPPhp1ZWX3jAw--.30603S2 1503495887,603,please see http://mail.163.com/help/help_spam_16.htm?ip=221.216.140.60&hostid=smtp4&time=1503495887
+</p>
+
+[ 2017-08-23T21:44:49+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:45:30+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowACX2SL3hp1ZT4vjAw--.29971S2 1503495928,603,please see http://mail.163.com/help/help_spam_16.htm?ip=111.192.255.98&hostid=smtp4&time=1503495928
+</p>
+
+[ 2017-08-23T21:45:30+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:45:54+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowACHTiEQh51Z95DjAw--.30120S2 1503495952,603,please see http://mail.163.com/help/help_spam_16.htm?ip=222.128.130.237&hostid=smtp4&time=1503495952
+</p>
+
+[ 2017-08-23T21:45:54+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:46:16+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowADXbTomh51ZD5fjAw--.30720S2 1503495974,603,please see http://mail.163.com/help/help_spam_16.htm?ip=222.128.130.237&hostid=smtp4&time=1503495974
+</p>
+
+[ 2017-08-23T21:46:16+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:46:58+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowACniTxPh51ZQKrjAw--.30422S2 1503496016,603,please see http://mail.163.com/help/help_spam_16.htm?ip=222.128.155.85&hostid=smtp4&time=1503496016
+</p>
+
+[ 2017-08-23T21:46:58+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:48:15+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowAAHXDWdh51ZLcjjAw--.30491S2 1503496093,603,please see http://mail.163.com/help/help_spam_16.htm?ip=221.216.140.60&hostid=smtp4&time=1503496093
+</p>
+
+[ 2017-08-23T21:48:15+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:49:23+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowABHktjgh51ZkOfjAw--.30429S2 1503496161,603,please see http://mail.163.com/help/help_spam_16.htm?ip=222.128.130.237&hostid=smtp4&time=1503496161
+</p>
+
+[ 2017-08-23T21:49:23+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+
+[ 2017-08-23T21:52:15+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp4,DtGowAA3pSCMiJ1Z6i_kAw--.30340S2 1503496333,603,please see http://mail.163.com/help/help_spam_16.htm?ip=111.192.255.98&hostid=smtp4&time=1503496333
+</p>
+
+[ 2017-08-23T21:52:15+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: IP:127.0.0.1,SID:erp_dev=>Array
+(
+    [message] => Class 'Memcached' not found
+    [file] => E:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php
+    [line] => 236
+    [trace] => #0 E:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('erp_dev')
+#1 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(321): Platform\Manager\WayBillManager->manual(Array, Array)
+#2 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(333): Home\Controller\IndexController->searchWayBill()
+#3 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(117): Home\Controller\IndexController->getWayBillCount('count')
+#4 E:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(496): Home\Controller\IndexController->getTodo()
+#5 [internal function]: Home\Controller\IndexController->reloadData()
+#6 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#7 E:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#8 E:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#9 E:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#10 E:\wamp\www\test\trunk\source\www\index.php(27): require('E:\\wamp\\www\\tes...')
+#11 {main}
+)
+

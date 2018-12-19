@@ -1,0 +1,47 @@
+<table id="{$mark}_unit_datagrid"></table>
+<div id="unit_{$mark}_dialog_toolbar">
+    <form id="unit_{$mark}_dialog_form" method="post">
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">名称</label>
+            <input class="easyui-textbox txt" type="text" name="name" id="name" style="width:150px;" data-options="required:true,validType:'loginName'" invalidMessage="只允许汉字、英文字母、数字及下划线" missingMessage="不能为空"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">备注：</label>
+            <input class="easyui-textbox" type="text" name="remark" style="width:150px;" data-options="validType:'loginName'" invalidMessage="只允许汉字、英文字母、数字及下划线"/>
+        </div>
+        <div class="form-div">
+            <label style="width: 60px;display: inline-block;">停用：</label>
+            <select class="easyui-combobox sel" name="is_disabled" data-options="panelHeight:'auto',editable:false, required:true" style="width:50px;">
+                <option value="0">否</option>
+                <option value="1">是</option>
+            </select>
+        </div>
+    </form>
+</div>
+<script>
+    //# sourceURL=unit_edit.js
+
+    setTimeout(function () {
+        if ('add' == '{$mark}') {
+        } else {
+            $('#unit_{$mark}_dialog_form').form('load', {$form});
+        }
+        unit_obj.submitEditDialog = unit_obj.submitAddDialog = function() {
+        	var form=$("#unit_{$mark}_dialog_form");
+        	if(!form.form('validate')){return;}
+        	var data = form.form('get'); data.type = "{$mark}"; data.id=0;
+        	if(data.type=='edit'){
+        		var row=$("#unit_datagrid").datagrid('getSelected');
+            	if(!row){messager.info('请选择操作的行！');return;}
+            	data.id=row.id;
+        	}
+        	$.post("{:U('Setting/Unit/saveUnit')}",data,function(res){
+        		res=JSON.parse(res);
+        		if(res.status==1){messager.alert(res.info);return;}
+        		unit_obj.refresh();
+                $("#unit_{$mark}").dialog('close');
+        	});
+        }
+
+    }, 0);
+</script>

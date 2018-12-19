@@ -1,0 +1,63 @@
+DROP PROCEDURE IF EXISTS `I_DL_TMP_SALES_TRADE_ORDER`;
+DELIMITER //
+CREATE PROCEDURE `I_DL_TMP_SALES_TRADE_ORDER`()
+    SQL SECURITY INVOKER
+	COMMENT '将原始单的货品映射到订单中建立的临时表'
+MAIN_LABEL: BEGIN 
+	CREATE TEMPORARY TABLE IF NOT EXISTS tmp_sales_trade_order(
+	  rec_id INT(11) NOT NULL AUTO_INCREMENT,
+	  spec_id INT(11) NOT NULL,
+	  shop_id smallint(6) NOT NULL,
+	  platform_id tinyint(4) NOT NULL,
+	  src_oid VARCHAR(40) NOT NULL,
+	  suite_id INT(11) NOT NULL DEFAULT 0,
+	  src_tid VARCHAR(40) NOT NULL,
+	  gift_type TINYINT(1) NOT NULL DEFAULT 0,
+	  refund_status TINYINT(4) NOT NULL DEFAULT 0,
+	  guarantee_mode TINYINT(4) NOT NULL DEFAULT 1,
+	  delivery_term TINYINT(4) NOT NULL DEFAULT 1,
+	  bind_oid VARCHAR(40) NOT NULL DEFAULT '',
+	  num DECIMAL(19, 4) NOT NULL,
+	  price DECIMAL(19, 4) NOT NULL,
+	  actual_num DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  order_price DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  share_price DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  adjust DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  discount DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  share_amount DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  share_post DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  paid DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  tax_rate DECIMAL(8, 4) NOT NULL DEFAULT 0.0000,
+	  goods_name VARCHAR(255) NOT NULL,
+	  goods_id INT(11) NOT NULL,
+	  goods_no VARCHAR(40) NOT NULL,
+	  spec_name VARCHAR(100) NOT NULL,
+	  spec_no VARCHAR(40) NOT NULL,
+	  spec_code VARCHAR(40) NOT NULL,
+	  suite_no VARCHAR(40) NOT NULL DEFAULT '',
+	  suite_name VARCHAR(255) NOT NULL DEFAULT '',
+	  suite_num DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  suite_amount DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  suite_discount DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  is_print_suite TINYINT(1) NOT NULL DEFAULT 0,
+	  api_goods_name VARCHAR(255) NOT NULL,
+	  api_spec_name VARCHAR(40) NOT NULL,
+	  weight DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  volume DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  commission DECIMAL(19, 4) NOT NULL DEFAULT 0.0000,
+	  goods_type TINYINT(4) NOT NULL DEFAULT 1,
+	  flag INT(11) NOT NULL DEFAULT 0,
+	  large_type TINYINT(1) NOT NULL DEFAULT 0,
+	  invoice_type TINYINT(4) NOT NULL DEFAULT 0,
+	  invoice_content VARCHAR(255) NOT NULL DEFAULT '',
+	  from_mask INT(11) NOT NULL DEFAULT 0,
+	  cid INT(11) NOT NULL DEFAULT 0,
+	  is_master TINYINT(1) NOT NULL DEFAULT 0,
+	  is_allow_zero_cost TINYINT(1) NOT NULL DEFAULT 0,
+	  remark VARCHAR(60) NOT NULL DEFAULT '',
+	  PRIMARY KEY (rec_id),
+	  INDEX IX_tmp_sales_trade_order_src_id (shop_id, src_oid),
+	  UNIQUE INDEX UK_tmp_sales_trade_order (spec_id, shop_id, src_oid, suite_id)
+	);
+END//
+DELIMITER ;

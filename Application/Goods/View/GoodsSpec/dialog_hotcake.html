@@ -1,0 +1,52 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar"></block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script>
+        //@ sourceURL=chg_class.js
+        $(function() {
+            GoodsSpec.chgHotCake = function () {
+                /*$.messager.progress({
+                    title: "请稍后",
+                    msg: "正在修改，请稍等..."
+                });*/
+                var form = $("#{$params.form_id}");
+                var url = "{$params.form_url}";
+                var dialog = $("#{$params.chg_dialog}");
+                var chgHotCake = $("#chgHotCake");
+                if (!form.form("validate")) {
+                    return false;
+                }
+                form.form('options').queryParams = {};
+                var api_chg_params = form.form('get');
+                $.post(url,api_chg_params,function (res) {
+                    //$.messager.progress('close');
+                    if (res.status == 0) {
+                        chgHotCake.dialog("close");
+                        messager.alert(res.msg);
+                        GoodsSpec.refresh();
+                    } else {
+                        messager.alert(res.msg);
+                    }
+                },'json');
+
+            }
+
+        })
+
+    </script>
+</block>
+<block name="datagrid">
+    <div class="form-div">
+        <form method="post" id="{$params.form_id}" style="padding:20px 45px 20px 45px">
+            <div style="display: none;"> <input hidden="true" name="rec_id" value="{$params.rec_id}"/> </div>
+            <div style="float: left">
+                是否爆款：<select class="easyui-combobox sel" name="is_hotcake">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</block>

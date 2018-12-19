@@ -1,0 +1,12 @@
+[ 2018-05-16T12:03:13+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual getUserDb failed in waybillManager!!erp_dev
+[ 2018-05-16T12:03:13+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual电子面单获取店铺账号信息失败
+[ 2018-05-16T12:05:03+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual getUserDb failed in waybillManager!!erp_dev
+[ 2018-05-16T12:05:03+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual电子面单获取店铺账号信息失败
+[ 2018-05-16T22:52:35+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual getUserDb failed in waybillManager!!erp_dev
+[ 2018-05-16T22:52:35+08:00 ] 127.0.0.1 /index.php/home/index/reloaddata.html
+ERR: WayBillManager-manual电子面单获取店铺账号信息失败

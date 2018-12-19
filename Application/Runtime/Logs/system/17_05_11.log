@@ -1,0 +1,10 @@
+[ 2017-05-11T10:24:15+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1494469413602
+ERR: IP:127.0.0.1,SID:erp_dev=>SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-11T14:21:49+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1494483666996
+ERR: IP:127.0.0.1,SID:erp_dev=>SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-11T14:22:55+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1494483719436
+ERR: IP:127.0.0.1,SID:erp_dev=>SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-11T14:38:14+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1494484051599
+ERR: IP:127.0.0.1,SID:erp_dev=>SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+[ 2017-05-11T14:39:00+08:00 ] 127.0.0.1 /index.php/Stock/StockSalesPrint/getPrintList?_=1494484051600
+ERR: IP:127.0.0.1,SID:erp_dev=>SQLSTATE[HY000]: General error: 2006 MySQL server has gone away

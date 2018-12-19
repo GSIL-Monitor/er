@@ -1,0 +1,25 @@
+<form id = {$form_id} style="padding-top: 10px;padding-bottom: 10px;padding-left: 10px;padding-right: 10px">
+
+<div class="form-div">
+	<label style='color: red;font-size:15px;'>{$content}</label>
+</div>
+<div class = "form-div" style= "position:absolute;left:170px;top:140px;">
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="ok('{$name}')">我知道了</a>				 
+</div> 
+
+<script type="text/javascript">
+function ok(name){
+	$.post("{:U('Stock/StockSalesPrint/addMessage')}",'',function(r){
+		if(r.status == 0){
+			$('#messager').dialog('close');
+			switch(name){
+				case 'print_consign':
+					stockSalesPrint.consignStockoutOrder();
+				break;
+			}
+		}else{
+			messager.alert(r.info);
+		}
+	});
+}
+</script>

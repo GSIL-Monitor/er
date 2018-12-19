@@ -1,0 +1,64 @@
+<div id="batch_remark_dialog">
+<form method="post" id="{$upload_remark_flag_params.form_id}" style="padding:10px 0 0 10px;">
+	<div class="form-div">
+		<label>追加备注：</label><input class="easyui-textbox" id="upload_remark" style="width:305px;" name="cs_remark" type="text" />
+	</div>
+	<div class="form-div">
+		<label>选择标旗:</label><input class="easyui-combobox txt" id="upload_flag" value="-1" name="flag" data-options="panelHeight:'auto',valueField:'id',textField:'name',data:[{'id':'-1','name':'不回写'},{'id':'0','name':'灰色旗子'},{'id':'1','name':'红色旗子'},{'id':'2','name':'黄色旗子'},{'id':'3','name':'绿色旗子'},{'id':'4','name':'蓝色旗子'},{'id':'5','name':'紫色旗子'}]"/>
+    </div>
+</form>
+</div>
+<script>
+$(function(){
+	setTimeout(function(){
+		$('#batch_remark_text').textbox().next('span').find('input').focus();
+	},0);
+});
+tradeCheck.submitUploadDialog=function () {
+	if(tradeCheck.selectRows==undefined){messager.alert('请选择订单！');return false;}
+	var rows=tradeCheck.selectRows;
+	var list=[];
+	var version=[];
+	var ids=[];
+	for(var i in rows){
+		if(rows[i]['id']==undefined||rows[i]['id']<1){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'无效订单,请选择有效订单'});continue;
+		}
+		if(rows[i].trade_status!=undefined&&rows[i].trade_status!=30&&rows[i].trade_status!=25) {
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单状态不正确'});continue;
+		}
+		if(rows[i].freeze_reason!=undefined&&rows[i].freeze_reason!=0){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单已冻结'});continue;
+		}
+		if(rows[i].bad_reason!=undefined&&rows[i].bad_reason!=0){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'订单有异常标记'});continue;
+		}
+		if(rows[i].trade_from!=undefined&&rows[i].trade_from==2){
+			list.push({trade_no:rows[i]['trade_no'],result_info:'手工建单无需回传'});continue;
+		}
+		ids[i]=rows[i]['id'];
+		version[ids[i]]=rows[i]['version_id'];
+	}
+	if(ids.length>0){
+		var form = $("#{$upload_remark_flag_params.form_id}");
+		var url = "{$upload_remark_flag_params.form_url}";
+		var form_data = form.form('get');
+		var data = {};
+		data.ids = ids;
+		data.cs_remark = form_data.cs_remark;
+		data.flag=form_data.flag;
+		data.version=version;
+		finaldata = JSON.stringify(data);
+		if((data.cs_remark==undefined||data.cs_remark=='')&&data.flag==-1){messager.alert("请填写有效的回传信息");return;}
+		Post(url,{data:finaldata},function(res){
+			$('#flag_set_dialog').dialog('close');
+			tradeCheck.dealDatagridReasonRows(res,list);
+		},'JSON');
+	}else{
+		var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+		tradeCheck.dealDatagridReasonRows(res,undefined);
+		$('#flag_set_dialog').dialog('close');
+	}
+
+}
+</script>

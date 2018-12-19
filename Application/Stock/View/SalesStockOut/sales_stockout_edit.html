@@ -1,0 +1,1324 @@
+<extend name="../../Common/View/datagrid_tabs_base_left" />
+<block name="dialog">
+    <div id="{$id_list.dialog}"></div>
+    <div id="{$id_list.SMS}"></div>
+    <div id="stocksalesout_revertreason_id"></div>
+</block>
+<block name="search">
+<div id="sales_stockout_search" class="easyui-tabs" border="false" style="overflow: hidden" data-options="fit:true">
+<div title="筛选条件" style="background: #eee;" >
+	<form id="{$id_list.form}">
+	<div class="form-div" style="background: #eee;margin-bottom: 2px;margin-left: 100px;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="stockSalesout.searchData(this);">搜索</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="stockSalesout.loadData();">重置</a>
+	</div>
+	<hr style="border:none;border-top:2px dotted #95B8E7;width: 220px;background: #eee;">
+	<div  style="position:absolute;height:80%; width: 100%;overflow:auto;background: #eee;">
+		<div class="form-div"><label>　　　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]" data-options=""> <option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+		<div class="form-div"><label>　　　仓库：</label><select class="easyui-combobox sel" name="search[warehouse_id]" data-options="panelHeight:'auto'"> <volist name='warehouse_array' id='vo'> <option value="{$vo.id}">{$vo.name}</option> </volist> </select></div>
+		<div class="form-div"><label>　出库单号：</label><input class="easyui-textbox txt" type="text" name="search[stockout_no]" /></div>
+		<div class="form-div"><label>　订单编号：</label><input class="easyui-textbox txt" type="text" name="search[src_order_no]" /></div>
+		<div class="form-div"><label>　原始单号：</label><input class="easyui-textbox txt" type="text" name="search[src_tids]" /></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>出库单状态：</label><input class="easyui-combobox txt" name="search[status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('salesstockout_status')"/></div>
+		<div class="form-div"><label>　发货状态：</label><input class="easyui-combobox txt" name="search[consign_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('consign_status')"/></div>
+		<div class="form-div"><label>　订单来源：</label><input class="easyui-combobox txt" name="search[trade_from]" data-options="valueField:'id',textField:'name',data:formatter.get_data('trade_from')"/></div>
+		<div class="form-div"><label>　财审状态：</label><input class="easyui-combobox txt" name="search[trade_fc_status]" data-options="valueField:'id',textField:'name',data:formatter.get_data('trade_fc_status')" /></div>
+		<div class="form-div"><label>　拦截原因：</label><input class="easyui-combobox txt" name="search[block_reason]" data-options="valueField:'id',textField:'name',data:formatter.get_data('stockout_block_reason')"/></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+		<div class="form-div"><label>　物流公司：</label><select class="easyui-combobox sel" name="search[logistics_id]" data-options=""> <option value="all">全部</option><volist name='list.logistics' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select></div>
+		<div class="form-div"><label>　物流单号：</label><input class="easyui-textbox txt" type="text" name="search[logistics_no]" /></div>
+		<div class="form-div"><label>多物流单号：</label><input class="easyui-textbox txt" type="text" name="search[multi_logistics_no]" /></div>
+		<div class="form-div"><label>档口唯一码：</label><input class="easyui-textbox txt" type="text" name="search[unique_code]" /></div>
+		<div class="form-div"><label>　客户网名：</label><input class="easyui-textbox txt" type="text" name="search[buyer_nick]" /></div>
+		<div class="form-div"><label>　　手机号：</label><input class="easyui-textbox txt" type="text" name="search[receiver_mobile]" data-options="valueField:'id',textField:'name'"/></div>
+		<div class="form-div"><label>　　收件人：</label><input class="easyui-textbox txt" type="text" name="search[receiver_name]" /></div>
+		<hr style="border:none;border-top:2px dotted #95B8E7;">
+        <div class="form-div"><label>　品名包含：</label><input class="easyui-textbox txt" type="text" name="search[goods_name_include]" /></div>
+        <div class="form-div"><label>品名不包含：</label><input class="easyui-textbox txt" type="text" name="search[goods_name_not_include]" /></div>
+		<div class="form-div"><label>　发货时间：</label><input class="easyui-datetimebox txt" type="text" name="search[consign_time_start]" data-options="editable:false"/></div>
+		<div class="form-div"><label>　　　　至：</label><input class="easyui-datetimebox txt" type="text"    name="search[consign_time_end]" data-options="editable:false"/></div>
+		<div class="form-div"><label>　商家编码：</label><input class="easyui-textbox txt" type="text" name="search[spec_no]" /></div>
+		<div class="form-div"><label>出库单标记：</label><input id="{$id_list.search_flag}" class="easyui-combobox txt" name="search[flag_id]" data-options="valueField:'id',textField:'name'"/></div>
+		<div class="form-div"><label>是否要发票:</label><input extend_type="complex-check" onclick="$(this).triStateCheckbox('click')" name="search[has_invoice]" value="" type="checkbox" /><label>　&nbsp;&nbsp;已打印发货单:</label><input extend_type="complex-check"  onclick="$(this).triStateCheckbox('click')" name="search[sendbill_print_status]" value="" type="checkbox" /></div>
+		<div class="form-div"><label>被拦截订单:</label><input extend_type="complex-check" onclick="$(this).triStateCheckbox('click')" name="search[is_block]" value="" type="checkbox" /><label>　&nbsp;&nbsp;已打印物流单:</label><input extend_type="complex-check"  onclick="$(this).triStateCheckbox('click')" name="search[logistics_print_status]" value="" type="checkbox" /></div>
+		<div class="form-div"><label>搜索多物流:</label><input name="search[multi_logistics]" onclick="stockSalesout.isSearchMultiLogistis($(this))" value="0" search="multiLogistics" type="checkbox" /></div>
+	</div>
+	</form>
+	</div>
+	<div title="快捷查询" style="background: #eee;" data-options="tools:[{iconCls:'icon-mini-refresh', handler:function(){stockSalesout.loadData(1);}}]">
+	<div class="form-div" id="{$id_list.fast_div}">
+		<fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>打印情况</legend>
+        　　物流单<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_logis_printed]')"	>　已打印</a><a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_logis_printed]')"		>　未打印</a></br>
+        　　发货单<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_goods_printed]')"	>　已打印</a><a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_goods_printed]')"		>　未打印</a></br>
+			<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_printed_not_stockout]')"			>　　已打印物流单待发货</a></br>
+			<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_stockout_not_printed]')"				>　　已发货未打印物流单</a></br>
+		</fieldset>
+        <fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>出库情况</legend>
+		<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_stockout]')"			>　　待发货</a></br>
+		<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_is_stockout]')"				>　　已发货未完成</a></br>
+		<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_is_finish]')"					>　　已完成</a></br>
+		<a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_is_checked]')"					>　　已验货</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_checked]')"					>　　未验货</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_is_weighted]')"					>　　已称重</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_weighted]')"					>　　未称重</a></br>
+        </fieldset>
+		<fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>特殊标识</legend>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_is_blocked]')"					>　　已拦截订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_blocked]')"					>　　未拦截订单</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_has_cliented]')"				>　　有客户备注</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_no_cliented]')"			>　　无客户备注</a></br>
+        </fieldset>
+        <fieldset style="border:1px solid #95B8E7;padding: 2px;margin-top: 2px;margin-right: 8px;"><legend>下单时间</legend>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_one_day]')">　　一天内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_tow_day]')">　　两天内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_one_week]')">　　一周内</a></br>
+        <a href="javascript:void(0)" data-options="plain:true" onclick="stockSalesout.fastSearch(this,'search[fast_one_month]')">　　一月内</a></br>
+        </fieldset>
+	</div>
+	</div>
+</div>
+</block>
+<block name="toolbar"> 
+<div id="{$id_list.tool_bar}" style="padding:5px;height:auto">    
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" 	 onclick="stockSalesout.consignStockoutOrder()">确认发货</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sms',plain:true" onclick="stockSalesout.SMS()">发送短信</a>
+    <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-back',plain:true,menu:'#mbut-revert'" >驳回操作</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sign',plain:true" onclick="stockSalesout.setFlag()">标记管理</a>
+    <label class="one-character-width">标记出库单</label>
+    <input id="{$id_list.set_flag}" class="easyui-combobox" style="width:100px;"/>
+    <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-excel',plain:true,menu:'#sales_stockout_export'" >导出功能</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="stockSalesout.checkNumber()">查看号码</a>
+    <label class="form-div">
+       <a href="{$faq_url}" target="_blank" class="easyui-linkbutton" title="点击查看常见问题" data-options="iconCls:'icon-help',plain:true">常见问题</a>
+    </label>
+	 <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" 	 onclick="stockSalesout.cancel()">取消委外单</a>
+     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" 	 onclick="stockSalesout.hand()">手动推送订单</a>
+	<div id="mbut-revert" style="width:100px;">
+        <div data-options="iconCls:'icon-back'" onclick="stockSalesout.revertCheck()">驳回审核</div>
+        <div data-options="iconCls:'icon-back'" onclick="stockSalesout.revertConsignStatus(1)">驳回验货</div>
+        <div data-options="iconCls:'icon-back'" onclick="stockSalesout.revertConsignStatus(2)">驳回称重</div>
+        <div data-options="iconCls:'icon-back'" onclick="stockSalesout.cancelBlock()">取消拦截</div>
+        <div data-options="iconCls:'icon-back'" onclick="stockSalesout.revertStockout()">撤销出库</div>
+    </div>
+    <div id="sales_stockout_export">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stockSalesout.exportToExcel('csv')">导出csv(推荐)</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="stockSalesout.exportToExcel('excel')">导出到Excel</a>
+    </div>
+</div>  
+<script>
+//# sourceURL=salesStockout.js
+
+$(function(){
+	setTimeout(function(){
+	function resetFast(){
+		var dg = $('#'+stockSalesout.params.datagrid.id);
+		var queryParams = dg.datagrid('options').queryParams;
+		if(queryParams['search[fast_logis_printed]']){queryParams['search[fast_logis_printed]']='';}
+		if(queryParams['search[fast_no_logis_printed]']){queryParams['search[fast_no_logis_printed]']='';}
+		if(queryParams['search[fast_goods_printed]']){queryParams['search[fast_goods_printed]']='';}
+		if(queryParams['search[fast_no_goods_printed]']){queryParams['search[fast_no_goods_printed]']='';}
+		if(queryParams['search[fast_printed_not_stockout]']){queryParams['search[fast_printed_not_stockout]']='';}
+		if(queryParams['search[fast_stockout_not_printed]']){queryParams['search[fast_stockout_not_printed]']='';}
+		if(queryParams['search[fast_no_stockout]']){queryParams['search[fast_no_stockout]']='';}
+		if(queryParams['search[fast_is_stockout]']){queryParams['search[fast_is_stockout]']='';}
+		if(queryParams['search[fast_is_finish]']){queryParams['search[fast_is_finish]']='';}
+		if(queryParams['search[fast_is_checked]']){queryParams['search[fast_is_checked]']='';}
+		if(queryParams['search[fast_no_checked]']){queryParams['search[fast_no_checked]']='';}
+		if(queryParams['search[fast_is_weighted]']){queryParams['search[fast_is_weighted]']='';}
+		if(queryParams['search[fast_no_weighted]']){queryParams['search[fast_no_weighted]']='';}
+		if(queryParams['search[fast_is_blocked]']){queryParams['search[fast_is_blocked]']='';}
+		if(queryParams['search[fast_no_blocked]']){queryParams['search[fast_no_blocked]']='';}
+		if(queryParams['search[fast_has_cliented]']){queryParams['search[fast_has_cliented]']='';}
+		if(queryParams['search[fast_no_cliented]']){queryParams['search[fast_no_cliented]']='';}
+		if(queryParams['search[fast_one_day]']){queryParams['search[fast_one_day]']='';}
+		if(queryParams['search[fast_tow_day]']){queryParams['search[fast_tow_day]']='';}
+		if(queryParams['search[fast_one_week]']){queryParams['search[fast_one_week]']='';}
+		if(queryParams['search[fast_one_month]']){queryParams['search[fast_one_month]']='';}
+	}
+		function setFastClickColor(that){
+			var a_elems = $(that).parent('fieldset').parent('div').find('a');
+			a_elems.each(function(i){
+				$(this).css({'color':'#174B73'});
+			});
+			$(that).css({'color':'red'});
+		}
+stockSalesout = new RichDatagrid(JSON.parse('{$params}'));
+stockSalesout.setFormData();
+stockSalesout.SMS = function () {
+    var that = this;
+    var dg = $("#" + "{$id_list['datagrid']}");
+    var row = dg.datagrid("getSelected");
+    if(!row){
+        messager.alert('请选择要发送短信的订单！', "info");
+        return false;
+    }
+    var buttons = [{
+        text: '发送', handler: function () {
+            that.submitSMSDialog();
+        }
+    }, {
+        text: '取消', handler: function () {
+            that.cancelDialog(that.params.SMS.id);
+        }
+    }];
+    this.showDialog(
+            that.params.SMS.id,
+            that.params.SMS.title,
+            that.params.SMS.url,
+            that.params.SMS.height,
+            that.params.SMS.width,
+            buttons
+    );
+};
+
+//html 标签的解码
+stockSalesout.jsonObjectHtmlDecode = function(params){
+	$.each(params,function(key,val){
+	    if(typeof val == 'string'){
+	    	params[key]=val.html_decode();
+	    }
+	    });
+		
+}
+//新版搜索
+stockSalesout.searchData=function(){
+    resetFast();
+    stockSalesout.submitSearchForm(this);
+}
+stockSalesout.loadData=function(set_fast){
+    if(set_fast != undefined){
+        $('#{$id_list.fast_div}').find('a').each(function(){
+            $(this).css({'color':'#174B73'});
+        });
+    }
+    resetFast();
+    $('input[name="search[multi_logistics]"]').val('0').prop('checked','');
+    stockSalesout.loadFormData();
+}
+stockSalesout.fastSearch=function(that,key){
+    setFastClickColor(that);
+    resetFast();
+    var dg = $('#'+stockSalesout.params.datagrid.id);
+    var queryParams ={};
+    queryParams[key]=1;
+    dg.datagrid('options').queryParams = queryParams;
+    dg.datagrid('reload');
+}
+//多物流搜索选中切换
+stockSalesout.isSearchMultiLogistis=function(that){
+	if(that.val()==1){
+		that.val('0');
+	}else{
+		that.val('1');
+	}
+}
+stockSalesout.cancel = function () {
+        	var that = this;
+			var selected_rows = this.getSelectRows();
+			var selects_info ={};
+			var resultBeforeCheck = [];
+            if($.isEmptyObject(selected_rows)){
+				messager.alert('请选择操作的行');
+				return;
+			}
+           for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(selected_rows[item]['src_order_type'] != 1){
+                temp_result['msg'] = "不是销售出库单";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']!=57 && selected_rows[item]['status']!=60){
+                temp_result['msg'] = "出库单状态不正确";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+			if(selected_rows[item]['warehouse_type']!=11){
+                temp_result['msg'] = "出库单仓库不正确";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+            selects_info[temp_index] = selected_rows[item].id;
+        }
+		if($.isEmptyObject(selects_info)){
+			$.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+			return;
+		}
+		
+		 messager.confirm('确定取消该订单吗？', function(r){
+        if(r){
+        	$('#'+that.params.datagrid.id).datagrid('loading');
+            $.post("{:U('SalesStockOut/cancel')}", {ids:JSON.stringify(selects_info)}, function(result){
+				if(result.status == 2){
+					$.fn.richDialog("response", result.info, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+					return;
+				}else{
+					messager.alert(result.info);
+					stockSalesout.refresh();
+					return;
+				}
+			  /*for(var k in result){
+					if(k == 'updated'){messager.alert('取消成功'); that.refresh();return true;break;}
+                    else if(k == 'error'){messager.alert(result[k]);that.refresh();return false;break;}
+					else{
+                        var Check =  result[0];
+						$.fn.richDialog("response", Check, "stockout",'');
+						that.refresh();return false;
+                        break;
+                  }
+                   
+                }*/
+        },'json');
+      }else{
+	  return;}
+    });
+		
+    }
+
+	
+	stockSalesout.hand = function () {
+        	var that = this;
+			var selected_rows = this.getSelectRows();
+			var selects_info ={};
+			var resultBeforeCheck = [];
+            if($.isEmptyObject(selected_rows)){
+				messager.alert('请选择操作的行');
+				return;
+			}
+           for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(selected_rows[item]['src_order_type'] != 1){
+                temp_result['msg'] = "不是销售出库单";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']!=56){
+                temp_result['msg'] = "不是推送失败的单子";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+			if(selected_rows[item]['warehouse_type']!=11){
+                temp_result['msg'] = "出库单仓库不正确";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+            selects_info[temp_index] = selected_rows[item].id;
+        }
+		if($.isEmptyObject(selects_info)){
+			$.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+			return;
+		}
+		
+		 messager.confirm('确定重新推送该订单吗？', function(r){
+        if(r){
+        	$('#'+that.params.datagrid.id).datagrid('loading');
+            $.post("{:U('SalesStockOut/hand')}", {ids:JSON.stringify(selects_info)}, function(result){
+            	if(parseInt(result.status)==0) {
+            			 messager.alert('推送成功！');
+						 that.refresh();
+                         return true;
+				}
+            	if(parseInt(result.status) == 1){
+                    messager.alert(result.info);
+					that.refresh();
+                    return false;
+                }
+        },'json');
+      }else{return;}
+    });
+		
+    }
+	
+	
+stockSalesout.exportToExcel = function(type){
+	var url= "{:U('SalesStockOut/exportToExcel')}";
+	var id_list = [];
+	for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+	var search=JSON.stringify($('#{$id_list.form}').form('get'));
+	var data = $("#{$datagrid.id}").datagrid("getData");
+	if(data.total==0){
+		messager.confirm('导出不能为空！');
+		return false;
+	}
+	if(id_list != ''){
+		messager.confirm('确定导出选中的销售出库单吗？',function(r){
+			if(!r){return false}
+			window.open(url+'?id_list='+id_list+'&type='+type);
+		});
+	}else{
+		messager.confirm('确定导出搜索的销售出库单吗？',function(r){
+			if(!r){return false;}
+			window.open(url+'?search='+search+'&type='+type);
+		})
+	}
+}
+//确认发货
+stockSalesout.consignStockoutOrder = function(type,solve_id)
+{
+    var that = this;
+    var selected_rows = this.getSelectRows();
+	var selects_info ={};
+	var resultBeforeCheck = [];
+    if(type != undefined )
+    {
+        var row_info = that.getSolveRow(solve_id);
+        if(row_info == undefined){
+            messager.alert('该订单信息已经更新,请关闭后重新操作');
+            $('#response_dialog').dialog('close');
+            return;
+        }else{
+			selected_rows.push(row_info.row);
+			selects_info[row_info.index] = solve_id;
+        }
+    }
+    if($.isEmptyObject(selected_rows)){
+       messager.alert('请选择操作的行');
+       return;
+    }
+
+    if(type ==undefined){
+        for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(selected_rows[item]['src_order_type'] != 1){
+                temp_result['msg'] = "不是销售出库单";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']<55){
+                temp_result['msg'] = "出库单状态不正确";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']>=95){
+                temp_result['msg'] = "订单已发货";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['consign_status']&4){
+                temp_result['msg'] = "订单已出库";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['warehouse_type']!=1 && selected_rows[item]['warehouse_type']!=127){
+                temp_result['msg'] = "委外订单不能验货出库";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['platform_id']) !=0){
+                if($.isEmptyObject(selected_rows[item]['logistics_id']) || selected_rows[item]['logistics_id']==0){
+                   temp_result['msg'] = "物流公司未设置";
+                   temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.jump(\'单据打印\', \'{:U(\'Stock/StockSalesPrint/getPrintList\')}?stockout_no='+selected_rows[item]['stockout_no']+'\',\''+selected_rows[item]['stockout_no']+'\')">单据打印页面【修改物流公司】</a>';
+					
+				   resultBeforeCheck.push(temp_result);
+                    continue;
+                }
+                if(selected_rows[item]['logistics_type'] > 1 &&  $.trim(selected_rows[item]['logistics_no']) == ''){
+                    temp_result['msg'] = "物流单号不能为空";
+                    temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.jump(\'单据打印\', \'{:U(\'Stock/StockSalesPrint/getPrintList\')}?stockout_no='+selected_rows[item]['stockout_no']+'\',\''+selected_rows[item]['stockout_no']+'\')">单据打印页面【填写物流单号】</a>';
+                    resultBeforeCheck.push(temp_result);
+                    continue;
+                }
+            }
+            var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+            selects_info[temp_index] = selected_rows[item].id;
+        }
+    }
+
+    if($.isEmptyObject(selects_info)){
+        $.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+        return;
+    }
+    messager.confirm('确定完成发货吗？', function(r){
+        if(r){
+        	$('#'+that.params.datagrid.id).datagrid('loading');
+            $.post("{:U('SalesStockOut/consignStockoutOrder')}", {ids:JSON.stringify(selects_info),is_force:0}, function(result){
+            	$('#'+that.params.datagrid.id).datagrid('loaded');
+            	if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+            		result.status = 2;
+            		result.data.fail = resultBeforeCheck.concat(result.data.fail);
+            	}
+            	if(parseInt(result.status)==0) {
+            			 for(var i in result.data.success){
+                         	if($.isEmptyObject(result.data.success[i])){
+                                	continue;
+                             }
+                             $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{status:result.data.success[i].status,consign_status:result.data.success[i].consign_status,weight:result.data.success[i].weight,consign_time:result.data.success[i].consign_time,post_cost:result.data.success[i].post_cost}});
+                             that.updateResponSuccess(result.data.success,type);
+                         }
+                         return true;
+				}
+            	if(parseInt(result.status) == 1){
+                    messager.alert(result.info);
+					that.refresh();
+                    return false;
+                }
+                if(parseInt(result.status) == 2){
+                    if(!$.isEmptyObject(result.data.fail)){
+                            //调用dialog显示处理结果
+                        if(type == undefined){
+                            var sel_rows_map = utilTool.array2dict(selected_rows,'id','');
+                            for(var k in result.data.fail){
+                                if(result.data.fail[k].msg == '物流单号不能为空'){
+                                    result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.jump(\'单据打印\', \'{:U(\'Stock/StockSalesPrint/getPrintList\')}?stockout_no='+result.data.fail[k]['stock_no']+'\',\''+result.data.fail[k]['stock_no']+'\')">单据打印页面【添加物流单号】</a>';
+                                }else if(result.data.fail[k].msg.search('拦截出库')!=-1){
+                                    if(sel_rows_map[result.data.fail[k]['stock_id']].block_reason & (1|2|4|32|128|256)){
+                                        result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertCheck({orignal_type:\'consign_stockout\',solve_type:\'revert_check\'},'+result.data.fail[k]['stock_id']+')">驳回到订单审核重新审核</a>';
+										result.data.fail[k]['solve_way'] +=' 或 <a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>'
+	
+									}else{
+                                        result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertCheck({orignal_type:\'consign_stockout\',solve_type:\'revert_check\'},'+result.data.fail[k]['stock_id']+')">驳回到订单审核重新审核</a>';
+                                        result.data.fail[k]['solve_way'] += '，';
+                                        result.data.fail[k]['solve_way'] += '<a href="javascript:void(0)" onClick="stockSalesout.cancelBlock({orignal_type:\'consign_stockout\',solve_type:\'cancel_block\'},'+result.data.fail[k]['stock_id']+')">取消拦截</a>';
+										result.data.fail[k]['solve_way'] +=' 或 <a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>'
+	
+									}
+                                }else if(result.data.fail[k].msg == '发货前必须验货' || result.data.fail[k].msg == '发货前必须称重'){
+									result.data.fail[k]['solve_way'] ='<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>'
+								}else if(result.data.fail[k].msg == '预物流同步成功后才可确认发货'){
+                                    result.data.fail[k]['solve_way'] ='<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>' + ' 或 ' + '<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.consignAllStockoutOrder(1,\'预物流同步成功后才可确认发货\')">全部强制发货</a> 或 等待预物流同步成功';
+                                }else if(result.data.fail[k].msg.search(/不允许负库存出库/i) != -1){
+                                    result.data.fail[k]['solve_way'] ='<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>';
+                                }else if(result.data.fail[k].msg.search(/存在未分拣的货品/i) != -1){
+                                    result.data.fail[k]['solve_way'] ='<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.continueSort()">继续分拣</a>' + ' 或 ' + '<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.mandatory_delivery('+result.data.fail[k]['stock_id']+','+type+')">强制发货</a>' + ' 或 ' + '<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesout.consignAllStockoutOrder(1,\'存在未分拣的货品\')">全部强制发货</a>';
+                                }
+                            }
+                        }
+                        $.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+                    }
+                    for(var i in result.data.success){
+                        if($.isEmptyObject(result.data.success[i])){continue;}
+                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{status:result.data.success[i].status,consign_status:result.data.success[i].consign_status,weight:result.data.success[i].weight,consign_time:result.data.success[i].consign_time,post_cost:result.data.success[i].post_cost}});
+                        that.updateResponSuccess(result.data.success,type);
+
+                    }
+                    return true;
+                }
+            	return;
+        },'json');
+      }else{return;}
+    });
+
+};
+stockSalesout.consignAllStockoutOrder = function (is_force,search_str) {
+    var ids = '';
+    var that = this;
+    var resultBeforeCheck = [];
+    is_force = is_force==undefined?'1':is_force;
+    search_str = search_str==undefined?'存在未分拣的货品':search_str;
+    var return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+    var reg = new RegExp(search_str,"i");
+    for(var i in return_rows){
+        if(return_rows[i]['msg'].search(reg) != -1){
+            ids += return_rows[i]['stock_id']+',';
+        }
+    }
+    var ids_len = ids.length;
+    ids = ids.substr(0,ids_len-1);
+    if(ids==''){messager.alert('没有获取到出库单信息，请刷新后重试');return;}
+    messager.confirm('订单信息可能有误，确定要全部强制出库吗？', function(r){
+        if(r){
+            $('#'+that.params.datagrid.id).datagrid('loading');
+            Post("{:U('Purchase/SortingWall/consignStockoutOrder')}", {ids:ids,is_force:is_force}, function(result){
+                $('#'+that.params.datagrid.id).datagrid('loaded');
+                if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+                    result.status = 2;
+                    result.data.fail = resultBeforeCheck.concat(result.data.fail);
+                }
+                if(parseInt(result.status)==0) {
+                    var return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+                    for (var i=0;i<return_rows.length;i++){
+                        if(return_rows[i]['msg'].search(reg) != -1){
+                            index=$("#response_dialog_datagrid").datagrid('getRowIndex',return_rows[i]);
+                            $("#response_dialog_datagrid").datagrid('deleteRow',index);
+                            i--;
+                        }
+                    }
+                    if(return_rows.length==undefined||return_rows.length==0){
+                        $("#response_dialog").dialog('close');
+                    }
+                    that.refresh();
+                    return true;
+                }
+                if(parseInt(result.status) == 1){
+                    messager.alert(result.info);
+                    that.refresh();
+                    return false;
+                }
+                if(parseInt(result.status) == 2){
+                    if(!$.isEmptyObject(result.data.fail)){
+                        //调用dialog显示处理结果
+                        $.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesPrint){stockSalesPrint.refresh();}}});
+                    }
+                    return true;
+                }
+                return;
+            },'json');
+        }else{return;}
+    });
+}
+stockSalesout.continueSort = function(){
+    open_menu('档口采购分拣', '{:U('Stock/StallsPickList/show')}');
+    $("#response_dialog").dialog('close');
+}
+//强制发货
+/*stockSalesout.mandatory_delivery = function(stockout_id){
+	var that = this;
+	var selects_info ={};
+	selects_info[0] = stockout_id;
+	messager.confirm('订单信息可能有误，确定强制出库吗？', function(r){
+		if(r){
+			$.post("{:U('StockSalesPrint/consignStockoutOrder')}", {ids:JSON.stringify(selects_info),is_force:1}, function(result){
+					if(parseInt(result.status) == 2){
+						if(!$.isEmptyObject(result.data.fail)){
+							//调用dialog显示处理结果
+							$.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesPrint){stockSalesPrint.refresh();}}});
+						}
+						return true;
+					}
+					if(parseInt(result.status) == 1){
+						messager.alert(result.info);
+						that.refresh();
+						return false;
+					}
+					if(parseInt(result.status) == 0){
+						$('#response_dialog').dialog('close');
+						return false;
+					}
+			});
+		}else{
+			return ;
+		}
+	});
+	
+};*/
+stockSalesout.mandatory_delivery = function(stockout_id,type){
+    var that = this;
+    var selected_rows = this.getSelectRows();
+    var selects_info ={};
+    //selects_info[0] = stockout_id;
+    for(var item in selected_rows){
+        var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+        if(selected_rows[item].id == stockout_id) selects_info[temp_index] = selected_rows[item].id;
+    }
+    messager.confirm('订单信息可能有误，确定强制出库吗？', function(r){
+        if(r){
+            Post("{:U('StockSalesPrint/consignStockoutOrder')}", {ids:JSON.stringify(selects_info),is_force:1}, function(result){
+                if(parseInt(result.status) == 2){
+                    if(!$.isEmptyObject(result.data.fail)){
+                        //调用dialog显示处理结果
+                        $.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesPrint){stockSalesPrint.refresh();}}});
+                    }
+                    return true;
+                }
+                if(parseInt(result.status) == 1){
+                    messager.alert(result.info);
+                    that.refresh();
+                    return false;
+                }
+                if(parseInt(result.status) == 0){
+                    //$('#response_dialog').dialog('close');
+                    var row_index;
+                    for(var i in result.data.success){
+                        if($.isEmptyObject(result.data.success[i])){
+                            continue;
+                        }
+                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{status:result.data.success[i].status,consign_status:result.data.success[i].consign_status,weight:result.data.success[i].weight,consign_time:result.data.success[i].consign_time,post_cost:result.data.success[i].post_cost}});
+                        row_index = parseInt(i);
+                        that.updateResponSuccess(result.data.success,type);
+                    }
+                    var return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+                    for (var i=0;i<return_rows.length;i++){
+                        if(return_rows[i]['stock_id']==result.data.success[row_index].id){
+                            index=$("#response_dialog_datagrid").datagrid('getRowIndex',return_rows[i]);
+                            $("#response_dialog_datagrid").datagrid('deleteRow',index);
+                            i--;
+                        }
+                    }
+                    //return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+                    if(return_rows.length==undefined||return_rows.length==0){
+                        $("#response_dialog").dialog('close');
+                    }
+                    return true;
+                }
+            });
+        }else{
+            return ;
+        }
+    });
+
+};
+stockSalesout.jump = function(title,url,stock_no){
+$('#response_dialog').dialog('close');
+if($("#container").tabs('exists', title)){
+open_menu(title, url);
+switch(title){
+	case '单据打印' :
+		if($('#container').tabs('exists',title)){
+			$.post("{:U('Stock/StockSalesPrint/search')}",{'search[stockout_no]':stock_no},function(res){
+				$('#'+stockSalesPrint.params.datagrid.id).datagrid('loadData',res);
+			});
+		}
+		break;
+	case '出库验货' :
+		if($('#container').tabs('exists',title)){
+			StockoutExamine.form_selector_list.scan_class.combobox('setValue','trade_no');
+			StockoutExamine.form_selector_list.barcode_or_trade_no.textbox('setValue',stock_no);
+			StockoutExamine.form_selector_list.barcode_or_trade_no.textbox('textbox').focus();
+			stockoutExamine.submitNo();
+		}
+		break;
+	case '称重' :
+		if($('#container').tabs('exists',title)){
+			stockWeight.form_selector_list.trade_no_or_logistics_no.textbox('setValue',stock_no);
+			stockWeight.form_selector_list.trade_no_or_logistics_no.textbox('textbox').focus();
+			stockWeight.getTradeInfo();
+		}
+		break;
+	}
+}else{
+	open_menu(title, url);
+}
+};
+//订单驳回验货
+stockSalesout.revertConsignStatus = function(type,solve_type,solve_id)
+{
+	var that = this;
+    var selected_rows = this.getSelectRows();
+	var selects_info ={};
+	var resultBeforeCheck = [];
+    if(solve_type != undefined )
+    {
+        var row_info = that.getSolveRow(solve_id);
+        if(row_info == undefined){
+            messager.alert('该订单信息已经更新,请关闭后重新操作');
+            $('#response_dialog').dialog('close');
+            return;
+        }else{
+			selected_rows.push(row_info.row);
+			selects_info[row_info.index] = solve_id;
+        }
+    }
+	if($.isEmptyObject(selected_rows)){
+		messager.alert('请选择操作的行');
+		return;
+	}
+	var tip_info_map = {"1":'验货',"2":"称重"};
+	if(solve_type == undefined)
+	{
+        for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(parseInt(selected_rows[item]['status'])<55){
+                temp_result['msg'] = "出库单状态不正确";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])==95){
+                temp_result['msg'] = "请先撤销出库";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_consignstatus\',solve_type:\'revert_stockout\',operator_type:'+type+'},'+selected_rows[item]['id']+')">撤销出库</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])>95 && parseInt(selected_rows[item]['platform_id']) !=0 ){
+                temp_result['msg'] = "线上订单已完成，系统禁止驳回"+tip_info_map[type];
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])>95 && parseInt(selected_rows[item]['platform_id']) ==0 ){
+                temp_result['msg'] = "请先撤销出库";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_consignstatus\',solve_type:\'revert_stockout\',operator_type:'+type+'},'+selected_rows[item]['id']+')">撤销出库</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['src_order_type'])!=1){
+                temp_result['msg'] = "不是销售出库单";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(!(parseInt(selected_rows[item]['consign_status'])&1) && parseInt(type)&1){
+                temp_result['msg'] = "出库单未验货";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.jump(\'出库验货\', \'{:U(\'Stock/SalesStockoutExamine/initStockoutExamine\')}?src_order_no='+selected_rows[item]['src_order_no']+'\',\''+selected_rows[item]['src_order_no']+'\')">出库验货</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(!(parseInt(selected_rows[item]['consign_status'])&2) && parseInt(type)&2){
+                temp_result['msg'] = "出库单未称重";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.jump(\'称重\', \'{:U(\'Stock/StockWeight/getWeightList\')}?src_order_no='+selected_rows[item]['src_order_no']+'\',\''+selected_rows[item]['src_order_no']+'\')">称重</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+            selects_info[temp_index] = selected_rows[item].id;
+
+        }
+    }
+     if($.isEmptyObject(selects_info))
+     {
+         $.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+         return;
+     }
+     messager.confirm('确定驳回'+tip_info_map[type]+'吗？', function(r){
+         if(r){
+             $.post("{:U('SalesStockOut/revertConsignStatus')}", {type:type,ids:JSON.stringify(selects_info)}, function(result){
+             	if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+             		result.status = 2;
+             		result.data.fail = resultBeforeCheck.concat(result.data.fail);
+             	}
+             	if(parseInt(result.status)==0) {
+             			 for(var i in result.data.success){
+                          	if($.isEmptyObject(result.data.success[i])){
+                                 	continue;
+                              }
+                              $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{status:result.data.success[i].status,consign_status:result.data.success[i].consign_status,weight:result.data.success[i].weight,consign_time:result.data.success[i].consign_time}});
+                             that.updateResponSuccess(result.data.success,solve_type);
+                         }
+                          return true;
+             		}
+             	if(parseInt(result.status) == 1){
+                     messager.alert(result.info);
+					 that.refresh();
+                     return false;
+                 }
+                 if(parseInt(result.status) == 2){
+                     if(!$.isEmptyObject(result.data.fail)){
+                             //调用dialog显示处理结果
+						 var sel_rows_map = utilTool.array2dict(selected_rows,'id','');
+						 for(var k in result.data.fail){
+							 if(result.data.fail[k].msg.search('请先撤销出库')!=-1){
+								 result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_consignstatus\',solve_type:\'revert_stockout\',operator_type:'+type+'},'+result.data.fail[k]['stock_id']+')">撤销出库</a>';
+							 }
+						 }
+                         $.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+                     }
+                     for(var i in result.data.success){
+                         if($.isEmptyObject(result.data.success[i])){continue;}
+                         $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{consign_status:result.data.success[i].consign_status,weight:result.data.success[i].weight}});
+                         that.updateResponSuccess(result.data.success,solve_type);
+                     }
+                     return true;
+                 }
+             	return;
+         },'json');
+       }else{return;}
+     });
+
+};
+//取消截停
+stockSalesout.cancelBlock = function(type,solve_id)
+{
+	var that = this;
+    var selected_rows = this.getSelectRows();
+	var selects_info ={};
+	var resultBeforeCheck = [];
+    if(type != undefined )
+    {
+        var row_info = that.getSolveRow(solve_id);
+        if(row_info == undefined){
+            messager.alert('该订单信息已经更新,请关闭后重新操作');
+            $('#response_dialog').dialog('close');
+            return;
+        }else{
+			selected_rows.push(row_info.row);
+			selects_info[row_info.index] = solve_id;
+        }
+    }
+    if($.isEmptyObject(selected_rows)){
+        messager.alert('请选择操作的行');
+        return;
+    }
+    var block_reason_map = formatter.get_data('stockout_block_reason');
+    if(type == undefined){
+        for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(parseInt(selected_rows[item]['block_reason'])==0){
+                temp_result['msg'] = "出库单未拦截";
+                temp_result['solve_way'] ='刷新后重试';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['block_reason']) & (2|4|32|128|256)){
+                var block_reason_id = parseInt(selected_rows[item]['block_reason']);
+                var block_reason_name = formatter.stockout_block_reason(block_reason_id);
+                temp_result['msg'] = block_reason_name+"不能清除";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertCheck({orignal_type:\'concel_block\',solve_type:\'revert_check\'},'+selected_rows[item].id+')">驳回到审核界面重新审核</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+            selects_info[temp_index] = selected_rows[item].id;
+
+        }
+    }
+
+
+     if($.isEmptyObject(selects_info))
+     {
+         $.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+         return;
+     }
+
+     messager.confirm('确认取消拦截吗？', function(r){
+         if(r){
+             $.post("{:U('SalesStockOut/unblockStockout')}", {ids:JSON.stringify(selects_info)}, function(result){
+             	if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+             		result.status = 2;
+             		result.data.fail = resultBeforeCheck.concat(result.data.fail);
+             	}
+             	if(parseInt(result.status)==0) {
+             			 for(var i in result.data.success){
+                          	if($.isEmptyObject(result.data.success[i])){
+                                 	continue;
+                              }
+                              $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{block_reason:result.data.success[i].block_reason}});
+                             that.updateResponSuccess(result.data.success,type);
+                         }
+                          return true;
+             		}
+             	if(parseInt(result.status) == 1){
+                     messager.alert(result.info);
+					 that.refresh();
+                     return false;
+                 }
+                 if(parseInt(result.status) == 2){
+                     if(!$.isEmptyObject(result.data.fail)){
+                             //调用dialog显示处理结果
+                         if(type == undefined){
+
+                             var sel_rows_map = utilTool.array2dict(selected_rows,'id','');
+                             for(var k in result.data.fail){
+                                 if(result.data.fail[k].msg.search('不能清除')!=-1){
+                                     result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout('+result.data.fail[k]['stock_id']+')">驳回到审核界面再次审核</a>';
+                                 }
+                             }
+                         }
+                         $.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+                     }
+                     for(var i in result.data.success){
+                         if($.isEmptyObject(result.data.success[i])){continue;}
+                         $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{consign_status:result.data.success[i].consign_status}});
+                         that.updateResponSuccess(result.data.success,type);
+                     }
+                     return true;
+                 }
+             	return;
+         },'json');
+       }else{return;}
+     });
+
+};
+        stockSalesout.getSolveRow = function(id)
+        {
+            var sel_rows = $('#'+this.params.datagrid.id).datagrid('getSelections');
+            for(var r_j in sel_rows)
+             {
+                 if(sel_rows[r_j].id == id){
+                     var index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',sel_rows[r_j]);
+                     return {index:index,row:sel_rows[r_j]};
+                 }
+             }
+            return undefined;
+        };
+        stockSalesout.updateResponSuccess = function(rows,type){
+        	if(type != undefined){
+				var res_rows =  $('#response_dialog_datagrid').datagrid('getSelections');
+				for(var i in rows){
+					for(var j in res_rows)
+					{
+						if(rows[i].id == res_rows[j].stock_id){
+							if((type.solve_type == 'revert_check') || ((type!=undefined&&(type.orignal_type == type.solve_type))&&( type.solve_type== 'consign_stockout'|| type.solve_type== 'revert_consignstatus'|| type.solve_type== 'revert_check')) ){
+								var index = $('#response_dialog_datagrid').datagrid('getRowIndex',res_rows[j]);
+								$('#response_dialog_datagrid').datagrid('deleteRow',index);
+								if($.isEmptyObject($('#response_dialog_datagrid').datagrid('getRows'))){
+									$('#response_dialog').dialog('close');
+								};
+							}else{
+
+								var index = $('#response_dialog_datagrid').datagrid('getRowIndex',res_rows[j]);
+								//{orignal_type:\'revert_consignstatus\',solve_type:\'revert_stockout\'},
+								if (type.orignal_type == 'revert_consignstatus' && type.solve_type=='revert_stockout')
+								{
+									tip_info_map = {"1":'验货',"2":"称重"};
+									type.solve_type ='revert_consignstatus';
+									rows[i].solve_way = '<a href="javascript:void(0)" onClick="stockSalesout.revertConsignStatus('+type.operator_type+','+JSON.stringify(type).replace(/\"/g,'\'')+','+rows[i].id+')">再次驳回'+tip_info_map[type.operator_type]+'</a>';
+								}else if (type.orignal_type == 'consign_stockout'){
+									type.solve_type ='consign_stockout';
+									rows[i].solve_way = '<a href="javascript:void(0)" onClick="stockSalesout.consignStockoutOrder('+JSON.stringify(type).replace(/\"/g,'\'')+','+rows[i].id+')">再次确认发货</a>';
+								}else if (type.orignal_type == 'revert_check'){
+									type.solve_type ='revert_check';
+									rows[i].solve_way = '<a href="javascript:void(0)" onClick="stockSalesout.revertCheck('+JSON.stringify(type).replace(/\"/g,'\'')+','+rows[i].id+')">再次驳回审核</a>';
+								}
+								$('#response_dialog_datagrid').datagrid('updateRow',{index:index,row:rows[i]});
+							}
+
+						}
+					}
+				}
+			}
+
+        };
+//驳回审核
+stockSalesout.revertCheck = function(type,solve_id)
+{
+	var that = this;
+	var selected_rows ;
+	var selects_info =[];
+	var resultBeforeCheck = [];
+    var selected_rows = this.getSelectRows();
+    if(type != undefined )
+    {
+        var row_info = that.getSolveRow(solve_id);
+        if(row_info == undefined){
+            messager.alert('该订单信息已经更新,请关闭后重新操作');
+            $('#response_dialog').dialog('close');
+            return;
+        }else{
+			selected_rows.push(row_info.row);
+			selects_info.push(solve_id);
+        }
+    }
+
+    if($.isEmptyObject(selected_rows)){
+    	messager.alert('请选择操作的行！');
+    	return;
+    }
+    if(type == undefined){
+        for(var item in selected_rows){
+            var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+            if(selected_rows[item]['status']<55){
+                temp_result['msg'] = "订单状态不是已审核，禁止驳回";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])==95){
+                temp_result['msg'] = "请先撤销出库";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_check\',solve_type:\'revert_stockout\'},'+selected_rows[item]['id']+')">撤销出库</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])>95 && parseInt(selected_rows[item]['platform_id']) !=0 ){
+                temp_result['msg'] = "线上订单已完成，系统禁止驳回审核";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(parseInt(selected_rows[item]['status'])>95 && parseInt(selected_rows[item]['platform_id']) ==0 ){
+                temp_result['msg'] = "请先撤销出库";
+                temp_result['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_check\',solve_type:\'revert_stockout\'},'+selected_rows[item]['id']+')">撤销出库</a>';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']==5){
+                temp_result['msg'] = "出库单已经取消";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['status']==54){
+                temp_result['msg'] = "正在获取面单号,请稍后";
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            if(selected_rows[item]['src_order_type']!=1){
+                temp_result['msg'] = "不是销售出库单";
+                temp_result['solve_way'] ='刷新后重试或者联系管理员';
+                resultBeforeCheck.push(temp_result);
+                continue;
+            }
+            selects_info.push(selected_rows[item].id);
+
+        }
+    }
+    if($.isEmptyObject(selects_info))
+    {
+        $.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+        return;
+    }
+
+    var ids = selects_info.toString();
+
+	this.setReason('revert_reason',ids,resultBeforeCheck,type);
+};
+stockSalesout.jump_url = function(title,url,value){
+    var param = {};
+    $('#response_dialog').dialog('close');
+    param['stockout_no'] = value;
+    open_menu(title, url);
+    switch(title){
+        case '分拣框货品明细' :
+            if($('#container').tabs('exists',title)){
+                $.get("{:U('Purchase/SortingWall/getSortingBoxGoodsDetail')}",param,function(res){
+                    $('#sortingwall_datagrid_box').datagrid('loadData',res);
+                });
+            }
+            break;
+    }
+}
+stockSalesout.forceRevertCheck = function(id)
+{
+    var that = this;
+    var resultBeforeCheck = [];
+    this.setReason('revert_reason',id,resultBeforeCheck,undefined,1);
+};
+stockSalesout.forceRevertAllCheck = function()
+{
+    var that = this;
+    var resultBeforeCheck = [];
+    this.setReason('revert_reason','',resultBeforeCheck,undefined,1,1);
+};
+stockSalesout.submitReasonDialog = function(params,type,ids,list,solve_tye,is_force,is_force_all){
+    var that = undefined;
+    if(this instanceof RichDatagrid){
+        that = this;
+    }
+    var select_rows = that.selectRows;
+    if(ids==undefined){
+        ids = '';
+        for(var i =0;i<select_rows.length;i++){ ids = ids+select_rows[i].id+",";}
+        ids = ids.substr(0,ids.length-1);
+    }
+    if(is_force_all==1){
+        var return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+        for(var i in return_rows){if(return_rows[i]['msg'].search(/存在未分拣的货品/i) != -1){ids += return_rows[i]['stock_id']+',';}}
+        ids = ids.substr(0,ids.length-1);
+    }
+    var reason_form_id = that.params[type].form.id;
+    var select_value = $('#'+that.params[type].form.list_id).combobox('getValue');
+    if(String(select_value) == '0' || String(select_value)=='' || String(select_value)==undefined){
+        messager.alert("无效的原因,请先添加原因"); return false;
+    }
+    //修改
+    var form_params = {};
+    form_params = JSON.stringify($('#' + reason_form_id).form('get'));
+    var reason_params = {};
+    reason_params['ids'] = ids;
+    reason_params['form'] = form_params;
+    reason_params['is_force'] = is_force;
+    $.post(that.params[type].form.url,reason_params,function (result) {
+        $('#'+that.params[type].id).dialog('close');
+        //添加返回值含有三种情况的代码
+        /*if(!$.isEmptyObject(result.fail)){
+         //调用dialog显示处理结果
+         $.fn.richDialog("response", result.fail, that.params[type].form.dialog_type);
+         }*/
+        if(is_force){
+            $("#response_dialog").dialog('close');
+        }
+        if(!$.isEmptyObject(result)){
+            that.dealDatagridReasonRows(result,list,solve_tye);
+        }
+    },'json');
+};
+//驳回审核
+stockSalesout.revertStockout = function(type,solve_id,is_force)
+{
+	var that = this;
+    is_force = is_force == undefined ? 1 : is_force;
+    var selected_rows = this.getSelectRows();
+	var selects_info ={};
+	var resultBeforeCheck = [];
+    if(type != undefined )
+    {
+        var row_info = that.getSolveRow(solve_id);
+        if(row_info == undefined){
+            messager.alert('该订单信息已经更新,请关闭后重新操作');
+            $('#response_dialog').dialog('close');
+            return;
+        }else{
+			selected_rows.push(row_info.row);
+			selects_info[row_info.index] = solve_id;
+        }
+    }
+    if($.isEmptyObject(selected_rows)){
+		messager.alert('请选择操作的行');
+		return;
+	}
+
+	var block_reason_map = formatter.get_data('stockout_block_reason');
+	if(type == undefined){
+		for(var item in selected_rows){
+			var temp_result = {'stock_id':selected_rows[item]['id'],'stock_no':selected_rows[item]['stockout_no']};
+			if(parseInt(selected_rows[item]['status'])<95){
+				temp_result['msg'] = "出库单还没有出库";
+				temp_result['solve_way'] = "不需要撤销出库";
+				resultBeforeCheck.push(temp_result);
+				continue;
+			}
+
+			var temp_index = $('#'+this.params.datagrid.id).datagrid('getRowIndex',selected_rows[item]);
+			selects_info[temp_index] = selected_rows[item].id;
+
+		}
+	}
+	if($.isEmptyObject(selects_info))
+	{
+		$.fn.richDialog("response", resultBeforeCheck, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+		return;
+	}
+
+	messager.confirm('是否强制撤销出库吗？', function(r){
+		if(r){
+			$.post("{:U('SalesStockOut/revertStockout')}", {ids:JSON.stringify(selects_info),is_force:is_force}, function(result){
+				if(!$.isEmptyObject(resultBeforeCheck) && (result.status == 0 || result.status == 2)){
+					result.status = 2;
+					result.data.fail = resultBeforeCheck.concat(result.data.fail);
+				}
+				if(parseInt(result.status)==0) {
+                    var row_index;
+                    for(var i in result.data.success){
+						if($.isEmptyObject(result.data.success[i])){
+							continue;
+						}
+                        row_index = parseInt(i);
+                        $('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{consign_status:result.data.success[i].consign_status,consign_time:result.data.success[i].consign_time,status:result.data.success[i].status}});
+                        that.updateResponSuccess(result.data.success,type);
+                    }
+                    var return_rows= $("#response_dialog_datagrid").datagrid('getRows');
+                    for (var i=0;i<return_rows.length;i++){
+                        if(return_rows[i]['stock_id']==result.data.success[row_index].id){
+                            index=$("#response_dialog_datagrid").datagrid('getRowIndex',return_rows[i]);
+                            $("#response_dialog_datagrid").datagrid('deleteRow',index);
+                            i--;
+                        }
+                    }
+                    if(return_rows.length==undefined||return_rows.length==0){
+                        $("#response_dialog").dialog('close');
+                    }
+					return true;
+				}
+				if(parseInt(result.status) == 1){
+					messager.alert(result.info);
+					that.refresh();
+					return false;
+				}
+				if(parseInt(result.status) == 2){
+					if(!$.isEmptyObject(result.data.fail)){
+                        for(var k in result.data.fail){
+                            if(result.data.fail[k].msg.search(/订单已签收/i) != -1){
+                                result.data.fail[k]['solve_way'] ='<a href="javascript:void(0)"  name = "button_save" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="stockSalesPrint.revertStockout('+type+','+solve_id+',2'+')">强制撤销出库</a>';
+                            }
+                        }
+						//调用dialog显示处理结果
+						$.fn.richDialog("response", result.data.fail, "stockout",{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+					}
+					for(var i in result.data.success){
+						if($.isEmptyObject(result.data.success[i])){continue;}
+						$('#'+that.params.datagrid.id).datagrid('updateRow',{index:parseInt(i), row:{consign_status:result.data.success[i].consign_status,consign_time:result.data.success[i].consign_time,status:result.data.success[i].status}});
+                        that.updateResponSuccess(result.data.success,type);
+                    }
+					return true;
+				}
+				return;
+			},'json');
+		}else{return;}
+	});
+};
+//查看号码
+stockSalesout.checkNumber=function(){
+	var rows=this.selectRows;
+	if(rows==undefined){messager.info('请选择操作的行');return false;}
+	var ids=[];
+	var list=[];
+	for(var i in rows){
+		if(rows[i]['receiver_mobile']==''&&rows[i]['receiver_telno']==''){
+			list.push({trade_no:rows[i]['stockout_no'],result_info:'手机和固话均为空！'});
+			continue;
+		}
+		ids.push(rows[i]['id']);
+	}
+	if(ids.length>0){
+		$.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'stockout_order'},function(res){
+			//console.log(res);
+			stockSalesout.dealDatagridReasonRows(res,list);
+		});
+	}else{
+        var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;res.check_number=false;
+        stockSalesout.dealDatagridReasonRows(res,undefined);
+    }
+};
+stockSalesout.dealDatagridReasonRows = function(result,list,type){
+	var that = this;
+	var select_rows = $('#'+that.params.datagrid.id).datagrid('getSelections');
+	var index;
+	var stockout_dg=$('#'+that.params.datagrid.id);
+	var success = result;
+	if(result.type != undefined)
+	{
+		if(!$.isEmptyObject(list) && (result.status == 0 || result.status == 2) ){
+			result.status =2;
+			result.data.fail = list.concat(result.data.fail);
+		}
+		if(result.status!=undefined && result.status == 1){
+			messager.alert(result.info);
+			return;
+		}else if(result.status!=undefined && result.status == 0){
+			if($.isEmptyObject(result.data.success))
+			{
+				$.messager.alert(result.info);
+				return;
+			}
+			 success = result.data.success;
+		}else if(result.status!=undefined && result.status == 2){
+			if(!$.isEmptyObject(result.data.fail)){
+				//调用dialog显示处理结果
+                if(type == undefined){
+                    var sel_rows_map = utilTool.array2dict(select_rows,'id','');
+                    for(var k in result.data.fail){
+                        if(result.data.fail[k].msg == '请先撤销出库'){
+                            result.data.fail[k]['solve_way'] = '<a href="javascript:void(0)" onClick="stockSalesout.revertStockout({orignal_type:\'revert_check\',solve_type:\'revert_stockout\'},'+result.data.fail[k]['stock_id']+')">撤销出库</a>';
+                        }else if(result.data.fail[k].msg == '驳回原因不存在'){
+                            result.data.fail[k]['solve_way'] = '重新选择原因，或者'+'<a href="javascript:void(0)" onClick="jimp(\'原因列表\', \'{:U(\'Setting/CfgOperReason/showReasonList\')}\')">原因列表添加原因</a>';
+                        }
+                    }
+                }
+				$.fn.richDialog("response", result.data.fail, that.params[result.type].form.dialog_type,{close:function(){if(stockSalesout){stockSalesout.refresh();}}});
+			}
+			if(!$.isEmptyObject(result.data.success)){
+				 success = result.data.success;
+			}
+		}
+	}
+    if(success.status==1){ messager.alert(success.message); return;}
+    if(list!=undefined&&list.length>0&&success.check_number){
+        var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+        result.info.rows=$.merge(list,fail);
+        result.info.total+=list.length;
+        result.status=2;
+    }
+    if(result.status==2&&success.check_number!=undefined){
+        result.info.title='出库单号';
+        $.fn.richDialog("response", result.info, 'checknumber');
+    }
+    if(success.check_number){
+         for(var i in select_rows)
+         {
+             for(var x in success.data.rows)
+             {
+                 if(select_rows[i].id==success.data.rows[x].id)
+                 {
+                     index=stockout_dg.datagrid('getRowIndex',select_rows[i]);
+                     if(success.check_number){select_rows[i].receiver_mobile=success.data.rows[x].receiver_mobile;select_rows[i].receiver_telno=success.data.rows[x].receiver_telno;stockout_dg.datagrid('refreshRow',index);}
+                 }
+             }
+
+         }
+    }else{
+   	 for(var i in select_rows)
+	     {
+	      	for(var item in success)
+	       	{
+	       		if(select_rows[i].id == success[item].id)
+		        {
+		           index = stockout_dg.datagrid('getRowIndex',select_rows[i]);
+		           stockout_dg.datagrid('deleteRow',index);
+		        }
+                that.updateResponSuccess(success,type);
+            }
+	     }
+    }
+};
+},0);});
+</script>
+
+</block>
+
+

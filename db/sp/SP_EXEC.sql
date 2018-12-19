@@ -1,0 +1,26 @@
+
+-- 导出  过程 eshop_v2.SP_EXEC 结构
+DROP PROCEDURE IF EXISTS `SP_EXEC`;
+DELIMITER //
+CREATE PROCEDURE `SP_EXEC`(IN `P_SQL` VARCHAR(8192))
+    SQL SECURITY INVOKER
+BEGIN
+	SET @tmp_exec_sql = P_SQL;
+	PREPARE x_stmt FROM @tmp_exec_sql;
+	
+	BEGIN
+		DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN
+			DEALLOCATE PREPARE x_stmt;
+			RESIGNAL;
+		END;
+		
+		IF @sys_debug IS NULL OR NOT @sys_debug THEN
+			EXECUTE x_stmt;
+			DEALLOCATE PREPARE x_stmt;
+			SET @tmp_exec_sql = NULL;
+		ELSE
+			SELECT P_SQL;
+		END IF;
+	END;
+END//
+DELIMITER ;

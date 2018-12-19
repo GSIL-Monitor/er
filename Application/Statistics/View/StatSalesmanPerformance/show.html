@@ -1,0 +1,106 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="dialog"><div id="{$id_list.help_id}"></div></block>
+<block name="toolbar">
+    <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+        <form id="{$id_list.form}">
+            <div class="form-div">
+                <label>　　店铺：</label><select class="easyui-combobox sel" name="search[shop_id]"><option value="all">全部</option><volist name='list.shop' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>
+                <label>　品牌：</label><select class="easyui-combobox sel" name="search[brand_id]" data-options="editable:false">
+                <option value="all">全部</option>
+                <volist name='goods_brand' id='vo'>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            		</select>
+                <label>　分类：</label><input class="txt" id="tree_class_show_salesman_per" value="-1" name="search[class_id]" data-options="url:'{:U('Goods/GoodsClass/getTreeClass')}?type=all',method:'post',required:true"/>
+                <label>　货品编码：</label><input class="easyui-textbox txt" type="txt" name="search[goods_no]"/>
+               	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="SalesmanPerformance.search();">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="SalesmanPerformance.loadFormData();">重置</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save'"onclick="SalesmanPerformance.exportToExcel()">导出到Excel</a>
+                <label class="form-div">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" title="点击查看统计说明" data-options="iconCls:'icon-help',plain:true" onclick="SalesmanPerformance.readHelp()">查看说明</a>
+                </label>
+                <br>
+                <label>商家编码：</label><input class="easyui-textbox txt" type="txt" name="search[spec_no]"/>
+                <label>　时间：</label><input class="easyui-datebox txt" type="text" name="search[start_time]" value="{$date['start']}" data-options="editable:false"/>
+                <label>　　至：</label><input class="easyui-datebox txt" type="text"    name="search[end_time]" value="{$date['end']}" data-options="editable:false"/>
+             	&nbsp&nbsp<input id="check_show_date" type="checkbox" name="search[stat_as_day]" value="0" />按每天统计
+        	</div>
+        </form>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=SalesmanPerformanceShow.js
+    $(function(){
+        $('#tree_class_show_salesman_per').changStyleTreeCombo('tree_class_show_salesman_per');
+        setTimeout(function (){
+            SalesmanPerformance = new RichDatagrid(JSON.parse('{$params}'));
+            SalesmanPerformance.setFormData();
+            var datagrid_id=SalesmanPerformance.params.datagrid.id;
+            $('#'+datagrid_id).datagrid({rowStyler:function(index,row){
+                var page_size = $(this).datagrid('options').pageSize ;
+                if (row.salesman_id == '合计'){
+                    return 'background-color:#F4F4F4;color:#000;font-weight:bolder';
+                }
+            }});
+            $('#'+datagrid_id).datagrid({onLoadSuccess:function(){
+                var rows = $(this).datagrid('getRows');
+                var stat_fields = [
+                    'trade_count',
+                    'total_receivable',
+                    'trade_total',
+                    'total_profit',
+                    'total_post_amount',
+                    'total_refund_price',
+                    'trade_avg',
+                    'total_goods_count',
+                    'total_goods_type_count',
+                ];
+                var append_row = {};
+                append_row['salesman_id'] = '合计';
+                statAmountDailySalesTotalCompute(rows,stat_fields,append_row);
+                $(this).datagrid('appendRow',append_row);
+            }});
+            SalesmanPerformance.exportToExcel = function(){
+            	var url= "{:U('StatSalesmanPerformance/exportToExcel')}";
+                var search=JSON.stringify($('#{$id_list.form}').form('get'));
+                var data = $("#{$datagrid.id}").datagrid("getData");
+                if(data.total==0){
+                    messager.confirm('导出不能为空！');
+                }                 
+                else{
+               		messager.confirm('确定导出搜索的订单吗？',function(r){
+                    	if(!r){return false;}
+                    	window.open(url+'?search='+search);
+                	})
+                }
+           }
+           SalesmanPerformance.search =function (){
+        	   	if($('#check_show_date').is(':checked')){
+        	   		$("#check_show_date").val('1');
+          			$('#'+datagrid_id).datagrid('showColumn', 'sales_date'); 
+          		}else{
+          			$("#check_show_date").val('0');
+          			$('#'+datagrid_id).datagrid('hideColumn', 'sales_date'); 
+          		}
+        	   	SalesmanPerformance.submitSearchForm(this);
+           }
+           
+        },0);
+    });
+    function statAmountDailySalesTotalCompute(page_rows,arr_fields,append_row) {
+        var rows = page_rows;
+        for(var index in arr_fields)
+        {
+            var field = arr_fields[index];
+            append_row[field] = 0;
+            for (var i = 0; i < rows.length; i++) {
+                append_row[field] += parseFloat(rows[i][field]);
+            }
+            append_row[field] = append_row[field].toFixed(4);
+        }
+
+    }
+    </script>
+</block>

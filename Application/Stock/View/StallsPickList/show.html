@@ -1,0 +1,1114 @@
+<taglib name="TagLib\EasyUI" />
+<div class="easyui-layout" data-options="fit:true,border:false" style="height:540px;width:740px;overflow:hidden;">
+    <div data-options="region:'west',split:true" style="width:265px;background: #F2F2F2;">
+        <div id="pick_sorting_list" class="form-div" style="margin-left: 5px;">
+            <input class="easyui-textbox txt" id="sorting_list" data-options="prompt:'分拣单号'"  type="text" style="width: 170px;height: 25px;"  name="sorting_list"/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width:55px;height:25px;background: #fff;" onclick="purchasePickList.pickSortingList()">确定</a>
+        </div>
+        <div class="form-div" style="margin-left: 5px;">
+            <input class="easyui-textbox txt" id="uniqueCodeId" data-options="prompt:'唯一码或条形码'"  type="text" style="width: 170px;height: 25px;"  name="uniqueCode"/>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width:55px;height:25px;background: #fff;" onclick="purchasePickList.pickUniqueCode()">确定</a>
+        </div>
+        <hr style="border:none;border-top:1px solid #95B8E7;">
+        <div class="form-div" style="margin-left: 5px;">
+            <fieldset style="width:88%;border:1px solid #95B8E7;">
+                <div>
+                    <label style="font-size: 18px;line-height: 20px;">货品名称：<span id="goods_info"></span></label>
+                </div>
+                <div style="margin-top: 5px;">
+                    <label style="font-size: 18px;">商家编码：<span id="spec_no"></span></label>
+                </div>
+                <div style="height:115px;margin-top: 5px;">
+                    <img border=hidden style="height: 113px" id="img_url" src="">
+                </div>
+                <div style="margin-top: 5px;margin-bottom: 10px;">
+                    <label style="font-size: 53px;" id="sort_wall_no">&nbsp</label>
+                    <label style="display: none" id="sort_wall_id">0</label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-div" style="margin-left: 5px;">
+            <fieldset style="width:90%;height: 85px;border:1px solid #95B8E7;padding: 10px 2px 2px 10px;margin-top: 5px;">
+                <legend style="font-size:16px;margin-left: 5px;font-weight: bold;">提示</legend>
+                <!--<label id="sort_finish" style="font-size:20px;color: #FF0000;" >分拣完成</label>-->
+                <label style="display: inline-block;font-size: 20px; color: #FF0000;text-align:center" id="sort_finish"></label>
+            </fieldset>
+        </div>
+        <div class="form-div" style="margin-left: 5px;margin-top: 20px;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width:95%;height:30px;font-size:16px;background: #F2F2F2;" onclick="purchasePickList.openPickSetting()">设置</a>
+        </div>
+    </div>
+    <div data-options="region:'center'" style="height:100%;">
+        <div data-options="region:'center',fit:true" style="height:88%;border-bottom:1px solid #797979;font-size:14px;background:#F2F2F2;padding:5px 2px 2px 5px;">
+            <div style="height:28px;">
+                <div style="width:20%;float: left;margin-left: 5px;">
+                    <label>订单编号：<span id="order_no"></span></label>
+                </div>
+                <div style="width:20%;float: left;margin-left: 5px;">
+                    <label>物流单号：<span id="logistics_no"></span></label>
+                </div>
+                <div style="width:20%;float: left;margin-left: 5px;">
+                    <label>付款时间：<span id="pay_time"></span></label>
+                </div>
+                <div style="width:20%;float: left;margin-left: 5px;">
+                    <label>收  件 人：<span id="receiver_name"></span></label>
+                </div>
+                <a href="javascript:void(0)" style="margin-left: 10px;color:#66CCCC" id="hidden_info" hidden-flag="1" onclick="purchasePickList.showTradeInfo()">收起详细信息︽</a>
+            </div>
+            <div id="more">
+                <div style="height:28px;margin-left: 5px;">
+                    <label>收件地址：<span id="receiver_address"></span></label>
+                </div>
+                <div style="height:28px;margin-left: 5px;">
+                    <label>客服备注：<span id="cs_remark"></span></label>
+                </div>
+                <div style="height:28px;margin-left: 5px;">
+                    <label>买家留言：<span id="buyer_message"></span></label>
+                </div>
+            </div>            
+            <easyui:datagrid id="{$datagrid.id}" style="{$datagrid.style}" options="datagrid.options" fields="datagrid.fields" />            
+        </div>        
+        <div data-options="region:'south',split:true"  style="border-top:1px solid #95B8E7;height: 10%;background:#eee;overflow:hidden;">
+            <div id="">
+                <form  id="">
+                    <div class="form-div" style="padding-top: 5px;">
+                        <div style="font-size:16px;float: left;height :30px;margin-left: 10px;">
+                            <span>货品总数：<span id="goods_count" style="font-size:16px;margin-right: 10px;">0</span>件</span>
+                            <span style="margin-left: 5px">已分拣：<span id="sorted_num" style="font-size:16px;margin-right: 10px;">0</span>件</span>
+                            <span style="margin-left: 5px">未分拣：<span id="unsorted_num" style="font-size:16px;margin-right: 10px;">0</span>件</span>
+                        </div>
+                        <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 12%;height :30px;background: #fff;margin-right: 15px;float: right;" onclick="purchasePickList.split()">一键拆分未分拣货品</a>
+						 <a href="javascript:void(0)" class="easyui-linkbutton" style="border-color: #95B8E7;width: 12%;height :30px;background: #fff;margin-right: 15px;float: right;" onclick="purchasePickList.mandatory_print()">强制分拣</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="pickSetting"></div>
+    <div id="setPrintersDialog"></div>
+    <div id="setLogisticsPrintersDialog"></div>
+    <div id="pickExchangeDialog"></div>
+    <div id="pick_dialog_exchange_order"></div>
+    <div id="audioBox"></div>
+    <audio id="stalls_pick_success_sound">
+        <source src="__ROOT__/Public/Image/sort_success.wav" >
+    </audio>
+    <audio id="stalls_pick_unstalls_sound">
+        <source src="__ROOT__/Public/Image/unstalls.wav" >
+    </audio>
+    <audio id="stalls_pick_warn_sound">
+        <source src="__ROOT__/Public/Image/warn.mp3" >
+    </audio>
+
+    <script>
+//# sourceURL=picklist.js
+	var sorting = 0;
+	var sortingCode = '';
+        $(function () {
+            var base_set = {$base_set};
+            var show_dialog = {$show_dialog};
+            $("#voice_alert").prop('checked',base_set.voice_alert =='1'?true:false);
+			$("#stalls_mode").prop('checked',base_set.stalls_mode =='1'?true:false);
+            $("#print_logistics").prop('checked',base_set.print_logistics =='1'?true:false);
+            $("#print_tag").prop('checked',base_set.print_tag =='1'?true:false);
+			$("#stalls_print_logistics").prop('checked',base_set.stalls_print_logistics =='1'?true:false);
+			if(base_set.print_logistics =='1'){
+				$('#print_logistics_select').show();
+			}else{
+				$('#print_logistics_select').hide();
+			}
+//            var picklistWs,order_no,data,printerInfo,printData,orderData,sortInfo,goods_info,orderPrintData,baseSet,customTempUrl,row,detail;
+            var picklistWs,orderData;
+            var unique_code,uc;
+            var paramsObj;
+
+            purchasePickList = {
+                order_no:'',
+                thatObj:{},
+                paramsObj:{},
+                uniqueCode:'',
+                setPrintersDialog : function () {
+                    $("#setPrintersDialog").dialog({
+                        href:"{:U('StallsPickList/getTemplates')}",
+                        width:330,
+                        height:180,
+                        inline: true,
+                        modal: true,
+                        title:"设置吊牌打印机和模板",
+                        iconCls: 'icon-save',
+                        buttons:[{
+                            text:'保存',
+                            handler:function(){purchasePickList.savePrintSetting();}
+                        }]
+                    });
+                },
+                showTradeInfo:function (){
+                    $hidden_flag = $('#hidden_info').attr('hidden-flag');
+                    if($hidden_flag==1) { //收起
+                        $('#more').hide();
+                        $('#hidden_info').html("展开详细信息 <i>︾</i>").attr('hidden-flag','2');
+                        $('#hidden_info i').css('top','2px');
+                    }else{
+                        $('#more').show();
+                        $('#hidden_info').html("收起详细信息 <i>︽</i>").attr('hidden-flag','1');
+                        $('#hidden_info i').css('top','-2px');
+
+                    }
+                },
+                pickUniqueCode:function(){
+                    unique_code = $('#uniqueCodeId').textbox('getValue');
+                    purchasePickList.uniqueCode = unique_code;
+                    pickListGoods(unique_code,'');
+                },
+                pickSortingList:function(){
+                    sorting_list = $('#sorting_list').textbox('getValue');
+                    purchasePickList.sorting_list = sorting_list;
+                    pickSorting(sorting_list);
+                },
+                setLogisticsPrintersDialog : function () {
+                    $("#setLogisticsPrintersDialog").dialog({
+                        href:"{:U('StallsPickList/setLogisticsAndTemplatesDialog')}?type="+'stall',
+                        width:540,
+                        height:300,
+                        inline: true,
+                        modal: true,
+                        title:"设置物流单打印机和模板",
+                        iconCls: 'icon-save',
+                        buttons:[{
+                            text:'保存',
+                            handler:function(){purchasePickList.savePrintersAndTemplatesSetting();}
+                        }]
+                    });
+                },
+                selectPrinter:function(type){
+
+//                    type = type == "goods"?"99":"88";
+                    if(type == "goods"){
+                        type = "99";
+                    }else if(type =="setting"){
+                        type = "77";
+                    }else {
+                        type = "88";
+                    }
+                    var request = {
+                        "cmd":"getPrinters",
+                        "requestID":"123458976"+type,
+                        "version":"1.0"
+                    };
+                    picklistWs.send(JSON.stringify(request));
+                },
+                connectStockWS:function(){
+                    if($.isEmptyObject(picklistWs)){
+                        picklistWs = new WebSocket("ws://127.0.0.1:13528");
+                        picklistWs.onmessage = this.onStockMessage;
+                        picklistWs.onerror = this.onStockError;
+                    }
+                    return ;
+                },
+
+                onStockError:function(){
+                    $.messager.progress('close');
+                    $('#printing').linkbutton({text:'打印',disabled:false});
+                    stockWs = null;
+                    $('#setPrintersDialog').dialog({
+                        title: '打印组件错误',
+                        width: 400,
+                        height: 200,
+                        closed: false,
+                        cache: false,
+                        href:  "{:U('Stock/StockSalesPrint/onWSError')}",
+                        modal: true
+                    });
+                    $('#setPrintersDialog').dialog('refresh', "{:U('Stock/StockSalesPrint/onWSError')}");
+                },
+                changeTemplatePage:function(){
+                    open_menu('打印模板','{:U("Setting/NewPrintTemplate/getNewPrintTemplate")}');
+                    $('#setPrintersDialog').dialog('close');
+                },
+                onStockMessage:function (event){
+                    var ret = $.parseJSON(event.data);
+                    var msg = ret.msg;
+                    var task_id = '';
+
+                    var taskID = ret.taskID+"";
+                    taskID = taskID.substr(taskID.length-2,taskID.length);
+
+                    if((!$.isEmptyObject(msg))&&msg!="成功")
+                    {
+                        $('#printing').linkbutton({text:'打印',disabled:false});
+                        messager.alert(msg);
+                        return;
+                    }
+                    if(!$.isEmptyObject(ret)){
+                        switch(ret.cmd){
+
+                            case 'getPrinters':
+                            {
+                                var type = ret.requestID;
+                                type = type.substr(type.length-2,type.length);
+                                if(type == 99){
+//                                    $('#logistic_printer_list').combobox({
+//                                        valueField: 'name',
+//                                        textField: 'name',
+//                                        data: ret.printers,
+//                                        value: ret.defaultPrinter
+//                                    });
+                                    $('#tag_printer_list').combobox({
+                                        valueField: 'name',
+                                        textField: 'name',
+                                        data: ret.printers,
+                                        value: ret.defaultPrinter
+                                    });
+
+//                                    $('#logistic_printer_list').combobox('reload');
+                                    $('#tag_printer_list').combobox('reload');
+
+                                }else if(type == 77){
+
+                                    $('#printer_data').combobox({
+                                        valueField: 'name',
+                                        textField: 'name',
+                                        data: ret.printers,
+                                        value: ret.defaultPrinter
+                                    });
+                                    $('#printer_data').combobox('reload');
+                                }
+                            }
+                            break;
+                            case 'notifyPrintResult':
+                            {
+                                var type = ret.taskID;
+								type = type.substr(type.length-2,type.length);
+								if(ret.taskStatus == "printed"){
+
+                                    task_id = ret.taskID+"";
+                                    task_id = task_id.substr(task_id.length-2,task_id.length);
+
+                                    $.post("__ROOT__/index.php/Stock/StallsPickList/chgPrintStatus", {uniqueCode:unique_code,orderNo:purchasePickList.order_no,taskId:task_id}, function(r){
+                                        if(r.status != 0){
+                                            messager.alert(r.info);
+                                        }
+										if(type == 66){
+											purchasePickList.consignStockoutOrder(purchasePickList.consignStockoutOrder_id);
+										}
+                                    });
+
+                                }else if(ret.taskStatus == "failed"){
+
+                                    messager.alert("打印失败");
+                                }
+                            }
+                            break;
+                        }
+                    }
+                },
+                openPickSetting:function(){
+                    var buttons=[
+                        {text:'确定',handler:function(){purchasePickList.saveBaseSetting();}},
+                        {text:'取消',handler:function(){$('#pickSetting').dialog('close');}}
+                    ];
+                    $("#pickSetting").dialog({
+                        href:"{:U('StallsPickList/openPickSetting')}",
+                        width:450,
+                        height:320,
+                        inline: true,
+                        modal: true,
+                        title:"设置",
+                        iconCls: 'icon-save',
+                        buttons:buttons,
+                    });
+                },
+                showStallsPrintLogistics:function (){
+                    var print_logistics=$("#print_logistics").prop('checked') == true?'1':'0';
+                    if(print_logistics == '0'){
+                        $('#stalls_print_logistics').val('');
+                        $('#print_logistics_select').hide();
+                    }else{
+                        $('#print_logistics_select').show();
+                    }
+                },
+				showStallsConsign:function (){
+                    var stockout_sort_auto_consign=$("#stockout_sort_auto_consign").prop('checked') == true?'1':'0';
+                    if(stockout_sort_auto_consign == '0'){
+                        $('#stalls_goods_auto_consign').val('');
+                        $('#auto_consign_select').hide();
+                    }else{
+                        $('#auto_consign_select').show();
+                    }
+                },
+                saveBaseSetting:function (o){
+                    var data={};
+                    data.stalls_mode=$("#stalls_mode").prop('checked') == true?'1':'0';
+                    data.voice_alert=$("#voice_alert").prop('checked') == true?'1':'0';
+					data.stockout_sort_auto_consign=$("#stockout_sort_auto_consign").prop('checked') == true?'1':'0';
+					data.instant_split_sorted_goods=$("#instant_split_sorted_goods").prop('checked') == true?'1':'0';
+					//data.pick_notstalls_goods=$("#pick_notstalls_goods").prop('checked') == true?'1':'0';
+                    data.print_logistics=$("#print_logistics").prop('checked') == true?'1':'0';
+                    data.print_tag=$("#print_tag").prop('checked') == true?'1':'0';
+                    data.stalls_print_logistics=$("#stalls_print_logistics").prop('checked') == true?'1':'0';
+					data.stalls_goods_auto_consign=$("#stalls_goods_auto_consign").prop('checked') == true?'1':'0';
+
+                    new_data=JSON.stringify(data);
+                    $.post("__ROOT__/index.php/Stock/StallsPickList/saveBaseSetting", {data:new_data}, function(r){
+                        if(r.status != 0){
+                            messager.alert(r.info);
+                        }else{
+                            if(data.stalls_mode=='1'){
+                                $('#sorting_list').textbox('setValue','');
+                                $('#pick_sorting_list').hide();
+                                $('#uniqueCodeId').textbox('textbox').focus();
+                                sorting = 0;
+                            }else{
+                                $('#pick_sorting_list').show();
+                                $('#sorting_list').textbox('textbox').keydown(function (e) {
+                                    if (e.keyCode == 13) {
+                                        sorting_list = $('#sorting_list').textbox('getValue');
+                                        purchasePickList.sorting_list = sorting_list;
+                                        pickSorting(sorting_list);
+                                    }
+                                });
+                                $('#sorting_list').textbox('textbox').focus();
+                            }
+                            $('#pickSetting').dialog('close');
+                        }
+
+                    });
+                },
+                savePrintSetting:function (){
+
+                    if(getDefTagTemp() == -1){
+                        messager.alert('请先去下载吊牌模板');
+                        return;
+                    }
+                    if(getSysDefTemp() == '-1'){
+                        messager.alert('请先去下载"系统默认自定义区"模板');
+                        return;
+                    }
+
+//                    var logistic_printer = $('#logistic_printer_list').combobox('getValue');
+                    var tag_printer = $('#tag_printer_list').combobox('getValue');
+                    var tag_template = $('#tag_template_list').combobox('getValue');
+                    var templatesAndLogisticsObj = {
+//                        'logistic_printer':logistic_printer,
+                        'tag_printer':tag_printer,
+                        'tag_template':tag_template
+                    };
+
+                    var jsonStr = JSON.stringify(templatesAndLogisticsObj);
+                    $.post("__ROOT__/index.php/Stock/StallsPickList/savePrintersAndTemplates", {templatesAndLogisticsInfo:jsonStr}, function(r){
+                        $('#setPrintersDialog').dialog('close');
+                        if(r.status != 0){
+                            messager.alert(r.info);
+                        }
+                    });
+                },
+                savePrintersAndTemplatesSetting:function(){
+
+                    var that = this;
+                    var row = $('#'+set_logistics_templates.params.datagrid.id).datagrid('getSelected');
+                    var row_index = $('#'+set_logistics_templates.params.datagrid.id).datagrid('getRowIndex',row);
+                    $('#'+set_logistics_templates.params.datagrid.id).datagrid('endEdit',row_index);
+                    var rows = $('#'+set_logistics_templates.params.datagrid.id).datagrid('getRows');
+                    var is_submit = true;
+                    for(var i in rows){
+                        if((rows[i]['name'] != '无') && (rows[i]['title'] == '无'))
+                            is_submit = false;
+                    }
+
+                    if(is_submit){
+                        $.post("{:U('Stock/StallsPickList/submitPrintersAndTemplatesSet')}", {printer_template_data:rows}, function(r){
+                            messager.alert(r.info);
+                            $('#setLogisticsPrintersDialog').dialog('close');
+                        });
+                    }else{
+                        messager.alert('请将模板和打印机一起设置');
+                    }
+
+                },
+                newPrint:function(datas,printer,taskID){
+                    purchasePickList.connectStockWS();
+                    var requestID =  (new Date()).valueOf();
+                    var request = {
+                        'cmd' : 'print',
+                        'version' : '1.0',
+                        'requestID' : requestID,
+                        'task' : {
+                            'taskID' : requestID +''+taskID,
+                            'printer' : printer,//'',
+                            'preview' : false,
+                            'notifyMode':'allInOne',
+                            'documents' : datas
+                        }
+                    };
+                    picklistWs.send(JSON.stringify(request));
+                },
+                getLogisticsPrintData:function (data,templateUrl,row,detail,logistics_no){
+                    var customObj = this.getLogisticsCustomData(data,templateUrl,row,detail,logistics_no);
+                    print_data = [{
+                        'documentID' : data.waybill_info.waybillCode,
+                        'contents' : [{
+                            'templateURL' : data.templateURL,
+                            'signature' : data.signature,
+                            'data' : data.waybill_info
+                        },customObj]
+                    }];
+                    return print_data;
+                },
+                getLogisticsCustomData:function (data,templateUrl,row,detail,logistics_no){
+                    if(templateUrl == ''){
+                        return {};
+                    }
+                    custom_data = {
+                        'templateURL' : templateUrl,
+                        'data' : this.composeCustomData(data,row,logistics_no,detail)
+                    };
+                    return custom_data;
+                },
+                getTagPrintData:function (documentId,url,goodsInfo) {
+                    orderData = [{
+                        'documentID' : documentId,
+                        'contents' : [
+                            {
+                                'templateURL' : url,
+                                'data' : {
+                                    'tag':{
+                                        'goods_name':goodsInfo.goods_name,
+                                        'spec_name':goodsInfo.spec_name,
+                                        'goods_brand':goodsInfo.brand_name
+                                    }
+                                }
+                            }
+                        ]
+                    }];
+                    return orderData;
+                },
+                composeCustomData:function(data,row,logistics_no_temp,detail){
+                var customArea_data = data;
+                customArea_data.trade = {
+                    'trade_no' : row.src_order_no,//订单标号
+                    'src_tids' : row.src_tids,//原始单号
+                    'logistics_no' : logistics_no_temp,
+                    'package_code' : logistics_no_temp+"-1-1-",
+                    'package_id' : row.id,
+                    'goods_amount' : row.goods_total_cost,
+                    'cargo_total_weight' : row.weight,
+                    'calc_weight' : row.calc_weight,
+                    'receivable' : row.receivable,
+                    'goods_count' : row.goods_count,
+                    'goods_type_count' : row.goods_type_count,
+                    'print_date' : (new Date()).getFullYear()+"-"+((new Date()).getMonth()+1)+"-"+(new Date()).getDate(),//(new Date()).toLocaleString().replace(/\//g,"-").substring(0,9),
+                    'cs_remark' : row.cs_remark,
+                    'print_remark' : row.print_remark,
+                    'buyer_nick' : row.buyer_nick,
+                    'buyer_message' : row.buyer_message,
+                    'invoice_content' : row.invoice_content,
+                    'cod_amount' : row.cod_amount,
+                    'receiver_dtb' : row.receiver_dtb,
+                    'invoice_title' : row.invoice_title,
+                    'trade_time' : row.pay_time,
+                    'post_amount' : row.post_amount
+                };
+                customArea_data.shop = {
+                    'name' : row.shop_name,
+                    'website' : row.website
+                };
+                customArea_data.recipient = {
+                    'name' : row.receiver_name,
+                    'mobile': !(row.receiver_mobile=="")?row.receiver_mobile:row.receiver_telno,
+                    'phone': !(row.receiver_telno=="")?row.receiver_telno:row.receiver_mobile
+                };
+                customArea_data.sender = {
+                    "address": {
+                        "city": row.city,
+                        "detail": row.address,
+                        "district": row.district,
+                        "province": row.province,
+                        "town": row.town
+                    },
+                    "mobile": row.mobile,
+                    "name": row.contact,
+                    "phone": row.telno
+                };
+                customArea_data.goods = goodsInfoToArray(detail[row.id]);
+                return customArea_data;
+            },
+            cancelBlock:function (uc) {
+                $.post("__ROOT__/index.php/Stock/StallsPickList/cancelBlock", {unique_code:uc}, function(r){
+
+                    if(r.status != 0){
+                        messager.alert(r.info);
+                    }else {
+                        $("#response_dialog").dialog('close');
+                        pickListGoods(uc,'');
+                    }
+                });
+            },
+            exchangeOrder:function(uc){
+                var unique_code=JSON.stringify(uc);
+                var url="{:U('Stock/StallsPickList/exchangeOrder')}";
+                url+=url.indexOf('?') != -1 ? '&unique_code='+unique_code: '?unique_code='+unique_code;
+                var buttons=[ {text:'确定',handler:function(){submitPickExchangeDialog();}}, {text:'取消',handler:function(){$("#pickExchangeDialog").dialog('close');}} ];
+                $("#response_dialog").dialog('close');
+                $("#pickExchangeDialog").dialog({
+                    href:url,
+                    width:750,
+                    height:560,
+                    inline: true,
+                    modal: true,
+                    title:"订单批量换货",
+                    iconCls: 'icon-save',
+                    buttons:buttons
+                });
+            },
+			consignStockoutOrder:function(stock_id){ 
+				var that = this;
+				$.post("{:U('Stock/StockSalesPrint/consignStockoutOrder')}", {ids:stock_id,is_force:0}, function(info){
+					if(parseInt(info.status) == 1){
+						messager.alert(info.info);
+						that.refresh();
+						return false;
+					}
+					if(parseInt(info.status) == 2){
+						if(!$.isEmptyObject(info.data.fail)){
+							//调用dialog显示处理结果
+							$.fn.richDialog("response", info.data.fail, "stockout",{close:function(){if(sortingBox){sortingBox.refresh();}}});
+						}
+						return true;
+					}
+					messager.alert('打印发货成功!');
+					that.refresh();
+					return true;
+				});
+			},
+			mandatory_print : function(){
+				var box_id=$("#sort_wall_id").html();
+                if(box_id==0){
+                    messager.alert('尚未分拣或已分拣完成');
+                    return;
+                }
+				var is_voice = $('#voice_alert').prop('checked');
+				messager.confirm('确定强制全部分拣吗？', function(r){
+					if(r){
+						$.post("{:U('StallsPickList/mandatory_print')}", {id:box_id}, function(r){
+							uc = $('#uniqueCodeId').textbox('getValue');
+							$('#uniqueCodeId').textbox('setValue','');
+
+							if(r.status ==1){
+								if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+								$("#sort_finish").html(r.data.sort_data);
+								loadGoodsList(r.data.goods_list);
+								if(r.msg.indexOf('blockReason') != -1){
+									var block_reason_arr = r.msg.split('_');
+									var block_reason_name = formatter.stockout_block_reason(block_reason_arr[1]);
+									if(block_reason_arr[0]=='blockReasonDeal'){
+										var solve='';
+										if(block_reason_arr[1]==128){
+											var solve = '<a href="javascript:void(0)" onClick="purchasePickList.exchangeOrder(uc)">换货</a>';
+										}else{
+											var solve = '<a href="javascript:void(0)" onClick="purchasePickList.cancelBlock(uc)">继续分拣</a>';
+										}
+										var resultBeforeCheck = [];
+										var temp_result = [];
+										temp_result['unique_code'] = uc;
+										temp_result['msg'] = block_reason_name;
+										temp_result['solve_way'] = solve;
+										resultBeforeCheck.push(temp_result);
+										$.fn.richDialog("response", resultBeforeCheck, "picklist");
+
+									}else{
+										messager.alert(block_reason_name,undefined,function (){
+											$('#uniqueCodeId').textbox('textbox').focus();
+										});
+									}
+								}else{
+									messager.alert(r.msg,undefined,function (){
+										$('#uniqueCodeId').textbox('textbox').focus();
+									});
+								}
+							}else{
+								data = r.data.waybill_print_info;
+								printerInfo = r.data.print_data;
+								sortInfo = r.data.sort_data;
+								goods_info = r.data.goods_data;
+								baseSet = r.data.stalls_base_set;
+								customTempUrl = r.data.custom_template_url;
+								row = r.data.row;
+								detail = r.data.goods;
+								goods_list=r.data.goods_list;
+
+								purchasePickList.order_no = sortInfo.trade_no;
+								order_no = sortInfo.trade_no;
+
+								if(printerInfo.logistic_printer == ''){
+									messager.alert('请先设置打印机',undefined,function (){
+										$('#uniqueCodeId').textbox('textbox').focus();
+									});
+									return;
+								}
+								if(data != -1)
+								{
+									printData = purchasePickList.getLogisticsPrintData(data,customTempUrl,row,detail,data.waybill_info.waybillCode);
+									$("#logistics_no").html(data.waybill_info.waybillCode);
+									if(baseSet.print_logistics == 1){
+										purchasePickList.newPrint(printData,printerInfo.logistic_printer,22);
+									}
+								}
+
+								if(sortInfo.sort_finish=='分拣完成' && $("#stalls_mode").prop('checked') == false){
+									$('#uniqueCodeId').textbox('textbox').focus();
+								}
+								if(sortInfo.sort_finish=='订单全部分拣完成' && $("#stalls_mode").prop('checked') == false){
+									$('#sorting_list').textbox('setValue','');
+									$('#sorting_list').textbox('textbox').focus();
+								}
+								var root_path = "__ROOT__/Public/Image/";
+								var sound_info = '';
+								if(is_voice){
+									if(sortInfo.sort_finish=='分拣完成'){
+										sound_info = root_path + 'sort_success.wav';
+									}else if(sortInfo.sort_finish=='还有非档口货品未分拣'){
+										sound_info = root_path + 'unstalls.wav';
+									}
+									if(sortInfo.box_no == ''){
+										if(sortInfo.sort_finish=='分拣完成'){$("#stalls_pick_success_sound")[0].play();}
+										if(sortInfo.sort_finish=='还有非档口货品未分拣'){$("#stalls_pick_unstalls_sound")[0].play();}
+									}else {
+										play_sortNum(sortInfo.box_no,sound_info);
+									}
+								}
+
+								bandDataToHtml(sortInfo,order_no,goods_info,row);
+
+								loadGoodsList(goods_list);
+
+								if(r.status ==2){ //非电子面单，分拣流程正常执行，提示去单据打印界面打印。
+									if(baseSet.print_logistics == 1){
+										messager.alert(r.msg,undefined,function (){
+											$('#uniqueCodeId').textbox('textbox').focus();
+										});
+										if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+									}
+								}
+							}
+							$("#sort_wall_id").html('');
+						});
+					}else{
+						return;
+					}
+				});
+			},
+            split: function(){
+                var box_id=$("#sort_wall_id").html();
+                if(box_id==0){
+                    messager.alert('尚未分拣或已分拣完成');
+                    return;
+                }
+                messager.confirm('确定拆分订单吗？', function(r){
+                    if(r){
+                        $.post("{:U('StallsPickList/oneSplit')}", {id:box_id}, function(result){
+                            if(parseInt(result.status) == 0){
+                                messager.confirm('拆分完成，是否打印发货',function(res){
+                                    if(res){
+										$.post("{:U('Stock/StallsPickList/newOrderPrintData')}",{ids:result.stock_id},function(data){
+											if(data.status == 1){
+												messager.alert(data.msg);
+												return;
+											}
+											var waybill_print_info = data.data.waybill_print_info;
+											var printerInfo = data.data.print_data;
+											var customTempUrl = data.data.custom_template_url;
+											var row = data.data.row;
+											var detail = data.data.goods;
+											purchasePickList.consignStockoutOrder_id = JSON.stringify(result.stock_id);
+											if(printerInfo.logistic_printer == ''){
+												messager.alert('请先设置打印机');
+												return;
+											}
+											if(waybill_print_info != -1)
+											{
+												printData = purchasePickList.getLogisticsPrintData(waybill_print_info,customTempUrl,row,detail,waybill_print_info.waybill_info.waybillCode);												
+												purchasePickList.newPrint(printData,printerInfo.logistic_printer,66);
+												
+											}
+										});
+
+                                    }else{r
+                                        that.refresh();
+                                        return;
+                                    }
+                                });
+                            }
+                            if(parseInt(result.status) == 1){
+                                messager.alert(result.info);
+                                that.refresh();
+                                return false;
+                            }
+                            if(parseInt(result.status) == 2){
+                                if(!$.isEmptyObject(result.data.fail)){
+                                    //调用dialog显示处理结果
+                                    $.fn.richDialog("response", result.data.fail, "box",{close:function(){if(sortingBox){sortingBox.refresh();}}});
+                                }
+                                return true;
+                            }
+                            return;
+                        },'json');
+                    }else{return;}
+                });
+            }
+            };
+
+            setTimeout(function () {
+                purchasePickList.paramsObj = JSON.parse('{$params}');
+                purchasePickList.thatObj = this;
+                $('#uniqueCodeId').textbox('textbox').focus();
+				if(base_set.stalls_mode =='1'){
+                    $('#pick_sorting_list').hide();
+				}else{
+                    $('#pick_sorting_list').show();
+					$('#sorting_list').textbox('textbox').focus();
+				}
+                purchasePickList.connectStockWS();
+
+                $('#uniqueCodeId').textbox('textbox').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        unique_code = $('#uniqueCodeId').textbox('getValue');
+                        purchasePickList.uniqueCode = unique_code;
+                        pickListGoods(unique_code,'');
+                    }
+                });
+				 $('#sorting_list').textbox('textbox').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        sorting_list = $('#sorting_list').textbox('getValue');
+                        purchasePickList.sorting_list = sorting_list;
+                        pickSorting(sorting_list);
+                    }
+                });
+            },0);
+        });
+
+        function goodsInfoToArray(goods_info){
+            var goods = {'detail':[]};
+            goods.suite_ids = goods_info.suite_ids;
+            goods.suite_info = goods_info.suite_info;
+            delete goods_info.suite_ids;
+            delete goods_info.suite_info;
+            for(var i=0;;i++){
+                if(goods_info[i] == undefined)
+                    break;
+                goods.detail[i] = goods_info[i];
+            }
+            goods.suite_info = goods.suite_info == undefined?"":goods.suite_info.substr(0,goods.suite_info.length-1);
+            return goods;
+        }
+        function bandDataToHtml(sortInfo,order_no,goods_info,row){
+            $("#sort_finish").html(sortInfo.sort_finish);
+            $("#sort_wall_no").html(sortInfo.box_no);
+            $("#sort_wall_id").html(sortInfo.box_id);
+            $("#order_no").html(order_no);
+            $("#goods_info").html(goods_info.goods_name);
+            $("#spec_no").html(goods_info.spec_no);
+
+            $("#buyer_message").html(row.buyer_message);
+            $("#cs_remark").html(row.cs_remark);
+            $("#pay_time").html(row.pay_time);
+            $("#receiver_name").html(row.receiver_name);
+            $("#receiver_address").html(row.receiver_area+' '+row.receiver_address);
+            $("#goods_count").html(row.trade_goods_count);
+            $("#sorted_num").html(row.sorted_num);
+            $("#unsorted_num").html(row.unsorted_num);
+            $("#img_url").attr("src",goods_info.url);
+        }
+        function loadGoodsList(goods_list){
+            var goods_list=JSON.parse(goods_list);
+            var length=goods_list.length;
+            $('#{$id_list.datagrid}').datagrid('loadData',{'total':length,rows:goods_list});
+        }
+		function pickSorting(sorting_list){
+            var is_voice = $('#voice_alert').prop('checked');
+            if(sorting_list == ''){
+                if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+                messager.alert('请输入分拣单号',undefined,function (){
+                    $('#sorting_list').textbox('textbox').focus();
+                });
+				return;
+			}
+			$.post("__ROOT__/index.php/Stock/StallsPickList/sorting_list",{sorting_list:sorting_list},function(r){
+				if(r.status == 0){
+					sorting = 1;
+					sortingCode = sorting_list;
+					$('#uniqueCodeId').textbox('setValue','');
+					$('#uniqueCodeId').textbox('textbox').focus();
+				}else{
+                    if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+                    messager.alert(r.info,undefined,function (){
+                        $('#sorting_list').textbox('textbox').focus();
+                    });
+					$('#sorting_list').textbox('setValue','');
+					$('#sorting_list').textbox('textbox').focus();
+				}
+			});
+		}
+        function pickListGoods(unique_code,good_info){
+            var order_no,data,printerInfo,printData,sortInfo,goods_info,orderPrintData,baseSet,customTempUrl,row,detail;
+
+            var is_voice = $('#voice_alert').prop('checked');
+
+			if($("#stalls_mode").prop('checked') == false && sorting != 1){
+				$('#sorting_list').textbox('textbox').focus();
+				messager.alert('非档口模式请先扫描分拣单号',undefined,function (){
+                    $('#sorting_list').textbox('textbox').focus();
+                });
+				return;
+			}
+			var new_sortingCode = $('#sorting_list').textbox('getValue');
+			if($("#stalls_mode").prop('checked') == false && (new_sortingCode == '' || new_sortingCode != sortingCode)){
+				$('#sorting_list').textbox('setValue','');
+				$('#sorting_list').textbox('textbox').focus();
+				messager.alert('分拣单号不一致，请重新扫描分拣单',undefined,function (){
+                    $('#sorting_list').textbox('textbox').focus();
+                });
+				return;
+			}
+            $.post("__ROOT__/index.php/Stock/StallsPickList/pickList", {uniqueCode:unique_code,goodInfo:good_info,sorting:sorting,sortingCode:sortingCode}, function(r){
+//                console.log(r);
+                // 清空输入框，用于下次分拣。
+                uc = $('#uniqueCodeId').textbox('getValue');
+                $('#uniqueCodeId').textbox('setValue','');
+
+                if(r.status ==1){
+                    if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+                    if(r.msg.indexOf('blockReason') != -1){
+                        $("#sort_finish").html('订单拦截');
+                        var block_reason_arr = r.msg.split('_');
+                        var block_reason_name = formatter.stockout_block_reason(block_reason_arr[1]);
+                        if(block_reason_arr[0]=='blockReasonDeal'){
+                            var solve='';
+                            if(block_reason_arr[1]==128){
+                                var solve = '<a href="javascript:void(0)" onClick="purchasePickList.cancelBlock(uc)">继续分拣</a>'+'  '+'<a href="javascript:void(0)" onClick="purchasePickList.exchangeOrder(uc)">换货</a>';
+                            }else{
+                                var solve = '<a href="javascript:void(0)" onClick="purchasePickList.cancelBlock(uc)">继续分拣</a>';
+                            }
+                            var resultBeforeCheck = [];
+                            var temp_result = [];
+                            var msgObj ;
+                            if(block_reason_arr[2] != ''){
+                                msgObj = JSON.parse(block_reason_arr[2]);
+                            }
+                            var invoice;
+                            var remarkOrInvoice = '';
+                            temp_result['unique_code'] = uc;
+                            temp_result['msg'] = block_reason_name;
+                            if(block_reason_name.indexOf('备注修改') >=0){
+                                remarkOrInvoice ='备注:'+ msgObj.remark + ' ';
+                            }
+                            if(block_reason_name.indexOf('发票被修改') >=0){
+                                var type = msgObj.type == 1?'普通发票':msgObj.type == 2?'增值税发票':'';
+                                invoice = '发票类型:'+ type +'&nbsp&nbsp&nbsp&nbsp发票抬头:' + msgObj.title +'&nbsp&nbsp&nbsp&nbsp发票内容:' + msgObj.content;
+                                remarkOrInvoice += invoice;
+                            }
+                            temp_result['remark'] = remarkOrInvoice;
+                            temp_result['solve_way'] = solve;
+                            resultBeforeCheck.push(temp_result);
+                            $.fn.richDialog("response", resultBeforeCheck, "picklist");
+
+                        }else{
+                            messager.alert(block_reason_name,undefined,function (){
+                                $('#uniqueCodeId').textbox('textbox').focus();
+                            });
+                        }
+                    }else{
+                        messager.alert(r.msg,undefined,function (){
+                            $('#uniqueCodeId').textbox('textbox').focus();
+                        });
+                    }
+                }else if(r.status ==3){  //条码对应多个货品
+                    purchasePickList.thatObj.goods_list = r.data;
+                    var paramsObj = purchasePickList.paramsObj;
+                    $('#flag_set_dialog').dialog({
+                        title:paramsObj.select.title,
+                        iconCls:'icon-save',
+                        width:paramsObj.select.width==undefined?764:paramsObj.select.width,
+                        height:paramsObj.select.height==undefined?560:paramsObj.select.height,
+                        closed:false,
+                        inline:true,
+                        modal:true,
+                        href:paramsObj.select.url+'?parent_datagrid_id='+paramsObj.datagrid.id+'&parent_object=stockin&goods_list_dialog=flag_set_dialog',
+                        buttons:[]
+                    });
+
+                }else if(r.status ==4){  //拦截分拣，并显示货品信息
+
+                    data = r.data.waybill_print_info;
+                    printerInfo = r.data.print_data;
+                    sortInfo = r.data.sort_data;
+                    goods_info = r.data.goods_data;
+                    baseSet = r.data.stalls_base_set;
+                    customTempUrl = r.data.custom_template_url;
+                    row = r.data.row;
+                    detail = r.data.goods;
+                    goods_list=r.data.goods_list;
+
+                    purchasePickList.order_no = sortInfo.trade_no;
+                    order_no = sortInfo.trade_no;
+
+                    bandDataToHtml(sortInfo,order_no,goods_info,row);
+                    loadGoodsList(goods_list);
+
+                    if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+                    if(r.msg.indexOf('blockReason') != -1){
+                        $("#sort_finish").html('订单拦截');
+                        var block_reason_arr = r.msg.split('_');
+                        var block_reason_name = formatter.stockout_block_reason(block_reason_arr[1]);
+                        if(block_reason_arr[0]=='blockReasonDeal'){
+                            var solve='';
+                            if(block_reason_arr[1]==128){
+                                var solve = '<a href="javascript:void(0)" onClick="purchasePickList.cancelBlock(uc)">继续分拣</a>'+'  '+'<a href="javascript:void(0)" onClick="purchasePickList.exchangeOrder(uc)">换货</a>';
+                            }else{
+                                var solve = '<a href="javascript:void(0)" onClick="purchasePickList.cancelBlock(uc)">继续分拣</a>';
+                            }
+                            var resultBeforeCheck = [];
+                            var temp_result = [];
+                            var msgObj ;
+                            if(block_reason_arr[2] != ''){
+                                msgObj = JSON.parse(block_reason_arr[2]);
+                            }
+                            var invoice;
+                            var remarkOrInvoice = '';
+                            temp_result['unique_code'] = uc;
+                            temp_result['msg'] = block_reason_name;
+                            if(block_reason_name.indexOf('备注修改') >=0){
+                                remarkOrInvoice = '备注:'+msgObj.remark + ' ';
+                            }
+                            if(block_reason_name.indexOf('发票被修改') >=0){
+                                var type = msgObj.type == 1?'普通发票':msgObj.type == 2?'增值税发票':'';
+                                invoice = '发票类型:'+ type +'&nbsp&nbsp&nbsp&nbsp发票抬头:' + msgObj.title +'&nbsp&nbsp&nbsp&nbsp发票内容:' + msgObj.content;
+                                remarkOrInvoice += invoice;
+                            }
+                            temp_result['remark'] = remarkOrInvoice;
+                            temp_result['solve_way'] = solve;
+                            resultBeforeCheck.push(temp_result);
+                            $.fn.richDialog("response", resultBeforeCheck, "picklist");
+
+                        }else{
+                            messager.alert(block_reason_name,undefined,function (){
+                                $('#uniqueCodeId').textbox('textbox').focus();
+                            });
+                        }
+                    }else{
+                        messager.alert(r.msg,undefined,function (){
+                            $('#uniqueCodeId').textbox('textbox').focus();
+                        });
+                    }
+
+                }else{
+                    data = r.data.waybill_print_info;
+                    printerInfo = r.data.print_data;
+                    sortInfo = r.data.sort_data;
+                    goods_info = r.data.goods_data;
+                    baseSet = r.data.stalls_base_set;
+                    customTempUrl = r.data.custom_template_url;
+                    row = r.data.row;
+                    detail = r.data.goods;
+                    goods_list=r.data.goods_list;
+
+                    purchasePickList.order_no = sortInfo.trade_no;
+                    order_no = sortInfo.trade_no;
+
+                    if(printerInfo.logistic_printer == '' || printerInfo.tag_printer ==''){
+                        messager.alert('请先设置打印机',undefined,function (){
+                            $('#uniqueCodeId').textbox('textbox').focus();
+                        });
+                        return;
+                    }
+                    if(data != -1)
+                    {
+                        printData = purchasePickList.getLogisticsPrintData(data,customTempUrl,row,detail,data.waybill_info.waybillCode);
+                        $("#logistics_no").html(data.waybill_info.waybillCode);
+                        if(baseSet.print_logistics == 1){
+                            purchasePickList.newPrint(printData,printerInfo.logistic_printer,22);
+                        }
+                    }
+                    orderPrintData = purchasePickList.getTagPrintData(order_no,printerInfo.tag_template,goods_info);
+                    if(baseSet.print_tag ==1){
+                        purchasePickList.newPrint(orderPrintData,printerInfo.tag_printer,32);
+                    }
+
+					if(sortInfo.sort_finish=='分拣完成' && $("#stalls_mode").prop('checked') == false){
+					//	$('#sorting_list').textbox('setValue','');
+						$('#uniqueCodeId').textbox('textbox').focus();
+					}
+					if(sortInfo.sort_finish=='订单全部分拣完成' && $("#stalls_mode").prop('checked') == false){
+						$('#sorting_list').textbox('setValue','');
+						$('#sorting_list').textbox('textbox').focus();
+					}
+//                    if(sortInfo.sort_finish=='分拣完成'&&is_voice){$("#stalls_pick_success_sound")[0].play();}
+//                    if(sortInfo.sort_finish=='还有非档口货品未分拣'&&is_voice){$("#stalls_pick_unstalls_sound")[0].play();}
+//
+//                    if(is_voice){play_sortNum(sortInfo.box_no);}
+
+                    var root_path = "__ROOT__/Public/Image/";
+					var sound_info = '';
+                    if(is_voice){
+                        if(sortInfo.sort_finish=='分拣完成'){
+                            sound_info = root_path + 'sort_success.wav';
+                        }else if(sortInfo.sort_finish=='还有非档口货品未分拣'){
+                            sound_info = root_path + 'unstalls.wav';
+                        }
+                        if(sortInfo.box_no == ''){
+                            if(sortInfo.sort_finish=='分拣完成'){$("#stalls_pick_success_sound")[0].play();}
+                            if(sortInfo.sort_finish=='还有非档口货品未分拣'){$("#stalls_pick_unstalls_sound")[0].play();}
+                        }else {
+                            play_sortNum(sortInfo.box_no,sound_info);
+                        }
+                    }
+
+                    bandDataToHtml(sortInfo,order_no,goods_info,row);
+
+                    loadGoodsList(goods_list);
+
+                    if(r.status ==2){ //非电子面单，分拣流程正常执行，提示去单据打印界面打印。
+                        if(baseSet.print_logistics == 1){
+                            messager.alert(r.msg,undefined,function (){
+                                $('#uniqueCodeId').textbox('textbox').focus();
+                            });
+                            if(is_voice){$("#stalls_pick_warn_sound")[0].play();}
+                        }
+                    }
+                }
+            });
+        }
+        function play_sortNum(str,sound_info){
+
+            if((str == '')&&(sound_info ==''))
+                return;
+            var root_path = "__ROOT__/Public/Image/sound/";
+            var stack = [];//生成一个栈
+            var url = '';
+            if(str.length !=0){
+                for(var i=str.length-1;i>=0;i--){
+                    url = root_path+str.charAt(i)+'.wav';
+                    stack.push(url);
+                }
+            }
+            if(sound_info.length !=0){stack.push(sound_info);}
+            var myAudio = new Audio();
+            myAudio.preload = true;
+            myAudio.controls = true;
+            myAudio.src = stack.pop();//每次读数组最后一个元素
+            myAudio.addEventListener('ended', playEndedHandler, false);
+            myAudio.play();
+//            document.getElementById("audioBox").appendChild(myAudio);
+            myAudio.loop = false;//禁止循环，否则无法触发ended事件
+            function playEndedHandler(){
+                myAudio.src = stack.pop();
+                myAudio.play();
+                !stack.length && myAudio.removeEventListener('ended',playEndedHandler,false);//只有一个元素时解除绑定
+            }
+        }
+        function selectGoodInBarCode(row){
+            pickListGoods(purchasePickList.uniqueCode,row);
+        }
+    </script>
+</block>

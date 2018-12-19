@@ -1,0 +1,26 @@
+[ 2017-05-08T13:51:36+08:00 ] 127.0.0.1 /index.php
+MAIL: Email send failed:The following From address failed: ekb_erp@163.com<p>SMTP server error: RP:TRC 163 smtp5,D9GowAB3n+doBxBZjQsfAA--.1676S2 1494222696,602,please see http://mail.163.com/help/help_spam_16.htm?ip=114.241.87.128&hostid=smtp5&time=1494222696
+</p>
+
+[ 2017-05-08T13:51:36+08:00 ] 127.0.0.1 /index.php
+ERR: IP:127.0.0.1,SID:security=>Array
+(
+    [message] => Modulo by zero
+    [file] => C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php
+    [line] => 1
+    [trace] => #0 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(111): rc4(NULL, '')
+#1 C:\wamp\www\test\trunk\source\Application\Platform\Common\utils.php(256): decodeDbPwd(NULL, NULL)
+#2 C:\wamp\www\test\trunk\source\Application\Platform\Manager\WayBillManager.class.php(21): getUserDb('security')
+#3 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(257): Platform\Manager\WayBillManager->manual(Array, Array)
+#4 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(269): Home\Controller\IndexController->searchWayBill()
+#5 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(58): Home\Controller\IndexController->getWayBillCount('count')
+#6 C:\wamp\www\test\trunk\source\Application\Home\Controller\IndexController.class.php(25): Home\Controller\IndexController->getTodo()
+#7 [internal function]: Home\Controller\IndexController->index()
+#8 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): ReflectionMethod->invoke(Object(Home\Controller\IndexController))
+#9 C:\wamp\www\test\trunk\source\Application\Runtime\common~runtime.php(1): Think\App::exec()
+#10 C:\wamp\www\test\trunk\source\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#11 C:\wamp\www\test\trunk\source\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#12 C:\wamp\www\test\trunk\source\www\index.php(27): require('C:\\wamp\\www\\tes...')
+#13 {main}
+)
+

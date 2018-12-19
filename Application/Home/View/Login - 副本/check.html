@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>{:C('SYSTEM_NAME')}-短信验证</title>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Public/Css/icon.css"/>
+<link rel="icon" href="__ROOT__/Public/Image/favicon.ico"  type="image/x-icon"/>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.md5.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.cookie.js"></script>
+<!--[if lt IE 8]> <script type="text/javascript" src="__ROOT__/Public/Js/json.2.js"></script> <![endif]-->
+<script type="text/javascript" src="__ROOT__/Public/Js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="__ROOT__/Public/Js/easyui-lang-zh_CN.js"></script>
+<style type="text/css">
+*{margin: 0px;padding: 0px;}
+form{width:280px;height:120px;margin:30px auto 0;font-size: 14px;}
+form input,label{vertical-align:middle;}
+form div{margin:8px auto;}
+form .input-but{margin:-4px auto 10px auto;padding-left: 70px;}
+form .input-msg{margin:-3px auto 10px auto;padding-left: 74px;}
+</style>
+</head>
+<body style="background:#eee;">
+<div id="safety-verification" class="easyui-dialog" title="安全验证" style="width:380px;height:240px" data-options="closable:true,draggable:false,onBeforeClose:cancelCheckMobile,buttons:[{text:'确定',handler:checkCode},{text:'取消',handler:function(){$('#safety-verification').dialog('close');}}]">
+	<form id='form-check-mobile' method="post">
+		<div class="input">
+			<label for="mobile">手机号码：</label><input class="easyui-textbox" type="text" data-options="validType:'mobile'" name="mobile" id="mobile" style="width:200px;height:26px"/>  
+		</div>
+		<div class="input-but"> <a href="javascript:void(0)" class="easyui-linkbutton"  onclick="sendCode();">发送验证码</a> </div>
+		<div class="input">
+			<label for="code">　验证码：</label><input class="easyui-textbox" type="text" data-options="prompt:'请输入验证码',validType:'number'" name="code" id="code" style="width:200px;height:26px"/>  
+		</div>
+		<div class="input-msg" style="font-size: 12px;color: red;"></div>
+	</form> 
+</div>
+<script type="text/javascript">
+//# sourceURL=check_code.js
+$(function(){
+	isBindMobile('{$mobile}');
+	$('input',$('#form-check-mobile')).bind('keydown',function(e){if(e.keyCode==13){checkCode();}});
+});
+$.extend($.fn.validatebox.defaults.rules, {
+	mobile: { validator: function (value, param) { return /^(?:13\d|15\d|18\d|17\d|14\d)-?\d{5}(\d{3}|\*{3})$/.test(value); }, message: '手机号码格式不正确' },
+	number: { validator: function (value, param) { return /^[0-9]+.?[0-9]*$/.test(value); }, message: '只能输入数字' }
+});
+function isBindMobile(mobile){
+	if(!mobile){
+		$('.input-msg').html('您的账户暂未绑定手机，请输入手机<br>号码验证绑定');
+	}else{
+		var mobile_box=$('#mobile');
+		mobile_box.textbox('disable');
+		mobile_box.textbox('setValue',mobile);
+	}
+}
+function sendCode(){
+	var data={};
+	data['mobile']=$('#mobile').textbox('getValue');
+	if(!data['mobile']){$('.input-msg').html('手机号码不能为空');return;}
+	var isBind='{$mobile}';
+	if(!isBind&&(!/^(?:13\d|15\d|18\d|17\d|14\d)-?\d{5}(\d{3}|\*{3})$/.test(data['mobile']))){$('.input-msg').html('手机号码格式不正确');return;}
+	data['user_num_id']='{$user_num_id}';
+	$.post("{:U('Home/Login/sendCode')}",{data:JSON.stringify(data)},function(res){
+		if(res.status==1){showErrorInfo(res.info);return;}
+		setTime.send=true;
+		$('.input-msg').html('<span style="color:green;">'+res.info+'</span>')
+	});
+	setTime.init($('.input-but a'),$('.input-but .l-btn-text'));
+}
+function checkCode(){
+	var check_code_form=$('#form-check-mobile');
+	var data={};
+	data['mobile']=$('#mobile').textbox('getValue');
+	data['code']=$('#code').textbox('getValue');
+	if(!data['mobile']){$('.input-msg').html('手机号码不能为空');return;}
+	if(!data['code']){$('.input-msg').html('验证码不能为空');return;}
+	if(!check_code_form.form('validate')){ return false;}
+	if(setTime.count==60&&!setTime.send){$('.input-msg').html('请先获取验证码');return;}
+	data['user_num_id']='{$user_num_id}';
+	$.ajax({type:'post',url:"{:U('Home/Login/checkCode')}",data:{data:JSON.stringify(data)},dataType: 'json',
+		beforeSend:function(){
+			$('.input-msg').html('<span style="color:orange;">校验中...</span>');
+		},
+		success: function(res){
+			if(res.status==1){showErrorInfo(res.info);return;}
+			window.location.href = res.info;
+	}});
+}
+var setTime=function(){
+	return{
+		node_but:null,
+		node_txt:null,
+		count:60,
+		send:false,
+		start:function(){
+			if(this.count>0){
+				this.count--;
+				this.node_txt.text(this.count+'秒后可重新发送');
+				var that = this;
+	            setTimeout(function(){ that.start(); },1000);
+			}else{
+				 this.count = 60;
+				 this.node_txt.text('重新发送');
+				 this.node_but.linkbutton('enable');
+				 
+			}
+		},
+		init:function(but,txt){
+			this.node_but=but;
+			this.node_txt=txt;
+			this.node_but.linkbutton('disable');
+			this.start();
+		}
+	};
+}();
+function showErrorInfo(info){
+	if(info.indexOf('验证页面已失效')>-1){
+		$('.input-msg').html('<span style="color:orange;">安全验证页面已失效<span id="show-time">5</span>秒后自动跳...</span>');
+		setInterval(function(){
+			var t=$("#show-time").html();
+			if(t>1){ $("#show-time").html(t-1); }else{ window.location.href='{:U('Home/Login/Login')}'; }
+		},999);
+	}else if(info.indexOf('验证太频繁')>-1){
+		$('.input-msg').html('<span style="color:green;">'+info+'</span>')
+	}else{
+		$('.input-msg').html(info);
+	}
+}
+function cancelCheckMobile(){
+	window.location.href='{:U('Home/Login/Login')}';
+}
+</script>
+</body>
+</html>

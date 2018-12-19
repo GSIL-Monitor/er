@@ -1,0 +1,53 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+ <div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+	<form id="{$id_list.form}" class="easyui-form" method="post">
+		<div class="form-div">
+			<label style="width: 80px;"> 编号：</label><input class="easyui-textbox txt" type="text" name="search[wall_no]" style="width: 130px;"/>
+			<label style="width: 80px;">　排数：</label><input class="easyui-textbox txt" type="text" name="search[row_num]" style="width: 130px;"/>
+			<label style="width: 80px;">　列数：</label><input class="easyui-textbox txt" type="text" name="search[column_num]" style="width: 130px;"/>
+			<!--<label style="width: 80px;">　属性：</label><select class="easyui-combobox sel" name="search[type]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">-->
+					<!--<volist name='sorting_wall_type' id='vo'><option value="{$vo.id}">{$vo.name}</option></volist></select>-->
+			<label>是否停用：</label><input class="easyui-combobox txt" text="txt" name="search[is_disabled]" data-options="panelHeight:110,valueField:'id',textField:'name',data:[{'id':'all','name':'全部'},{'id':'0','name':'否'},{'id':'1','name':'是'}],editable:false,value:'all'">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="sortingWall.submitSearchForm();">搜索</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="sortingWall.loadFormData();">重置</a>
+
+		</div>
+	</form>
+	<!--<input type="hidden" id="{$id_list.hidden_flag}" value="1">-->
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick = "sortingWall.add()";>新建</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick = "sortingWall.edit()";>编辑</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick = "sortingWall.remove('sorting_wall')";>删除</a>
+</div>
+
+<script>
+	$(function(){
+		setTimeout(function(){
+//			var toolbar_id = '{$id_list.toolbar}';
+//			var element_selectors ={
+//				'wall_no'           	: $('#'+toolbar_id+" a[name='wall_no']"),
+//				'row_num'           	: $('#'+toolbar_id+" a[name='row_num']"),
+//				'column_num'           	: $('#'+toolbar_id+" a[name='column_num']"),
+//			};
+			sortingWall = new RichDatagrid(JSON.parse('{$params}'));
+			sortingWall.setFormData();
+//			sortingWall.element_selectors = element_selectors;
+			sortingWall.add = function(){
+				var that=this;
+//				var rows = $('#'+that.params.datagrid.id).datagrid('getRows');
+//				if(rows.length !=0){messager.alert('目前只支持新建一个分拣墙');return;}
+				var buttons=[ {id:'confirmId', text:'确定',handler:function(){ that.submitAddDialog(); }}, {text:'取消',handler:function(){that.cancelDialog(that.params.add.id)}} ];
+				this.showDialog(that.params.add.id,that.params.add.title,that.params.add.url,that.params.add.height,that.params.add.width,buttons,that.params.add.toolbar,that.params.add.ismax);
+			}
+		},0);
+	});
+</script>
+</block>
+<block name="dialog">
+     <div id="{$id_list.add}">
+     </div>
+	<div id="{$id_list.edit}">
+     </div>
+</block>
+<block name="tabs">
+</block>

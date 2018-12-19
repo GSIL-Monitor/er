@@ -1,0 +1,13 @@
+<extend name="../../Common/View/datagrid_tabs_base" />
+<block name="toolbar">
+    <div id="{$id_list.toolbar}">
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="marketManagement.addCustomer()">添加客户</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp'" onclick="marketManagement.downloadTemplet('{$id_list.downloadUrl}')">下载模板</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel'" onclick="marketManagement.importCustomer()">导入客户</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="marketManagement.removeCustomer()">删除客户</a>
+    </div>
+</block>
+<block name="tabs"></block>
+<block name="dialog"></block>
+<block name="script"></block>
+

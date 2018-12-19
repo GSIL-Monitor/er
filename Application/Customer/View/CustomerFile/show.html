@@ -1,0 +1,262 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+    <div id="{$id_list['toolbar']}">
+        <form id="{$id_list['form']}">
+            <div class="form-div">
+                <label class="four-character-width">客户网名：</label><input class="easyui-textbox txt" type="text" name="search[nickname]"/>
+                <label class="four-character-width">　　电话：</label><input class="easyui-textbox txt" type="text" name="search[telno]"/>
+                <label>　　客户编号：</label><input class="easyui-textbox txt" type="text" name="search[customer_no]"/>
+                <label class="four-character-width">　　姓名：</label><input class="easyui-textbox txt" type="text" name="search[name]"/>
+                <!-- <a href="javascript:void(0)" onclick="CRM.clickMore(this)">更多</a> -->
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="CRM.submitSearchForm(this)">搜索</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="CRM.loadFormData()">重置</a>
+            </div>
+            <!-- <div id="{$id_list.more_content}"> -->
+                <div class="form-div">
+                    <label class="four-character-width">　　旺旺：</label><input class="easyui-textbox txt" type="text" name="search[wangwang]"/>
+                    <label class="four-character-width">　　邮箱：</label><input class="easyui-textbox txt" type="text" name="search[email]"/>
+                    <label>是否是黑名单：</label><select class="easyui-combobox sel" id="is_black" name="search[is_black]" data-options="panelHeight:'100px',editable:false " style="width: 130px;">
+                    <option value="all">全部</option>
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                    </select>
+                    <label class="four-character-width">客户标签:</label><select class="easyui-combobox sel" name="search[class_id]" data-options="editable:false">
+                        <option value="all">全部</option>
+                        <volist name='customer_class' id='vo'>
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                </div>
+            <!-- </div> -->
+            <div>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="CRM.add()">新建</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="CRM.edit()">修改</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="CRM.disable()">停用</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-sms',plain:true" onclick="CRM.SMS()">发送短信</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="CRM.checkNumber()">查看号码</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-down_tmp',plain:true" onclick="CRM.downloadTemplet('{$template_url}')">下载模板</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-excel',plain:true" onclick="CRM.uploadDialog()">导入黑名单客户</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="CRM.setCustomerClassFlag()">标签管理</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="CRM.editCustomerClass()">批量修改标签</a>
+
+            </div>
+        </form>
+        <div style="display: none;"><input hidden="true" id="{$id_list.hidden_flag}" value="1"/> </div>
+    </div>
+</block>
+<block name="dialog">
+    <div id="{$id_list.add}"></div>
+    <div id="{$id_list.edit}"></div>
+    <div id="{$id_list.SMS}"></div>
+    <div id="{$id_list.fileDialog}" class="easyui-panel" style="padding:25px 50px 25px 50px">
+        <form id="{$id_list.fileForm}" method="post" enctype="multipart/form-data">
+            <div style="margin-bottom:25px">
+                <input class="easyui-filebox" name="file" data-options="prompt:'请选择文件...','buttonText':'请选择文件'" style="width:100%;">
+            </div>
+            <div align="center">
+                <a href="javascript:void(0)" class="easyui-linkbutton" style="width:50%" onclick="CRM.upload()">上传</a>
+            </div>
+        </form>
+    </div>
+    <div id="{$id_list.customer_flag}"></div>
+    <div id="{$id_list.edit_class_dialog}"></div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        //# sourceURL=customer.js
+        setTimeout(function () {
+            CRM = new RichDatagrid(JSON.parse('{$params}'));
+            CRM.setFormData();
+            CRM.initCustomerCheckbox = function (id, bool) {
+                bool = bool == undefined ? false : bool;
+                var check = document.getElementById(id);
+                var value = check.value;
+                if (bool == true) {
+                    if (value != 1) {
+                        check.value = 0;
+                        check.checked = false;
+                    } else {
+                        check.checked = true;
+                    }
+                } else {
+                    if (value == 0) {
+                        check.value = 1;
+                        check.checked = true;
+                    } else {
+                        check.value = 0;
+                        check.checked = false;
+                    }
+                }
+            }
+            CRM.disable = function () {
+                var dg = $("#" + "{$id_list['datagrid']}");
+                var id_list=[];
+                for(i in this.selectRows){id_list.push(this.selectRows[i].id);}
+                if(id_list.length == 0){
+                    messager.alert('请选择要停用的客户！');
+                    return false;
+                }
+                var url = "{:U('CustomerFile/updateDisabled')}";
+                $.post(url, {"id": id_list}, function (res) {
+                    if (res.status) {
+                        messager.alert(res.info, "info");
+                        dg.datagrid("reload");
+                    } else {
+                        messager.alert(res.info, "warning");
+                        return false;
+                    }
+                    return true;
+                })
+            }
+            CRM.SMS = function () {
+                var that = this;
+                var dg = $("#" + "{$id_list['datagrid']}");
+                var row = dg.datagrid("getSelected");
+                if(!row){
+                    messager.alert('请选择要发送短信的订单用户！', "info");
+                    return false;
+                }
+                var buttons = [{
+                    text: '发送', handler: function () {
+                        that.submitSMSDialog();
+                    }
+                }, {
+                    text: '取消', handler: function () {
+                        that.cancelDialog(that.params.SMS.id);
+                    }
+                }];
+                this.showDialog(
+                        that.params.SMS.id,
+                        that.params.SMS.title,
+                        that.params.SMS.url,
+                        that.params.SMS.height,
+                        that.params.SMS.width,
+                        buttons
+                );
+            }
+            CRM.upload = function () {
+                var form = $("#{$id_list.fileForm}");
+                var url = "{:U('Customer/CustomerFile/uploadBlackListExcel')}";
+                var dg = $("#{$id_list.datagrid}");
+                var dialog = $("#{$id_list.fileDialog}");
+                $.messager.progress({
+                    title: "请稍后",
+                    msg: "该操作可能需要几分钟，请稍等...",
+                    text: "",
+                    interval: 100
+                });
+                form.form("submit", {
+                    url: url,
+                    success: function (res) {
+                        $.messager.progress('close');
+                        res = JSON.parse(res);
+                        if (!res.status) {
+                            dg.datagrid("reload");
+                            messager.alert(res.info);
+                            dialog.dialog("close");
+                        } else if (res.status == 1) {
+                            messager.alert(res.info);
+                            dialog.dialog("close");
+                        } else if (res.status == 2) {
+                            dg.datagrid("reload");
+                            $.fn.richDialog("response", res.info, "importResponse");
+                        }
+                        form.form("load", {"file": ""});
+                    }
+                })
+            }
+          	//查看号码
+    		CRM.checkNumber=function(){
+    			var rows=CRM.selectRows;
+    			if(rows==undefined){messager.info('请选择操作的行');return false;}
+    			var ids=[];
+                var list=[];
+    			for(var i in rows){ 
+    				if(rows[i]['mobile']==''&&rows[i]['telno']==''){
+                        list.push({trade_no:rows[i]['customer_no'],result_info:'手机和固话均为空！'});
+                        continue;
+                    }
+    				ids.push(rows[i]['id']); 
+    			}
+    			if(ids.length>0){
+    				$.post('{:U('Trade/TradeCommon/checkNumber')}',{ids:JSON.stringify(ids),key:'crm_customer'},function(res){
+    					CRM.dealDatagridReasonRows(res,list); 
+    				},'JSON');
+    			}else{
+                    var res={};res.status=2;res.info={};res.info.rows=list;res.info.total=list.length;
+                    CRM.dealDatagridReasonRows(res,undefined);
+                }
+    		}
+    		CRM.dealDatagridReasonRows=function(result,list){
+    			if(result.status==1){ messager.alert(result.message); return;}
+                if(list!=undefined&&list.length>0){
+                    var fail= (typeof result.info.rows=='object')?$.makeArray(result.info.rows):result.info.rows;
+                    result.info.rows=$.merge(list,fail);
+                    result.info.total+=list.length;
+                    result.status=2;
+                }
+                if(result.status==2){
+                    result.info.title='客户编号';
+                    $.fn.richDialog("response", result.info, 'checknumber');
+                }
+    			if((result.status==0||result.status==2)&&result.data!=undefined){
+    				var rows=CRM.selectRows;
+    				var index;
+    				var crm_dg=$('#'+CRM.params.datagrid.id);
+    				for(var i in rows){
+    					for(var x in result.data.rows){
+    						if(rows[i].id==result.data.rows[x].id){ 
+    							index=crm_dg.datagrid('getRowIndex',rows[i]); 
+    							if(result.check_number){rows[i].mobile=result.data.rows[x].mobile;rows[i].telno=result.data.rows[x].telno;crm_dg.datagrid('refreshRow',index);}
+    						}
+    					}
+    				}
+    			}
+    		}
+            CRM.uploadDialog = function () {
+                var dialog = $("#{$id_list.fileDialog}");
+                dialog.dialog({
+                    title: '导入黑名单客户',
+                    width: "350px",
+                    height: "160px",
+                    modal: true,
+                    closed: false,
+                    inline: true,
+                    iconCls: 'icon-save',
+                });
+            }
+            CRM.setCustomerClassFlag = function(){
+                var that = this;
+                var url = that.params.customer_flag.url;
+                var button = [ {text:'确定',handler:function(){ submitSetCustomerClassDialog(that.params);}}, {text:'取消',handler:function(){that.cancelDialog(that.params.customer_flag.id);}} ];
+                that.showDialog(that.params.customer_flag.id,that.params.customer_flag.title,url,450,500,button,false,false);
+            }
+            CRM.editCustomerClass = function(){
+                var id_list=[];
+                for(i in this.selectRows){ id_list.push(this.selectRows[i].id) }
+                var datagridId = this.params.datagrid.id;
+                var row = $('#'+datagridId).datagrid('getSelections');
+                if ( this.selectRows == undefined || this.selectRows.length == 0 || this.selectRows == null) {
+                    messager.confirm('是否要修改全部客户？', function (r) {
+                        if (!r) {
+                            return false;
+                        } else {
+                            CRM.showEditCustomerClassDialog('all');
+                        }
+                    })
+                }else{
+                    CRM.showEditCustomerClassDialog(id_list);
+                }
+
+            }
+            CRM.showEditCustomerClassDialog = function(id_list){
+                var that = this;
+                var url = that.params.edit_class_dialog.url+'?id='+id_list;
+                var button = [ {text:'确定',handler:function(){ submitBatchEditClassDialog(that.params); }}, {text:'取消',handler:function(){that.cancelDialog(that.params.edit_class_dialog.id);}} ];
+                that.showDialog(that.params.edit_class_dialog.id,that.params.edit_class_dialog.title,url,150,300,button,false,false);
+            }
+
+        }, 0);
+
+    </script>
+</block>

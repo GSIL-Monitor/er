@@ -1,0 +1,147 @@
+<div style="background-color: rgba(231, 230, 230, 0.5);margin-top: -15px;">
+<div style="margin: auto;width: 800px;overflow-x: hidden;">
+<div id="stockWeightQLinkList">
+<ul>
+	<li style="border-color: rgba(0,0,0,0);border-top-width: 24px;border-top-style: solid;">
+		<a href="#">准备工作：</a>
+		<pre style="margin-left: -111px;background-color : rgba(102, 128, 153, 0.05);">
+		1、在电脑上安装下对应电子秤的驱动
+		2、用连接线连接好电脑
+		3、开启电子秤
+		<a href="#stockWeightGetDataFormat">4、用调试工具获取电子秤的数据格式</a>
+		5、下载称重组件（Ekb.exe）
+		6、开启称重组件
+		</pre>
+	</li><hr>
+	<li>
+		<a href="#">常见问题</a>
+		<ul>
+			<li>
+			<a href="#stockWeightAEnvironment">一、环境配置问题</a>
+				<ul>
+					<li><a href="#stockWeightBrowser">1、称重支持的浏览器有哪些？</a></li>
+					<li><a href="#stockWeightSoftware">2、需要安装哪些软件？</a></li>
+					<li><a href="#stockWeightClientNoResponse">3、为什么打开Ekb.exe时什么反应都没有？</a></li>
+					<li><a href="#stockWeightWebNoResponse">4、为什么进入称重页面后什么反应都没有？</a></li>
+					<li><a href="#stockWeightGetDataFormat">5、如何知道电子秤的在电脑端数据格式？</a></li>
+					<!-- <li><a href="#">6、点击保存后，为什么没反应？</a></li> -->
+				</ul>
+			</li>
+			<li>
+			<a href="#stockWeightErrorSolve">二、错误信息解决方案</a>
+				<ul>
+					<li><a href="#stockWeightSoftwareNotRunning">1、称重错误，组件未下载或未打开</a></li>
+					<li><a href="#stockWeightSoftwareStop">2、Ekb已停止工作</a></li>
+					<li><a href="#stockWeightEscaleDisconnect">3、电子秤未连接</a></li>
+					<li><a href="#stockWeightEscaleUnopen">4、电子秤未开启或连接线损坏</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+</div>
+<div id="stockWeightAArea">
+<div id="stockWeightUsingArea">
+<hr>
+<ul>
+	<li id="stockWeightAEnvironment">一、环境配置问题
+		<ul>
+			<li id="stockWeightBrowser">1、称重支持的浏览器有哪些 ？</li>
+			<pre>
+				<code>* IE 11及以上* chrome 16及以上（建议使用chrome的最新版本）
+				* Firefox 45及以上（建议使用firefox的最新版本）
+				* 搜狗浏览器（极速模式）
+				* 360浏览器（极速模式）
+				* QQ浏览器（极速模式）</code>
+			</pre>
+			<li id="stockWeightSoftware">2、需要安装的软件</li>
+			<pre>
+				<code>*上述浏览器的一种或多种
+				*称重组件(Ekb.exe)
+				*获取电子秤电脑端数据格式的串口测试软件</code>
+			</pre>
+			<li id="stockWeightClientNoResponse">3、点击称重组件无反应</li>
+			<pre>
+				*点击完称重组件后，称重组件会在后台运行，下次开机时，会自启动程序
+			</pre>
+			<li id="stockWeightWebNoResponse">4、进入称重页面后，无反应</li>
+			<pre>
+				*第一次(指当前电脑第一次运行组件)进入页面，需要设置下电子秤，点击电
+				 子秤设置，选好电子秤和串口，点击保存
+			</pre>
+			<li id="stockWeightGetDataFormat">5、如何获得电子秤在电脑端的数据格式？</li>
+			<pre>
+				*点击<a href="{:U('StockWeightFAQ/downloadGetDataSoftware')}" target="_blank">下载</a>串口调试工具
+				*解压后点击运行
+				*配置如下，点击开始，数据显示区即为电脑端数据格式
+				<image src="{$imageUrl}serialPortTool.png"/>
+				*<a href="#stockWeightEscaleUnopen">没有数据？点击链接</a>
+			</pre>
+			<!-- <li id="stockWeightSaveNoResponse">6、保存后没反应？</li>
+			<pre>
+			
+			</pre> -->
+		</ul>
+	</li>
+	<li id="stockWeightErrorSolve">二、错误信息解决方案
+		<ul>
+			<li id="stockWeightSoftwareNotRunning">1、组件未下载或未打开</li>
+			<pre>
+				*如果组件(Ekb.exe)未下载，点击下载。下载完成后，双击运行，然后重新
+				 进入页面即可
+				*如果组件已经下载，找到组件，双击运行
+				*如果组件已经运行，说明有页面正在使用称重功能，关闭该页面，重新打开
+				 本页面即可
+				*如果组件已经运行，且无连接的页面，打开任务管理器，结束这个程序，重
+				 新打开组件，然后重进称重页面
+			</pre>
+			<li id="stockWeightSoftwareStop">2、Ekb已停止工作</li>
+			<pre>
+				*出现这个错误，说明称重组件已经在后台运行了，关掉这个错误窗口就可以了
+			</pre>
+			<li id="stockWeightEscaleDisconnect">3、电子秤未连接</li>
+			<pre>
+				*电子秤没有连接到电脑，用连接线连接好电脑就可以了
+			</pre>
+			<li id="stockWeightEscaleUnopen">4、电子秤为开启或连接线损坏</li>
+			<pre>
+				*检查电子秤是否开启，电子秤是否处于开启的状态
+				*开启串口调试工具进行调试
+				<img src="{$imageUrl}escalePortError.png">
+				<br/>
+				<img src="{$imageUrl}escaleUnopen.png">
+				*如果没有上面的提示信息，检查电子秤驱动是否安装
+				*如果均没问题，调一下电子秤设置，检查秤的数据是否是持续输出的
+			</pre>
+		</ul>
+	</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<style type="text/css">
+#stockWeightQLinkList ul,#stockWeightQLinkList li,#stockWeightAArea ul,#stockWeightAArea li{
+	margin-left : 28px;
+	margin-top : 15px;
+	font-size : 20px;
+}
+#stockWeightAEnvironment pre,#stockWeightErrorSolve pre{
+	margin-left : -280px;
+	background-color : rgba(102, 128, 153, 0.05);
+}
+#stockWeightQLinkList a,#stockWeightAArea a{
+	color: #08c;
+}
+#stockWeightQLinkList	a:hover,#stockWeightAArea a:hover{ 
+	color:blue; 
+}
+#stockWeightInTheBegining pre{
+	padding: 10px 15px;
+	border-left-style: solid;
+	border-left-width: 10px;
+	background-color : rgba(102, 128, 153, 0.05);
+	font-size : 20px;
+	border-color: #D6DBDF;
+}
+</style>

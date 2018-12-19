@@ -1,0 +1,189 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<div id="{$id_list.toolbar}">
+    <form id="{$id_list.form}">
+        <div class="form-div">
+            <label>编号：</label><input class="easyui-textbox txt" type="text" name="goods_no" value="{$info.goods_no}" data-options="required:true,validType:'length[1,40]'" missingMessage="不能为空"/>
+            <label>名称：</label><input class="easyui-textbox" style="width:300px" type="text" name="goods_name" value="{$info.goods_name}" data-options="required:true,validType:'length[1,255]'" missingMessage="不能为空"/>
+            <label>简称：</label><input class="easyui-textbox txt" type="text" name="short_name" value="{$info.short_name}"/>
+        </div>
+        <div class="form-div">
+            <label>别名：</label><input class="easyui-textbox txt" type="text" name="alias" value="{$info.alias}"/>
+            <label>产地：</label><input class="easyui-textbox txt" type="text" name="origin" value="{$info.origin}"/>
+            <label>分类：</label><input class="easyui-combotree txt" id="tree_class" name="class_id" value="{$info.class_id}" data-options="url:'{:U('GoodsClass/getTreeClass')}?type=def',method:'post',required:true"/>
+            <label>品牌：</label><select class="easyui-combobox sel" name="brand_id" data-options="panelHeight:'200'">
+            <volist name='list.brand' id='vo'>
+                <if condition="$vo['id'] eq $info['brand_id']">
+                    <option value="{$vo.id}" selected>{$vo.name}</option>
+                    <else/>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </if>
+            </volist>
+        </select>
+        </div>
+        <div class="form-div">
+            <label>类别：</label><input class="easyui-combobox txt" name="goods_type" data-options="required:true,valueField:'id',textField:'name',data:formatter.get_data('goods_type','def','{$info.goods_type}'),panelHeight:'200'"/>
+            <label>单位：</label><select class="easyui-combobox sel" name="unit" data-options="panelHeight:'200'">
+            <volist name='list.unit' id='vo'>
+                <if condition="$vo['id'] eq $info['unit']">
+                    <option value="{$vo.id}" selected>{$vo.name}</option>
+                    <else/>
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </if>
+            </volist>
+        </select>
+            <label>标记：</label><input class="easyui-combobox txt" name="flag_id" value="{$info.flag_id}" data-options="valueField:'id',textField:'name',data:getGoodsFlags(),panelHeight:'200'"/>
+            <label>备注：</label><input class="easyui-textbox txt" type="text" name="remark" value="{$info.remark}"/>
+        </div>
+    </form>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="editGoods.append()">新建</a>
+    <!--<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="editGoods.edit()">编辑</a>-->
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="editGoods.remove()">删除</a>
+</div>
+</block>
+<block name="dialog"></block>
+<block name="tabs"></block>
+<block name="script">
+    <script type="text/javascript">
+        //comboxtree->selected
+        $(function () {
+            $('#tree_class').changStyleTreeCombo('tree_class');
+            $('#tree_class').combotree({
+                onBeforeSelect: function (node) {
+                    if (node.attributes == 0) {
+                        return false;
+                    }
+                },
+                onClick: function (node) {
+                    if (node.attributes == 0) {
+                        $('#tree_class').combo('showPanel');
+                    }
+                }
+            });
+        });
+        //datagride
+        $(function () {
+            /*$('#{$id_list.datagrid_id}').datagrid({
+                toolbar: '#{$id_list.toolbar}',
+                data: {$goods_spec_list},
+                border: false,
+                collapsible: true,
+                singleSelect: true,
+                fitColumns: false,
+                fit: true,
+                columns: [[{$datagrid_editGoods}]]
+            });*/
+            setTimeout(function () {
+                editGoods = new ThinDatagrid($('#{$id_list.datagrid_id}'), undefined, false);
+                editGoods.tipInfo = ',商家编码不能为特殊字符且不能重复';
+                $('#{$id_list.datagrid_id}').datagrid("loadData", {$goods_spec_list});
+                editGoods.append = function () {
+                    if (editGoods.endEdit(true)) {
+                        var row = editGoods.selector.datagrid('getSelected');
+                        var spec_no;
+                        var datagrid_length = editGoods.selector.datagrid('getRows').length;
+                        if (row == null) {
+                            spec_no = undefined;
+                        } else {
+                            spec_no = row.spec_no;
+                        }
+                        var dg = $("#{$id_list.datagrid_id}");
+                        var rows = dg.datagrid("getRows");
+                        var data = $.extend(true, {}, rows[rows.length - 1]);
+                        data["img_url"] = "";
+                        data["spec_id"] = "";
+                        //else{if(datagrid_length==1){spec_no=row.spec_no+datagrid_length;}else{spec_no=row.spec_no.substring(0,row.spec_no.replace(/[^x00-xff]/g,"xx").length-1)+datagrid_length;}};
+                        //editGoods.selector.datagrid('appendRow',{spec_no:spec_no,retail_price:'0.0000',wholesale_price:'0.0000',member_price:'0.0000',market_price:'0.0000',lowest_price:'0.0000',validity_days:'0',length:'0',width:'0',height:'0',sale_score:'0',pack_score:'0',pick_score:'0',weight:'0.00',tax_rate:'0'});
+                        editGoods.selector.datagrid('appendRow', data);
+                        editGoods.editIndex = (++datagrid_length) - 1;
+                        editGoods.selector.datagrid('selectRow', editGoods.editIndex).datagrid('beginEdit', editGoods.editIndex);
+                    }
+                }
+                editGoods.remove = function () {
+                    if (editGoods.editIndex == undefined) {
+                        return;
+                    }
+                    var v_datagrid_len = editGoods.selector.datagrid('getRows').length;
+                    if (v_datagrid_len <= 1) {
+                        messager.alert('货品至少需要一个规格');
+                        return false;
+                    }
+                    var row = editGoods.selector.datagrid('getSelected');
+                    if (!row.spec_id) {
+                        $(editGoods.selector).datagrid('cancelEdit', editGoods.editIndex).datagrid('deleteRow', editGoods.editIndex);
+                        editGoods.editIndex = undefined;
+                        return true;
+                    }
+                    messager.confirm('确定要删除吗？', function (r) {
+                        if (!r) {
+                            return false;
+                        }
+                        $.post("{:U('GoodsSpec/delGoodsSpec')}?type=1", {id: [row.spec_id]}, function (res) {
+                            if (res.status) {
+                                messager.alert(res.info);
+                            } else {
+                                $(editGoods.selector).datagrid('cancelEdit', editGoods.editIndex).datagrid('deleteRow', editGoods.editIndex);
+                                editGoods.editIndex = undefined;
+                            }
+                        }, 'json');
+                    });
+                }
+                $.extend($.fn.validatebox.defaults.rules, {
+                    spec_no_unique: {
+                        validator: function (value) {
+                            if (value.trim() == '') {
+                                return false;
+                            }
+                            if (typeof(value) != "undefined") {
+                                var rows = editGoods.selector.datagrid("getRows");
+                                for (var i in rows) {
+                                    if (i != editGoods.editIndex && value.trim() == rows[i].spec_no.trim()) {
+                                        return false;
+                                    }
+                                }
+                            }
+                            return true;
+                        },
+                        message: "商家编码不能重复，且不能为空"
+                    }
+                });
+                //dialog->submit
+                goodsGoods.submitEditDialog = function () {
+                    if (!$("#" + '{$id_list.form}').form('validate')) {
+                        return false;
+                    }
+                    var v_datagrid_len = editGoods.selector.datagrid('getRows').length;
+                    if (v_datagrid_len == 0) {
+                        messager.alert('货品至少需要一个规格');
+                        return false;
+                    }
+                    if (!editGoods.endEdit(true)) {
+                        return false;
+                    }
+
+                    var data = {};
+                    //data['spec_datagrid']=JSON.stringify(editGoods.selector.datagrid('getChanges'));
+                    data['add_spec'] = JSON.stringify(editGoods.selector.datagrid('getChanges', 'inserted'));
+                    data['del_spec'] = JSON.stringify(editGoods.selector.datagrid('getChanges', 'deleted'));
+                    data['update_spec'] = JSON.stringify(editGoods.selector.datagrid('getChanges', 'updated'));
+                    data['spec_count'] = v_datagrid_len;
+                    data['info'] = JSON.stringify($("#{$id_list.form}").form('get'));
+                    $.post('{:U('GoodsGoods/updateGoods')}?id={$info['goods_id']}', data, function (res) {
+                        if (!res.status) {
+                            messager.alert(res.info);
+                            return false;
+                        } else {
+                            $('#' + goodsGoods.params.edit.id).dialog('close');
+                            goodsGoods.refresh();//添加完后刷新表格
+                        }
+                    }, "JSON");
+                }
+            }, 0);
+        });
+        function getGoodsFlags() {
+            var list_flag = $.extend(true, [], goodsGoods.params.flag.list_flag);
+            list_flag[0] = {"id": "0", "name": "无"};
+            return list_flag;
+        }
+    </script>
+</block>

@@ -1,0 +1,383 @@
+<extend name="../../Common/View/datagrid_tabs_base"/>
+<block name="toolbar">
+<style type="text/css">
+.set-icon{position:relative;left:-25px;color: #5881B1;text-align: center;}
+.set-text{position:relative;left:-16px;}
+</style>
+<div id="{$id_list.toolbar}" style="padding:5px;height:auto">
+<form id="{$id_list.form}" class="easyui-form" method="post" style="display:inline">
+<div class="form-div" style="display: inline-block">
+<label>仓库类别：</label><input class="easyui-combobox sel" name="search[type]" data-options="editable:false, required:true,data: formatter.get_data('warehouse_type'),valueField: 'id',textField: 'name'" style="width:140px;"/>
+<label>仓库名称：</label><input class="easyui-textbox txt" type="text" name="search[name]"/>
+<label style="display:none;"><input id="wear_show_disabled" type="checkbox" name="search[show_disabled]" value="0"/></label>                
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="warehouse_obj.submitSearchForm(this);">搜索</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo'" onclick="warehouse_obj.loadFormData();">重置</a>
+</div>
+</form>
+<a href="javascript:void(0)" class="easyui-linkbutton" id = "add" data-options="iconCls:'icon-add',plain:true" onclick="warehouse_obj.add();">新建仓库</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="warehouse_obj.edit()">编辑仓库</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-man',plain:true" onclick="warehouseAuthorize()">授权</a>
+	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="downloadLogistics_wms()">下载物流公司</a>
+<a id="wear_but_disabled" href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="warehouse_obj.showDisabled()">显示停用</a>
+<a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-setting',plain:true,menu:'#mbut-warehouse-rule'" >设置策略</a>
+<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-download',plain:true" onclick="warehouse_obj.download_warehouse();">下载仓库</a>
+<div id="mbut-warehouse-rule" style="width:100px;">
+<div onclick="open_menu('选仓策略', 'index.php/Setting/WarehouseRule/showWarehouseRule?dialog=warehouserule')"><span class="set-icon"><i class='fa fa-home' style="font-size: 15px;width: 16px;"></i></span><span class="set-text">选仓策略</span></div>
+</div>
+</div>
+	<div id="logistics_wms">
+		<table id="logistics_wms_dg"></table>
+	</div>
+	<div id= "warehouse_dialog"></div>
+<script>
+//# sourceURL=cfgwarehouse.js
+
+$(function(){
+    setTimeout(function(){
+
+    warehouse_obj = new RichDatagrid(JSON.parse('{$params}'));
+    warehouse_obj.setFormData();
+	$('#'+warehouse_obj.params.datagrid.id).datagrid('options').erpTabObject = warehouse_obj;
+    warehouse_obj.showDisabled =function(){
+    	if($("#wear_show_disabled").val()==0){
+    		$("#wear_show_disabled").val('1');
+    		warehouse_obj.submitSearchForm(this);
+        	$("#wear_but_disabled").linkbutton({text:'隐藏停用'});
+    	}else{
+    		$("#wear_show_disabled").val('0');
+    		warehouse_obj.submitSearchForm(this);
+        	$("#wear_but_disabled").linkbutton({text:'显示停用'});
+    	}
+    }
+	warehouse_obj.download_warehouse = function(){
+		var url = "{:U('Setting/Warehouse/downloadWarehouse')}";
+		Dialog.show('warehouse_dialog','仓库下载',url,200,300,[]);
+	}
+	warehouse_obj.cancel = function(){
+		$("#warehouse_dialog").dialog('close');
+	}
+	warehouse_obj.downloadWarehouse = function(){
+		var data = $("#download_warehouse").form('get');
+		if(data['deptNo'] == ''){
+			messager.alert('商家编码不能为空');
+			return;
+		}
+		if(data['shop'] == ''){
+			messager.alert('店铺不能为空');
+			return;
+		}
+		$.post("{:U('Setting/Warehouse/downloadWarehouseData')}",{data:data},function(r){
+			r = JSON.parse(r);
+			for(var k in r){
+				if(k == 'updated'){messager.alert('下载成功');  $('#warehouse_dialog').dialog('close');}
+				else if(k == 'error'){messager.alert(r[k]);}
+				else{
+					var resultBeforeCheck =  r[1];
+					$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+					break;
+				}
+			}
+		});
+	}
+},0);});
+</script>
+	<script type="text/javascript">
+		//# sourceURL=logistics_util.js
+		var editIndex = undefined;
+		function logistics_endEditing(checkSubmmit) {
+			//console.log(editIndex);
+			if (editIndex == undefined) {
+				return true;
+			}
+			if ($('#logistics_wms_dg').datagrid('validateRow', editIndex)) {
+				$('#logistics_wms_dg').datagrid('endEdit', editIndex);
+				/* if (checkSubmmit && !$.isEmptyObject($('#logistics_wms_dg').datagrid('getChanges'))) {
+				 messager.alert('请将已经填写的信息保存或者撤销!');
+				 $('#logistics_wms_dg').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+				 return false;
+				 } else {
+				 return editIndex;
+				 } */
+				return true;
+			} else {
+				messager.alert('请将数据填写完整，且物流公司不能重复(也可点击取消进行重置)!');
+				return false;
+			}
+		}
+		function logistics_onClickRow(index) {
+			if (editIndex != index && false !== logistics_endEditing(true)) {
+				// odata = $('#logistics_wms_dg').datagrid('getData');
+				editIndex = index;
+				$('#logistics_wms_dg').datagrid('selectRow', index).datagrid('beginEdit', index);
+			}
+		}
+		/* function logistics_append() {
+		 if (false != logistics_endEditing(true)) {
+		 $('#logistics_wms_dg').datagrid('appendRow', {is_disabled: 0});
+		 editIndex = $('#logistics_wms_dg').datagrid('getRows').length - 1;
+		 $('#logistics_wms_dg').datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+		 }
+		 } */
+		function logistics_save() {
+			if (editIndex == undefined) {
+				messager.alert("没有新增数据");
+				return false;
+			}
+			var data={};
+			if (false !== logistics_endEditing(false)) {
+				$('#logistics_wms_dg').datagrid('acceptChanges');
+				data = $('#logistics_wms_dg').datagrid('getData');
+			}
+
+			$.post("{:U('Setting/Warehouse/UpdateLogisticsList')}", {data: data}, function (status) {
+				switch (status) {
+					case '0':
+						messager.alert("保存成功！");
+						editIndex = undefined;
+						break;
+					case '1':
+						messager.alert("系统错误！请联系管理员！");
+						break;
+					case '2':
+						messager.alert("物流公司重复，请重新选择!");
+						$('#logistics_wms_dg').datagrid('beginEdit', editIndex);
+						break;
+					default :
+						//messager.alert("系统错误！请联系管理员！");
+						break;
+				}
+			});
+		}
+		function logistics_download() {
+			if (editIndex != undefined) {
+				messager.alert("请保存后下载");
+			} else {
+				var row = $('#Warehouse_warehouse_datagrid').datagrid('getSelected');
+				var warehouse_id = row.id;
+				$.messager.progress({title: 'ERP', msg: '正在处理，请稍待。。。'});
+				$.post("{:U('Warehouse/downloadWarehouseLogistics')}", {'warehouseID': warehouse_id}, function (r) {
+					$.messager.progress("close");
+					r = JSON.parse(r);
+					for(var k in r){
+						if(k == 'updated'){messager.alert('下载成功');  $('#logistics_wms_dg').datagrid('reload');}
+						else if(k == 'error'){messager.alert(r[k]);}
+						else{
+							var resultBeforeCheck =  r[1];
+							$.fn.richDialog("response", resultBeforeCheck, "wms",'');
+							break;
+						}
+					}
+//					switch (res.status) {
+//						case 1:
+//							messager.alert("下载物流公司成功！");
+//							$('#logistics_wms_dg').datagrid('reload');
+//							break;
+//						case 0:
+//							messager.alert(res.info);
+//							break;
+//						default :
+//							messager.alert("未知错误，请联系管理员！");
+//							break;
+//					}
+				});
+			}
+
+		}
+		function endEditShop(index,row){
+			if(!(!row.logistics_name)){
+				var names=row.logistics_name.split(',');
+				for(i in names){dict_map_logistics[names[i]]=true;}
+			}
+		}
+		function beginEditShop(index,row,changes){
+			if(editIndex!=index){editIndex=index;}
+			if(!(!row.logistics_name)){
+				var names=row.logistics_name.split(',');
+				for(i in names){dict_map_logistics[names[i]]=false;}
+			}
+		}
+		function logistics_reject() {
+			if (editIndex == undefined) {
+				messager.alert("无取消项！");
+				return false;
+			}
+			$('#logistics_wms_dg').datagrid('rejectChanges');
+			editIndex = undefined;
+		}
+	</script>
+<script type="text/javascript">
+	//# sourceURL=bb.js
+	$(function () {
+		$('#logistics_wms_dg').datagrid({
+			iconCls: 'icon-save',
+			/*width: 700,
+			 height: 350,*/
+			nowrap: true,
+			autoRowHeight: true,
+			striped: true,
+			//url: '/index.php/Setting/Shop/getLogisticsShop',
+			pagination: false,
+			rownumbers: true,
+			singleSelect: true,
+			fit: true,
+			onDblClickCell: logistics_onClickRow,
+			onLoadSuccess:loadLogisticsSuccess,
+			onEndEdit:endEditShop,
+			onBeginEdit:beginEditShop,
+			columns: [[
+				{field: 'id', width: '100', title: '仓库id', hidden: true,},
+				{field: 'name', width: '20%', title: '物流公司',},
+				{field: 'logistics_code', width: '39%', title: '物流编码',},
+				{
+					field: 'logistics_name', width: '35%', title: '物流类别（可编辑）',
+					editor: {
+						type: 'combobox',
+						options: {
+							panelHeight: '300',
+							valueField: 'name',
+							textField: 'name',
+							data: formatter.get_data('logistics_type', 'def'),
+							required: true,
+							//multiple: true,
+							checkbox: true,
+							editable: true,
+							validType:'logistics_name_unique',
+						},
+					},
+				},
+			]],
+			toolbar: [{
+				id: 'btnadd',
+				text: '保存',
+				iconCls: 'icon-save',
+				handler: 'logistics_save'
+			}, {
+				id: 'btncancel',
+				text: '取消',
+				iconCls: 'icon-cancel',
+				handler: 'logistics_reject',
+			}, {
+				id: 'btndownload',
+				text: '下载',
+				iconCls: 'icon-download',
+				handler: 'logistics_download',
+			}],
+
+		})
+	});
+	var dict_map_logistics={};
+	function loadLogisticsSuccess(data){
+		$.each(formatter.get_data('logistics_type', 'def'),function(key,obj){
+			dict_map_logistics[obj.name]=false;
+		});
+		var names=[];
+		$.each(data.rows,function(key,obj){
+			if(!(!obj.logistics_name)){
+				names=obj.logistics_name.split(',');
+				for(i in names){ if(dict_map_logistics[names[i]]!=undefined){ dict_map_logistics[names[i]]=true; } }
+			}
+		});
+	}
+	$.extend($.fn.validatebox.defaults.rules, {
+		logistics_name_unique: {
+			validator: function (value) {
+				if(!(!value)){
+					var names=value.split(',');
+					for(i in names){if(dict_map_logistics[names[i]]){return false;}}
+				}
+				return true;
+			},
+			message: "物流公司重复，请重新选择!"
+		}
+	});
+	function downloadLogistics_wms() {
+		var row = $('#Warehouse_warehouse_datagrid').datagrid('getSelected');
+		if (null == row) {
+			messager.alert('请选择仓库');
+			return;
+		}
+		if (row.is_disabled != 0) {
+			messager.alert('仓库已经停用');
+			return;
+		}
+		if (row.type != 11) {
+			messager.alert('非委外仓不能下载物流公司');
+			return;
+		}
+		if(row.api_key.length == 0){
+			messager.alert('请授权仓库');
+			return;
+		}
+		//var customer_id = JSON.parse(row.api_key).customerId;
+
+		//$("#logistics_wms").window('open');
+		$("#logistics_wms").dialog({
+			title: "下载物流公司",
+			width: 764,
+			height: 500,
+			modal: true,
+			closed: false,
+			inline: true,
+			iconCls: "icon-save"
+		});
+		$('#logistics_wms_dg').datagrid('options').url = 'index.php/Setting/Warehouse/getLogisticsWarehouse?id=' + row.id;
+		$('#logistics_wms_dg').datagrid('reload');
+
+	}
+	function warehouseAuthorize(){
+		//var warehouse_params = $("#warehouse_auth").form('post');
+		//console.log($('#warehouse_auth').form('options').queryParams);
+		var row = $('#Warehouse_warehouse_datagrid').datagrid('getSelected');
+
+		if (null == row) {
+			messager.alert('请选择仓库');
+			return;
+		}
+		if (row.is_disabled != 0) {
+			messager.alert('仓库已经停用');
+			return;
+		}
+		if (row.type != 11) {
+			messager.alert('非委外仓不能授权');
+			return;
+		}
+		var save_url = "{:U('Setting/Warehouse/saveWarehouseAuth')}?id="+row.id;
+		var url = "{:U('Setting/Warehouse/warehouseAuth')}?id="+row.id;
+		Dialog.show('reason_show_dialog','仓库授权',url,160,430,[
+
+			{'text':'保存',handler:function(){
+				if (!$("#warehouse_auths").form('validate')) { return false; }
+				var warehouse_params = $("#warehouse_auths").form('get');
+				$.post(save_url,warehouse_params,function(r){
+//                        if(r.status == 0){
+//                            messager.alert(r.info);
+//                            return;
+//                        }
+//                        if(r.status == 1){
+//                            logistics_obj.refresh();
+//                            switch (r.type){
+//                                case "edit":
+//                                    $("#logistics_edit").dialog('close');
+//                                    break;
+//                                case "add":
+//                                    $("#logistics_add").dialog('close');
+//                                    break;
+//                            }
+//                            return;
+//                        }
+//                        messager.alert("系统错误请联系管理员！");
+				},'json');
+				$('#reason_show_dialog').dialog('close');
+				warehouse_obj.refresh();
+			}},
+			{'text':'关闭',handler:function(){
+				$('#reason_show_dialog').dialog('close');
+			}}
+
+		]);
+	}
+</script>
+</block>
+<block name="tabs">
+</block>
+

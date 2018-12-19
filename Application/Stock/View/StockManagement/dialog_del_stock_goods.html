@@ -1,0 +1,22 @@
+<form id = {$form_id} style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px">
+    <div class="form-div"style="padding-left: 10px;">
+        <label>确定要删除库存管理里的单品吗?</label>
+    </div>
+    <div class="form-div" style="padding-left: 20px;">
+        <input id="is_del_goods_spec_{$cfg}" name="is_del_goods_spec" value="1"  type="checkbox" /><label>是否连同删除单品信息？</label>
+    </div>
+    <div class="form-div">
+        <label style='color: red'></label>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            var cfg = {$cfg};
+            if(cfg==1)
+                $('#is_del_goods_spec_'+cfg).prop("checked",'checked');
+            else
+                $('#is_del_goods_spec_'+cfg).prop("checked",'');
+        });
+    });
+</script>
